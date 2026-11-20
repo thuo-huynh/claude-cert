@@ -118,6 +118,7 @@ document.getElementById('theme').addEventListener('click', () => {
   const next = dark ? 'light' : 'dark';
   document.documentElement.dataset.theme = next;
   try { localStorage.setItem('ccvn:theme', next); } catch { /* not kept */ }
+  if ($app.querySelector('.mermaid')) render(); // diagrams are drawn with theme colours
 });
 
 // ---------- shared bits ----------
@@ -582,17 +583,49 @@ async function lessonView(code, slug) {
 }
 
 // ---------- cheat sheet & notes (markdown from the MIT repo) ----------
+const isDark = () => (document.documentElement.dataset.theme
+  ? document.documentElement.dataset.theme === 'dark'
+  : matchMedia('(prefers-color-scheme: dark)').matches);
+let mermaidLib;
+// Turn ```mermaid code blocks into rendered diagrams (library loaded only when a page has one).
+async function renderMermaid(root) {
+  const blocks = [...root.querySelectorAll('pre > code.language-mermaid')];
+  if (!blocks.length) return;
+  const nodes = blocks.map((code) => {
+    const div = document.createElement('div');
+    div.className = 'mermaid';
+    div.textContent = code.textContent;
+    code.parentElement.replaceWith(div);
+    return div;
+  });
+  try {
+    mermaidLib ||= (await import('https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.esm.min.mjs')).default;
+    mermaidLib.initialize({ startOnLoad: false, securityLevel: 'strict', theme: isDark() ? 'dark' : 'neutral', fontFamily: 'Be Vietnam Pro, system-ui, sans-serif' });
+    await mermaidLib.run({ nodes });
+  } catch (e) {
+    console.error(e); // diagram source stays visible as text
+    nodes.forEach((n) => n.classList.add('failed'));
+  }
+}
+
 async function markdownView(code, which) {
   const d = await loadCert(code);
-  const md = which === 'cheat-sheet' ? d.cheatSheet : d.notes;
+  const showEn = ui.mdEn === `${code}/${which}`;
+  const vi = await getText(`data/vi/md/${code}-${which === 'cheat-sheet' ? 'cheat-sheet' : 'notes'}.md`).catch(() => null);
+  const md = !vi || showEn ? (which === 'cheat-sheet' ? d.cheatSheet : d.notes) : vi;
   const html = window.marked ? window.marked.parse(md) : `<pre>${esc(md)}</pre>`;
+  actions.mdLang = () => { ui.mdEn = showEn ? null : `${code}/${which}`; render(); };
   afterRender.push(() => {
-    $app.querySelectorAll('.md table').forEach((t) => { const w = document.createElement('div'); w.className = 'tablewrap'; t.replaceWith(w); w.append(t); });
-    $app.querySelectorAll('.md a[href]').forEach((a) => { const h = a.getAttribute('href'); if (!/^(https?:|#\/)/.test(h)) a.replaceWith(...a.childNodes); }); // repo-relative links don't exist here
+    const art = $app.querySelector('.md');
+    art.querySelectorAll('table').forEach((t) => { const w = document.createElement('div'); w.className = 'tablewrap'; t.replaceWith(w); w.append(t); });
+    art.querySelectorAll('a[href]').forEach((a) => { const h = a.getAttribute('href'); if (!/^(https?:|#\/)/.test(h)) a.replaceWith(...a.childNodes); }); // repo-relative links don't exist here
+    renderMermaid(art);
   });
   return `<div class="wrap narrow">${certHeader(d, which === 'cheat-sheet' ? 'cheat' : 'notes')}
-    <p class="notice"><span class="tag">EN</span> Tài liệu gốc tiếng Anh từ repo CLAUDE-CERTIFICATIONS. Kiến thức tiếng Việt nằm ở tab Kiến thức.</p>
-    <article class="md" lang="en">${html}</article></div>`;
+    ${vi ? `<div class="row" style="margin-bottom:16px"><span class="grow small muted">${showEn ? 'Đang xem bản gốc tiếng Anh.' : 'Bản tiếng Việt.'}</span>
+      <button class="btn" data-act="mdLang"><span class="tag">${showEn ? 'VI' : 'EN'}</span>${showEn ? 'Xem bản tiếng Việt' : 'Xem bản gốc'}</button></div>`
+      : '<p class="notice"><span class="tag">EN</span> Tài liệu gốc tiếng Anh.</p>'}
+    <article class="md" lang="${showEn || !vi ? 'en' : 'vi'}">${html}</article></div>`;
 }
 
 // ---------- progress & reset ----------

@@ -17,6 +17,7 @@ Mở http://127.0.0.1:8765. Trang cần chạy qua HTTP (mở thẳng file `inde
 | `index.html`, `assets/` | Giao diện: `app.js` (router + các màn), `store.js` (tiến độ trong localStorage), `app.css`, `lesson.css` |
 | `data/<cert>.json` | Câu hỏi, domain, cheat sheet, ghi chú — sinh từ repo MIT bằng `scripts/build_data.py` |
 | `data/vi/<cert>.json` | Bản tiếng Việt cho từng câu, viết tay (xem bên dưới) |
+| `data/vi/md/<cert>-cheat-sheet.md`, `-notes.md` | Cheat sheet và ghi chú tiếng Việt; khối ```mermaid được vẽ thành sơ đồ |
 | `content/<cert>/` | Bài kiến thức tiếng Việt + `index.json` — sinh bằng `scripts/extract_lessons.py` |
 | `tests/` | `node --test tests/*.test.mjs` |
 
