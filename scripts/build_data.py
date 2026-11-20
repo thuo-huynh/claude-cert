@@ -134,14 +134,7 @@ def main():
         print(code, sets, 'domains', len(d['domains']))
         certs.append({'code': code, 'name': name, 'examCode': d['examCode'], 'facts': d['facts'], 'total': len(d['questions'])})
 
-    cards = json.load(open(os.path.join(SRC, '.github', 'assets', 'flashcards.json'), encoding='utf-8'))['cards']
-    tag2code = {f: c for f, (c, _) in CERTS.items()}
-    for i, c in enumerate(cards):
-        c['id'] = f'fc{i + 1}'
-        c['certs'] = [tag2code[t] for t in c.get('tags', []) if t in tag2code]
-    json.dump(cards, open(os.path.join(OUT, 'flashcards.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     json.dump(certs, open(os.path.join(OUT, 'certs.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-    print('flashcards', len(cards))
 
 
 if __name__ == '__main__':

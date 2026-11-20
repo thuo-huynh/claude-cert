@@ -41,18 +41,19 @@ const go = (hash) => { if (location.hash === hash) render(); else location.hash 
 let actions = {};   // data-act name -> handler, replaced by each view
 let cleanup = [];   // timers to clear when the route changes
 let lastRoute = '';
-const ui = { showVi: {}, showEn: {}, fc: { i: 0, back: false, filter: 'all' }, setup: null, review: 'wrong' };
+const ui = { showVi: {}, showEn: {}, setup: null, review: 'wrong' };
 
 async function render() {
   const route = location.hash.split('?')[0];
   const routeChanged = route !== lastRoute;
   lastRoute = route;
   cleanup.forEach((f) => f()); cleanup = [];
-  const { parts, query } = parseHash();
+  let parts = [], query;
   const focusKey = document.activeElement?.dataset?.act ? `${document.activeElement.dataset.act}|${document.activeElement.dataset.arg ?? ''}` : null;
   let html;
   actions = {};
   try {
+    ({ parts, query } = parseHash());
     html = await view(parts, query);
   } catch (e) {
     console.error(e);
@@ -64,14 +65,15 @@ async function render() {
   if (html == null) return; // view redirected
   $app.innerHTML = html;
   document.querySelectorAll('[data-nav]').forEach((a) => {
-    const on = (a.dataset.nav === 'home' && (!parts[0] || parts[0] === 'c' || parts[0] === 'kien-thuc')) || a.dataset.nav === ({ flashcards: 'flashcards', 'tien-do': 'progress' }[parts[0]]);
+    const on = (a.dataset.nav === 'home' && (!parts[0] || parts[0] === 'c' || parts[0] === 'kien-thuc')) || (a.dataset.nav === 'progress' && parts[0] === 'tien-do');
     a.toggleAttribute('aria-current', false);
     if (on) a.setAttribute('aria-current', 'page');
   });
   if (routeChanged) { window.scrollTo(0, 0); $app.focus({ preventScroll: true }); }
   else if (focusKey) {
     const [act, arg] = focusKey.split('|');
-    [...$app.querySelectorAll(`[data-act="${act}"]`)].find((el) => (el.dataset.arg ?? '') === arg)?.focus({ preventScroll: true });
+    const el = [...$app.querySelectorAll(`[data-act="${act}"]`)].find((x) => (x.dataset.arg ?? '') === arg);
+    (el && !el.disabled ? el : $app.querySelector('#exph'))?.focus({ preventScroll: true });
   }
   afterRender.forEach((f) => f()); afterRender = [];
 }
@@ -87,7 +89,6 @@ function view(parts, query) {
   if (a === 'c' && c === 'ket-qua' && d) return resultView(b, d);
   if (a === 'c' && (c === 'cheat-sheet' || c === 'ghi-chu')) return markdownView(b, c);
   if (a === 'kien-thuc' && b) return lessonView(b, c || 'on-nhanh');
-  if (a === 'flashcards') return flashcardsView(b);
   if (a === 'tien-do') return progressView();
   throw new Error('not-found');
 }
@@ -107,6 +108,9 @@ $app.addEventListener('change', (e) => {
   if (el && actions[el.dataset.change]) actions[el.dataset.change](el);
 });
 window.addEventListener('hashchange', render);
+// Another tab saved progress (or reset it): adopt it so this tab doesn't write stale state back.
+window.addEventListener('storage', (e) => { if (e.key === S.KEY || e.key === null) { state = S.load(storage); render(); } });
+document.querySelector('.skip').addEventListener('click', (e) => { e.preventDefault(); $app.focus(); });
 document.getElementById('theme').addEventListener('click', () => {
   const dark = document.documentElement.dataset.theme
     ? document.documentElement.dataset.theme === 'dark'
@@ -130,7 +134,6 @@ function certHeader(d, active) {
     ${d.lessons.length ? t('lessons', `#/kien-thuc/${d.code}`, 'Kiến thức') : ''}
     ${t('practice', `#/c/${d.code}/luyen-tap`, 'Luyện tập')}
     ${t('mock', `#/c/${d.code}/thi-thu`, 'Thi thử')}
-    ${t('cards', `#/flashcards/${d.code}`, 'Flashcards')}
     ${t('cheat', `#/c/${d.code}/cheat-sheet`, 'Cheat sheet')}
     ${t('notes', `#/c/${d.code}/ghi-chu`, 'Ghi chú')}
   </nav>`;
@@ -163,7 +166,7 @@ async function homeView() {
       <p class="eyebrow"><span class="tag">EN</span> Câu hỏi tiếng Anh · Giải thích tiếng Việt</p>
       <h1>Ôn thi chứng chỉ Claude theo cách dễ hiểu nhất</h1>
       <p class="lead">Làm câu hỏi giống đề thật, sai chỗ nào đọc giải thích chỗ đó. Tiến độ lưu ngay trên trình duyệt của bạn, không cần đăng ký.</p>
-      <div class="row"><a class="btn primary lg" href="#chon">Chọn chứng chỉ</a><a class="btn lg" href="#/flashcards">Lật flashcards</a></div>
+      <div class="row"><a class="btn primary lg" href="#chon">Chọn chứng chỉ</a><a class="btn lg" href="#/tien-do">Xem tiến độ</a></div>
     </div>
     <div class="card raised">${resume}</div>
   </section>
@@ -255,6 +258,7 @@ async function setupView(code, query) {
     start: () => {
       const picked = S.selectQuestions(state, d.questions, { set: u.set, domains: all ? null : u.domains, shuffle: u.shuffle });
       if (!picked.length) return;
+      if (open && !open.submitted && !confirm('Bạn đang có một lượt làm dở. Bắt đầu lượt mới sẽ bỏ lượt đó. Tiếp tục?')) return;
       S.startSession(state, { cert: code, kind: 'practice', ids: picked, explain: u.explain,
         label: `${u.set === 'wrong' ? 'Làm lại câu sai' : 'Tất cả câu'} · ${u.explain === 'now' ? 'Giải thích ngay' : 'Giải thích cuối bài'}` });
       persist(); go(`#/c/${code}/lam/practice`);
@@ -348,7 +352,7 @@ async function runnerView(code, kind, query) {
     },
     check: () => { if (!pick.length) return; s.done[id] = true; S.record(state, q, pick); save(); },
     peek: () => { s.peek[id] = !s.peek[id]; save(); },
-    redo: () => { delete s.picks[id]; delete s.done[id]; delete s.peek[id]; S.clearAnswer(state, id); save(); },
+    redo: () => { delete s.picks[id]; delete s.peek[id]; if (s.done[id]) S.clearAnswer(state, id); delete s.done[id]; save(); },
     flag: () => { s.flags[id] = !s.flags[id]; save(); },
     goto: (i) => { s.i = Number(i); save(); window.scrollTo(0, 0); },
     prev: () => { if (s.i > 0) actions.goto(s.i - 1); },
@@ -357,7 +361,7 @@ async function runnerView(code, kind, query) {
     en: () => { ui.showEn[id] = !ui.showEn[id]; render(); },
     submit: () => {
       const left = s.ids.length - answeredN;
-      if (!left || now) return finish();
+      if (!left) return finish();
       const dlg = document.getElementById('submitdlg');
       dlg.querySelector('[data-left]').textContent = left;
       dlg.showModal();
@@ -417,7 +421,7 @@ async function runnerView(code, kind, query) {
   const showEn = ui.showEn[id] ?? !hasVi;
   const lesson = vi.lesson ? d.lessons.find((l) => l.slug === vi.lesson) : lessonsOf(d).find((l) => l.domain === q.domain);
   const explain = revealed ? `<section class="card explain" aria-labelledby="exph">
-    <div class="head"><h2 id="exph">Giải thích</h2>
+    <div class="head"><h2 id="exph" tabindex="-1">Giải thích</h2>
       ${pick.length ? `<span class="chip ${correct ? 'ok' : 'bad'}">${correct ? '✓ Bạn trả lời đúng' : '✕ Bạn trả lời chưa đúng'}</span>` : '<span class="chip">Bạn chưa trả lời</span>'}
       <span class="chip">Đáp án đúng: ${q.answer.join(', ')}</span></div>
     ${!hasVi ? '<p class="notice">Câu này chưa có giải thích tiếng Việt. Tạm thời bạn xem giải thích gốc tiếng Anh bên dưới.</p>' : ''}
@@ -591,49 +595,13 @@ async function markdownView(code, which) {
     <article class="md" lang="en">${html}</article></div>`;
 }
 
-// ---------- flashcards ----------
-async function flashcardsView(code) {
-  const [cards, list, viCards] = await Promise.all([getJSON('data/flashcards.json'), certList(), getJSON('data/vi/flashcards.json').catch(() => ({}))]);
-  const f = ui.fc;
-  const filter = code || f.filter; // a cert code from the URL, else 'all' | 'unknown'
-  const deck = cards.filter((c) => (filter === 'all' || filter === 'unknown' ? true : c.certs.includes(filter)))
-    .filter((c) => filter !== 'unknown' || state.cards[c.id] !== 'known');
-  if (f.key !== filter) { f.key = filter; f.i = 0; f.back = false; }
-  if (f.i >= deck.length) f.i = 0;
-  const c = deck[f.i];
-  const known = cards.filter((x) => state.cards[x.id] === 'known').length;
-  Object.assign(actions, {
-    flip: () => { f.back = !f.back; render(); },
-    mark: (v) => { state.cards[c.id] = v; persist(); f.back = false; f.i = (f.i + 1) % Math.max(1, deck.length); render(); },
-    fcGo: (v) => { f.i = (f.i + Number(v) + deck.length) % deck.length; f.back = false; render(); },
-    fcFilter: (v) => { if (v.startsWith('cc')) return go(`#/flashcards/${v}`); f.filter = v; go('#/flashcards'); },
-    fcReset: () => confirmReset('Đặt lại trạng thái đã thuộc/chưa thuộc của tất cả flashcard?', () => { state.cards = {}; }),
-  });
-  const btn = (v, label) => `<button aria-pressed="${filter === v}" data-act="fcFilter" data-arg="${v}">${label}</button>`;
-  const vi = c && viCards[c.id];
-  return `<div class="wrap fc">
-    <p class="crumb"><a href="#/">Trang chủ</a> / Flashcards</p>
-    <div class="row"><h1 class="page-title grow">Flashcards</h1><span class="small muted">Đã thuộc ${known}/${cards.length}</span></div>
-    <div class="pills fcfilter">${btn('all', 'Tất cả')}${btn('unknown', 'Chưa thuộc')}${list.map((x) => btn(x.code, x.examCode)).join('')}</div>
-    ${c ? `<p class="small muted" style="text-align:center;margin:0 0 8px">${f.i + 1} / ${deck.length}${state.cards[c.id] ? ` · ${state.cards[c.id] === 'known' ? 'đã thuộc' : 'chưa thuộc'}` : ''}</p>
-    <button class="fcard ${f.back ? 'back' : ''}" data-act="flip" aria-label="Lật thẻ">
-      ${f.back ? `<span class="backtxt"><span class="small muted" style="display:block" lang="en">${esc(c.front)}</span>
-        ${vi ? `<span style="display:block;margin:8px 0">${fmt(vi.back)}</span><span class="en" style="display:block" lang="en">${fmt(c.back)}</span>` : `<span style="display:block;margin-top:8px" lang="en">${fmt(c.back)}</span>`}</span>`
-        : `<span><span class="tag">EN</span><span class="front" style="display:block;margin:12px 0" lang="en">${esc(c.front)}</span><span class="small muted">Chạm để lật thẻ</span></span>`}
-    </button>
-    <div class="fcbtns"><button class="btn no" data-act="mark" data-arg="unknown">✕ Chưa thuộc</button><button class="btn yes" data-act="mark" data-arg="known">✓ Đã thuộc</button></div>
-    <div class="row" style="justify-content:space-between;margin-top:12px"><button class="btn ghost" data-act="fcGo" data-arg="-1">← Thẻ trước</button><button class="btn ghost" data-act="fcReset">Đặt lại</button><button class="btn ghost" data-act="fcGo" data-arg="1">Thẻ sau →</button></div>`
-    : '<p class="card" style="text-align:center">Bạn đã thuộc hết bộ này. 🎉</p>'}
-  </div>`;
-}
-
 // ---------- progress & reset ----------
 async function progressView() {
   const list = await certList();
   const all = await Promise.all(list.map((c) => loadCert(c.code)));
   Object.assign(actions, {
     resetCert: (code) => confirmReset(`Xoá toàn bộ đáp án, bài đang làm và bài đã đọc của ${all.find((x) => x.code === code).name}? Không hoàn tác được.`, () => S.resetCert(state, code)),
-    resetAll: () => confirmReset('Xoá TOÀN BỘ dữ liệu học trên trình duyệt này (mọi đáp án, bài thi, bài đã đọc, flashcard)? Không hoàn tác được.', () => { state = S.empty(); }),
+    resetAll: () => confirmReset('Xoá TOÀN BỘ dữ liệu học trên trình duyệt này (mọi đáp án, bài thi, bài đã đọc)? Không hoàn tác được.', () => { state = S.empty(); }),
   });
   return `<div class="wrap narrow">
     <p class="crumb"><a href="#/">Trang chủ</a> / Tiến độ</p>
@@ -650,7 +618,7 @@ async function progressView() {
         ${st.wrong ? `<p style="margin:12px 0 0"><a class="btn" href="#/c/${d.code}/luyen-tap?set=wrong">Làm lại ${st.wrong} câu sai</a></p>` : ''}</div>`;
     }).join('')}</div>
     <div class="card" style="margin-top:24px;border-color:var(--wrong)"><h2 style="font-size:20px;line-height:28px">Xoá toàn bộ</h2>
-      <p class="small muted">Xoá mọi đáp án, bài thi, bài đã đọc và trạng thái flashcard trên trình duyệt này.</p>
+      <p class="small muted">Xoá mọi đáp án, bài thi và bài đã đọc trên trình duyệt này.</p>
       <button class="btn danger" data-act="resetAll">Xoá toàn bộ dữ liệu</button></div>
   </div>`;
 }

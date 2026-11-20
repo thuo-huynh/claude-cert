@@ -48,11 +48,11 @@ python scripts/extract_lessons.py ccao-f ccdv-f ccar-f ccar-p   # cần trang đ
 
 ## Tiến độ người học
 
-Mọi đáp án, bài đang làm, bài đã đọc và flashcard được lưu trong `localStorage` của từng trình duyệt (khoá `ccvn:v1`), không gửi đi đâu. Người học tự xoá được ở trang **Tiến độ** (theo từng chứng chỉ hoặc toàn bộ), ở trang chứng chỉ, hoặc từng câu bằng nút "Làm lại câu này".
+Mọi đáp án, bài đang làm và bài đã đọc được lưu trong `localStorage` của từng trình duyệt (khoá `ccvn:v1`), không gửi đi đâu. Người học tự xoá được ở trang **Tiến độ** (theo từng chứng chỉ hoặc toàn bộ), ở trang chứng chỉ, hoặc từng câu bằng nút "Làm lại câu này".
 
 ## Nguồn
 
-- Câu hỏi, đề thi thử, cheat sheet, ghi chú, flashcards: [Amey Thakur — CLAUDE-CERTIFICATIONS](https://github.com/Amey-Thakur/CLAUDE-CERTIFICATIONS) (MIT, xem `LICENSE-CLAUDE-CERTIFICATIONS`).
+- Câu hỏi, đề thi thử, cheat sheet, ghi chú: [Amey Thakur — CLAUDE-CERTIFICATIONS](https://github.com/Amey-Thakur/CLAUDE-CERTIFICATIONS) (MIT, xem `LICENSE-CLAUDE-CERTIFICATIONS`).
 - Bài kiến thức tiếng Việt: [anthropic.cloudexam.pro](https://anthropic.cloudexam.pro/kien-thuc).
 
 Tài liệu học không chính thức, không liên kết với Anthropic.

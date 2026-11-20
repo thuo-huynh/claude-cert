@@ -2,7 +2,7 @@
 // and mutate it; load/save are the only functions that touch storage.
 export const KEY = 'ccvn:v1';
 
-export const empty = () => ({ v: 1, answers: {}, sessions: {}, read: {}, cards: {} });
+export const empty = () => ({ v: 1, answers: {}, sessions: {}, read: {} });
 
 export function load(storage) {
   try {

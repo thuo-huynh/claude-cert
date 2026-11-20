@@ -1,1 +1,254 @@
-{}
+{
+ "ccar-p-p1": {
+  "q": "Một agent nội bộ cho account manager có thể đọc bản ghi CRM, soạn email, cập nhật cơ hội bán hàng và xoá liên hệ. Account manager chỉ dùng nó để đọc bản ghi và soạn email. Theo nguyên tắc **least privilege**, nên thay đổi gì?",
+  "opts": {
+   "A": "Ghi log là biện pháp bù trừ: quyền xoá vẫn còn đó, log chỉ giúp biết sau khi sự cố đã xảy ra.",
+   "B": "Hộp xác nhận vẫn giữ nguyên quyền không cần thiết. Một agent bị prompt injection vẫn có thể bấm qua bước xác nhận.",
+   "C": "Giới hạn theo giờ chỉ thu hẹp khung thời gian rủi ro, không đóng hẳn nó.",
+   "D": "Least privilege là bỏ hẳn quyền mà vai trò không cần. Không còn tool cập nhật và xoá thì cũng không còn bề mặt tấn công hay lỗi từ chúng."
+  },
+  "tip": {
+   "title": "Quyền thừa → gỡ bỏ, không phải canh chừng",
+   "body": [
+    "Đề mô tả agent có quyền mà người dùng **không bao giờ dùng** → đáp án đúng là **gỡ quyền khỏi cấu hình**.",
+    "Log, xác nhận, giới hạn giờ đều là biện pháp *bù trừ* quanh một quyền lẽ ra không nên tồn tại. Gặp chúng thì loại."
+   ]
+  },
+  "ask": {
+   "title": "Áp dụng least privilege cho agent CRM",
+   "body": "Agent có 4 khả năng nhưng người dùng chỉ cần 2 (đọc, soạn email). Đề hỏi cách xử lý 2 khả năng thừa (cập nhật, xoá)."
+  },
+  "lesson": "3-1-cau-hinh-thua-nang-luc"
+ },
+ "ccar-p-p2": {
+  "q": "Sau lần làm mới tài liệu ban đêm, trợ lý RAG bắt đầu trả lời rất tự tin nhưng sai. Phiên bản model, prompt và độ trễ đều không đổi. Bạn kiểm tra chỗ nào trước?",
+  "opts": {
+   "A": "Thứ duy nhất thay đổi là pipeline tài liệu. Trả lời tự tin nhưng sai là dấu hiệu điển hình của context truy xuất nghe hợp lý nhưng không liên quan, nên phải xem tầng truy xuất và đánh chỉ mục trước.",
+   "B": "Model được ghim phiên bản, không tự \"xuống cấp\" qua đêm.",
+   "C": "Prompt không đổi nên không liên quan đến thời điểm lỗi xuất hiện.",
+   "D": "Temperature không đổi và không giải thích được việc lỗi trùng với lần làm mới tài liệu."
+  },
+  "tip": {
+   "title": "Lỗi xuất hiện sau thay đổi X → điều tra X trước",
+   "body": [
+    "Đề liệt kê rõ những gì **không đổi** (model, prompt, độ trễ) để bạn loại trừ. Cái còn lại là lần **làm mới tài liệu** → tầng index/chunking/embedding.",
+    "Dấu hiệu \"tự tin nhưng sai\" trong RAG thường là do truy xuất lấy nhầm đoạn văn."
+   ]
+  },
+  "ask": {
+   "title": "Chẩn đoán RAG sai sau khi refresh tài liệu",
+   "body": "Mọi thứ giữ nguyên trừ việc nạp lại tài liệu ban đêm. Đề hỏi nên khoanh vùng lỗi ở tầng nào đầu tiên."
+  },
+  "lesson": "3-5-rag-chunking-va-index"
+ },
+ "ccar-p-p3": {
+  "q": "Nền tảng của bạn sẽ mở 40 năng lực nội bộ cho agent của nhiều đội. Nạp cả 40 định nghĩa tool vào context của mọi agent đang làm phình prompt và giảm chất lượng chọn tool. Giải pháp kiến trúc là gì?",
+  "opts": {
+   "A": "Rút ngắn mô tả đồng loạt là đổi chất lượng chọn tool lấy token, model càng khó chọn đúng.",
+   "B": "Progressive discovery: mỗi agent chỉ nạp nhóm tool liên quan tới việc của nó, rồi dùng tìm kiếm hoặc namespace để lấy thêm khi cần. Với số tool lớn, cách này tốt hơn nhồi hết vào context.",
+   "C": "Một mega-tool có tham số mode giấu 40 hành vi khỏi cơ chế chọn tool, model không còn thấy được mình đang chọn gì.",
+   "D": "Cắt nền tảng xuống 10 năng lực là hy sinh chính yêu cầu nghiệp vụ."
+  },
+  "tip": {
+   "title": "Quá nhiều tool → nạp dần theo nhiệm vụ",
+   "body": [
+    "Từ khoá: **nhiều tool + chọn tool kém + prompt phình** → **progressive discovery / tool search / namespacing**.",
+    "Bẫy: gộp thành một tool đa năng, hoặc viết mô tả ngắn lại. Cả hai đều làm việc chọn tool tệ hơn."
+   ]
+  },
+  "ask": {
+   "title": "40 tool làm agent chọn sai",
+   "body": "Context bị phình vì nạp toàn bộ định nghĩa tool. Đề hỏi cách tổ chức tool ở quy mô lớn."
+  },
+  "lesson": "3-8-nap-dan-hay-nap-het"
+ },
+ "ccar-p-p4": {
+  "q": "Một ngân hàng muốn hệ thống trả lời câu hỏi về chính sách cho nhân viên tín dụng (kèm trích dẫn), và tách riêng việc soạn thư từ chối khoản vay từ dữ liệu quyết định có cấu trúc. Nhà cung cấp đề xuất một hệ multi-agent tự hành cho cả hai. Kiến trúc nào hợp lý hơn?",
+  "opts": {
+   "A": "Cùng xử lý \"tài liệu\" không phải lý do kiến trúc để gộp hai bài toán khác hẳn nhau vào một hệ phức tạp.",
+   "B": "Một agent giữ mọi tool sẽ ghép hai hồ sơ rủi ro không liên quan vào nhau, khó kiểm thử và quản trị.",
+   "C": "Hai bài toán quen thuộc, hình dạng khác nhau thì dùng hai cấu trúc rẻ và tin cậy nhất: RAG có trích dẫn cho câu hỏi chính sách, workflow sinh theo template cho thư. Mỗi phần được đánh giá bằng chỉ số riêng.",
+   "D": "Fine-tune là con đường đắt nhất cho những việc RAG và template đã giải quyết tốt."
+  },
+  "tip": {
+   "title": "Chọn cấu trúc đơn giản nhất đủ dùng cho từng bài toán",
+   "body": [
+    "Khi đề có **hai việc khác bản chất** và một đề xuất \"một hệ agent cho tất cả\", đáp án đúng thường là **tách thành các thành phần đơn giản**, đánh giá riêng.",
+    "Hỏi đáp có trích dẫn → RAG. Sinh văn bản từ dữ liệu có cấu trúc → workflow + template."
+   ]
+  },
+  "ask": {
+   "title": "Có nên dùng multi-agent cho hai việc khác nhau?",
+   "body": "Ngân hàng cần (1) trả lời chính sách có trích dẫn và (2) soạn thư từ chối. Đề hỏi kiến trúc nào hợp lý hơn đề xuất multi-agent."
+  },
+  "lesson": "1-3-chon-mau-kien-truc"
+ },
+ "ccar-p-p5": {
+  "q": "Hội đồng kiến trúc hỏi vì sao bạn chọn workflow tất định thay vì agent tự hành cho khâu tiếp nhận hồ sơ bồi thường. Lý giải nào đúng với khung quyết định được kiểm tra trong đề?",
+  "opts": {
+   "A": "\"Mới hơn, ít được chứng minh\" là cảm tính, không phải lập luận kỹ thuật.",
+   "B": "Khẳng định tuyệt đối kiểu \"luôn luôn tốt hơn\" gần như không bao giờ là đáp án đúng.",
+   "C": "Thiếu thời gian chỉ giải thích lịch trình, không biện minh được cho một lựa chọn kiến trúc.",
+   "D": "Khung quyết định là độ khớp cấu trúc: đường đi đã biết trước → điều phối tất định rẻ hơn, dễ kiểm toán, tin cậy hơn. Agent chỉ đáng độ phức tạp khi model phải tự chọn đường đi."
+  },
+  "tip": {
+   "title": "Đường đi biết trước → workflow; đường đi mở → agent",
+   "body": [
+    "Đây là quy tắc cốt lõi của domain 1. Đề nói quy trình **cố định, biết trước** → chọn **workflow tất định**.",
+    "Loại các đáp án dựa vào độ mới, khẳng định tuyệt đối, hoặc lý do nguồn lực."
+   ]
+  },
+  "ask": {
+   "title": "Biện minh cho việc chọn workflow thay vì agent",
+   "body": "Khâu tiếp nhận bồi thường có các bước cố định. Đề hỏi lý do nào thể hiện đúng tiêu chí chọn giữa workflow và agent."
+  },
+  "lesson": "1-3-chon-mau-kien-truc"
+ },
+ "ccar-p-p6": {
+  "q": "Chất lượng rà soát pháp lý mang tính chủ quan, và nhóm của bạn bất đồng về việc bản tóm tắt điều khoản của trợ lý có \"tốt\" hay không. Điều gì giúp việc đánh giá khả thi?",
+  "opts": {
+   "A": "Chất lượng chủ quan trở nên đo được nhờ rubric nêu các kiểu lỗi quan trọng, bộ dữ liệu có nhãn do luật sư xây dựng, và kết hợp model chấm theo rubric với người duyệt định kỳ để neo phán đoán.",
+   "B": "Đếm khiếu nại là đo quá muộn, khi lỗi đã đến tay người dùng.",
+   "C": "So khớp chính xác với một bản tóm tắt mẫu sẽ đánh trượt mọi cách diễn đạt khác nhưng vẫn đúng.",
+   "D": "Độ dài không nói gì về chất lượng."
+  },
+  "tip": {
+   "title": "Chất lượng chủ quan → rubric + bộ nhãn + model chấm + người kiểm",
+   "body": [
+    "Gặp từ **subjective / disagree about \"good\"** → đáp án có **rubric** và **labeled eval set**, thường kèm **LLM-as-judge có người audit**.",
+    "Loại: exact match, độ dài, đếm khiếu nại sau khi ship."
+   ]
+  },
+  "ask": {
+   "title": "Đánh giá tóm tắt pháp lý khi chất lượng là chủ quan",
+   "body": "Nhóm không thống nhất thế nào là \"tốt\". Đề hỏi cách biến chất lượng đó thành thứ đo được."
+  },
+  "lesson": "4-1-chi-so-danh-gia"
+ },
+ "ccar-p-p7": {
+  "q": "Một thay đổi prompt trông tốt hơn khi demo. Trước khi tung ra cho mọi người dùng, quy trình bài bản là gì?",
+  "opts": {
+   "A": "Demo chỉ là vài ví dụ chọn lọc, không đại diện cho lưu lượng thật.",
+   "B": "Sửa prompt là thay đổi production: chạy bộ đánh giá regression để bắt lỗi hồi quy, rồi A/B với prompt hiện tại trên lưu lượng thật theo chỉ số định trước, sau đó mới rollout toàn bộ.",
+   "C": "Bỏ phiếu trong nhóm vẫn chỉ là ý kiến, không phải bằng chứng.",
+   "D": "Tung cho tất cả kèm banner góp ý là làm thí nghiệm mà không có nhóm đối chứng."
+  },
+  "tip": {
+   "title": "Đổi prompt = đổi production → regression trước, A/B sau",
+   "body": [
+    "Thứ tự chuẩn: **regression eval** (không làm hỏng cái đang chạy) → **A/B có chỉ số định trước** (chứng minh tốt hơn) → **rollout**.",
+    "Loại các đáp án dựa vào demo, bỏ phiếu, hay tung hết rồi chờ phản hồi."
+   ]
+  },
+  "ask": {
+   "title": "Quy trình đưa thay đổi prompt lên production",
+   "body": "Prompt mới trông tốt khi demo. Đề hỏi các bước cần làm trước khi áp dụng cho toàn bộ người dùng."
+  },
+  "lesson": "4-3-ab-test-va-cai-tien"
+ },
+ "ccar-p-p8": {
+  "q": "Một khách hàng y tế yêu cầu không có thông tin sức khoẻ được bảo vệ (PHI) nào đến tay nhà cung cấp model, trong khi bác sĩ muốn hỏi tự do về bệnh nhân. Thiết kế nào đáp ứng cả hai?",
+  "opts": {
+   "A": "Tin vào việc bác sĩ tự tránh gõ thông tin định danh không phải là một biện pháp kiểm soát.",
+   "B": "Dặn model \"quên PHI\" là quá muộn: dữ liệu đã đi qua ranh giới khi model đọc được nó.",
+   "C": "Ranh giới tuân thủ phải do kiến trúc đảm bảo: một lớp khử định danh loại bỏ hoặc token hoá PHI trước khi gọi API, ghép lại kết quả ở phía khách hàng, kèm log và kiểm toán định kỳ.",
+   "D": "Chặn hẳn câu hỏi tự do làm hỏng nhu cầu nghiệp vụ, trong khi đã có thiết kế vừa tuân thủ vừa đáp ứng được."
+  },
+  "tip": {
+   "title": "Dữ liệu nhạy cảm không được rời ranh giới → xử lý TRƯỚC khi gọi model",
+   "body": [
+    "Tuân thủ được đảm bảo bằng **kiến trúc** (de-identify/tokenize trước API call, có audit), không bằng lời dặn hay lòng tin.",
+    "Bẫy: system prompt bảo model bỏ qua PHI. Lúc model đọc thì dữ liệu đã đi qua rồi."
+   ]
+  },
+  "ask": {
+   "title": "Vừa giữ PHI trong nhà vừa cho hỏi tự do",
+   "body": "Hai yêu cầu tưởng mâu thuẫn: không gửi PHI đi, và bác sĩ được hỏi tự do về bệnh nhân. Đề hỏi thiết kế đáp ứng cả hai."
+  },
+  "lesson": "5-4-tuan-thu-quy-dinh"
+ },
+ "ccar-p-p9": {
+  "q": "Nhà tài trợ cấp điều hành của giải pháp Claude yêu cầu \"độ chính xác 99,9%, không thì huỷ\". Độ chính xác của tác vụ dừng quanh 92%, phần còn lại được người duyệt bắt. Kiến trúc sư nên làm gì?",
+  "opts": {
+   "A": "Hứa 99,9% rồi trông vào bản nâng cấp model là hứa quá khả năng, sớm muộn sẽ mất lòng tin.",
+   "B": "Từ chối bàn con số với người không phải kỹ sư là bỏ vai trò cầu nối của kiến trúc sư.",
+   "C": "Âm thầm định nghĩa lại \"độ chính xác\" cho đẹp số là gian lận chỉ số.",
+   "D": "Đặt lại mục tiêu theo cả quy trình: hệ thống cộng với người duyệt được định tuyến theo độ tin cậy đạt được kết quả kinh doanh. Đưa ra tỷ lệ, chi phí đo được và đường cong đánh đổi một cách minh bạch."
+  },
+  "tip": {
+   "title": "Kỳ vọng phi thực tế → nói thật, đổi khung sang kết quả đầu-cuối",
+   "body": [
+    "Domain 6 chấm điểm sự **trung thực về đánh đổi**. Đáp án đúng đưa ra **số liệu đo được, chi phí, và kết quả của cả pipeline** (model + human review).",
+    "Loại mọi đáp án hứa suông, né tránh hay \"làm đẹp\" số liệu."
+   ]
+  },
+  "ask": {
+   "title": "Xử lý yêu cầu 99,9% khi model chỉ đạt 92%",
+   "body": "Sponsor đặt ngưỡng chính xác không thực tế. Đề hỏi cách quản lý kỳ vọng đúng vai trò kiến trúc sư."
+  },
+  "lesson": "6-3-ky-vong-va-sla"
+ },
+ "ccar-p-p10": {
+  "q": "Ba đội cấu hình Claude Code riêng rẽ: quy ước lệch dần, kỹ sư mới mất nhiều ngày mới làm việc hiệu quả. Cách khắc phục ở mức tổ chức là gì?",
+  "opts": {
+   "A": "Một baseline dùng chung: cấu hình đội được quản lý phiên bản, skill và command chung, lộ trình onboarding, rồi mỗi đội thêm rule riêng lên trên. Đây là cách làm công cụ hiệu quả ở quy mô tổ chức.",
+   "B": "Bắt kỹ sư học thuộc quy ước không cấu hình được gì cả.",
+   "C": "Cấm Claude Code là vứt bỏ chính năng suất mà domain này hướng tới.",
+   "D": "Chỉ dùng cấu hình cá nhân chính là tình trạng lệch quy ước bạn đang gặp."
+  },
+  "tip": {
+   "title": "Lệch quy ước giữa đội → cấu hình chung có version + mở rộng cục bộ",
+   "body": [
+    "Từ khoá: **shared, version-controlled configuration** (CLAUDE.md, settings, skills, commands trong repo) + **onboarding path** + **lớp riêng của từng đội**.",
+    "Loại: học thuộc, cấm dùng, để mỗi người tự cấu hình."
+   ]
+  },
+  "ask": {
+   "title": "Chuẩn hoá Claude Code cho nhiều đội",
+   "body": "Mỗi đội tự cấu hình nên quy ước lệch nhau và onboarding chậm. Đề hỏi cách bật năng suất cho cả tổ chức."
+  },
+  "lesson": "7-1-cau-hinh-claude-code-cho-team"
+ },
+ "ccar-p-p11": {
+  "q": "Một khách hàng yêu cầu dữ liệu request không được rời khỏi tài khoản AWS của họ. Cách triển khai nào thoả ràng buộc này?",
+  "opts": {
+   "A": "Hợp đồng xử lý dữ liệu là cam kết pháp lý, nhưng dữ liệu vẫn rời khỏi tài khoản AWS.",
+   "B": "Ràng buộc kiểu lưu trú dữ liệu được đáp ứng bằng cách chạy ngay trong ranh giới cloud của khách. Đó là thứ Claude trên Amazon Bedrock, trong tài khoản và region của khách, cung cấp.",
+   "C": "Tắt log không ngăn dữ liệu đi ra ngoài tài khoản.",
+   "D": "Mã hoá khi truyền chỉ bảo vệ đường truyền, dữ liệu vẫn rời tài khoản."
+  },
+  "tip": {
+   "title": "\"Không rời tài khoản cloud X\" → chạy Claude qua nền tảng của chính X",
+   "body": [
+    "AWS → **Amazon Bedrock**. Google Cloud → **Vertex AI**. Ràng buộc về ranh giới dữ liệu là **cứng**, xét nó trước chi phí hay tiện lợi.",
+    "Hợp đồng, tắt log, mã hoá đều không thay đổi việc dữ liệu đi đâu."
+   ]
+  },
+  "ask": {
+   "title": "Chọn nơi triển khai khi dữ liệu phải ở lại AWS",
+   "body": "Ràng buộc: request không được rời tài khoản AWS của khách. Đề hỏi cách triển khai Claude thoả điều đó."
+  },
+  "lesson": "3-7-chon-co-che-tich-hop"
+ },
+ "ccar-p-p12": {
+  "q": "Một doanh nghiệp đã chuẩn hoá trên Google Cloud và yêu cầu định danh, thanh toán, kiểm toán phải đi qua các kiểm soát sẵn có. Điều gì suy ra?",
+  "opts": {
+   "A": "Dùng một cloud khác (Bedrock) tạo ra mặt phẳng kiểm soát thứ hai, ngược với yêu cầu.",
+   "B": "Dùng Claude API rồi tự dựng lại các kiểm soát vừa tốn kém vừa dễ lệch theo thời gian.",
+   "C": "Triển khai qua Vertex AI để định danh, thanh toán và kiểm toán của nền tảng đang được quản trị áp dụng luôn, không phải làm lại.",
+   "D": "Để mỗi đội tự chọn là bỏ luôn quản trị tập trung."
+  },
+  "tip": {
+   "title": "Đã chuẩn hoá trên Google Cloud → Vertex AI",
+   "body": [
+    "Khi đề nhấn mạnh **kiểm soát sẵn có** (IAM, billing, audit) của một cloud, chọn nền tảng Claude **trên chính cloud đó**.",
+    "Cặp ghi nhớ: AWS ↔ Bedrock, Google Cloud ↔ Vertex AI."
+   ]
+  },
+  "ask": {
+   "title": "Dùng lại kiểm soát của Google Cloud",
+   "body": "Doanh nghiệp muốn định danh, billing, audit đi qua hệ thống đang có trên Google Cloud. Đề hỏi cách triển khai phù hợp."
+  },
+  "lesson": "3-7-chon-co-che-tich-hop"
+ }
+}
