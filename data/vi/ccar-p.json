@@ -250,5 +250,1385 @@
    "body": "Doanh nghiệp muốn định danh, billing, audit đi qua hệ thống đang có trên Google Cloud. Đề hỏi cách triển khai phù hợp."
   },
   "lesson": "3-7-chon-co-che-tich-hop"
+ },
+ "ccar-p-p13": {
+  "q": "Một thiết kế đặt Claude sau một service nội bộ mà mọi ứng dụng đều gọi qua. Lợi ích chính là gì?",
+  "opts": {
+   "A": "Đi qua một service trung gian không làm giảm số token phải trả.",
+   "B": "Có điểm tích hợp chung không thay thế được việc đánh giá chất lượng.",
+   "C": "Thêm một chặng mạng thường làm độ trễ tăng chứ không giảm.",
+   "D": "Một điểm tích hợp duy nhất là nơi áp dụng nhất quán các mối quan tâm xuyên suốt: xác thực, giới hạn tốc độ, ghi log, định tuyến model. Muốn đổi thì chỉ sửa một chỗ."
+  },
+  "tip": {
+   "title": "Gateway/service trung gian → kiểm soát tập trung",
+   "body": [
+    "Lợi ích của một lớp đứng trước model là **cross-cutting concerns**: auth, rate limit, logging, routing, áp dụng một lần cho mọi ứng dụng.",
+    "Đừng chọn đáp án nói nó giảm chi phí hay giảm độ trễ."
+   ]
+  },
+  "ask": {
+   "title": "Vì sao gom mọi lời gọi Claude qua một service nội bộ",
+   "body": "Mọi ứng dụng đều gọi Claude thông qua một service chung. Đề hỏi lợi ích chính của kiến trúc này."
+  },
+  "lesson": "1-2-kien-truc-dau-cuoi"
+ },
+ "ccar-p-p14": {
+  "q": "Một hệ thống cũ chỉ gọi được endpoint đồng bộ với timeout 2 giây, nhưng tác vụ cần suy luận lâu. Thiết kế phù hợp là gì?",
+  "opts": {
+   "A": "Tách việc gửi yêu cầu khỏi việc trả kết quả: nhận request, trả ngay một mã định danh, rồi giao kết quả bất đồng bộ. Ràng buộc và khối lượng việc cùng tồn tại mà không bên nào bị hy sinh.",
+   "B": "Ép model trả lời trong 2 giây là cắt bớt suy luận, hy sinh chính tác vụ.",
+   "C": "Hệ thống cũ thường chính là ràng buộc, không phải thứ ta được tuỳ ý sửa.",
+   "D": "Dùng model nhỏ nhất cũng là đánh đổi chất lượng suy luận lấy tốc độ."
+  },
+  "tip": {
+   "title": "Timeout ngắn + việc chạy lâu → bất đồng bộ (trả job ID)",
+   "body": [
+    "Mẫu **async request/response**: nhận yêu cầu → trả ID ngay → xử lý nền → client lấy kết quả sau (polling/webhook).",
+    "Khi ràng buộc là hệ thống cũ, đừng chọn đáp án \"sửa hệ thống cũ\" hay \"làm model nhanh hơn bằng cách giảm chất lượng\"."
+   ]
+  },
+  "ask": {
+   "title": "Ghép hệ thống timeout 2 giây với tác vụ suy luận dài",
+   "body": "Hệ thống cũ chỉ chờ được 2 giây, còn tác vụ cần nhiều thời gian hơn. Đề hỏi thiết kế tích hợp hợp lý."
+  },
+  "lesson": "3-3-do-chinh-xac-va-do-tre"
+ },
+ "ccar-p-p15": {
+  "q": "Khi một giải pháp phải chạy trên hai cloud, điều quan trọng nhất cần cân nhắc là gì?",
+  "opts": {
+   "A": "Prompt giống hệt nhau không đảm bảo hành vi giống hệt nhau trên hai nền tảng.",
+   "B": "Tính tương đương giữa các nền tảng là yêu cầu phải định nghĩa rồi kiểm chứng, không được mặc định. Xác định hành vi nào bắt buộc giống nhau và đánh giá chúng trên từng nền tảng.",
+   "C": "Chọn nền tảng rẻ hơn không giải quyết chuyện nhất quán.",
+   "D": "Chọn region gần nhất chỉ liên quan độ trễ, không liên quan nhất quán."
+  },
+  "tip": {
+   "title": "Đa nền tảng → định nghĩa \"phải giống nhau\" rồi đo trên từng nơi",
+   "body": [
+    "Không có gì được giả định là tương đương. Đáp án đúng luôn có **định nghĩa yêu cầu + đánh giá trên mỗi nền tảng**.",
+    "Bẫy: \"dùng cùng prompt là đủ\"."
+   ]
+  },
+  "ask": {
+   "title": "Giữ hành vi nhất quán khi chạy trên hai cloud",
+   "body": "Giải pháp chạy song song trên hai cloud. Đề hỏi điều cần ưu tiên cân nhắc nhất."
+  },
+  "lesson": "3-7-chon-co-che-tich-hop"
+ },
+ "ccar-p-p16": {
+  "q": "Một bên liên quan muốn có agent tự hành xử lý trọn quy trình phê duyệt tài chính. Kiến trúc sư nên xác định điều gì trước tiên?",
+  "opts": {
+   "A": "Chọn model là việc đến sau, khi đã biết phạm vi tự động hoá.",
+   "B": "Chi phí token phụ thuộc vào thiết kế, mà thiết kế lại phụ thuộc vào ranh giới trách nhiệm.",
+   "C": "Trách nhiệm giải trình nằm ở đâu quyết định hình dạng giải pháp và phần nào được phép tự động hoá. Những quyết định gắn trách nhiệm phải do con người giữ.",
+   "D": "Lịch trình xây dựng cũng nằm sau ranh giới trách nhiệm."
+  },
+  "tip": {
+   "title": "Quy trình có trách nhiệm pháp lý/tài chính → hỏi \"quyết định nào phải do người giữ\" trước",
+   "body": [
+    "Với phê duyệt, tài chính, pháp lý: việc đầu tiên là vạch **accountability boundary**. Model, chi phí, thời gian đều là bước sau.",
+    "Đề hỏi **first** → chọn câu xác định phạm vi/ranh giới."
+   ]
+  },
+  "ask": {
+   "title": "Việc đầu tiên khi được yêu cầu tự động hoá phê duyệt tài chính",
+   "body": "Stakeholder muốn agent tự hành làm toàn bộ quy trình phê duyệt. Đề hỏi kiến trúc sư phải làm rõ điều gì đầu tiên."
+  },
+  "lesson": "1-1-tu-bai-toan-den-giai-phap"
+ },
+ "ccar-p-p17": {
+  "q": "Hai thiết kế đều đáp ứng yêu cầu chức năng. Một cái đơn giản hơn và kém năng lực hơn một chút. Điều gì nên quyết định?",
+  "opts": {
+   "A": "Năng lực chỉ có giá trị khi có yêu cầu cần đến nó. Không có thì đó là chi phí vô ích.",
+   "B": "Sở thích của đội không phải tiêu chí kiến trúc.",
+   "C": "\"Linh hoạt cho tương lai\" mà không có yêu cầu cụ thể là trả giá phức tạp cho một giả định.",
+   "D": "Độ phức tạp là chi phí phải trả liên tục khi vận hành và bảo trì, nên chỉ nên \"mua\" nó khi có yêu cầu thực sự cần năng lực thêm."
+  },
+  "tip": {
+   "title": "Đơn giản thắng, trừ khi có yêu cầu được nêu cần thêm năng lực",
+   "body": [
+    "Nguyên tắc: **complexity must be bought by a stated requirement**.",
+    "Loại các đáp án chọn vì \"mạnh hơn\", \"thú vị hơn\", \"linh hoạt cho sau này\"."
+   ]
+  },
+  "ask": {
+   "title": "Chọn giữa thiết kế đơn giản và thiết kế mạnh hơn",
+   "body": "Cả hai đều đạt yêu cầu chức năng. Đề hỏi tiêu chí đúng để chọn."
+  },
+  "lesson": "1-3-chon-mau-kien-truc"
+ },
+ "ccar-p-p18": {
+  "q": "Một kiến trúc đề xuất phụ thuộc vào việc model hành xử đúng để thực hiện một biện pháp kiểm soát mà quy định bắt buộc. Đánh giá đúng là gì?",
+  "opts": {
+   "A": "Không chấp nhận được: kiểm soát bắt buộc theo quy định cần sự đảm bảo, nên phải được thực thi một cách tất định bên ngoài model.",
+   "B": "Độ chính xác cao đến đâu thì hành vi xác suất vẫn không phải là đảm bảo.",
+   "C": "Thêm lời miễn trừ với cơ quan quản lý không biến xu hướng thành đảm bảo.",
+   "D": "Model lớn hơn vẫn là model, vẫn mang tính xác suất."
+  },
+  "tip": {
+   "title": "Kiểm soát BẮT BUỘC → code/hook tất định, không giao cho model",
+   "body": [
+    "Mọi thứ phải **luôn luôn** đúng (quy định, bảo mật, phân quyền) phải nằm **ngoài model**, trong code, hook, gateway.",
+    "Bẫy: \"đánh giá cho thấy chính xác 99%\". Chính xác cao vẫn không phải đảm bảo."
+   ]
+  },
+  "ask": {
+   "title": "Để model thực hiện một kiểm soát bắt buộc có được không?",
+   "body": "Thiết kế dựa vào model để thực thi một yêu cầu tuân thủ. Đề hỏi đánh giá đúng về thiết kế này."
+  },
+  "lesson": "5-1-guardrail-va-kiem-soat"
+ },
+ "ccar-p-p19": {
+  "q": "Dấu hiệu rõ nhất cho thấy một giải pháp bị thiết kế quá mức (over-engineered) là gì?",
+  "opts": {
+   "A": "Dùng nhiều model hoàn toàn hợp lý khi có yêu cầu, ví dụ tối ưu chi phí theo độ khó.",
+   "B": "Có những thành phần mà không yêu cầu nào phụ thuộc vào. Đó chính là định nghĩa của over-engineering, và cũng là phần sẽ mục nát theo thời gian.",
+   "C": "Có bộ đánh giá là dấu hiệu làm đúng, không phải làm thừa.",
+   "D": "Bước người duyệt là hợp lý khi yêu cầu cần đến nó."
+  },
+  "tip": {
+   "title": "Over-engineering = thành phần không gắn với yêu cầu nào",
+   "body": [
+    "Kiểm tra từng thành phần: **yêu cầu nào cần nó?** Không có câu trả lời thì đó là thừa.",
+    "Nhiều model, eval, human approval đều có thể đúng nếu có yêu cầu."
+   ]
+  },
+  "ask": {
+   "title": "Nhận diện giải pháp bị làm quá mức",
+   "body": "Đề hỏi dấu hiệu rõ ràng nhất của over-engineering."
+  },
+  "lesson": "1-1-tu-bai-toan-den-giai-phap"
+ },
+ "ccar-p-p20": {
+  "q": "Điều gì phải có trước khi có thể nói một giải pháp đã sẵn sàng cho production?",
+  "opts": {
+   "A": "Một bản demo gây ấn tượng chỉ là cảm nhận, không phải phép đo.",
+   "B": "Sự đồng thuận của đội kỹ sư không chứng minh hệ thống chạy đúng.",
+   "C": "Sẵn sàng là một khẳng định được đo lường: có tiêu chí thành công định nghĩa rõ và kết quả đo trên dữ liệu đại diện.",
+   "D": "Ước tính chi phí cần có, nhưng không cho biết hệ thống có hoạt động hay không."
+  },
+  "tip": {
+   "title": "\"Ready\" = tiêu chí thành công + đo trên dữ liệu đại diện",
+   "body": [
+    "Bất cứ câu nào hỏi **sẵn sàng / đủ tốt / thành công** → đáp án có **success criteria đo được** và **dữ liệu đại diện**.",
+    "Demo, đồng thuận, chi phí đều không phải bằng chứng."
+   ]
+  },
+  "ask": {
+   "title": "Điều kiện cần để đưa lên production",
+   "body": "Đề hỏi thứ bắt buộc phải có trước khi tuyên bố giải pháp sẵn sàng."
+  },
+  "lesson": "4-1-chi-so-danh-gia"
+ },
+ "ccar-p-p21": {
+  "q": "Một bộ đánh giá được lấy hoàn toàn từ những ca hệ thống đã xử lý tốt. Hệ quả là gì?",
+  "opts": {
+   "A": "Bộ đánh giá lệch không đo đúng chất lượng thật.",
+   "B": "Kích thước lớn không sửa được mẫu bị lệch.",
+   "C": "Vấn đề này đúng với mọi hệ thống, không riêng ngành được quản lý.",
+   "D": "Bộ dữ liệu không đại diện sẽ đo sai phân phối: thổi phồng hiệu năng và che đi những kiểu lỗi quan trọng."
+  },
+  "tip": {
+   "title": "Eval set phải đại diện, gồm cả ca khó và ca biên",
+   "body": [
+    "Chỉ lấy ca dễ → điểm đẹp nhưng vô nghĩa. Bộ eval tốt có **ca điển hình + ca biên + ca từng lỗi**.",
+    "Bẫy: \"đủ lớn thì được\". Lớn mà lệch thì vẫn lệch."
+   ]
+  },
+  "ask": {
+   "title": "Bộ đánh giá chỉ gồm ca đã làm tốt",
+   "body": "Đề hỏi hậu quả của việc xây eval set từ những ca hệ thống vốn đã xử lý tốt."
+  },
+  "lesson": "4-2-bo-du-lieu-danh-gia"
+ },
+ "ccar-p-p22": {
+  "q": "Một thay đổi prompt cải thiện chỉ số mục tiêu nhưng làm xấu đi một hành vi không được đo. Cách tốt nhất để phòng tránh là gì?",
+  "opts": {
+   "A": "Hồi quy âm thầm chỉ bắt được bằng cách kiểm thử rõ ràng những gì không được phép hỏng: duy trì bộ regression bao phủ các hành vi hệ thống không được đánh mất.",
+   "B": "Đổi từng thứ một giảm rủi ro nhưng không phát hiện được hồi quy.",
+   "C": "Review kỹ hơn giảm rủi ro nhưng vẫn không đo được gì.",
+   "D": "Đổi ít đi không làm việc thay đổi an toàn hơn."
+  },
+  "tip": {
+   "title": "Sợ làm hỏng thứ đang chạy → regression suite",
+   "body": [
+    "**Regression test** = danh sách hành vi phải giữ. Mỗi lần đổi prompt/model đều chạy lại.",
+    "Các đáp án \"cẩn thận hơn\", \"đổi ít hơn\" chỉ giảm rủi ro, không **phát hiện** được."
+   ]
+  },
+  "ask": {
+   "title": "Ngăn thay đổi prompt làm hỏng hành vi khác",
+   "body": "Chỉ số chính tăng nhưng một hành vi không được đo bị xấu đi. Đề hỏi biện pháp phòng ngừa đúng."
+  },
+  "lesson": "4-2-bo-du-lieu-danh-gia"
+ },
+ "ccar-p-p23": {
+  "q": "Điều gì nên kích hoạt việc đánh giá lại một giải pháp đã triển khai?",
+  "opts": {
+   "A": "Chờ có sự cố mới đánh giá là phát hiện quá muộn.",
+   "B": "Bất kỳ thay đổi nào ở thứ quyết định hành vi (model, prompt, phân phối dữ liệu, yêu cầu) đều làm phép đo cũ mất hiệu lực, nên phải đánh giá lại.",
+   "C": "Lịch cố định hằng năm không gắn với thay đổi thực tế.",
+   "D": "Thay đổi chi phí không ảnh hưởng tới tính đúng đắn."
+  },
+  "tip": {
+   "title": "Đổi model / prompt / dữ liệu / yêu cầu → đánh giá lại",
+   "body": [
+    "Nhớ 4 trigger: **model, prompt, data distribution, requirement**.",
+    "Loại: chỉ khi có sự cố, theo lịch cố định, theo chi phí."
+   ]
+  },
+  "ask": {
+   "title": "Khi nào phải đánh giá lại hệ thống đang chạy",
+   "body": "Đề hỏi sự kiện nào nên khiến bạn chạy lại đánh giá."
+  },
+  "lesson": "4-6-giam-sat-van-hanh"
+ },
+ "ccar-p-p24": {
+  "q": "Kiến trúc sư nên xử lý thế nào khi có yêu cầu ghi log đầy đủ prompt và response để phục vụ kiểm toán?",
+  "opts": {
+   "A": "Làm ngay vì kiểm toán ưu tiên là bỏ qua rủi ro bảo vệ dữ liệu.",
+   "B": "Từ chối thẳng là bỏ qua nhu cầu kiểm toán, cũng là một ràng buộc thật.",
+   "C": "Kiểm toán và bảo vệ dữ liệu đều là ràng buộc thật. Cần xác định kiểm toán thực sự cần gì, vì prompt và response có thể chứa dữ liệu cá nhân hoặc mật, rồi thiết kế để đạt mục đích kiểm toán mà không giữ nhiều hơn mức cần thiết.",
+   "D": "Chỉ log response là quy tắc tuỳ tiện khi chưa biết yêu cầu kiểm toán là gì."
+  },
+  "tip": {
+   "title": "Hai ràng buộc xung đột → làm rõ yêu cầu thật trước",
+   "body": [
+    "Khi audit đụng privacy, đáp án đúng là **xác định audit cần gì** rồi thiết kế đủ dùng (che, rút gọn, giới hạn thời gian lưu…).",
+    "Loại đáp án tuyệt đối: làm hết, từ chối hết, hoặc một quy tắc tuỳ tiện."
+   ]
+  },
+  "ask": {
+   "title": "Log toàn bộ prompt/response để kiểm toán",
+   "body": "Có yêu cầu lưu đầy đủ nội dung trao đổi với model. Đề hỏi cách xử lý đúng của kiến trúc sư."
+  },
+  "lesson": "5-4-tuan-thu-quy-dinh"
+ },
+ "ccar-p-p25": {
+  "q": "Cách xử lý đúng đối với nội dung truy xuất từ nguồn không tin cậy trước khi đưa tới model là gì?",
+  "opts": {
+   "A": "Quét chuỗi tấn công đã biết dễ bị vượt qua bằng cách diễn đạt khác.",
+   "B": "Dặn model bỏ qua chỉ dẫn bên trong nội dung là biện pháp mềm, prompt injection vẫn có thể thắng.",
+   "C": "Kênh mã hoá chỉ bảo vệ đường truyền, không nói gì về nội dung.",
+   "D": "Nội dung đó luôn là dữ liệu không tin cậy. Kiểm soát bền vững là giới hạn quyền của model, để dù nội dung thuyết phục model làm gì, nó cũng không vượt quá quyền được cấp."
+  },
+  "tip": {
+   "title": "Nội dung không tin cậy → giới hạn quyền của model, đừng trông vào lọc",
+   "body": [
+    "Phòng prompt injection hiệu quả nhất là **least privilege + ranh giới quyền**: model có bị lừa thì cũng không làm được gì nguy hiểm.",
+    "Lọc chuỗi, dặn trong prompt, mã hoá đều không đủ."
+   ]
+  },
+  "ask": {
+   "title": "Đối xử với nội dung từ nguồn không tin cậy",
+   "body": "Nội dung truy xuất từ bên ngoài sắp được đưa vào model. Đề hỏi cách xử lý đúng."
+  },
+  "lesson": "5-2-rui-ro-va-cach-hong"
+ },
+ "ccar-p-p26": {
+  "q": "Ai chịu trách nhiệm cho một quyết định sai do workflow Claude tự động đưa ra?",
+  "opts": {
+   "A": "Tổ chức triển khai workflow. Đưa một quyết định tự động vào vận hành nghĩa là chịu trách nhiệm về kết quả của nó, nên ranh giới tự động hoá là một quyết định kiến trúc.",
+   "B": "Nhà cung cấp model chỉ cung cấp năng lực, không sở hữu quyết định của bạn.",
+   "C": "Người viết prompt không gánh thay được trách nhiệm của tổ chức.",
+   "D": "Tự động hoá không xoá bỏ trách nhiệm."
+  },
+  "tip": {
+   "title": "Ai triển khai → người đó chịu trách nhiệm",
+   "body": [
+    "Trách nhiệm luôn thuộc về **tổ chức triển khai**. Vì vậy phải thiết kế ranh giới: việc gì tự động, việc gì cần người duyệt."
+   ]
+  },
+  "ask": {
+   "title": "Trách nhiệm khi workflow tự động quyết định sai",
+   "body": "Một quyết định sai do hệ thống tự động tạo ra. Đề hỏi ai chịu trách nhiệm."
+  },
+  "lesson": "5-3-nguoi-duyet-trong-vong-lap"
+ },
+ "ccar-p-p27": {
+  "q": "Nhà tài trợ cấp điều hành muốn một con số duy nhất cho biết giải pháp tốt đến đâu. Phản hồi đúng là gì?",
+  "opts": {
+   "A": "Một con số accuracy trần trụi dễ gây hiểu lầm vì không nói gì về những gì nó không bao phủ.",
+   "B": "Đưa ra chỉ số khớp với quyết định họ đang phải đưa ra, kèm nói rõ giới hạn của chỉ số đó. Chỉ số hữu ích là chỉ số gắn với quyết định và trung thực về phạm vi.",
+   "C": "Từ chối tóm tắt là không đáp ứng nhu cầu của sponsor.",
+   "D": "Điểm benchmark của model không phản ánh hiệu quả của giải pháp trong bối cảnh của họ."
+  },
+  "tip": {
+   "title": "Báo cáo cho lãnh đạo → chỉ số gắn với quyết định + nêu giới hạn",
+   "body": [
+    "Chọn đáp án vừa **đơn giản hoá cho người nghe** vừa **trung thực về giới hạn**.",
+    "Loại: từ chối tóm tắt, hoặc đưa số đẹp mà vô nghĩa (benchmark, accuracy trần)."
+   ]
+  },
+  "ask": {
+   "title": "Đưa một con số cho lãnh đạo",
+   "body": "Sponsor muốn một con số duy nhất về chất lượng. Đề hỏi cách trả lời đúng."
+  },
+  "lesson": "6-2-trinh-bay-quyet-dinh"
+ },
+ "ccar-p-p28": {
+  "q": "Một pilot thành công với 10 người dùng, và doanh nghiệp muốn mở rộng lên 2.000 người. Kiến trúc sư nên nêu điều gì trước tiên?",
+  "opts": {
+   "A": "Chi phí license là việc đến sau, khi đã biết điều gì sẽ thay đổi.",
+   "B": "Model lớn hơn là giả định chưa có căn cứ.",
+   "C": "Quy mô làm mất hiệu lực các giả định về đầu vào, hỗ trợ và ca biên. Chỉ ra giả định nào đúng ở 10 người nhưng có thể sai ở 2.000 người là đóng góp của kiến trúc sư.",
+   "D": "Lịch đào tạo phụ thuộc vào việc biết trước chỗ nào sẽ vỡ."
+  },
+  "tip": {
+   "title": "Pilot → mở rộng: hỏi \"giả định nào sẽ vỡ khi scale\"",
+   "body": [
+    "Pilot nhỏ che giấu ca biên, tải, đa dạng đầu vào, nhu cầu hỗ trợ. Đáp án đúng **kiểm lại giả định** trước khi bàn license hay model."
+   ]
+  },
+  "ask": {
+   "title": "Từ 10 lên 2.000 người dùng",
+   "body": "Pilot thành công, doanh nghiệp muốn mở rộng gấp 200 lần. Đề hỏi điều cần nêu ra đầu tiên."
+  },
+  "lesson": "6-5-vong-doi-du-an"
+ },
+ "ccar-p-p29": {
+  "q": "Điều gì giảm nhiều nhất rủi ro giải pháp bị xuống cấp sau khi bàn giao?",
+  "opts": {
+   "A": "Tài liệu đầy đủ lúc bàn giao sẽ cũ dần theo thời gian.",
+   "B": "Bảo hành bao lỗi có sẵn, không bao việc chất lượng trôi dần (drift).",
+   "C": "Đào tạo người dùng cũng sẽ phai dần.",
+   "D": "Có người chịu trách nhiệm cụ thể với quy trình định kỳ để đánh giá, giám sát và cập nhật. Xuống cấp được ngăn bằng việc sở hữu liên tục, không phải bằng tài liệu làm một lần."
+  },
+  "tip": {
+   "title": "Chống xuống cấp sau bàn giao → owner + quy trình định kỳ",
+   "body": [
+    "Từ khoá: **named owner** + **routine** (evaluation, monitoring, update).",
+    "Tài liệu, đào tạo, bảo hành đều là thứ làm một lần, rồi cũ đi."
+   ]
+  },
+  "ask": {
+   "title": "Giữ chất lượng sau khi bàn giao",
+   "body": "Đề hỏi biện pháp hiệu quả nhất để giải pháp không xuống cấp sau handover."
+  },
+  "lesson": "6-5-vong-doi-du-an"
+ },
+ "ccar-p-p30": {
+  "q": "Kiến trúc sư nên chọn model thế nào cho một giải pháp có nhiều tác vụ khác nhau?",
+  "opts": {
+   "A": "Mỗi tác vụ có yêu cầu riêng. Ghép mỗi tác vụ với model nhỏ nhất đáp ứng được yêu cầu, rồi đánh giá để có bằng chứng cho lựa chọn, giúp chi phí tương xứng.",
+   "B": "Một model cho tất cả là tối ưu cho sự tiện, không phải cho độ phù hợp.",
+   "C": "Model lớn nhất cho tất cả lãng phí chi phí và độ trễ ở những việc đơn giản.",
+   "D": "Mới nhất không đồng nghĩa phù hợp nhất cho từng tác vụ."
+  },
+  "tip": {
+   "title": "Nhiều tác vụ → mỗi tác vụ một model vừa đủ, có đánh giá",
+   "body": [
+    "Công thức: **smallest model that meets the requirement, per task, verified by evaluation**.",
+    "Loại mọi lựa chọn đồng loạt (một model, lớn nhất, mới nhất)."
+   ]
+  },
+  "ask": {
+   "title": "Chọn model cho giải pháp nhiều tác vụ",
+   "body": "Giải pháp gồm nhiều việc có yêu cầu khác nhau. Đề hỏi chiến lược chọn model."
+  },
+  "lesson": "2-1-chon-model"
+ },
+ "ccar-p-p31": {
+  "q": "Cách đúng để nhìn nhận context window trong thiết kế production là gì?",
+  "opts": {
+   "A": "Nhồi đầy context làm loãng thông tin quan trọng.",
+   "B": "Context là ngân sách khan hiếm cần phân bổ có chủ đích giữa chỉ dẫn, tài liệu truy xuất và trạng thái làm việc. Cách phân bổ quyết định chất lượng.",
+   "C": "Context quan trọng với mọi thiết kế, không riêng tài liệu dài.",
+   "D": "Tăng kích thước không sửa được vấn đề phân bổ."
+  },
+  "tip": {
+   "title": "Context window = ngân sách, không phải kho chứa",
+   "body": [
+    "Đáp án đúng nói về **phân bổ có chủ đích** (budget/allocate/curate).",
+    "Bẫy: \"cứ nhồi đầy\" hoặc \"tăng context khi chất lượng giảm\"."
+   ]
+  },
+  "ask": {
+   "title": "Cách nhìn nhận context window",
+   "body": "Đề hỏi tư duy đúng về context window khi thiết kế hệ thống production."
+  },
+  "lesson": "2-4-context-window-va-token"
+ },
+ "ccar-p-p32": {
+  "q": "Prompt của một giải pháp do ba đội duy trì và đã lệch nhau. Cách khắc phục phù hợp là gì?",
+  "opts": {
+   "A": "Giao cho một đội sở hữu tất cả có thể không hợp với cơ cấu tổ chức.",
+   "B": "Đóng băng prompt là chặn luôn việc cải tiến.",
+   "C": "Prompt quyết định hành vi production thì xứng đáng có vòng đời như code: quản lý phiên bản như artefact, có người sở hữu rõ, có review và chạy đánh giá khi thay đổi.",
+   "D": "Dời hết vào system prompt không giải quyết chuyện quản trị."
+  },
+  "tip": {
+   "title": "Prompt lệch giữa các đội → coi prompt như code",
+   "body": [
+    "Từ khoá: **versioned artefact + ownership + review + eval on change**.",
+    "Loại: đóng băng, dời chỗ, tập trung hoá máy móc."
+   ]
+  },
+  "ask": {
+   "title": "Ba đội cùng sửa prompt và bị lệch",
+   "body": "Đề hỏi cách quản lý prompt khi nhiều đội cùng duy trì."
+  },
+  "lesson": "2-5-tai-su-dung-prompt"
+ },
+ "ccar-p-p33": {
+  "q": "Một tổ chức muốn cách dùng Claude Code nhất quán trên nhiều repository. Cách bền vững nhất là gì?",
+  "opts": {
+   "A": "Chính sách gửi qua email sẽ bị quên.",
+   "B": "Một buổi đào tạo duy nhất sẽ phai dần.",
+   "C": "Duyệt từng lần dùng tạo ma sát mà không truyền đạt được cách làm.",
+   "D": "Quy ước sẽ lan toả khi nằm ngay trong repository và được review cùng công việc: project memory (CLAUDE.md) và skill chung được commit vào từng repo, review như code."
+  },
+  "tip": {
+   "title": "Muốn quy ước bền → commit vào repo (CLAUDE.md, skills), review như code",
+   "body": [
+    "Thứ gì **sống trong repo** thì đi theo code, không bị quên. Đây là đáp án gần như luôn đúng cho câu hỏi nhất quán Claude Code."
+   ]
+  },
+  "ask": {
+   "title": "Đồng bộ cách dùng Claude Code trên nhiều repo",
+   "body": "Đề hỏi cách bền vững nhất để giữ thực hành nhất quán."
+  },
+  "lesson": "7-1-cau-hinh-claude-code-cho-team"
+ },
+ "ccar-p-p34": {
+  "q": "Chỉ số hữu ích nhất để biết chương trình hỗ trợ năng suất lập trình viên có hiệu quả không là gì?",
+  "opts": {
+   "A": "Mức thay đổi ở chính những kết quả mà công cụ được đưa vào để cải thiện. Chương trình được biện minh bằng kết quả nó tạo ra.",
+   "B": "Số người được đào tạo đo mức tham gia, không đo lợi ích.",
+   "C": "Tỷ lệ dùng license đo mức sử dụng, không đo lợi ích.",
+   "D": "Số lời gọi tool đo hoạt động, không đo lợi ích."
+  },
+  "tip": {
+   "title": "Đo hiệu quả → đo outcome, không đo mức dùng",
+   "body": [
+    "Phân biệt **outcome** (thời gian giao hàng, lỗi, thời gian onboarding…) với **activity/uptake** (số người, số lời gọi, license)."
+   ]
+  },
+  "ask": {
+   "title": "Đo hiệu quả chương trình enablement",
+   "body": "Đề hỏi chỉ số nào cho biết chương trình hỗ trợ lập trình viên có tác dụng."
+  },
+  "lesson": "7-2-quy-trinh-lap-trinh-voi-ai"
+ },
+ "ccar-p-p35": {
+  "q": "Một đội báo rằng Claude Code giúp ích với code mới nhưng lại gây hại trên một service cũ (legacy). Kiến trúc sư nên điều tra gì?",
+  "opts": {
+   "A": "Đào tạo thêm không cung cấp được context của repository.",
+   "B": "Khác biệt giữa hai codebase thường phản ánh khác biệt về context sẵn có. Service cũ có thể thiếu context và quy ước được commit mà model cần.",
+   "C": "Model lớn hơn không tự suy ra được quy ước chưa từng được ghi lại.",
+   "D": "Viết lại service là phản ứng quá đà khi chưa chẩn đoán xong."
+  },
+  "tip": {
+   "title": "Claude Code kém ở một repo → kiểm tra context của repo đó",
+   "body": [
+    "Hiệu quả của Claude Code phụ thuộc vào **CLAUDE.md, quy ước, tài liệu** trong repo. Repo cũ thường thiếu những thứ này.",
+    "Loại: đào tạo, model lớn hơn, viết lại."
+   ]
+  },
+  "ask": {
+   "title": "Claude Code tốt ở code mới, tệ ở service cũ",
+   "body": "Đề hỏi nguyên nhân cần điều tra trước."
+  },
+  "lesson": "7-3-go-loi-va-su-co"
+ },
+ "ccar-p-m1-1": {
+  "q": "Một nhà bán lẻ muốn Claude trả lời câu hỏi về sản phẩm dựa trên catalog 40.000 tài liệu, thay đổi hằng ngày. Kiến trúc nào phù hợp?",
+  "opts": {
+   "A": "Fine-tune hằng đêm vừa đắt vừa chậm, và kiến thức trong trọng số không truy được nguồn.",
+   "B": "40.000 tài liệu không thể nhét vào system prompt.",
+   "C": "Kiến thức thay đổi thường xuyên thuộc về truy xuất: một index được làm mới khi catalog đổi, model trả lời dựa trên context truy xuất được.",
+   "D": "Agent tự duyệt website công khai chậm, khó kiểm soát, và không dùng được dữ liệu nội bộ một cách tin cậy."
+  },
+  "tip": {
+   "title": "Kiến thức lớn + thay đổi thường xuyên → RAG với index được làm mới",
+   "body": [
+    "Không đưa kiến thức hay đổi vào **trọng số** (fine-tune) hay **context window** (system prompt). Dùng **retrieval**."
+   ]
+  },
+  "ask": {
+   "title": "Hỏi đáp trên catalog lớn đổi hằng ngày",
+   "body": "Catalog 40.000 tài liệu, cập nhật mỗi ngày. Đề hỏi kiến trúc phù hợp."
+  },
+  "lesson": "3-5-rag-chunking-va-index"
+ },
+ "ccar-p-m1-2": {
+  "q": "Sau một lần re-index, hệ thống truy xuất trả về sản phẩm giống về ngữ nghĩa nhưng sai về mặt kinh doanh. Nên điều tra gì trước?",
+  "opts": {
+   "A": "Prompt sinh câu trả lời không đổi, và lỗi nằm ở thứ được truy xuất.",
+   "B": "Phiên bản model không liên quan tới thời điểm re-index.",
+   "C": "Giao diện người dùng không ảnh hưởng tới kết quả truy xuất.",
+   "D": "Chất lượng giảm ngay sau re-index chỉ thẳng vào cấu hình chunking, embedding, và việc index có được dựng lại nhất quán hay không."
+  },
+  "tip": {
+   "title": "Lỗi ngay sau re-index → chunking / embedding / tính nhất quán của index",
+   "body": [
+    "Giống câu luyện tập p2: **thay đổi nào vừa xảy ra thì điều tra chỗ đó**."
+   ]
+  },
+  "ask": {
+   "title": "Truy xuất sai sau re-index",
+   "body": "Kết quả gần nghĩa nhưng sai sản phẩm. Đề hỏi chỗ cần điều tra đầu tiên."
+  },
+  "lesson": "3-5-rag-chunking-va-index"
+ },
+ "ccar-p-m1-3": {
+  "q": "Một agent phục vụ 300 nhân viên, mở 45 tool trên 8 hệ thống. Chất lượng chọn tool đang giảm. Giải pháp kiến trúc là gì?",
+  "opts": {
+   "A": "Với số tool lớn, giới hạn bộ tool theo nhiệm vụ hoặc vai trò, kết hợp progressive discovery cho phần còn lại, giúp giữ chất lượng chọn tool.",
+   "B": "Rút ngắn mô tả làm model có ít thông tin hơn để chọn đúng.",
+   "C": "Gộp thành vài tool đa chế độ giấu hành vi khỏi cơ chế chọn tool.",
+   "D": "Model lớn hơn không giải quyết gốc rễ là context bị nhồi quá nhiều tool."
+  },
+  "tip": {
+   "title": "Nhiều tool, chọn sai → scope theo vai trò + progressive discovery",
+   "body": [
+    "Cùng mẫu với câu luyện tập p3. Gặp **số lượng tool lớn** → **thu hẹp và nạp dần**."
+   ]
+  },
+  "ask": {
+   "title": "45 tool làm agent chọn sai",
+   "body": "Agent dùng chung cho nhiều người, mở quá nhiều tool. Đề hỏi giải pháp kiến trúc."
+  },
+  "lesson": "3-8-nap-dan-hay-nap-het"
+ },
+ "ccar-p-m1-4": {
+  "q": "Thiết kế đánh giá nào phù hợp nhất cho tính năng tóm tắt khi chất lượng mang tính chủ quan?",
+  "opts": {
+   "A": "So khớp chính xác sẽ đánh trượt mọi bản tóm tắt đúng nhưng diễn đạt khác.",
+   "B": "Rubric bao phủ các kiểu lỗi quan trọng, do model chấm và được người kiểm định kỳ trên bộ dữ liệu có nhãn. Đây là cách biến chất lượng chủ quan thành thứ đo được.",
+   "C": "Độ dài trung bình không phản ánh chất lượng.",
+   "D": "Chỉ đếm lượt thích là tín hiệu nhiễu, đến muộn và thiên lệch."
+  },
+  "tip": {
+   "title": "Chủ quan → rubric + model grader + người audit + bộ nhãn",
+   "body": [
+    "Giống câu luyện tập p6. Từ khoá **subjective** gần như luôn dẫn tới **rubric**."
+   ]
+  },
+  "ask": {
+   "title": "Đánh giá tính năng tóm tắt",
+   "body": "Chất lượng bản tóm tắt khó đo khách quan. Đề hỏi thiết kế đánh giá phù hợp."
+  },
+  "lesson": "4-1-chi-so-danh-gia"
+ },
+ "ccar-p-m1-5": {
+  "q": "Trước khi một thay đổi prompt đến với mọi người dùng, trình tự bài bản là gì?",
+  "opts": {
+   "A": "Tung ra rồi theo dõi khiếu nại là phát hiện lỗi quá muộn.",
+   "B": "Bỏ phiếu trong đội không phải bằng chứng.",
+   "C": "Thay đổi prompt là thay đổi production: chạy regression trước, rồi so sánh có kiểm soát (A/B) với prompt hiện tại theo chỉ số định trước, sau đó mới rollout.",
+   "D": "Rollout kèm form góp ý vẫn là thí nghiệm không có nhóm đối chứng."
+  },
+  "tip": {
+   "title": "Regression → A/B có chỉ số → rollout",
+   "body": [
+    "Giống câu luyện tập p7. Thuộc trình tự này là trả lời được cả họ câu hỏi."
+   ]
+  },
+  "ask": {
+   "title": "Trình tự đưa prompt mới lên production",
+   "body": "Đề hỏi các bước đúng trước khi áp dụng thay đổi prompt cho toàn bộ người dùng."
+  },
+  "lesson": "4-3-ab-test-va-cai-tien"
+ },
+ "ccar-p-m1-6": {
+  "q": "Một hệ thống bệnh viện yêu cầu PHI không bao giờ đến tay nhà cung cấp model, trong khi bác sĩ cần tìm kiếm tự do bằng văn bản. Thiết kế nào thoả cả hai?",
+  "opts": {
+   "A": "Chính sách dặn bác sĩ không gõ thông tin định danh không phải là kiểm soát kỹ thuật.",
+   "B": "Dặn model bỏ qua PHI thì dữ liệu vẫn đã đi qua ranh giới.",
+   "C": "Chỉ cho truy vấn có cấu trúc là không đáp ứng nhu cầu tìm kiếm tự do.",
+   "D": "Ranh giới tuân thủ được đảm bảo bằng kiến trúc trước khi dữ liệu đi ra: lớp khử định danh xoá hoặc token hoá PHI trước lời gọi, ghép lại tại chỗ, kèm kiểm toán."
+  },
+  "tip": {
+   "title": "PHI không được rời → de-identify trước API call + audit",
+   "body": [
+    "Giống câu luyện tập p8. Xử lý **trước khi** dữ liệu đi ra, không phải dặn model sau đó."
+   ]
+  },
+  "ask": {
+   "title": "Giữ PHI trong bệnh viện mà vẫn cho tìm kiếm tự do",
+   "body": "Đề hỏi thiết kế thoả cả ràng buộc tuân thủ lẫn nhu cầu của bác sĩ."
+  },
+  "lesson": "5-4-tuan-thu-quy-dinh"
+ },
+ "ccar-p-m1-7": {
+  "q": "Cách áp dụng đúng người duyệt trong vòng lặp (human-in-the-loop) ở quy mô lớn là gì?",
+  "opts": {
+   "A": "Định tuyến theo độ tin cậy và mức hệ quả: ca độ tin cậy thấp và ca tác động lớn đến tay người, ca thường lệ đi thẳng. Cách này làm việc duyệt vừa khả thi về chi phí vừa hiệu quả.",
+   "B": "Duyệt mọi output bất kể rủi ro không mở rộng được và làm người duyệt mệt mỏi.",
+   "C": "Mẫu ngẫu nhiên 10% bỏ sót các ca rủi ro cao.",
+   "D": "Chỉ duyệt khi người dùng phàn nàn là phát hiện quá muộn."
+  },
+  "tip": {
+   "title": "Human review ở quy mô lớn → route theo confidence × consequence",
+   "body": [
+    "Từ khoá: **confidence-based routing**, **high-impact cases**. Loại: duyệt tất cả, lấy mẫu ngẫu nhiên, chờ khiếu nại."
+   ]
+  },
+  "ask": {
+   "title": "Áp dụng người duyệt khi lưu lượng lớn",
+   "body": "Đề hỏi cách dùng human-in-the-loop hợp lý ở quy mô lớn."
+  },
+  "lesson": "5-3-nguoi-duyet-trong-vong-lap"
+ },
+ "ccar-p-m1-8": {
+  "q": "Nhà tài trợ đòi một con số accuracy duy nhất cho hệ thống có hiệu năng chênh lệch lớn theo loại tài liệu. Kiến trúc sư giỏi trình bày gì?",
+  "opts": {
+   "A": "Chọn con số cao nhất là làm đẹp số liệu.",
+   "B": "Hiệu năng tách theo loại tài liệu kèm số tổng, phương pháp đo, và kết quả kinh doanh sau khi có người duyệt. Phân tách trung thực cùng phương pháp và kết quả đầu-cuối là thứ tạo và giữ được lòng tin.",
+   "C": "Từ chối định lượng là không đáp ứng sponsor.",
+   "D": "Trung bình có trọng số để trông đẹp hơn là gian lận chỉ số."
+  },
+  "tip": {
+   "title": "Hiệu năng không đồng đều → báo cáo phân tách + phương pháp + kết quả đầu-cuối",
+   "body": [
+    "Domain 6 thưởng cho **trung thực**. Loại mọi đáp án chọn số đẹp hoặc né tránh."
+   ]
+  },
+  "ask": {
+   "title": "Báo cáo accuracy khi hiệu năng khác nhau theo loại tài liệu",
+   "body": "Sponsor muốn một con số duy nhất. Đề hỏi cách trình bày đúng."
+  },
+  "lesson": "6-2-trinh-bay-quyet-dinh"
+ },
+ "ccar-p-m1-9": {
+  "q": "Thiết kế phải tuân thủ GDPR cho dữ liệu khách hàng EU. Yêu cầu nào định hình kiến trúc trực tiếp nhất?",
+  "opts": {
+   "A": "Mục tiêu độ trễ không phải yêu cầu của GDPR.",
+   "B": "Ngôn ngữ lập trình không liên quan đến GDPR.",
+   "C": "GDPR đòi tối thiểu hoá dữ liệu, giới hạn mục đích, và khả năng xoá dữ liệu cá nhân khi được yêu cầu. Cả ba đều ảnh hưởng thẳng tới thiết kế lưu trữ, log và luồng dữ liệu.",
+   "D": "Số nhà cung cấp model không phải trọng tâm của GDPR."
+  },
+  "tip": {
+   "title": "GDPR → minimization, purpose limitation, right to erasure",
+   "body": [
+    "Nhớ bộ ba này. Ghép với HIPAA → PHI, FedRAMP → môi trường được cấp phép cho chính phủ Mỹ."
+   ]
+  },
+  "ask": {
+   "title": "GDPR ảnh hưởng kiến trúc thế nào",
+   "body": "Đề hỏi yêu cầu nào của GDPR tác động trực tiếp nhất lên thiết kế."
+  },
+  "lesson": "5-4-tuan-thu-quy-dinh"
+ },
+ "ccar-p-m1-10": {
+  "q": "Lý do đúng để chọn workflow thay vì agent cho quy trình tiếp nhận tài liệu là gì?",
+  "opts": {
+   "A": "\"Luôn chính xác hơn\" là khẳng định tuyệt đối, không đúng.",
+   "B": "Agent hoàn toàn xử lý được tài liệu.",
+   "C": "Lượng context không phải tiêu chí quyết định.",
+   "D": "Đường đi xử lý đã biết trước, nên điều phối tất định rẻ hơn, kiểm thử được và kiểm toán được. Tính tự hành chỉ đáng độ phức tạp khi đường đi chưa biết."
+  },
+  "tip": {
+   "title": "Đường đi biết trước → workflow",
+   "body": [
+    "Giống câu luyện tập p5. Quy tắc này xuất hiện rất nhiều trong domain 1."
+   ]
+  },
+  "ask": {
+   "title": "Vì sao chọn workflow cho tiếp nhận tài liệu",
+   "body": "Đề hỏi lý do đúng khi chọn workflow thay vì agent."
+  },
+  "lesson": "1-3-chon-mau-kien-truc"
+ },
+ "ccar-p-m1-11": {
+  "q": "Một ứng dụng gửi cùng một đoạn mở đầu chính sách 12.000 token trong mọi request. Tối ưu nào giải quyết cả độ trễ lẫn chi phí?",
+  "opts": {
+   "A": "Đặt phần tĩnh lên đầu và bật prompt caching. Một tiền tố ổn định được cache giúp giảm cả thời gian ra token đầu tiên lẫn chi phí mỗi request.",
+   "B": "Chia làm hai request chỉ thêm chi phí và độ trễ.",
+   "C": "Gọi model tóm tắt ngay lúc request tốn thêm một lời gọi và có thể làm mất chi tiết chính sách.",
+   "D": "Dời vào few-shot không thay đổi gì về khả năng tái sử dụng."
+  },
+  "tip": {
+   "title": "Phần lặp lại lớn, cố định → đặt đầu prompt + prompt caching",
+   "body": [
+    "Prompt caching hoạt động theo **tiền tố**: phần tĩnh phải đứng trước, phần thay đổi để sau.",
+    "Lợi ích kép: **giảm TTFT** và **giảm chi phí**."
+   ]
+  },
+  "ask": {
+   "title": "Tối ưu đoạn mở đầu 12.000 token gửi lặp lại",
+   "body": "Mọi request đều mang cùng một khối chính sách lớn. Đề hỏi cách giảm cả độ trễ lẫn chi phí."
+  },
+  "lesson": "2-5-tai-su-dung-prompt"
+ },
+ "ccar-p-m1-12": {
+  "q": "Một architecture decision record (ADR) cho hệ thống Claude nên chứa gì?",
+  "opts": {
+   "A": "Chỉ thiết kế cuối cùng thì người sau không hiểu vì sao chọn nó.",
+   "B": "Quyết định, các phương án đã cân nhắc, các đánh đổi, và các ràng buộc dẫn tới lựa chọn. ADR ghi lại phương án và đánh đổi, không chỉ kết quả.",
+   "C": "Danh sách thành viên không phải nội dung cốt lõi của ADR.",
+   "D": "Timeline triển khai thuộc kế hoạch dự án, không phải ADR."
+  },
+  "tip": {
+   "title": "ADR = quyết định + phương án + đánh đổi + ràng buộc",
+   "body": [
+    "Mục đích của ADR là giúp người sau hiểu **vì sao**. Thiếu phương án thay thế và đánh đổi thì không trả lời được câu đó."
+   ]
+  },
+  "ask": {
+   "title": "Nội dung của một ADR",
+   "body": "Đề hỏi những gì thuộc về bản ghi quyết định kiến trúc."
+  },
+  "lesson": "6-4-tai-lieu-kien-truc"
+ },
+ "ccar-p-m1-13": {
+  "q": "Khả năng quan sát (observability) cho agent production nên ghi lại gì để sự cố có thể chẩn đoán được?",
+  "opts": {
+   "A": "Chỉ có output cuối thì không biết lỗi phát sinh ở bước nào.",
+   "B": "Chỉ số độ trễ tổng hợp không cho thấy nguyên nhân.",
+   "C": "Trace các lời gọi tool, context đã truy xuất và các điểm quyết định, cùng với output. Không có trace thì không khoanh được lỗi về đúng tầng.",
+   "D": "Phản hồi người dùng cho biết có lỗi, không cho biết lỗi ở đâu."
+  },
+  "tip": {
+   "title": "Agent production → trace từng bước (tool call, retrieval, quyết định)",
+   "body": [
+    "Muốn **localize** lỗi về một tầng thì phải có **trace**, không chỉ output hay metric tổng."
+   ]
+  },
+  "ask": {
+   "title": "Cần ghi gì để chẩn đoán agent",
+   "body": "Đề hỏi dữ liệu quan sát cần có để sự cố của agent chẩn đoán được."
+  },
+  "lesson": "3-4-quan-sat-o-quy-mo-lon"
+ },
+ "ccar-p-m1-14": {
+  "q": "Một đội đối tác muốn áp dụng thiết lập Claude Code của bạn. Điều gì làm việc áp dụng bền vững thay vì chỉ là một lần bàn giao?",
+  "opts": {
+   "A": "Video hướng dẫn sẽ cũ đi và không cấu hình được gì.",
+   "B": "Kênh chat chung hỗ trợ được nhưng không chuẩn hoá cấu hình.",
+   "C": "Coaching từng người không mở rộng được.",
+   "D": "Cấu hình dùng chung có quản lý phiên bản, skill và command chung, và lộ trình onboarding cho kỹ sư mới. Đây là thứ làm việc áp dụng bám rễ."
+  },
+  "tip": {
+   "title": "Áp dụng bền → versioned shared config + onboarding path",
+   "body": [
+    "Giống câu luyện tập p10, p33. Câu trả lời luôn là **cấu hình chung nằm trong repo**."
+   ]
+  },
+  "ask": {
+   "title": "Chia sẻ thiết lập Claude Code cho đội khác",
+   "body": "Đề hỏi điều gì giúp đội đối tác áp dụng lâu dài."
+  },
+  "lesson": "7-1-cau-hinh-claude-code-cho-team"
+ },
+ "ccar-p-m1-15": {
+  "q": "Thay đổi nào giảm rủi ro tốt nhất cho một agent vừa đọc vừa sửa được bản ghi production?",
+  "opts": {
+   "A": "Tách quyền đọc và ghi, chỉ cấp quyền ghi nơi vai trò cần, và chặn thao tác ghi sau bước phê duyệt rõ ràng. Least privilege cộng cổng phê duyệt thu hẹp bề mặt rủi ro thay vì chỉ theo dõi nó.",
+   "B": "Ghi log để xem lại sau là biện pháp phát hiện, không ngăn chặn.",
+   "C": "Prompt dài hơn về sự thận trọng không phải kiểm soát.",
+   "D": "Chỉ chạy giờ hành chính thu hẹp thời gian, không giảm quyền."
+  },
+  "tip": {
+   "title": "Agent có quyền ghi production → tách đọc/ghi + approval gate cho ghi",
+   "body": [
+    "Kết hợp **least privilege** với **human approval** cho hành động có hệ quả. Loại: log, dặn trong prompt, giới hạn giờ."
+   ]
+  },
+  "ask": {
+   "title": "Giảm rủi ro cho agent sửa được dữ liệu production",
+   "body": "Đề hỏi thay đổi hiệu quả nhất để giảm rủi ro."
+  },
+  "lesson": "3-1-cau-hinh-thua-nang-luc"
+ },
+ "ccar-p-m2-1": {
+  "q": "Một khách hàng yêu cầu inference phải chạy trong tài khoản AWS của chính họ. Điều này quyết định gì?",
+  "opts": {
+   "A": "Dòng model là lựa chọn riêng, không bị quyết định bởi ràng buộc này.",
+   "B": "Hợp đồng xử lý dữ liệu không giữ dữ liệu ở lại tài khoản.",
+   "C": "Triển khai qua Amazon Bedrock trong tài khoản và region của khách. Chạy trong ranh giới cloud của khách chính là điều yêu cầu mô tả.",
+   "D": "Tắt log không giữ dữ liệu ở lại tài khoản."
+  },
+  "tip": {
+   "title": "AWS account boundary → Amazon Bedrock",
+   "body": [
+    "Giống câu luyện tập p11."
+   ]
+  },
+  "ask": {
+   "title": "Inference phải chạy trong tài khoản AWS của khách",
+   "body": "Đề hỏi ràng buộc này dẫn tới lựa chọn triển khai nào."
+  },
+  "lesson": "3-7-chon-co-che-tich-hop"
+ },
+ "ccar-p-m2-2": {
+  "q": "Một doanh nghiệp chuẩn hoá trên Google Cloud muốn định danh và kiểm toán đi qua kiểm soát sẵn có. Điều gì suy ra?",
+  "opts": {
+   "A": "Triển khai qua Vertex AI để định danh, billing và audit của nền tảng đang được quản trị được áp dụng luôn, không phải dựng lại.",
+   "B": "Dựng lại kiểm soát quanh Claude API vừa tốn công vừa dễ lệch.",
+   "C": "Dùng Bedrock tạo ra mặt phẳng kiểm soát thứ hai trên cloud khác.",
+   "D": "Để từng đội tự quyết là mất quản trị tập trung."
+  },
+  "tip": {
+   "title": "Google Cloud → Vertex AI",
+   "body": [
+    "Giống câu luyện tập p12."
+   ]
+  },
+  "ask": {
+   "title": "Dùng lại kiểm soát Google Cloud",
+   "body": "Đề hỏi cách triển khai Claude cho doanh nghiệp đã chuẩn hoá trên Google Cloud."
+  },
+  "lesson": "3-7-chon-co-che-tich-hop"
+ },
+ "ccar-p-m2-3": {
+  "q": "Lợi ích kiến trúc chính của việc định tuyến toàn bộ lưu lượng model qua một service nội bộ là gì?",
+  "opts": {
+   "A": "Đơn giá token không thay đổi.",
+   "B": "Vẫn phải đánh giá chất lượng.",
+   "C": "Thêm một chặng thì độ trễ không giảm.",
+   "D": "Xác thực, giới hạn tốc độ, ghi log và định tuyến được áp dụng nhất quán ở một nơi, và chỉ cần đổi một lần."
+  },
+  "tip": {
+   "title": "Một service trung gian → cross-cutting concerns tập trung",
+   "body": [
+    "Giống câu luyện tập p13."
+   ]
+  },
+  "ask": {
+   "title": "Lợi ích của service trung gian cho mọi lời gọi model",
+   "body": "Đề hỏi lợi ích kiến trúc chính."
+  },
+  "lesson": "1-2-kien-truc-dau-cuoi"
+ },
+ "ccar-p-m2-4": {
+  "q": "Hai thiết kế đều thoả yêu cầu, một cái đơn giản hơn đáng kể. Điều gì quyết định?",
+  "opts": {
+   "A": "\"Dư địa\" mà không có yêu cầu nào cần là trả chi phí phức tạp vô ích.",
+   "B": "Có yêu cầu được nêu nào cần năng lực thêm hay không, đặt cạnh chi phí liên tục của độ phức tạp. Phức tạp phải được \"mua\" bằng yêu cầu thật.",
+   "C": "Sở thích của đội không phải tiêu chí.",
+   "D": "Nhiều thành phần hơn cho \"linh hoạt\" là đầu cơ."
+  },
+  "tip": {
+   "title": "Đơn giản thắng nếu không có yêu cầu cần thêm",
+   "body": [
+    "Giống câu luyện tập p17."
+   ]
+  },
+  "ask": {
+   "title": "Chọn giữa hai thiết kế đều đạt yêu cầu",
+   "body": "Đề hỏi tiêu chí quyết định."
+  },
+  "lesson": "1-3-chon-mau-kien-truc"
+ },
+ "ccar-p-m2-5": {
+  "q": "Một biện pháp kiểm soát tuân thủ bắt buộc lại phụ thuộc vào việc model hành xử đúng. Đánh giá đúng là gì?",
+  "opts": {
+   "A": "Độ chính xác cao vẫn chỉ là xu hướng, không phải đảm bảo.",
+   "B": "Không chấp nhận: kiểm soát bắt buộc cần được thực thi tất định bên ngoài model, vì hành vi xác suất không thể đảm bảo.",
+   "C": "Ghi nhận rủi ro tồn dư không biến kiểm soát thành đảm bảo.",
+   "D": "Model lớn hơn vẫn mang tính xác suất."
+  },
+  "tip": {
+   "title": "Kiểm soát bắt buộc → ngoài model, tất định",
+   "body": [
+    "Giống câu luyện tập p18."
+   ]
+  },
+  "ask": {
+   "title": "Giao kiểm soát tuân thủ cho model",
+   "body": "Đề hỏi có chấp nhận được thiết kế này không."
+  },
+  "lesson": "5-1-guardrail-va-kiem-soat"
+ },
+ "ccar-p-m2-6": {
+  "q": "Trong giải pháp đưa ra quyết định ảnh hưởng tới khách hàng, ranh giới tự động hoá nên vạch ở đâu?",
+  "opts": {
+   "A": "Model chạy tốt khi test không có nghĩa là được phép tự quyết.",
+   "B": "Ngân sách không giải quyết câu hỏi trách nhiệm.",
+   "C": "Làm theo yêu cầu của khách mà không xem xét là bỏ vai trò kiến trúc sư.",
+   "D": "Ở chỗ trách nhiệm giải trình cho quyết định nằm: những quyết định đó do con người giữ. Ranh giới trách nhiệm quyết định cái gì được phép tự động hoá."
+  },
+  "tip": {
+   "title": "Ranh giới tự động hoá = ranh giới trách nhiệm",
+   "body": [
+    "Giống câu luyện tập p16 và p26."
+   ]
+  },
+  "ask": {
+   "title": "Vạch ranh giới tự động hoá",
+   "body": "Đề hỏi tiêu chí đặt ranh giới cho quyết định ảnh hưởng tới khách hàng."
+  },
+  "lesson": "5-3-nguoi-duyet-trong-vong-lap"
+ },
+ "ccar-p-m2-7": {
+  "q": "Điều gì phải có trước khi tuyên bố một giải pháp sẵn sàng cho production?",
+  "opts": {
+   "A": "Tiêu chí thành công được định nghĩa và hiệu năng được đo trên dữ liệu đại diện. Sẵn sàng là khẳng định đo được so với một ngưỡng đã nêu.",
+   "B": "Demo thành công là cảm nhận, không phải phép đo.",
+   "C": "Đội kỹ sư ký duyệt không chứng minh hệ thống hoạt động.",
+   "D": "Mô hình chi phí không cho biết hệ thống có đúng không."
+  },
+  "tip": {
+   "title": "Production-ready = success criteria + đo trên dữ liệu đại diện",
+   "body": [
+    "Giống câu luyện tập p20."
+   ]
+  },
+  "ask": {
+   "title": "Điều kiện production-ready",
+   "body": "Đề hỏi thứ bắt buộc phải có."
+  },
+  "lesson": "4-1-chi-so-danh-gia"
+ },
+ "ccar-p-m2-8": {
+  "q": "Một bộ đánh giá chỉ chứa những ca hệ thống đã xử lý được. Hệ quả là gì?",
+  "opts": {
+   "A": "Không phải thước đo chất lượng đáng tin.",
+   "B": "Lớn đến đâu cũng không sửa được mẫu lệch.",
+   "C": "Bộ eval thổi phồng hiệu năng và che giấu những lỗi quan trọng, vì mẫu không đại diện đo sai phân phối.",
+   "D": "Vấn đề này chung cho mọi hệ thống, không riêng ngành được quản lý."
+  },
+  "tip": {
+   "title": "Eval set lệch → điểm đẹp giả",
+   "body": [
+    "Giống câu luyện tập p21."
+   ]
+  },
+  "ask": {
+   "title": "Bộ eval chỉ gồm ca dễ",
+   "body": "Đề hỏi hậu quả của bộ đánh giá không đại diện."
+  },
+  "lesson": "4-2-bo-du-lieu-danh-gia"
+ },
+ "ccar-p-m2-9": {
+  "q": "Nên xử lý thế nào khi có yêu cầu ghi log mọi prompt và response để kiểm toán?",
+  "opts": {
+   "A": "Làm ngay là bỏ qua rủi ro bảo vệ dữ liệu.",
+   "B": "Từ chối là bỏ qua nhu cầu kiểm toán, vốn cũng là ràng buộc thật.",
+   "C": "Chỉ log response mà không log prompt là cách chia tuỳ tiện khi chưa biết yêu cầu.",
+   "D": "Xác định kiểm toán thực sự cần gì, vì prompt và response có thể chứa dữ liệu cá nhân hoặc mật. Thiết kế phải phục vụ mục đích kiểm toán mà không giữ nhiều hơn mức cần."
+  },
+  "tip": {
+   "title": "Audit vs privacy → làm rõ yêu cầu thật trước",
+   "body": [
+    "Giống câu luyện tập p24."
+   ]
+  },
+  "ask": {
+   "title": "Log mọi prompt/response để kiểm toán",
+   "body": "Đề hỏi cách xử lý yêu cầu ghi log toàn bộ."
+  },
+  "lesson": "5-4-tuan-thu-quy-dinh"
+ },
+ "ccar-p-m2-10": {
+  "q": "Ai chịu trách nhiệm khi workflow Claude tự động đưa ra một quyết định gây hại?",
+  "opts": {
+   "A": "Nhà cung cấp model chỉ cung cấp năng lực.",
+   "B": "Người viết prompt không gánh thay trách nhiệm của tổ chức.",
+   "C": "Tổ chức đã triển khai nó. Đưa quyết định tự động vào vận hành là nhận trách nhiệm về kết quả.",
+   "D": "Tự động hoá không xoá trách nhiệm."
+  },
+  "tip": {
+   "title": "Ai triển khai → người đó chịu trách nhiệm",
+   "body": [
+    "Giống câu luyện tập p26."
+   ]
+  },
+  "ask": {
+   "title": "Trách nhiệm khi quyết định tự động gây hại",
+   "body": "Đề hỏi ai chịu trách nhiệm."
+  },
+  "lesson": "5-3-nguoi-duyet-trong-vong-lap"
+ },
+ "ccar-p-m2-11": {
+  "q": "Sponsor muốn một con số cho biết giải pháp có đang hiệu quả không. Phản hồi đúng là gì?",
+  "opts": {
+   "A": "Một con số accuracy trần dễ gây hiểu lầm.",
+   "B": "Đưa chỉ số gắn với quyết định họ đang đối mặt, và nói rõ chỉ số đó không bao phủ điều gì.",
+   "C": "Từ chối quy về con số là không giúp được sponsor.",
+   "D": "Điểm benchmark không phản ánh giải pháp trong bối cảnh của họ."
+  },
+  "tip": {
+   "title": "Một con số cho lãnh đạo → gắn với quyết định + nêu giới hạn",
+   "body": [
+    "Giống câu luyện tập p27."
+   ]
+  },
+  "ask": {
+   "title": "Một con số để biết giải pháp có hiệu quả",
+   "body": "Đề hỏi cách trả lời sponsor."
+  },
+  "lesson": "6-2-trinh-bay-quyet-dinh"
+ },
+ "ccar-p-m2-12": {
+  "q": "Một pilot 10 người sắp mở rộng lên 2.000 người. Kiến trúc sư nên nêu điều gì trước tiên?",
+  "opts": {
+   "A": "Giả định nào đúng ở 10 người nhưng có thể sai ở 2.000 người. Quy mô làm vỡ giả định về đầu vào, hỗ trợ và ca biên.",
+   "B": "Chi phí license là bước sau.",
+   "C": "Model lớn hơn là giả định chưa có căn cứ.",
+   "D": "Kế hoạch đào tạo đến sau khi biết điều gì sẽ vỡ."
+  },
+  "tip": {
+   "title": "Scale-up → kiểm lại giả định",
+   "body": [
+    "Giống câu luyện tập p28."
+   ]
+  },
+  "ask": {
+   "title": "Mở rộng pilot lên 2.000 người",
+   "body": "Đề hỏi điều cần nêu đầu tiên."
+  },
+  "lesson": "6-5-vong-doi-du-an"
+ },
+ "ccar-p-m2-13": {
+  "q": "Nên chọn model thế nào cho giải pháp gồm nhiều tác vụ khác nhau?",
+  "opts": {
+   "A": "Ghép mỗi tác vụ với model nhỏ nhất đáp ứng yêu cầu của nó, và đánh giá các lựa chọn để có bằng chứng.",
+   "B": "Một model cho tất cả là tối ưu cho sự tiện.",
+   "C": "Model lớn nhất mọi nơi lãng phí chi phí và độ trễ.",
+   "D": "Mới nhất không có nghĩa là phù hợp nhất."
+  },
+  "tip": {
+   "title": "Mỗi tác vụ → model vừa đủ + có eval",
+   "body": [
+    "Giống câu luyện tập p30."
+   ]
+  },
+  "ask": {
+   "title": "Chọn model cho nhiều tác vụ",
+   "body": "Đề hỏi chiến lược chọn model."
+  },
+  "lesson": "2-1-chon-model"
+ },
+ "ccar-p-m2-14": {
+  "q": "Nên xem context window thế nào trong thiết kế production?",
+  "opts": {
+   "A": "Nhồi đầy làm loãng thông tin.",
+   "B": "Là ngân sách cần phân bổ có chủ đích giữa chỉ dẫn, tài liệu truy xuất và trạng thái làm việc.",
+   "C": "Context quan trọng với mọi thiết kế, không chỉ tài liệu dài.",
+   "D": "Tăng kích thước không sửa được việc phân bổ kém."
+  },
+  "tip": {
+   "title": "Context = ngân sách",
+   "body": [
+    "Giống câu luyện tập p31."
+   ]
+  },
+  "ask": {
+   "title": "Tư duy về context window",
+   "body": "Đề hỏi cách nhìn nhận đúng."
+  },
+  "lesson": "2-4-context-window-va-token"
+ },
+ "ccar-p-m2-15": {
+  "q": "Một tổ chức muốn thực hành Claude Code nhất quán trên hàng chục repository. Cách nào bền nhất?",
+  "opts": {
+   "A": "Tài liệu chính sách gửi một lần sẽ bị quên.",
+   "B": "Một buổi đào tạo sẽ phai dần.",
+   "C": "Project memory và skill chung được commit vào từng repo, review như code. Quy ước bền khi nằm trong repo.",
+   "D": "Duyệt từng lần dùng tạo ma sát mà không truyền đạt cách làm."
+  },
+  "tip": {
+   "title": "Nhất quán Claude Code → commit vào repo",
+   "body": [
+    "Giống câu luyện tập p33."
+   ]
+  },
+  "ask": {
+   "title": "Nhất quán trên nhiều repo",
+   "body": "Đề hỏi cách bền vững nhất."
+  },
+  "lesson": "7-1-cau-hinh-claude-code-cho-team"
+ },
+ "ccar-p-m3-1": {
+  "q": "Một khách hàng không chấp nhận giải pháp có hành vi không giải thích được cho kiểm toán viên của họ. Điều này ràng buộc gì?",
+  "opts": {
+   "A": "Dòng model tự nó không làm hành vi giải thích được.",
+   "B": "Mô hình chi phí không liên quan đến khả năng kiểm toán.",
+   "C": "Kiến trúc: phải làm cho quyết định truy vết được và các kiểm soát kiểm tra được. Khả năng kiểm toán là thuộc tính kiến trúc.",
+   "D": "Region triển khai không làm hành vi giải thích được."
+  },
+  "tip": {
+   "title": "Auditability = thuộc tính kiến trúc (trace + kiểm soát kiểm tra được)",
+   "body": [
+    "Yêu cầu giải thích cho kiểm toán viên → cần **tracing**, **log quyết định**, **kiểm soát nằm ngoài model và xem được**."
+   ]
+  },
+  "ask": {
+   "title": "Hành vi phải giải thích được cho kiểm toán",
+   "body": "Đề hỏi yêu cầu này ràng buộc phần nào của giải pháp."
+  },
+  "lesson": "3-4-quan-sat-o-quy-mo-lon"
+ },
+ "ccar-p-m3-2": {
+  "q": "Rủi ro chính của việc xây trực tiếp trên dịch vụ model của một cloud mà không có lớp trừu tượng là gì?",
+  "opts": {
+   "A": "Sau này muốn chuyển sẽ rất tốn kém, vì sự phụ thuộc đã lan vào code ứng dụng. Mức độ gắn chặt quyết định chi phí thay đổi.",
+   "B": "Chi phí token không phải hệ quả của việc gắn chặt.",
+   "C": "Độ chính xác không phụ thuộc vào việc có lớp trừu tượng.",
+   "D": "Độ trễ cũng không phải hệ quả của việc gắn chặt."
+  },
+  "tip": {
+   "title": "Không có abstraction → lock-in, chi phí thay đổi cao",
+   "body": [
+    "Câu hỏi về **coupling** → đáp án nói về **chi phí thay đổi về sau**, không về giá hay hiệu năng."
+   ]
+  },
+  "ask": {
+   "title": "Gắn chặt với dịch vụ model của một cloud",
+   "body": "Đề hỏi rủi ro kiến trúc chính."
+  },
+  "lesson": "3-7-chon-co-che-tich-hop"
+ },
+ "ccar-p-m3-3": {
+  "q": "Một giải pháp phục vụ người dùng ở hai region có quy định lưu trú dữ liệu khác nhau. Điều gì suy ra?",
+  "opts": {
+   "A": "Một bản triển khai ở region rẻ hơn sẽ đưa dữ liệu vượt ranh giới.",
+   "B": "Mã hoá khi truyền không ngăn dữ liệu đi qua ranh giới.",
+   "C": "Độ trễ thấp không đáp ứng quy định lưu trú.",
+   "D": "Các bản triển khai tách riêng, dữ liệu của mỗi region nằm trong ranh giới của region đó."
+  },
+  "tip": {
+   "title": "Data residency khác nhau → triển khai tách theo region",
+   "body": [
+    "Lưu trú dữ liệu là ràng buộc **cứng**: dữ liệu ở đâu thì xử lý ở đó."
+   ]
+  },
+  "ask": {
+   "title": "Hai region, hai quy định lưu trú",
+   "body": "Đề hỏi hệ quả với cách triển khai."
+  },
+  "lesson": "5-4-tuan-thu-quy-dinh"
+ },
+ "ccar-p-m3-4": {
+  "q": "Một yêu cầu được nêu là \"càng chính xác càng tốt\". Kiến trúc sư nên làm gì?",
+  "opts": {
+   "A": "Mặc định chọn model lớn nhất là tiêu tiền mà không có mục tiêu.",
+   "B": "Xác định mức chính xác mà use case thực sự cần và chi phí của một lỗi. Yêu cầu không có giới hạn thì không thiết kế hay kiểm chứng được.",
+   "C": "Thiết kế phức tạp nhất có thể cũng là tiêu tiền không mục tiêu.",
+   "D": "Hoãn tới sau pilot làm thiết kế không có điểm neo."
+  },
+  "tip": {
+   "title": "Yêu cầu mơ hồ (\"càng… càng tốt\") → biến thành con số cụ thể + chi phí lỗi",
+   "body": [
+    "Kiến trúc sư phải **làm cụ thể hoá yêu cầu** trước khi thiết kế."
+   ]
+  },
+  "ask": {
+   "title": "\"Càng chính xác càng tốt\"",
+   "body": "Đề hỏi kiến trúc sư xử lý yêu cầu không có ngưỡng như thế nào."
+  },
+  "lesson": "1-1-tu-bai-toan-den-giai-phap"
+ },
+ "ccar-p-m3-5": {
+  "q": "Hai thành phần đều chạy đúng riêng lẻ nhưng hệ thống thỉnh thoảng lỗi ở chỗ giao nhau giữa chúng. Điều này gợi ý gì?",
+  "opts": {
+   "A": "Model lớn hơn không định nghĩa được giao diện.",
+   "B": "Hợp đồng (contract) giữa hai thành phần chưa được đặc tả đủ, nhất là ở ca biên và ca lỗi.",
+   "C": "Thêm thành phần không định nghĩa giao diện.",
+   "D": "Coi là lỗi tạm thời rồi retry chỉ che giấu vấn đề."
+  },
+  "tip": {
+   "title": "Lỗi ở ranh giới giữa hai phần đúng → contract chưa rõ",
+   "body": [
+    "Đặc tả **schema, ca biên, ca lỗi** cho phần chuyển giao giữa các thành phần/agent."
+   ]
+  },
+  "ask": {
+   "title": "Lỗi chập chờn ở chỗ giao giữa hai thành phần",
+   "body": "Đề hỏi nguyên nhân có khả năng nhất."
+  },
+  "lesson": "1-5-chia-nho-bai-toan"
+ },
+ "ccar-p-m3-6": {
+  "q": "Một thiết kế đề xuất lưu mọi tương tác với model vô thời hạn. Kiến trúc sư nên nêu vấn đề gì?",
+  "opts": {
+   "A": "Lưu giữ không bao giờ \"an toàn sẵn\". Nó tạo ra nghĩa vụ và rủi ro.",
+   "B": "Chi phí lưu trữ là chuyện nhỏ so với rủi ro.",
+   "C": "Tốc độ hệ thống là chuyện nhỏ so với rủi ro.",
+   "D": "Vì sao cần dữ liệu đó, giữ bao lâu, và việc lưu giữ tạo ra nghĩa vụ gì. Mục đích và thời hạn phải biện minh được cho việc lưu."
+  },
+  "tip": {
+   "title": "Lưu dữ liệu → hỏi mục đích, thời hạn, nghĩa vụ",
+   "body": [
+    "Retention luôn đi kèm **nghĩa vụ** (bảo vệ, xoá theo yêu cầu, rò rỉ). Đừng chọn \"giữ hết cho chắc\"."
+   ]
+  },
+  "ask": {
+   "title": "Lưu mọi tương tác vô thời hạn",
+   "body": "Đề hỏi điều kiến trúc sư cần nêu ra."
+  },
+  "lesson": "5-4-tuan-thu-quy-dinh"
+ },
+ "ccar-p-m3-7": {
+  "q": "Giải pháp nên xử lý thế nào khi model tự tin nhưng sai?",
+  "opts": {
+   "A": "Thiết kế để các output có hệ quả được kiểm chứng bằng một nguồn độc lập với model. Chỉ có tính độc lập mới bắt được lỗi tự tin.",
+   "B": "Độ tự tin không phải bằng chứng.",
+   "C": "Model tự kiểm tra lại không phải kiểm chứng độc lập.",
+   "D": "Hai model có thể cùng đồng ý và cùng sai."
+  },
+  "tip": {
+   "title": "Confident but wrong → kiểm chứng độc lập với model",
+   "body": [
+    "Loại mọi cách dựa vào chính model: tự tin, tự kiểm, nhiều model đồng thuận. Chọn **nguồn độc lập** (dữ liệu gốc, code, người)."
+   ]
+  },
+  "ask": {
+   "title": "Model tự tin nhưng sai",
+   "body": "Đề hỏi cách thiết kế để phòng ngừa."
+  },
+  "lesson": "5-2-rui-ro-va-cach-hong"
+ },
+ "ccar-p-m3-8": {
+  "q": "Kết quả đánh giá cho thấy độ chính xác 94%. Cần biết thêm gì trước khi dùng con số này để hành động?",
+  "opts": {
+   "A": "Phiên bản model không mô tả rủi ro.",
+   "B": "Chi phí token của bài đánh giá không mô tả rủi ro.",
+   "C": "6% còn lại trông như thế nào, và mỗi lỗi gây thiệt hại bao nhiêu. Tỷ lệ tổng chỉ có nghĩa khi đi kèm hình dạng và chi phí của lỗi.",
+   "D": "Thời gian chạy đánh giá không mô tả rủi ro."
+  },
+  "tip": {
+   "title": "Một con số accuracy → hỏi lỗi trông thế nào và tốn bao nhiêu",
+   "body": [
+    "94% có thể ổn hoặc thảm hoạ tuỳ **6% sai rơi vào đâu**. Phân tích lỗi (error analysis) luôn đi kèm con số tổng."
+   ]
+  },
+  "ask": {
+   "title": "Chính xác 94% đã đủ để quyết định chưa?",
+   "body": "Đề hỏi thông tin cần bổ sung."
+  },
+  "lesson": "4-1-chi-so-danh-gia"
+ },
+ "ccar-p-m3-9": {
+  "q": "Khi phiên bản model bên dưới một giải pháp production được cập nhật, điều gì nên xảy ra?",
+  "opts": {
+   "A": "Giả định tương thích là không an toàn.",
+   "B": "Tăng giám sát vẫn là phát hiện sau khi người dùng bị ảnh hưởng.",
+   "C": "Rollback khi khiếu nại tăng cũng là phát hiện muộn.",
+   "D": "Chạy lại bộ đánh giá trước khi thay đổi đến với lưu lượng production, vì thay đổi thứ quyết định hành vi làm phép đo cũ mất hiệu lực."
+  },
+  "tip": {
+   "title": "Đổi model → chạy lại eval TRƯỚC khi lên production",
+   "body": [
+    "Kết hợp với việc **ghim phiên bản model**: chỉ chuyển sau khi eval qua."
+   ]
+  },
+  "ask": {
+   "title": "Model được nâng cấp phiên bản",
+   "body": "Đề hỏi việc cần làm trước khi phiên bản mới phục vụ người dùng."
+  },
+  "lesson": "4-6-giam-sat-van-hanh"
+ },
+ "ccar-p-m3-10": {
+  "q": "Một bên liên quan hỏi vì sao không thể tự động hoá hoàn toàn giải pháp. Câu trả lời hữu ích nhất là gì?",
+  "opts": {
+   "A": "\"Công nghệ chưa sẵn sàng\" là chung chung, không hành động được.",
+   "B": "\"Tự động hoá luôn rủi ro\" là khẳng định chung chung.",
+   "C": "Chỉ rõ những quyết định cụ thể nào gắn trách nhiệm hoặc không kiểm chứng được, và tự động hoá chúng sẽ gây rủi ro gì. Ranh giới cụ thể, có lập luận thì hành động được và xem lại được.",
+   "D": "Ngân sách không phải lý do thật."
+  },
+  "tip": {
+   "title": "Giải thích cho stakeholder → cụ thể, có lý do, xem lại được",
+   "body": [
+    "Domain 6: câu trả lời tốt chỉ ra **quyết định nào**, **vì sao**, **rủi ro gì**. Loại các câu chung chung."
+   ]
+  },
+  "ask": {
+   "title": "Vì sao không tự động hoá 100%",
+   "body": "Đề hỏi cách trả lời hữu ích nhất cho stakeholder."
+  },
+  "lesson": "6-2-trinh-bay-quyet-dinh"
+ },
+ "ccar-p-m3-11": {
+  "q": "Cần bàn giao những gì cùng giải pháp để nó sống qua năm đầu tiên?",
+  "opts": {
+   "A": "Source code thôi thì không có cách đo và duy trì chất lượng.",
+   "B": "Bộ đánh giá, tiêu chí, người sở hữu, và quy trình kiểm tra lại định kỳ. Sự liên tục phụ thuộc vào khả năng đo và duy trì, có người chịu trách nhiệm.",
+   "C": "Video demo không giúp kiểm chứng hay duy trì.",
+   "D": "Danh sách prompt không kèm cách kiểm chứng chúng."
+  },
+  "tip": {
+   "title": "Bàn giao để sống lâu → eval + tiêu chí + owner + routine",
+   "body": [
+    "Giống câu luyện tập p29, thêm **evaluation suite**."
+   ]
+  },
+  "ask": {
+   "title": "Bàn giao gì để giải pháp tồn tại năm đầu",
+   "body": "Đề hỏi những thứ cần bàn giao."
+  },
+  "lesson": "6-5-vong-doi-du-an"
+ },
+ "ccar-p-m3-12": {
+  "q": "Một đội báo giải pháp tệ đi, nhưng không có gì được triển khai mới. Giải thích khả dĩ nhất là gì?",
+  "opts": {
+   "A": "Đầu vào hoặc cách sử dụng xung quanh đã thay đổi. Hành vi thay đổi theo thứ được đưa vào, và trôi phân phối dữ liệu (drift) là nguyên nhân thường gặp.",
+   "B": "Model không tự xuống cấp khi không có thay đổi.",
+   "C": "Prompt không \"mòn\" đi.",
+   "D": "Bộ đánh giá ban đầu không phải nghi phạm đầu tiên."
+  },
+  "tip": {
+   "title": "Tệ đi mà không deploy gì → data drift",
+   "body": [
+    "Không có gì trong hệ thống đổi → thứ đổi là **đầu vào/người dùng**."
+   ]
+  },
+  "ask": {
+   "title": "Chất lượng giảm dù không deploy",
+   "body": "Đề hỏi nguyên nhân khả dĩ nhất."
+  },
+  "lesson": "4-4-chan-doan-su-co"
+ },
+ "ccar-p-m3-13": {
+  "q": "Nên quản lý thế nào những prompt quyết định hành vi production?",
+  "opts": {
+   "A": "Quản lý phiên bản, có người sở hữu, có review, chạy đánh giá khi thay đổi, giống như code.",
+   "B": "Sửa trực tiếp khi ai đó thấy lỗi là mời gọi thay đổi không được review.",
+   "C": "Để trong tài liệu chung cho dễ sửa cũng vậy.",
+   "D": "Đóng băng sau khi ra mắt chặn cải tiến."
+  },
+  "tip": {
+   "title": "Prompt production = code",
+   "body": [
+    "Giống câu luyện tập p32."
+   ]
+  },
+  "ask": {
+   "title": "Quản lý prompt production",
+   "body": "Đề hỏi cách quản lý đúng."
+  },
+  "lesson": "2-5-tai-su-dung-prompt"
+ },
+ "ccar-p-m3-14": {
+  "q": "Một tổ chức hỏi cách đo xem Claude Code có xứng chi phí license không. Nên đo gì?",
+  "opts": {
+   "A": "Số lần gọi tool đo hoạt động, không đo giá trị.",
+   "B": "Mức thay đổi ở các kết quả giao hàng mà công cụ được đưa vào để cải thiện. Giá trị là kết quả được dịch chuyển.",
+   "C": "Số người onboard đo mức áp dụng.",
+   "D": "Số giờ dùng công cụ đo mức sử dụng."
+  },
+  "tip": {
+   "title": "Đáng tiền không → đo outcome",
+   "body": [
+    "Giống câu luyện tập p34."
+   ]
+  },
+  "ask": {
+   "title": "Claude Code có đáng chi phí license?",
+   "body": "Đề hỏi chỉ số nên đo."
+  },
+  "lesson": "7-2-quy-trinh-lap-trinh-voi-ai"
+ },
+ "ccar-p-m3-15": {
+  "q": "Điều gì thường cản trở một đội đạt kết quả tốt với Claude Code trên codebase có sẵn?",
+  "opts": {
+   "A": "Kích thước repo tự nó không ngăn kết quả tốt.",
+   "B": "Ngôn ngữ lập trình tự nó không ngăn kết quả tốt.",
+   "C": "Thiếu context được commit mô tả quy ước và cấu trúc. Đây là nguyên nhân thường gặp, và cũng là thứ đội sửa được.",
+   "D": "Số người đóng góp tự nó không ngăn kết quả tốt."
+  },
+  "tip": {
+   "title": "Kết quả kém trên codebase có sẵn → thiếu context (CLAUDE.md, quy ước)",
+   "body": [
+    "Giống câu luyện tập p35."
+   ]
+  },
+  "ask": {
+   "title": "Vì sao Claude Code kém trên codebase cũ",
+   "body": "Đề hỏi trở ngại thường gặp nhất."
+  },
+  "lesson": "7-1-cau-hinh-claude-code-cho-team"
  }
 }
