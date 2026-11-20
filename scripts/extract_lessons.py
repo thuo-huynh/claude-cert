@@ -6,7 +6,8 @@ import html, json, os, re, sys
 
 ROOT = os.path.join(os.path.dirname(__file__), '..', 'content')
 DROP = [r'<nav class="crumb".*?</nav>', r'<nav class="lnav".*?</nav>',
-        r'<div class="ctaband">.*?</div>', r'<ul class="lchips">.*?</ul>']
+        r'<div class="ctaband">.*?</div>', r'<ul class="lchips">.*?</ul>',
+        r'<section class="lsources".*?</section>']
 
 
 def text(s):
