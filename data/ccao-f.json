@@ -3956,38 +3956,9 @@
    "why": ""
   },
   {
-   "id": "ccao-f-b1096",
-   "set": "practice",
-   "n": 131,
-   "domain": null,
-   "q": "You are a senior analyst using Claude to analyze requirements from several stakeholder sources. \nWhich is the correct order of steps? \n(1) Group related requirements and flag conflicts or ambiguities for stakeholder review. \n(2) Validate the structured output against the original sources for accuracy and completeness. \n(3) Submit the consolidated inputs to Claude with a structured extraction prompt. \n(4) Gather and label the source materials so each requirement can be traced. \n(5) Document the final requirements set with source traceability and status.",
-   "options": [
-    {
-     "k": "A",
-     "t": "4, 1, 3, 2, 5"
-    },
-    {
-     "k": "B",
-     "t": "4, 3, 1, 2, 5"
-    },
-    {
-     "k": "C",
-     "t": "1, 4, 3, 2, 5"
-    },
-    {
-     "k": "D",
-     "t": "3, 4, 1, 2, 5"
-    }
-   ],
-   "answer": [
-    "A"
-   ],
-   "why": ""
-  },
-  {
    "id": "ccao-f-b1097",
    "set": "practice",
-   "n": 132,
+   "n": 131,
    "domain": null,
    "q": "A Claude associate is applying the AI Fluency Framework Diligence competency to ongoing Claude usage. \nWhich practice best reflects Diligence in a governance context?",
    "options": [
@@ -4016,7 +3987,7 @@
   {
    "id": "ccao-f-b1098",
    "set": "practice",
-   "n": 133,
+   "n": 132,
    "domain": null,
    "q": "You are a procurement associate decomposing a vendor-evaluation task. \nWhich dependency ordering reflects sound sequencing?",
    "options": [
@@ -4045,7 +4016,7 @@
   {
    "id": "ccao-f-b1099",
    "set": "practice",
-   "n": 134,
+   "n": 133,
    "domain": null,
    "q": "After importing context from another AI platform into Claude's Memory, a knowledge worker notices that some imported details did not appear in subsequent responses. \nWhich explanation is most accurate?",
    "options": [
@@ -4074,7 +4045,7 @@
   {
    "id": "ccao-f-b1100",
    "set": "practice",
-   "n": 135,
+   "n": 134,
    "domain": null,
    "q": "You are decomposing a “build a customer journey map” request. \nWhich is the correct order of decomposed steps? \n(1) Identify the touchpoints the customer encounters during each stage. \n(2) Define the persona and the journey scope to be mapped. \n(3) Capture pain points and opportunities at each touchpoint. \n(4) Synthesize the findings into the final journey-map artifact. \n(5) Identify the major stages the persona moves through.",
    "options": [
@@ -4103,7 +4074,7 @@
   {
    "id": "ccao-f-b1101",
    "set": "practice",
-   "n": 136,
+   "n": 135,
    "domain": null,
    "q": "A knowledge worker is applying the AI Fluency Framework Description competency while revising an underperforming prompt. \nWhich revision best reflects Description principles?",
    "options": [
@@ -4132,7 +4103,7 @@
   {
    "id": "ccao-f-b1102",
    "set": "practice",
-   "n": 137,
+   "n": 136,
    "domain": null,
    "q": "You are validating evaluation criteria proposed for a Claude-generated business brief. \nWhich three criteria are valid for evaluating a Claude-generated brief? (Choose three.) Each correct answer presents part of the solution.",
    "options": [
@@ -4167,7 +4138,7 @@
   {
    "id": "ccao-f-b1103",
    "set": "practice",
-   "n": 138,
+   "n": 137,
    "domain": null,
    "q": "You are an operations team member preparing inputs to summarize customer feedback. The feedback file mixes public quotations with personal contact details. \nWhich preparation approach is most appropriate?",
    "options": [
@@ -4196,7 +4167,7 @@
   {
    "id": "ccao-f-b1104",
    "set": "practice",
-   "n": 139,
+   "n": 138,
    "domain": null,
    "q": "Production monitoring shows that follow-up queries like “summarize what we learned about market trends” consistently take 40+ seconds. Investigation reveals the coordinator spawns the synthesis subagent for each summarization request, passing 80K+ tokens of accumulated findings. The coordinator already has these findings in its context from orchestrating the research. \nWhat’s the most effective way to improve response time for these follow-up summaries?",
    "options": [
@@ -4225,7 +4196,7 @@
   {
    "id": "ccao-f-b1105",
    "set": "practice",
-   "n": 140,
+   "n": 139,
    "domain": null,
    "q": "You are a knowledge worker transitioning from a long, drifting conversation into a fresh focused session. \nWhich is the correct order of transition steps? \n(1) Begin a new chat and paste the summary as its starting context. \n(2) Summarize the goals, key decisions, and open questions from the long conversation. \n(3) Identify which references should persist beyond the current chat. \n(4) Move persistent references into a Project’s knowledge base or attach them as needed. \n(5) Confirm the new chat is on-task before continuing the work.",
    "options": [
@@ -4254,7 +4225,7 @@
   {
    "id": "ccao-f-b1106",
    "set": "practice",
-   "n": 141,
+   "n": 140,
    "domain": null,
    "q": "An HR business partner is building a long-running workspace where a team handbook, a leveling guide, and a policies-FAQ document will be referenced across many separate chats by several team members. \nWhich Claude feature is designed for this use case?",
    "options": [
@@ -4283,7 +4254,7 @@
   {
    "id": "ccao-f-b1107",
    "set": "practice",
-   "n": 142,
+   "n": 141,
    "domain": null,
    "q": "A customer sends: “This is frustrating. I’ve explained my issue twice and nothing is being resolved. I want to talk to a real person NOW.” The agent has not yet called any tools to investigate their account. \nWhat should the agent do?",
    "options": [
@@ -4312,7 +4283,7 @@
   {
    "id": "ccao-f-b1108",
    "set": "practice",
-   "n": 143,
+   "n": 142,
    "domain": null,
    "q": "A business analyst is converting a sticky-note request from a stakeholder into a structured prompt for Claude. \nWhich is the correct order of conversion steps? \n(1) Confirm the audience and the decision the response must support. \n(2) Submit the structured prompt to Claude. \n(3) Identify the underlying task hidden in the sticky-note language. \n(4) Specify the desired length, tone, and output format. \n(5) Add the supporting facts and constraints relevant to the task.",
    "options": [
@@ -4341,7 +4312,7 @@
   {
    "id": "ccao-f-b1110",
    "set": "practice",
-   "n": 144,
+   "n": 143,
    "domain": null,
    "q": "You are a business analyst reviewing prompt drafts written by teammates. Which two elements belong in a well-structured prompt for a business task? (Choose two.) Each correct answer presents part of the solution.",
    "options": [
@@ -4375,7 +4346,7 @@
   {
    "id": "ccao-f-b1112",
    "set": "practice",
-   "n": 145,
+   "n": 144,
    "domain": null,
    "q": "A strategy manager is reviewing a Claude-generated recommendation to consolidate the company’s two regional warehouses into one. \nThe recommendation cites three sources that estimate cost savings and one source confirming that consolidation is operationally feasible. \nTwo of the source documents also contain estimates of one-time transition costs and a stakeholder concern about regional service levels, neither of which appears in the recommendation. \nWhich concern is most warranted?",
    "options": [
@@ -4404,7 +4375,7 @@
   {
    "id": "ccao-f-b1113",
    "set": "practice",
-   "n": 146,
+   "n": 145,
    "domain": null,
    "q": "You are a marketing manager deciding what to include in custom instructions for a writing-focused Project. \nWhich two items belong in the custom instructions? (Choose two.) Each correct answer presents a complete solution.",
    "options": [
@@ -4438,7 +4409,7 @@
   {
    "id": "ccao-f-b1114",
    "set": "practice",
-   "n": 147,
+   "n": 146,
    "domain": null,
    "q": "You are an operations lead sorting proposed Claude use cases by whether they are acceptable for your team to pursue. \nWhich two proposed use cases are acceptable for the team to pursue with Claude? (Choose two.) Each correct answer presents a complete solution.",
    "options": [
@@ -4472,7 +4443,7 @@
   {
    "id": "ccao-f-b1115",
    "set": "practice",
-   "n": 148,
+   "n": 147,
    "domain": null,
    "q": "You are an analyst working on a one-off complex problem that genuinely requires multi-step reasoning over an extended chain of thought. \nWhich model is best suited to this work?",
    "options": [
@@ -4501,7 +4472,7 @@
   {
    "id": "ccao-f-b1116",
    "set": "practice",
-   "n": 149,
+   "n": 148,
    "domain": null,
    "q": "Before uploading a customer file for a Code Execution analysis, a customer-success associate at Noventra, Ltd. is reviewing the planned task. \nWhich two practices best align with sound data handling? (Choose two.)",
    "options": [
@@ -4535,7 +4506,7 @@
   {
    "id": "ccao-f-b1117",
    "set": "practice",
-   "n": 150,
+   "n": 149,
    "domain": null,
    "q": "You are a knowledge worker evaluating which Claude feature matches each proposed use case. \nWhich two feature-to-use-case matches are appropriate? (Select two.) Each correct answer presents a complete solution.",
    "options": [
@@ -4569,7 +4540,7 @@
   {
    "id": "ccao-f-b1118",
    "set": "practice",
-   "n": 151,
+   "n": 150,
    "domain": null,
    "q": "A marketing manager is preparing a constrained brainstorming task: \n- produce ten campaign ideas, \n- each tied to a stated audience segment and each fitting one of three defined budget bands. Which prompting approach fits the task?",
    "options": [
@@ -4598,7 +4569,7 @@
   {
    "id": "ccao-f-b1244",
    "set": "practice",
-   "n": 152,
+   "n": 151,
    "domain": null,
    "q": "A learning specialist is configuring a Project for course-design work. \nTheir organization has an internal instructional-design standard and a preferred output structure for lesson outlines. \nWhich custom-instruction set best supports this use case?",
    "options": [
@@ -4627,7 +4598,7 @@
   {
    "id": "ccao-f-b1245",
    "set": "practice",
-   "n": 153,
+   "n": 152,
    "domain": null,
    "q": "You are designing a checklist for evaluating Claude outputs and must complete the upstream steps before scoring an output. \nWhich two steps must be completed BEFORE scoring a Claude output against the checklist? (Choose two.) Each correct answer presents part of the solution.",
    "options": [
@@ -4661,7 +4632,7 @@
   {
    "id": "ccao-f-b1246",
    "set": "practice",
-   "n": 154,
+   "n": 153,
    "domain": null,
    "q": "A knowledge worker notices that a Claude output may have repeated a confidential financial figure from an internal source that the user was told to treat as restricted. \nThe output has not yet been shared outside the user. \nWhich immediate action is most appropriate?",
    "options": [
@@ -4691,7 +4662,7 @@
   {
    "id": "ccao-f-b1251",
    "set": "practice",
-   "n": 155,
+   "n": 154,
    "domain": null,
    "q": "A procurement manager is evaluating a Claude-generated vendor proposal summary against the original RFP. \nThe RFP lists twelve numbered requirements across pricing, security, and service levels. \nHow should the summary be checked for completeness?",
    "options": [
@@ -4720,7 +4691,7 @@
   {
    "id": "ccao-f-b1252",
    "set": "practice",
-   "n": 156,
+   "n": 155,
    "domain": null,
    "q": "You are a product manager asking Claude to produce an interactive prototype of a small landing-page mockup that the team will iterate on and share. Which Claude feature is best suited to this output?",
    "options": [
@@ -4749,7 +4720,7 @@
   {
    "id": "ccao-f-b1253",
    "set": "practice",
-   "n": 157,
+   "n": 156,
    "domain": null,
    "q": "You are an operations lead choosing actions when a Claude conversation has degraded in quality. \nWhich recovery action should be tried first when conversation quality degrades?",
    "options": [
@@ -4778,7 +4749,7 @@
   {
    "id": "ccao-f-b1254",
    "set": "practice",
-   "n": 158,
+   "n": 157,
    "domain": null,
    "q": "A knowledge worker is explaining context-window basics to a teammate. \nWhich statement most accurately describes a context window?",
    "options": [
@@ -4807,7 +4778,7 @@
   {
    "id": "ccao-f-b1255",
    "set": "practice",
-   "n": 159,
+   "n": 158,
    "domain": null,
    "q": "A product manager is using Claude to ideate options for a new self-service portal. \nThe team needs breadth before narrowing and will evaluate trade-offs across the options in a separate session. \nWhich prompting strategy fits this stage?",
    "options": [
@@ -4836,7 +4807,7 @@
   {
    "id": "ccao-f-b1256",
    "set": "practice",
-   "n": 160,
+   "n": 159,
    "domain": null,
    "q": "A prompt describes a multi-step setup process, such as configuring an environment and then running a script, but Claude sometimes performs the steps out of order. \nWhat change would make the required order unambiguous?",
    "options": [
@@ -4865,7 +4836,7 @@
   {
    "id": "ccao-f-b1257",
    "set": "practice",
-   "n": 161,
+   "n": 160,
    "domain": null,
    "q": "A marketing manager needs to draft a persuasive email campaign to launch a new product. \nThe email should capture attention, highlight benefits, and include a call to action. \nWhich prompting approach is best?",
    "options": [
@@ -4894,7 +4865,7 @@
   {
    "id": "ccao-f-b1258",
    "set": "practice",
-   "n": 162,
+   "n": 161,
    "domain": null,
    "q": "A business analyst is deciding whether to send one large request or break it into stages. \nWhich two features of a request are the strongest signals that it should be decomposed? Select two.",
    "options": [
@@ -4928,7 +4899,7 @@
   {
    "id": "ccao-f-b1259",
    "set": "practice",
-   "n": 163,
+   "n": 162,
    "domain": null,
    "q": "A support lead finds a Claude-drafted troubleshooting article accurate but written at a reading level too advanced for the average customer. \nWhich follow-up instruction best refines the draft without sacrificing accuracy?",
    "options": [
@@ -4957,7 +4928,7 @@
   {
    "id": "ccao-f-b1260",
    "set": "practice",
-   "n": 164,
+   "n": 163,
    "domain": null,
    "q": "A retention lead asked why cancellations rose sharply in the last quarter. \nThe answer explains at length what cancellation rates are and how they are generally measured. \nHow should she judge this output?",
    "options": [
@@ -4986,7 +4957,7 @@
   {
    "id": "ccao-f-b1261",
    "set": "practice",
-   "n": 165,
+   "n": 164,
    "domain": null,
    "q": "A Claude draft attributes a sentence to a named industry report as a direct quotation. \nWhat is the appropriate validation step?",
    "options": [
@@ -5015,7 +4986,7 @@
   {
    "id": "ccao-f-b1262",
    "set": "practice",
-   "n": 166,
+   "n": 165,
    "domain": null,
    "q": "A manager needs a comparison of six suppliers across five criteria. \nThe information is currently spread across several separate Claude answers. \nWhat should she do first?",
    "options": [
@@ -5044,7 +5015,7 @@
   {
    "id": "ccao-f-b1263",
    "set": "practice",
-   "n": 167,
+   "n": 166,
    "domain": null,
    "q": "A communications officer must publish a Claude-drafted market briefing on the company blog within the hour. \nClaude used web search to produce it, and every figure in the draft carries a citation.\nWhat is the appropriate first step before she publishes?",
    "options": [
@@ -5073,7 +5044,7 @@
   {
    "id": "ccao-f-b1264",
    "set": "practice",
-   "n": 168,
+   "n": 167,
    "domain": null,
    "q": "A communications assistant receives an answer containing a clearly incorrect statement about her organisation. \nShe corrects her own draft in a follow-up message, and also wants the problem itself recorded rather than just worked around. \nWhat should she do?",
    "options": [
@@ -5102,7 +5073,7 @@
   {
    "id": "ccao-f-b1265",
    "set": "practice",
-   "n": 169,
+   "n": 168,
    "domain": null,
    "q": "A marketer is midway through a one-off brainstorm that will not be revisited, and the conversation is approaching its limit. \nWhat is the most appropriate action?",
    "options": [
@@ -5131,7 +5102,7 @@
   {
    "id": "ccao-f-b1266",
    "set": "practice",
-   "n": 170,
+   "n": 169,
    "domain": null,
    "q": "A market analyst must produce a competitor briefing drawn from many public sources, and the team will keep editing that briefing for weeks afterwards. \nWhich two Claude features fit this job? Select two.",
    "options": [
@@ -5165,7 +5136,7 @@
   {
    "id": "ccao-f-b1267",
    "set": "practice",
-   "n": 171,
+   "n": 170,
    "domain": null,
    "q": "A support operations lead must classify a large daily backlog of short inbound messages, and separately needs one deep analysis of a tangled contract dispute. \nWhich two choices fit? Select two.",
    "options": [
@@ -5199,7 +5170,7 @@
   {
    "id": "ccao-f-b1268",
    "set": "practice",
-   "n": 172,
+   "n": 171,
    "domain": null,
    "q": "A new team member asks how the Claude model tiers actually differ from one another in everyday use. \nWhich two statements are accurate? Select two.",
    "options": [
@@ -5233,7 +5204,7 @@
   {
    "id": "ccao-f-b1269",
    "set": "practice",
-   "n": 173,
+   "n": 172,
    "domain": null,
    "q": "A team is setting up a new recurring weekly task and has to decide how much reasoning depth it needs.\nWhich sequence is correct?",
    "options": [
@@ -5262,7 +5233,7 @@
   {
    "id": "ccao-f-b1270",
    "set": "practice",
-   "n": 174,
+   "n": 173,
    "domain": null,
    "q": "A team runs two workloads that are alike in volume and subject matter. \nOne is edited line by line by a specialist before use; the other is published automatically with no human reading it. \nWhich consideration should weigh most heavily when choosing a tier for each?",
    "options": [
@@ -5291,7 +5262,7 @@
   {
    "id": "ccao-f-b1271",
    "set": "practice",
-   "n": 175,
+   "n": 174,
    "domain": null,
    "q": "Reviewing a backlog of intake forms, an analyst notices that most entries name a solution rather than a need, for example \"we need a dashboard.\" \nHow can Claude best help with this backlog?",
    "options": [
@@ -5320,7 +5291,7 @@
   {
    "id": "ccao-f-b1272",
    "set": "practice",
-   "n": 176,
+   "n": 175,
    "domain": null,
    "q": "In a pilot of a new Claude-assisted briefing arrangement, three of eight testers report that the output is \"not quite right\" but say nothing more specific. \nWhat should the pilot's owner do first?",
    "options": [
@@ -5349,7 +5320,7 @@
   {
    "id": "ccao-f-b1273",
    "set": "practice",
-   "n": 177,
+   "n": 176,
    "domain": null,
    "q": "A manager is about to tell her team that Claude will now produce the first draft of every incident report.\nWhat should the announcement make clear above all?",
    "options": [
@@ -5378,7 +5349,7 @@
   {
    "id": "ccao-f-b1274",
    "set": "practice",
-   "n": 178,
+   "n": 177,
    "domain": null,
    "q": "A strategy lead is planning a market-entry study and wants Claude to help with the research phase of it.\nWhich two approaches are sound? Select two.",
    "options": [
@@ -5412,7 +5383,7 @@
   {
    "id": "ccao-f-b1275",
    "set": "practice",
-   "n": 179,
+   "n": 178,
    "domain": null,
    "q": "An analyst is presenting a Claude-assisted workflow to sceptical senior stakeholders next week. \nWhich two things should the presentation include? Select two.",
    "options": [
@@ -5446,7 +5417,7 @@
   {
    "id": "ccao-f-b1276",
    "set": "practice",
-   "n": 180,
+   "n": 179,
    "domain": null,
    "q": "An operations manager has two things to add to a project: \n- the team's two-page approved abbreviation list, \n- and the rule that answers must never use abbreviations outside that list. What is the best placement?",
    "options": [
@@ -5475,7 +5446,7 @@
   {
    "id": "ccao-f-b1277",
    "set": "practice",
-   "n": 181,
+   "n": 180,
    "domain": null,
    "q": "A project shared with a Team plan workspace has just had its escalation matrix replaced with a new version. \nWhat else should the project owner do?",
    "options": [
@@ -5504,7 +5475,7 @@
   {
    "id": "ccao-f-b1278",
    "set": "practice",
-   "n": 182,
+   "n": 181,
    "domain": null,
    "q": "A policy team keeps a handbook in a Drive folder that changes weekly, and also has one annual report that never changes. \nWhich two set-ups fit best? Select two.",
    "options": [
@@ -5538,7 +5509,7 @@
   {
    "id": "ccao-f-b1279",
    "set": "practice",
-   "n": 183,
+   "n": 182,
    "domain": null,
    "q": "An operations lead creates a project on an Enterprise plan and shares it with the whole organisation. \nTo save time she uploads a complete team folder into the project knowledge, and that folder includes a spreadsheet of individual salary bands. \nWhat is the greatest risk?",
    "options": [
@@ -5567,7 +5538,7 @@
   {
    "id": "ccao-f-b1280",
    "set": "practice",
-   "n": 184,
+   "n": 183,
    "domain": null,
    "q": "A developer integrating Claude into an internal analytics agent wants to give it broad, unsupervised authority to automatically send emails and modify production database records without any human approval step. \nWhat ethical concern does this design most directly raise?",
    "options": [
@@ -5596,7 +5567,7 @@
   {
    "id": "ccao-f-b1281",
    "set": "practice",
-   "n": 185,
+   "n": 184,
    "domain": null,
    "q": "A Team-plan owner is uneasy about conversation content leaving the organisation when members rate Claude's answers. \nWhat control is available to them?",
    "options": [
@@ -5625,7 +5596,7 @@
   {
    "id": "ccao-f-b1282",
    "set": "practice",
-   "n": 186,
+   "n": 185,
    "domain": null,
    "q": "A team lead asks whether using incognito chats on his personal plan makes it acceptable to paste regulated customer records into Claude. \nWhat is the best response?",
    "options": [
@@ -5654,7 +5625,7 @@
   {
    "id": "ccao-f-b1283",
    "set": "practice",
-   "n": 187,
+   "n": 186,
    "domain": null,
    "q": "A consultant is about to send a client a report she drafted with Claude. \nHer firm's AI policy sets out several requirements for client-facing work produced with AI, and she is unsure which of them apply to a report of this kind. \nWhat should she do first?",
    "options": [
@@ -5683,7 +5654,7 @@
   {
    "id": "ccao-f-b1284",
    "set": "practice",
-   "n": 188,
+   "n": 187,
    "domain": null,
    "q": "A school district's operations team wants Claude to work through the admissions criteria and produce the letters telling families whether their child has a place at an oversubscribed school. \nWhat should the team do first?",
    "options": [
@@ -5712,7 +5683,7 @@
   {
    "id": "ccao-f-b1285",
    "set": "practice",
-   "n": 189,
+   "n": 188,
    "domain": null,
    "q": "A market research manager has been asked to summarise survey free-text responses that include respondents' names and employers, using the company's Claude for Work plan. \nIn which order should these steps be taken?",
    "options": [
@@ -5741,7 +5712,7 @@
   {
    "id": "ccao-f-b1286",
    "set": "practice",
-   "n": 190,
+   "n": 189,
    "domain": null,
    "q": "A support-ticket triage prompt gives Claude a single sentence: \"Categorize this ticket.\" \nCategories come back inconsistent between runs, and the team wants a fix that addresses the root cause rather than adding post-processing. \nWhat should they change first?",
    "options": [
@@ -5770,7 +5741,7 @@
   {
    "id": "ccao-f-b1287",
    "set": "practice",
-   "n": 191,
+   "n": 190,
    "domain": null,
    "q": "An analyst wants to get more done inside her weekly allowance without the quality of her work dropping. \nWhich sequence of working habits is correct?",
    "options": [
@@ -5799,7 +5770,7 @@
   {
    "id": "ccao-f-b1288",
    "set": "practice",
-   "n": 192,
+   "n": 191,
    "domain": null,
    "q": "A researcher is doing straightforward drafting work while several connectors and tools she does not need for it remain switched on. \nWhat is a reasonable step to make routine work leaner?",
    "options": [
@@ -5828,7 +5799,7 @@
   {
    "id": "ccao-f-b1289",
    "set": "practice",
-   "n": 193,
+   "n": 192,
    "domain": null,
    "q": "Several engineers tell a site coordinator that Claude's shift-handover digests 'skip the open risks', but nobody says which risks or which shifts. \nWhich two steps should the coordinator take first? Select two.",
    "options": [

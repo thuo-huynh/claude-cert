@@ -7,7 +7,15 @@
    "C": "Loại bỏ toàn bộ hướng dẫn workflow",
    "D": "Sử dụng các đường quyết định ngẫu nhiên"
   },
-  "exp": "Workflow đã biết rõ, các bước lặp lại thì dùng chuỗi prompt cố định (prompt chaining). Ổn định, dễ test, không cần agent tự khám phá."
+  "exp": "Workflow đã biết rõ, các bước lặp lại thì dùng chuỗi prompt cố định (prompt chaining). Ổn định, dễ test, không cần agent tự khám phá.",
+  "domain": 1,
+  "lesson": "1-1-workflow-hay-agent",
+  "tip": {
+   "title": "Quy trình biết trước, lặp lại → chuỗi prompt cố định",
+   "body": [
+    "Ổn định và dễ test hơn agent."
+   ]
+  }
  },
  "ccdv-f-b1120": {
   "q": "Một nhóm muốn có kết quả review pull request ổn định, tự động từ Claude Code.\nPhương pháp nào hỗ trợ tự động hóa tốt nhất?",
@@ -17,7 +25,15 @@
    "C": "Đăng toàn bộ phản hồi để review thủ công",
    "D": "Sử dụng JSON output với một schema được định nghĩa"
   },
-  "exp": "Muốn tự động hóa thì output phải parse được bằng máy: JSON theo schema định nghĩa trước. Heading markdown hay review thủ công không ổn định."
+  "exp": "Muốn tự động hóa thì output phải parse được bằng máy: JSON theo schema định nghĩa trước. Heading markdown hay review thủ công không ổn định.",
+  "domain": 3,
+  "lesson": "3-1-van-hanh-claude-code",
+  "tip": {
+   "title": "Tự động hoá review → JSON theo schema",
+   "body": [
+    "Máy phải parse được output."
+   ]
+  }
  },
  "ccdv-f-b1121": {
   "q": "Một nhóm cần cập nhật mọi file có đuôi `.fixture.json` trong một monorepo. Việc tìm kiếm từ “fixture” tạo ra nhiều kết quả nhiễu và bỏ sót các file thưa.\nNên áp dụng chiến lược tool use nào?",
@@ -27,7 +43,15 @@
    "C": "Đọc tất cả các file có thể trước khi tìm kiếm.",
    "D": "Dùng Grep với \"fixture\" và suy luận ra các file khớp."
   },
-  "exp": "Tìm file theo tên hoặc đuôi thì dùng Glob (`**/*.fixture.json`) rồi Read các file khớp. Grep tìm theo nội dung nên vừa nhiễu vừa sót."
+  "exp": "Tìm file theo tên hoặc đuôi thì dùng Glob (`**/*.fixture.json`) rồi Read các file khớp. Grep tìm theo nội dung nên vừa nhiễu vừa sót.",
+  "domain": 8,
+  "lesson": "8-3-tool-skill-hay-mcp",
+  "tip": {
+   "title": "Tìm theo tên/đuôi file → Glob rồi Read",
+   "body": [
+    "Grep tìm theo nội dung nên nhiễu và sót."
+   ]
+  }
  },
  "ccdv-f-b1122": {
   "q": "**Kịch bản**:\nDeveloper Productivity with Claude Job CI của bạn gọi Claude Code thành công và đăng một comment tóm tắt pull request duy nhất.\nNhóm hiện muốn có các comment inline tự động cho từng phát hiện, nhưng tích hợp thường xuyên bị hỏng vì Claude đôi khi thêm văn xuôi, đổi tên field, hoặc định dạng các phát hiện thành markdown.\nThay đổi nào hỗ trợ tự động hóa đáng tin cậy nhất?",
@@ -37,7 +61,15 @@
    "C": "Chạy Claude Code với `--output-format json` và `--json-schema`, sau đó ánh xạ các phát hiện đã được xác thực thành các comment inline trên PR.",
    "D": "Lưu các comment trước đó và yêu cầu Claude viết lại chúng thành các bản ghi."
   },
-  "exp": "Prompt \"chỉ trả JSON\" chưa đủ đảm bảo. `--output-format json` cùng `--json-schema` ép output đúng schema ngay ở tầng CLI, sau đó map findings đã validate thành inline comment."
+  "exp": "Prompt \"chỉ trả JSON\" chưa đủ đảm bảo. `--output-format json` cùng `--json-schema` ép output đúng schema ngay ở tầng CLI, sau đó map findings đã validate thành inline comment.",
+  "domain": 3,
+  "lesson": "3-1-van-hanh-claude-code",
+  "tip": {
+   "title": "Output CI hay vỡ format → --output-format json + --json-schema",
+   "body": [
+    "Dặn trong prompt chưa đủ đảm bảo."
+   ]
+  }
  },
  "ccdv-f-b1123": {
   "q": "**Kịch bản**:\nMulti-Agent Research System Subagent phân tích tài liệu nhận các file PDF và báo cáo do coordinator chọn từ một catalog đã được phê duyệt, nhưng nó có một tool truy xuất URL chung.\nĐôi khi nó theo các liên kết bên trong tài liệu để đến: l blog l trang đăng nhập l các bản tóm tắt HTML trùng lặp rồi trích dẫn các trang đó thay vì các nguồn đã được phê duyệt.\nThay đổi nào giải quyết vấn đề này tốt nhất?",
@@ -47,7 +79,15 @@
    "C": "Cung cấp thêm các tool web search cho subagent phân tích tài liệu, để nó có thể tự xác nhận các trang được liên kết có liên quan hay không.",
    "D": "Cho phép fetch_url với bất kỳ liên kết nào, sau đó để bước synthesis loại bỏ các trích dẫn có domain không nằm trong catalog đã phê duyệt."
   },
-  "exp": "Hạn chế ngay ở tầng tool, đừng chỉ dặn bằng prompt: thay fetch_url tổng quát bằng load_document chỉ nhận ID trong catalog hoặc URL được duyệt, có validate. Agent không còn khả năng đi lạc."
+  "exp": "Hạn chế ngay ở tầng tool, đừng chỉ dặn bằng prompt: thay fetch_url tổng quát bằng load_document chỉ nhận ID trong catalog hoặc URL được duyệt, có validate. Agent không còn khả năng đi lạc.",
+  "domain": 7,
+  "lesson": "7-2-guardrail-nhieu-lop",
+  "tip": {
+   "title": "Agent đi lạc tới nguồn không được duyệt → thay tool tổng quát bằng tool có validate",
+   "body": [
+    "Giới hạn ở tầng tool, không chỉ dặn."
+   ]
+  }
  },
  "ccdv-f-b1124": {
   "q": "Một coordinator khởi chạy các subagent để phân tích API handler, các thao tác ghi database và các scheduled job.\nCác báo cáo kiến trúc cuối cùng thường gắn các nhận định vào sai file hoặc thiếu phạm vi dòng.\nĐiều gì cải thiện độ tin cậy của việc handoff?",
@@ -57,7 +97,15 @@
    "C": "Yêu cầu synthesizer tái dựng các vị trí.",
    "D": "Yêu cầu các bản ghi handoff có cấu trúc gồm đường dẫn, symbol, phạm vi dòng và các đoạn bằng chứng."
   },
-  "exp": "Handoff giữa các agent phải là dữ liệu có cấu trúc: đường dẫn, symbol, khoảng dòng, đoạn bằng chứng. Như vậy synthesizer không phải đoán vị trí."
+  "exp": "Handoff giữa các agent phải là dữ liệu có cấu trúc: đường dẫn, symbol, khoảng dòng, đoạn bằng chứng. Như vậy synthesizer không phải đoán vị trí.",
+  "domain": 1,
+  "lesson": "1-3-mau-agent-va-framework",
+  "tip": {
+   "title": "Handoff sai vị trí → bản ghi có cấu trúc: path, symbol, dòng, bằng chứng",
+   "body": [
+    "Bước sau không phải đoán."
+   ]
+  }
  },
  "ccdv-f-b1125": {
   "q": "**Kịch bản**:\nStructured Data Extraction Pipeline QA của bạn gắn cờ các lỗi trong hợp đồng nhà cung cấp.\nCác analyst chấp nhận nhiều phát hiện về điều khoản gia hạn bị thiếu nhưng bác bỏ hầu hết các phát hiện liên quan đến ngôn ngữ giá cả không chính thức.\nLog hiện tại chỉ lưu: l Document ID l Field name l Confidence l Finding text\nBạn nên thực hiện thay đổi nào trước tiên?",
@@ -67,7 +115,15 @@
    "C": "Chỉ lưu các quyết định của analyst.",
    "D": "Yêu cầu Claude chỉ báo cáo những phát hiện mà analyst chấp nhận."
   },
-  "exp": "Muốn biết vì sao analyst chấp nhận hay từ chối finding thì cần dữ liệu để phân tích: thêm trường detected_pattern rồi thống kê tỉ lệ chấp nhận theo pattern và loại tài liệu. Measure trước, rồi mới tune."
+  "exp": "Muốn biết vì sao analyst chấp nhận hay từ chối finding thì cần dữ liệu để phân tích: thêm trường detected_pattern rồi thống kê tỉ lệ chấp nhận theo pattern và loại tài liệu. Measure trước, rồi mới tune.",
+  "domain": 4,
+  "lesson": "4-1-go-loi-va-xu-ly-loi",
+  "tip": {
+   "title": "Muốn biết vì sao finding bị từ chối → thêm trường pattern rồi thống kê",
+   "body": [
+    "Đo trước, tinh chỉnh sau."
+   ]
+  }
  },
  "ccdv-f-b1126": {
   "q": "Một hệ thống multi-agent sử dụng một coordinator và các researcher chuyên biệt.\nCấu hình MCP server bắt buộc nên được chia sẻ như thế nào trong một repository của nhóm?",
@@ -77,7 +133,15 @@
    "C": "Gộp tất cả các tích hợp vào một MCP server",
    "D": "Đặt các server dùng chung bắt buộc trong .mcp.json ở phạm vi project"
   },
-  "exp": "MCP server cả team cần dùng thì đặt trong `.mcp.json` ở phạm vi project (commit vào repo). Ai clone về cũng có ngay."
+  "exp": "MCP server cả team cần dùng thì đặt trong `.mcp.json` ở phạm vi project (commit vào repo). Ai clone về cũng có ngay.",
+  "domain": 8,
+  "lesson": "8-2-viet-mcp-server",
+  "tip": {
+   "title": "MCP dùng chung cho team → .mcp.json project scope",
+   "body": [
+    "Clone về là có."
+   ]
+  }
  },
  "ccdv-f-b1127": {
   "q": "Một agent hỗ trợ khách hàng luân phiên không dự đoán được giữa `get_customer` và `lookup_order` khi xử lý các yêu cầu hỗn hợp.\nCatalog tool MCP chỉ chứa các mô tả ngắn được tạo tự động.\nBạn nên thực hiện thay đổi nào trước tiên để cải thiện độ tin cậy khi chọn tool?",
@@ -87,7 +151,15 @@
    "C": "Hợp nhất get_customer và lookup_order thành một tool tra cứu rộng duy nhất.",
    "D": "Viết lại mô tả của từng tool MCP để nêu rõ mục đích, các định danh được chấp nhận, các field trả về, các trường hợp biên và ranh giới."
   },
-  "exp": "Claude chọn tool dựa vào description. Description tự sinh quá ngắn thì phải viết lại: mục đích, ID được chấp nhận, field trả về, edge case và ranh giới với tool khác."
+  "exp": "Claude chọn tool dựa vào description. Description tự sinh quá ngắn thì phải viết lại: mục đích, ID được chấp nhận, field trả về, edge case và ranh giới với tool khác.",
+  "domain": 8,
+  "lesson": "8-1-viet-tool",
+  "tip": {
+   "title": "Chọn tool thất thường → viết lại mô tả: mục đích, ID, field trả về, edge case, ranh giới",
+   "body": [
+    "Mô tả tự sinh quá ngắn."
+   ]
+  }
  },
  "ccdv-f-b1128": {
   "q": "Chính sách nội dung của ứng dụng Claude của bạn quy định các danh mục nội dung không được tạo ra trong bất kỳ trường hợp nào.\nỨng dụng hiện không có cơ chế nào để thực thi chính sách này, và nội dung thuộc các danh mục đó đang xuất hiện trong output của ứng dụng.\nBạn sẽ thực thi chính sách nội dung bằng cách nào?",
@@ -97,7 +169,15 @@
    "C": "Thêm bộ lọc output mang tính xác định (deterministic) kiểm tra các phản hồi theo chính sách nội dung trước khi chúng đến người dùng.",
    "D": "Chuyển việc thực thi cho người dùng bằng cách yêu cầu họ báo cáo các vi phạm chính sách nội dung sau khi nội dung vi phạm đã đến tay họ trong các phản hồi của ứng dụng."
   },
-  "exp": "Policy \"không bao giờ được xuất hiện\" phải enforce bằng code: lọc output một cách deterministic trước khi đến người dùng. System prompt chỉ là lớp phụ, không phải cơ chế enforce chính."
+  "exp": "Policy \"không bao giờ được xuất hiện\" phải enforce bằng code: lọc output một cách deterministic trước khi đến người dùng. System prompt chỉ là lớp phụ, không phải cơ chế enforce chính.",
+  "domain": 7,
+  "lesson": "7-2-guardrail-nhieu-lop",
+  "tip": {
+   "title": "Nội dung không bao giờ được xuất hiện → lọc output tất định bằng code",
+   "body": [
+    "System prompt chỉ là lớp phụ."
+   ]
+  }
  },
  "ccdv-f-b1129": {
   "q": "Một agent debug điều tra các hệ thống xa lạ mà lời giải đúng chưa được biết ngay từ đầu.\nNó nên dùng chiến lược nào?",
@@ -107,7 +187,15 @@
    "C": "Bỏ qua các phát hiện trung gian",
    "D": "Luôn bắt đầu lại từ đầu"
   },
-  "exp": "Debug hệ thống lạ, chưa biết lời giải thì cần adaptive planning: điều chỉnh kế hoạch theo những gì phát hiện được."
+  "exp": "Debug hệ thống lạ, chưa biết lời giải thì cần adaptive planning: điều chỉnh kế hoạch theo những gì phát hiện được.",
+  "domain": 1,
+  "lesson": "1-1-workflow-hay-agent",
+  "tip": {
+   "title": "Chưa biết lời giải → adaptive planning",
+   "body": [
+    "Điều chỉnh kế hoạch theo phát hiện."
+   ]
+  }
  },
  "ccdv-f-b1294": {
   "q": "Agent Claude của nhóm bạn đã tích lũy nhiều tùy biến vượt qua các mặc định của SDK, bao gồm quản lý history tùy chỉnh, logic retry và xử lý lỗi.\nMột thành viên mới đề xuất hoàn nguyên tất cả các tùy biến để dễ bảo trì codebase hơn.\nTech lead không đồng ý và nói rằng mỗi tùy biến đều được thêm vào có lý do.\nBạn sẽ tư vấn cho nhóm như thế nào?",
@@ -117,7 +205,15 @@
    "C": "Giữ lại tất cả tùy biến, tin rằng lý lẽ ban đầu của tech lead vẫn còn đúng.",
    "D": "Quyết định riêng cho từng tùy biến dựa trên lý do ban đầu của nó và các khả năng hiện tại của SDK."
   },
-  "exp": "Mỗi customization có lý do riêng, còn SDK thì đã thay đổi. Đánh giá từng cái: giữ cái còn cần, bỏ cái SDK đã hỗ trợ sẵn. Không giữ hết hay bỏ hết một cách máy móc."
+  "exp": "Mỗi customization có lý do riêng, còn SDK thì đã thay đổi. Đánh giá từng cái: giữ cái còn cần, bỏ cái SDK đã hỗ trợ sẵn. Không giữ hết hay bỏ hết một cách máy móc.",
+  "domain": 2,
+  "lesson": "2-2-vong-doi-he-thong",
+  "tip": {
+   "title": "Customization lâu năm → xét từng cái theo lý do gốc và khả năng hiện tại của SDK",
+   "body": [
+    "Không giữ hết hay bỏ hết máy móc."
+   ]
+  }
  },
  "ccdv-f-b1130": {
   "q": "Một kỹ sư yêu cầu Claude thêm một lớp caching quanh một module authorization legacy.\nHệ thống có nhiều tenant, audit logging và hành vi invalidation không nhất quán.\nĐiều gì nên xảy ra trước khi sửa file?",
@@ -127,7 +223,15 @@
    "C": "Cung cấp các mục tiêu hiệu năng và để Claude tự suy ra các quy tắc.",
    "D": "Sao chép các pattern caching từ một module khác."
   },
-  "exp": "Module auth đa tenant, có audit log, invalidation không nhất quán là vùng rủi ro cao. Phải hỏi rõ invariant, quy tắc invalidation, yêu cầu audit và failure mode trước khi sửa code."
+  "exp": "Module auth đa tenant, có audit log, invalidation không nhất quán là vùng rủi ro cao. Phải hỏi rõ invariant, quy tắc invalidation, yêu cầu audit và failure mode trước khi sửa code.",
+  "domain": 3,
+  "lesson": "3-1-van-hanh-claude-code",
+  "tip": {
+   "title": "Sửa vùng rủi ro cao → hỏi invariant, invalidation, audit, failure mode trước",
+   "body": [
+    "Hiểu ràng buộc trước khi sửa."
+   ]
+  }
  },
  "ccdv-f-b1131": {
   "q": "Một lập trình viên tạo một workflow multi-agent trong đó một agent nghiên cứu tài liệu và một agent khác viết các kế hoạch triển khai.\nLuồng thông tin giữa các agent nên được xử lý như thế nào?",
@@ -137,7 +241,15 @@
    "C": "Cho phép mỗi agent truy cập mọi message trước đó",
    "D": "Loại bỏ vai trò coordinator"
   },
-  "exp": "Subagent không tự chia sẻ context với nhau. Findings cần thiết phải được coordinator chuyển tiếp trong prompt của agent tiếp theo."
+  "exp": "Subagent không tự chia sẻ context với nhau. Findings cần thiết phải được coordinator chuyển tiếp trong prompt của agent tiếp theo.",
+  "domain": 1,
+  "lesson": "1-3-mau-agent-va-framework",
+  "tip": {
+   "title": "Thông tin giữa agent → đi qua coordinator",
+   "body": [
+    "Subagent không tự chia sẻ context."
+   ]
+  }
  },
  "ccdv-f-b1132": {
   "q": "Một hệ thống structured extraction chia tài liệu thành các phần và gửi chúng đến các extraction subagent.\nMột subagent tạm thời mất quyền truy cập vào hệ thống nguồn của nó.\nCách triển khai hiện tại hoặc trả về một kết quả trích xuất rỗng nhưng được coi là thành công, hoặc hủy toàn bộ tài liệu.\nBạn nên thay đổi điều gì?",
@@ -147,7 +259,15 @@
    "C": "Yêu cầu các subagent báo cáo các lỗi chưa giải quyết kèm phần đã thử, loại lỗi, các field một phần và các đề xuất khôi phục.",
    "D": "Retry phần bị lỗi cho đến khi thành công trước khi trả về bất cứ thứ gì."
   },
-  "exp": "Lỗi không được che (trả rỗng như thể thành công) cũng không được làm sập cả pipeline. Subagent báo lỗi có cấu trúc: section nào, loại lỗi, dữ liệu một phần đã lấy được và gợi ý khôi phục."
+  "exp": "Lỗi không được che (trả rỗng như thể thành công) cũng không được làm sập cả pipeline. Subagent báo lỗi có cấu trúc: section nào, loại lỗi, dữ liệu một phần đã lấy được và gợi ý khôi phục.",
+  "domain": 4,
+  "lesson": "4-1-go-loi-va-xu-ly-loi",
+  "tip": {
+   "title": "Đừng trả rỗng như thành công, đừng làm sập cả pipeline → báo lỗi có cấu trúc kèm kết quả một phần",
+   "body": [
+    "Kèm gợi ý cách khôi phục."
+   ]
+  }
  },
  "ccdv-f-b1133": {
   "q": "Một hệ thống nghiên cứu multi-agent thỉnh thoảng tạo báo cáo trong khi synthesis agent vẫn chưa hoàn tất, dẫn đến các trích dẫn bị thiếu hoặc không thể xác minh.\nThay đổi nào ngăn các báo cáo không hợp lệ?",
@@ -157,7 +277,15 @@
    "C": "Kiểm tra xem các message của synthesis có chứa các từ như “complete” hay không.",
    "D": "Chặn các task tạo báo cáo cho đến khi synthesis trả về một citation manifest có cấu trúc và trạng thái thành công."
   },
-  "exp": "Dùng gate có cấu trúc: chỉ chạy bước tạo báo cáo khi synthesis trả status thành công kèm citation manifest. Dò chữ \"complete\" trong text là không tin cậy được."
+  "exp": "Dùng gate có cấu trúc: chỉ chạy bước tạo báo cáo khi synthesis trả status thành công kèm citation manifest. Dò chữ \"complete\" trong text là không tin cậy được.",
+  "domain": 1,
+  "lesson": "1-3-mau-agent-va-framework",
+  "tip": {
+   "title": "Bước sau chạy khi bước trước chưa xong → gate bằng status có cấu trúc",
+   "body": [
+    "Dò chữ \"complete\" trong text không tin cậy."
+   ]
+  }
  },
  "ccdv-f-b1134": {
   "q": "Một trợ lý migration đôi khi bắt đầu phân tích dependency trước khi thu thập các phiên bản package manager và framework cần thiết.\nThay đổi nào đảm bảo đáng tin cậy nhất bước đầu tiên đúng?",
@@ -167,7 +295,15 @@
    "C": "Đặt tool_choice thành any cho request đầu tiên.",
    "D": "Tăng cường system prompt yêu cầu trích xuất metadata trước."
   },
-  "exp": "Muốn bảo đảm bước đầu tiên thì ép bằng `tool_choice` chỉ định đúng tool metadata extraction cho request đầu. Prompt chỉ là gợi ý, còn `any` vẫn cho phép chọn tool khác."
+  "exp": "Muốn bảo đảm bước đầu tiên thì ép bằng `tool_choice` chỉ định đúng tool metadata extraction cho request đầu. Prompt chỉ là gợi ý, còn `any` vẫn cho phép chọn tool khác.",
+  "domain": 8,
+  "lesson": "8-1-viet-tool",
+  "tip": {
+   "title": "Bắt buộc bước đầu → tool_choice chỉ định đúng tool",
+   "body": [
+    "any vẫn cho chọn tool khác."
+   ]
+  }
  },
  "ccdv-f-b1135": {
   "q": "Một nhóm muốn các bản review pull request do Claude tạo ra tích hợp được với các hệ thống phát triển hiện có.\nNên chọn cách tiếp cận output nào?",
@@ -177,7 +313,15 @@
    "C": "Chỉ các giải thích markdown dài",
    "D": "Các comment không định dạng"
   },
-  "exp": "Tích hợp với hệ thống khác thì cần JSON có cấu trúc kèm validation."
+  "exp": "Tích hợp với hệ thống khác thì cần JSON có cấu trúc kèm validation.",
+  "domain": 6,
+  "lesson": "6-3-xu-ly-output",
+  "tip": {
+   "title": "Tích hợp hệ thống khác → JSON có cấu trúc + validate",
+   "body": [
+    "Không parse văn xuôi."
+   ]
+  }
  },
  "ccdv-f-b1136": {
   "q": "Một bản phát hành model Claude mới bao gồm các cải tiến hiệu năng cho nhiều tác vụ suy luận nhưng đã thay đổi định dạng phản hồi đối với các system prompt dùng chỉ dẫn nhiều phần.\nỨng dụng của bạn sử dụng nhiều các system prompt nhiều phần.\nĐánh giá ban đầu trên workload thực tế của ứng dụng cho thấy model mới hoạt động tốt hơn 8 phần trăm trên các tác vụ suy luận nhưng tạo ra output sai định dạng ở khoảng 3 phần trăm request do thay đổi định dạng.\nNhóm đang tranh luận có nên nâng cấp hay không.\nBạn sẽ quyết định như thế nào?",
@@ -187,7 +331,15 @@
    "C": "Ở lại vĩnh viễn với model trước đó để tránh tỷ lệ output sai định dạng và mọi thay đổi định dạng trong tương lai mà các bản phát hành model tiếp theo có thể đưa vào ứng dụng.",
    "D": "Nâng cấp ngay lập tức, vì mức cải thiện suy luận 8 phần trăm lớn hơn tỷ lệ output sai định dạng 3 phần trăm trên phân bố request điển hình của ứng dụng."
   },
-  "exp": "Không đánh đổi mù quáng. Chỉnh prompt cho hợp với model mới, chạy eval lại, và chỉ nâng cấp khi hết lỗi format mà vẫn giữ được phần cải thiện về reasoning."
+  "exp": "Không đánh đổi mù quáng. Chỉnh prompt cho hợp với model mới, chạy eval lại, và chỉ nâng cấp khi hết lỗi format mà vẫn giữ được phần cải thiện về reasoning.",
+  "domain": 5,
+  "lesson": "5-3-chon-model",
+  "tip": {
+   "title": "Model mới tốt hơn nhưng vỡ format → chỉnh prompt, eval lại, chỉ nâng khi đạt cả hai",
+   "body": [
+    "Không đánh đổi mù quáng."
+   ]
+  }
  },
  "ccdv-f-b1301": {
   "q": "Một đồng nghiệp đang debug một ứng dụng Claude có system prompt đã dài đến vài trăm dòng và hiện chứa các chỉ dẫn chồng chéo, mâu thuẫn và lỗi thời.\nBạn sẽ tư vấn cho đồng nghiệp như thế nào?",
@@ -197,7 +349,15 @@
    "C": "Chỉ siết chặt các quy tắc mâu thuẫn trước, coi phần chồng chéo và nội dung lỗi thời là công việc ưu tiên thấp hơn mà nhóm có thể xử lý sau.",
    "D": "Chia prompt thành nhiều system prompt để model chỉ thấy một phần nhỏ hơn tại mỗi thời điểm."
   },
-  "exp": "Prompt phình to, chồng chéo, mâu thuẫn thì refactor như refactor code: audit, loại phần trùng và lỗi thời, gỡ mâu thuẫn để mỗi chỉ dẫn rõ ràng và duy nhất."
+  "exp": "Prompt phình to, chồng chéo, mâu thuẫn thì refactor như refactor code: audit, loại phần trùng và lỗi thời, gỡ mâu thuẫn để mỗi chỉ dẫn rõ ràng và duy nhất.",
+  "domain": 6,
+  "lesson": "6-2-viet-prompt",
+  "tip": {
+   "title": "Prompt phình, mâu thuẫn → audit và refactor",
+   "body": [
+    "Mỗi chỉ dẫn rõ, cập nhật, không trùng."
+   ]
+  }
  },
  "ccdv-f-b1137": {
   "q": "Một lập trình viên muốn Claude trả về các phản hồi API có thể được một ứng dụng khác sử dụng trực tiếp.\nNên dùng kỹ thuật nào?",
@@ -207,7 +367,15 @@
    "C": "Yêu cầu Claude giải thích dài hơn",
    "D": "Cho phép các phản hồi không bị hạn chế"
   },
-  "exp": "Output cho ứng dụng khác dùng thì phải là structured output có field định nghĩa sẵn."
+  "exp": "Output cho ứng dụng khác dùng thì phải là structured output có field định nghĩa sẵn.",
+  "domain": 6,
+  "lesson": "6-3-xu-ly-output",
+  "tip": {
+   "title": "Output cho ứng dụng khác dùng → structured output có field định nghĩa",
+   "body": [
+    "Giống câu b1135."
+   ]
+  }
  },
  "ccdv-f-b1138": {
   "q": "Nhiều sự cố backend được trả về cho agent dưới cùng một thông báo: “Operation failed.”\nCác sự cố bao gồm ID đơn hàng không hợp lệ, timeout tạm thời của dịch vụ, token hết hạn và các hạn chế chính sách.\nThay đổi nào cải thiện hành vi khôi phục nhiều nhất?",
@@ -217,7 +385,15 @@
    "C": "Ánh xạ các lỗi thành các mức độ cảm xúc của khách hàng.",
    "D": "Trả về các lỗi MCP có cấu trúc kèm danh mục, khả năng retry và các chi tiết an toàn cho người dùng."
   },
-  "exp": "\"Operation failed\" chung chung khiến agent không biết xử lý thế nào. Trả lỗi MCP có cấu trúc: loại lỗi, có retry được không, thông điệp an toàn cho user."
+  "exp": "\"Operation failed\" chung chung khiến agent không biết xử lý thế nào. Trả lỗi MCP có cấu trúc: loại lỗi, có retry được không, thông điệp an toàn cho user.",
+  "domain": 8,
+  "lesson": "8-1-viet-tool",
+  "tip": {
+   "title": "Lỗi chung chung → lỗi MCP có cấu trúc: loại, retry được không, thông điệp an toàn",
+   "body": [
+    "Agent cần biết cách xử lý."
+   ]
+  }
  },
  "ccdv-f-b1139": {
   "q": "**Kịch bản**:\nMulti-Agent Research System Bạn đang xây dựng một hệ thống nghiên cứu multi-agent bằng Claude Agent SDK.\nMột coordinator agent giao việc cho các subagent chuyên biệt: một subagent tìm kiếm web, một subagent phân tích tài liệu, một subagent tổng hợp các phát hiện và một subagent tạo báo cáo.\nSubagent phân tích tài liệu của coordinator phụ thuộc vào một MCP server library-catalog nội bộ.\nNó hoạt động trong phiên Claude Code cục bộ của bạn, nhưng hai đồng nghiệp đã clone repository không thể truy cập các tool catalog, nên các lần chạy của họ quay về dùng web search yếu hơn.\nNgoài ra, một researcher đang thử nghiệm một notes server thử nghiệm không nên ảnh hưởng đến cả nhóm.\nBạn nên thay đổi điều gì?",
@@ -227,7 +403,15 @@
    "C": "Gộp các tích hợp catalog và notes thành một MCP server, và chỉ cung cấp các tool theo vai trò cho các subagent.",
    "D": "Chuyển catalog server bắt buộc vào .mcp.json ở phạm vi project, và giữ notes server thử nghiệm trong ~/.claude.json ở phạm vi người dùng."
   },
-  "exp": "Server bắt buộc cho cả team đặt trong `.mcp.json` của project (share qua git). Server thử nghiệm cá nhân để ở `~/.claude.json` (user scope) để không ảnh hưởng người khác."
+  "exp": "Server bắt buộc cho cả team đặt trong `.mcp.json` của project (share qua git). Server thử nghiệm cá nhân để ở `~/.claude.json` (user scope) để không ảnh hưởng người khác.",
+  "domain": 8,
+  "lesson": "8-2-viet-mcp-server",
+  "tip": {
+   "title": "Bắt buộc cho team → .mcp.json; thử nghiệm cá nhân → ~/.claude.json",
+   "body": [
+    "Không ảnh hưởng người khác."
+   ]
+  }
  },
  "ccdv-f-b1140": {
   "q": "**Kịch bản**:\nDeveloper Productivity with Claude Một helper chạy bằng Claude cập nhật các file cấu hình legacy sang một định dạng mới.\nCác lần sinh đầu tiên trông hợp lý, nhưng các lần chạy lặp lại liên tục làm hỏng các trường hợp biên khác nhau: l Thiếu các section tùy chọn l Key trùng lặp l File lớn với hàng nghìn entry Các developer đã gửi các prompt như \"fix the migration bugs\" và nhận được các cải thiện không nhất quán.\nHọ nên dùng cách tinh chỉnh nào tiếp theo?",
@@ -237,7 +421,15 @@
    "C": "Nói với Claude rằng output vẫn sai, yêu cầu một cách triển khai cẩn thận hơn, và tiếp tục cho đến khi các reviewer phê duyệt.",
    "D": "Chia sẻ tên các test thất bại, các input, output mong đợi so với thực tế, và stack trace, rồi lặp lại với các bản sửa tối thiểu."
   },
-  "exp": "\"Fix bug đi\" quá mơ hồ. Đưa cho Claude tên test fail, input, kết quả mong đợi so với thực tế và stack trace, rồi sửa từng chút. Đây chính là TDD loop."
+  "exp": "\"Fix bug đi\" quá mơ hồ. Đưa cho Claude tên test fail, input, kết quả mong đợi so với thực tế và stack trace, rồi sửa từng chút. Đây chính là TDD loop.",
+  "domain": 4,
+  "lesson": "4-1-go-loi-va-xu-ly-loi",
+  "tip": {
+   "title": "\"Sửa bug đi\" → đưa tên test fail, input, mong đợi vs thực tế, stack trace",
+   "body": [
+    "Sửa nhỏ từng bước."
+   ]
+  }
  },
  "ccdv-f-b1141": {
   "q": "Việc trích xuất hợp đồng nhà cung cấp trả về giá trị null cho ngày hiệu lực và điều khoản gia hạn dù thông tin có tồn tại trong thư gửi kèm, chú thích cuối trang và chú thích bảng.\nThay đổi nào cải thiện độ chính xác nhiều nhất?",
@@ -247,7 +439,15 @@
    "C": "Thêm các ví dụ few-shot có mục tiêu cho thấy cách trích xuất từ các phần tài liệu khác nhau.",
    "D": "Nói với Claude rằng giá trị null là không chấp nhận được đối với hợp đồng nhà cung cấp."
   },
-  "exp": "Thông tin nằm rải rác ở nhiều chỗ thì few-shot examples chỉ cách tìm trong cover letter, footnote, caption. Ép non-null chỉ khiến model bịa giá trị."
+  "exp": "Thông tin nằm rải rác ở nhiều chỗ thì few-shot examples chỉ cách tìm trong cover letter, footnote, caption. Ép non-null chỉ khiến model bịa giá trị.",
+  "domain": 6,
+  "lesson": "6-2-viet-prompt",
+  "tip": {
+   "title": "Thông tin rải rác bị trả null → few-shot cho từng vị trí",
+   "body": [
+    "Ép non-null chỉ khiến model bịa."
+   ]
+  }
  },
  "ccdv-f-b1142": {
   "q": "Một dịch vụ đăng ký legacy có hành vi hủy được phân tán trong các script dòng lệnh, web handler và scheduled job.\nCác chỉnh sửa trực tiếp trước đây thường nhắm sai lớp trừu tượng.\nNên đề xuất workflow nào trước tiên?",
@@ -257,7 +457,15 @@
    "C": "Chỉnh sửa trực tiếp và dựa vào các test thất bại để hướng dẫn việc sửa.",
    "D": "Bắt đầu các phiên trực tiếp riêng cho từng module và kết hợp các thay đổi sau."
   },
-  "exp": "Logic hủy đăng ký rải ở nhiều nơi thì dùng plan mode để map các luồng và so sánh điểm can thiệp trước khi sửa, tránh sửa sai tầng abstraction."
+  "exp": "Logic hủy đăng ký rải ở nhiều nơi thì dùng plan mode để map các luồng và so sánh điểm can thiệp trước khi sửa, tránh sửa sai tầng abstraction.",
+  "domain": 3,
+  "lesson": "3-1-van-hanh-claude-code",
+  "tip": {
+   "title": "Logic rải nhiều nơi → plan mode map các luồng trước khi sửa",
+   "body": [
+    "Tránh sửa sai tầng."
+   ]
+  }
  },
  "ccdv-f-b1143": {
   "q": "Một nhóm xây dựng một ứng dụng trong đó Claude phải phân loại các yêu cầu của khách hàng vào các danh mục được định nghĩa trước.\nCách tiếp cận nào cho kết quả nhất quán nhất?",
@@ -267,7 +475,15 @@
    "C": "Sử dụng cách tiếp cận phân loại ngẫu nhiên.",
    "D": "Loại bỏ các định nghĩa danh mục khỏi prompt"
   },
-  "exp": "Phân loại nhất quán cần định nghĩa category rõ ràng kèm ví dụ cho từng loại (few-shot)."
+  "exp": "Phân loại nhất quán cần định nghĩa category rõ ràng kèm ví dụ cho từng loại (few-shot).",
+  "domain": 6,
+  "lesson": "6-2-viet-prompt",
+  "tip": {
+   "title": "Phân loại nhất quán → định nghĩa danh mục + ví dụ cho từng loại",
+   "body": [
+    "Few-shot."
+   ]
+  }
  },
  "ccdv-f-b1144": {
   "q": "**Kịch bản**:\nCustomer Support Resolution Agent Bạn đang xây dựng một customer support resolution agent bằng Claude Agent SDK.\nAgent xử lý các yêu cầu có độ mơ hồ cao như trả hàng, tranh chấp thanh toán và các vấn đề tài khoản.\nNó truy cập các hệ thống backend thông qua các tool MCP (get_customer, lookup_order, process_refund, escalate_to_human).\nMục tiêu của bạn là đạt 80%+ tỷ lệ giải quyết ngay lần liên hệ đầu tiên đồng thời biết khi nào cần escalate.\nTrong các tranh chấp thanh toán, agent tạo các ghi chú vụ việc cô đọng trước khi phản hồi hoặc escalate.\nCác reviewer là con người báo cáo rằng các ghi chú đôi khi nói những điều như \"refund approved\" hoặc \"customer was promised free return shipping,\" nhưng họ không thể biết mỗi nhận định đến từ khách hàng, một bản ghi đơn hàng, một tài liệu chính sách, hay suy luận của agent. Trong nhiều lần escalate, các cáo buộc của khách hàng bị coi là các sự thật backend đã được xác minh.\nThay đổi nào giảm hiệu quả nhất rủi ro về độ tin cậy này?",
@@ -277,7 +493,15 @@
    "C": "Yêu cầu các bản tóm tắt và handoff mang theo ánh xạ claim-source có cấu trúc gồm loại nguồn, đoạn trích hoặc field của tool, timestamp và trạng thái xác minh.",
    "D": "Yêu cầu agent chỉ đưa các nhận định có độ tin cậy cao vào các phản hồi cuối cùng, bỏ qua các chi tiết không chắc chắn khỏi các bản tóm tắt và escalation."
   },
-  "exp": "Mỗi claim trong ghi chú phải kèm nguồn: loại nguồn, trích đoạn hoặc field của tool, timestamp, trạng thái xác minh. Nhờ vậy lời khách kể không bị nhầm thành dữ kiện đã kiểm chứng."
+  "exp": "Mỗi claim trong ghi chú phải kèm nguồn: loại nguồn, trích đoạn hoặc field của tool, timestamp, trạng thái xác minh. Nhờ vậy lời khách kể không bị nhầm thành dữ kiện đã kiểm chứng.",
+  "domain": 7,
+  "lesson": "7-1-bao-mat-ung-dung-ai",
+  "tip": {
+   "title": "Lời khách kể bị coi như dữ kiện → mapping claim–source có trạng thái xác minh",
+   "body": [
+    "Phân biệt điều đã kiểm và điều được kể."
+   ]
+  }
  },
  "ccdv-f-b1145": {
   "q": "Một hệ thống nghiên cứu tạo ra các báo cáo mạch lạc, nhưng vẫn còn các khoảng trống về độ phủ.\nVí dụ, các báo cáo về quy định AI có độ phủ EU mạnh nhưng độ phủ Châu Á - Thái Bình Dương yếu.\nThay đổi nào cải thiện tính đầy đủ?",
@@ -287,7 +511,15 @@
    "C": "Tăng số lần lặp của coordinator lên một con số cố định.",
    "D": "Thêm một vòng review của coordinator kiểm tra độ phủ, giao các việc tiếp theo và chạy lại synthesis."
   },
-  "exp": "Thiếu coverage thì thêm vòng review ở coordinator: kiểm tra độ phủ, giao việc bổ sung cho phần thiếu, rồi chạy lại synthesis."
+  "exp": "Thiếu coverage thì thêm vòng review ở coordinator: kiểm tra độ phủ, giao việc bổ sung cho phần thiếu, rồi chạy lại synthesis.",
+  "domain": 1,
+  "lesson": "1-3-mau-agent-va-framework",
+  "tip": {
+   "title": "Thiếu độ phủ → vòng review ở coordinator giao việc bổ sung",
+   "body": [
+    "Rồi chạy lại bước tổng hợp."
+   ]
+  }
  },
  "ccdv-f-b1146": {
   "q": "Một lập trình viên muốn Claude review code và chỉ trả về các vấn đề có thể hành động được.\nThiết kế prompt nào hiệu quả nhất?",
@@ -297,7 +529,15 @@
    "C": "Yêu cầu các đề xuất không giới hạn",
    "D": "Tránh mô tả output mong đợi"
   },
-  "exp": "Muốn chỉ nhận issue có thể hành động thì định nghĩa rõ thế nào là issue và kèm ví dụ."
+  "exp": "Muốn chỉ nhận issue có thể hành động thì định nghĩa rõ thế nào là issue và kèm ví dụ.",
+  "domain": 6,
+  "lesson": "6-2-viet-prompt",
+  "tip": {
+   "title": "Chỉ muốn issue hành động được → định nghĩa issue + ví dụ",
+   "body": [
+    "Tiêu chí cụ thể giảm nhiễu."
+   ]
+  }
  },
  "ccdv-f-b1147": {
   "q": "**Kịch bản**:\nCustomer Support Resolution Agent Log production cho thấy: l get_customer trả về timestamp ISO 8601 và các loyalty tier dạng số. l lookup_order trả về timestamp Unix và các mã trạng thái dạng số.\nAgent đôi khi tính sai cửa sổ trả hàng hoặc gắn nhãn sai trạng thái đơn hàng.\nBạn không thể sửa đổi các MCP server upstream.\nThay đổi nào giải quyết vấn đề độ tin cậy này tốt nhất?",
@@ -307,7 +547,15 @@
    "C": "Thêm các chỉ dẫn system yêu cầu Claude ghi nhớ định dạng của từng tool",
    "D": "Sửa đổi bộ phân tích phản hồi cuối cùng cho khách hàng."
   },
-  "exp": "Không sửa được upstream thì chuẩn hóa ở giữa: hook PostToolUse chuyển timestamp, status code, tier về dạng thống nhất trước khi Claude đọc. Đây là deterministic, không phụ thuộc trí nhớ của model."
+  "exp": "Không sửa được upstream thì chuẩn hóa ở giữa: hook PostToolUse chuyển timestamp, status code, tier về dạng thống nhất trước khi Claude đọc. Đây là deterministic, không phụ thuộc trí nhớ của model.",
+  "domain": 7,
+  "lesson": "7-3-hook-chan-hanh-dong-nguy-hiem",
+  "tip": {
+   "title": "Dữ liệu tool không đồng nhất, không sửa được upstream → hook PostToolUse chuẩn hoá",
+   "body": [
+    "Tất định, không phụ thuộc model."
+   ]
+  }
  },
  "ccdv-f-b1148": {
   "q": "Một hệ thống nghiên cứu multi-agent gán độ tin cậy cao cho hầu hết các nhận định trong báo cáo, nhưng các cuộc kiểm toán của khách hàng phát hiện các sai lệch trích dẫn tập trung ở các chủ đề quy định pháp lý và các loại nguồn mới được thêm.\nNên triển khai chiến lược review nào trước khi giảm thêm phạm vi reviewer?",
@@ -317,7 +565,15 @@
    "C": "Tự động xuất bản các báo cáo có độ tin cậy cao và chỉ điều tra các lỗi do khách hàng báo.",
    "D": "Lấy mẫu ngẫu nhiên các nhận định có độ tin cậy cao theo chủ đề, loại nguồn và phần báo cáo, sau đó theo dõi lỗi theo danh mục."
   },
-  "exp": "Confidence cao vẫn có thể sai theo cụm. Lấy mẫu ngẫu nhiên phân tầng theo chủ đề, loại nguồn, section và theo dõi lỗi theo nhóm để tìm điểm mù trước khi giảm review."
+  "exp": "Confidence cao vẫn có thể sai theo cụm. Lấy mẫu ngẫu nhiên phân tầng theo chủ đề, loại nguồn, section và theo dõi lỗi theo nhóm để tìm điểm mù trước khi giảm review.",
+  "domain": 4,
+  "lesson": "4-1-go-loi-va-xu-ly-loi",
+  "tip": {
+   "title": "Confidence cao vẫn sai theo cụm → lấy mẫu ngẫu nhiên phân tầng",
+   "body": [
+    "Tìm điểm mù trước khi giảm review."
+   ]
+  }
  },
  "ccdv-f-b1149": {
   "q": "**Kịch bản**:\nStructured Data Extraction Một lần chạy validation có nhãn báo cáo: l độ chính xác trích xuất tổng hợp 97.2% l độ phủ trên NDA, hóa đơn, biểu mẫu bảo hiểm và đơn đặt hàng Ban lãnh đạo muốn bỏ qua review của con người đối với mọi bản ghi mà Claude trả về độ tin cậy cao, nhưng các khiếu nại trong giai đoạn thí điểm cho thấy lỗi tập trung ở các nhóm tài liệu và field cụ thể.\nBạn nên làm gì trước khi giảm phạm vi reviewer?",
@@ -327,7 +583,15 @@
    "C": "Nâng ngưỡng confidence toàn cục cho đến khi độ chính xác validation tổng hợp đạt 99%, sau đó tắt review cho các output còn lại.",
    "D": "Dùng độ chính xác tổng hợp 97.2% để tự động phê duyệt tất cả output có độ tin cậy cao, theo dõi các khiếu nại của người dùng để phát hiện các hồi quy mới nổi."
   },
-  "exp": "Độ chính xác tổng 97,2% có thể che giấu nhóm tài liệu hoặc field rất kém. Phân tích theo loại tài liệu và field, chỉ tự động hóa nhóm đã đạt ngưỡng."
+  "exp": "Độ chính xác tổng 97,2% có thể che giấu nhóm tài liệu hoặc field rất kém. Phân tích theo loại tài liệu và field, chỉ tự động hóa nhóm đã đạt ngưỡng.",
+  "domain": 6,
+  "lesson": "6-3-xu-ly-output",
+  "tip": {
+   "title": "Accuracy tổng cao → phân tích theo loại tài liệu và field, chỉ tự động nhóm đạt ngưỡng",
+   "body": [
+    "Con số tổng có thể che nhóm yếu."
+   ]
+  }
  },
  "ccdv-f-b1150": {
   "q": "**Kịch bản**:\nStructured Data Extraction Bạn đang xây dựng một hệ thống structured data extraction bằng Claude.\nHệ thống trích xuất thông tin từ các tài liệu phi cấu trúc, xác thực output bằng JSON schema và duy trì độ chính xác cao.\nNó phải xử lý các trường hợp biên một cách linh hoạt và tích hợp với các hệ thống downstream.\nPrompt QA của bạn review một gói onboarding nhà cung cấp dài 90 trang và các bản ghi đã trích xuất của nó trong một lần gọi.\nNó bắt được các lỗi field chi tiết trong vài biểu mẫu đầu tiên, nhưng bỏ sót các mã số thuế không khớp ở các phụ lục giữa gói và tự mâu thuẫn về các chữ ký bắt buộc.\nKiến trúc review nào cải thiện độ tin cậy tốt nhất?",
@@ -337,7 +601,15 @@
    "C": "Tăng max_tokens và thêm các chỉ dẫn mạnh hơn yêu cầu review toàn diện khi review toàn bộ gói một lần.",
    "D": "Chạy các lượt review tập trung cho từng phần của gói, sau đó chạy một lượt consistency riêng trên các field liên phần."
   },
-  "exp": "Một lần review 90 trang thì model bị \"lost in the middle\". Chia thành nhiều pass tập trung theo từng phần, thêm một pass riêng kiểm tra tính nhất quán chéo giữa các phần."
+  "exp": "Một lần review 90 trang thì model bị \"lost in the middle\". Chia thành nhiều pass tập trung theo từng phần, thêm một pass riêng kiểm tra tính nhất quán chéo giữa các phần.",
+  "domain": 6,
+  "lesson": "6-1-quan-ly-context",
+  "tip": {
+   "title": "Review tài liệu rất dài → nhiều pass theo phần + một pass kiểm nhất quán chéo",
+   "body": [
+    "Tránh lost-in-the-middle."
+   ]
+  }
  },
  "ccdv-f-b1315": {
   "q": "Một nhóm muốn xây dựng logic cốt lõi của một pipeline thanh toán production hoàn toàn dựa trên một khả năng nền tảng hiện được gắn nhãn Beta trong bảng feature-availability của Anthropic.\nMột tech lead nêu lên một mối lo ngại trước khi phê duyệt thiết kế.\nCơ sở chính xác nhất cho mối lo ngại đó là gì?",
@@ -347,7 +619,15 @@
    "C": "Các tính năng Beta bị giới hạn ở 200k token ngữ cảnh bất kể model bên dưới, điều này sẽ hạn chế việc xử lý tài liệu của pipeline.",
    "D": "Các tính năng Beta có thể thay đổi đáng kể hoặc bị ngừng dựa trên phản hồi và không được đảm bảo cho việc sử dụng production lâu dài, không giống các tính năng GA."
   },
-  "exp": "Tính năng Beta có thể thay đổi lớn hoặc bị bỏ, không cam kết ổn định cho production như tính năng GA. Đặt lõi hệ thống billing lên đó là rủi ro."
+  "exp": "Tính năng Beta có thể thay đổi lớn hoặc bị bỏ, không cam kết ổn định cho production như tính năng GA. Đặt lõi hệ thống billing lên đó là rủi ro.",
+  "domain": 2,
+  "lesson": "2-2-vong-doi-he-thong",
+  "tip": {
+   "title": "Beta có thể đổi hoặc bị bỏ → không đặt lõi production lên đó",
+   "body": [
+    "GA mới có cam kết ổn định."
+   ]
+  }
  },
  "ccdv-f-b1151": {
   "q": "**Kịch bản**:\nStructured Data Extraction Bạn đang xây dựng một hệ thống structured data extraction bằng Claude.\nHệ thống trích xuất thông tin từ các tài liệu phi cấu trúc, xác thực output bằng JSON schema và duy trì độ chính xác cao.\nReview production cho thấy việc định tuyến không nhất quán:\n- các tài liệu có giá trị bắt buộc không đọc được và bố cục lạ đôi khi đi vào các hệ thống downstream,\n- trong khi các hóa đơn thông thường thiếu số đơn đặt hàng tùy chọn lại bị gửi đi review thủ công. Schema trích xuất đã cho phép các field nullable đối với dữ liệu không có trong nguồn.\nThay đổi nào cải thiện hiệu quả nhất các quyết định định tuyến?",
@@ -357,7 +637,15 @@
    "C": "Thêm các tiêu chí human-review rõ ràng kèm các ví dụ few-shot phân biệt các field tùy chọn vắng mặt, các field bắt buộc không đọc được và các loại tài liệu không được hỗ trợ.",
    "D": "Chuyển các tài liệu đến reviewer bất cứ khi nào model báo cáo confidence thấp hơn một ngưỡng toàn cục duy nhất sau khi trích xuất."
   },
-  "exp": "Routing sai vì thiếu tiêu chí rõ ràng. Viết rõ khi nào cần human review, kèm few-shot phân biệt: field tùy chọn bị thiếu, field bắt buộc không đọc được, loại tài liệu không hỗ trợ."
+  "exp": "Routing sai vì thiếu tiêu chí rõ ràng. Viết rõ khi nào cần human review, kèm few-shot phân biệt: field tùy chọn bị thiếu, field bắt buộc không đọc được, loại tài liệu không hỗ trợ.",
+  "domain": 6,
+  "lesson": "6-2-viet-prompt",
+  "tip": {
+   "title": "Routing review sai → tiêu chí rõ + few-shot phân biệt các trường hợp",
+   "body": [
+    "Field tuỳ chọn thiếu khác field bắt buộc không đọc được."
+   ]
+  }
  },
  "ccdv-f-b1152": {
   "q": "Một nhóm phát triển sử dụng Claude Agent SDK cho các workflow khác nhau.\nCác review dependency tuân theo các quy tắc cố định, trong khi debug các hệ thống chưa biết đòi hỏi khám phá.\nChiến lược phân rã nào là tốt nhất?",
@@ -367,7 +655,15 @@
    "C": "Dùng prompt chain cho các tác vụ ổn định và lập kế hoạch thích ứng cho các cuộc điều tra",
    "D": "Dùng một prompt lớn cho mọi tác vụ"
   },
-  "exp": "Task ổn định thì dùng prompt chain cố định, task điều tra mở thì dùng adaptive planning. Đúng công cụ cho đúng loại việc."
+  "exp": "Task ổn định thì dùng prompt chain cố định, task điều tra mở thì dùng adaptive planning. Đúng công cụ cho đúng loại việc.",
+  "domain": 1,
+  "lesson": "1-1-workflow-hay-agent",
+  "tip": {
+   "title": "Việc ổn định → prompt chain; điều tra mở → adaptive planning",
+   "body": [
+    "Đúng công cụ cho đúng loại việc."
+   ]
+  }
  },
  "ccdv-f-b1153": {
   "q": "Một nhóm phát triển sử dụng Claude Agent SDK với nhiều subagent để phân tích một hệ thống thanh toán legacy.\nCoordinator nên cải thiện độ tin cậy như thế nào khi chuyển các kết quả khám phá cho một planning subagent?",
@@ -377,7 +673,15 @@
    "C": "Cho phép các subagent giao tiếp trực tiếp mà không có điều phối",
    "D": "Duy trì shared state và đưa các phát hiện liên quan vào các prompt sau đó"
   },
-  "exp": "Coordinator giữ shared state và đưa findings liên quan vào prompt của bước sau. Không để planner tự đoán dependency từ tên file."
+  "exp": "Coordinator giữ shared state và đưa findings liên quan vào prompt của bước sau. Không để planner tự đoán dependency từ tên file.",
+  "domain": 1,
+  "lesson": "1-3-mau-agent-va-framework",
+  "tip": {
+   "title": "Coordinator giữ shared state và đưa findings vào prompt bước sau",
+   "body": [
+    "Bước sau không phải đoán."
+   ]
+  }
  },
  "ccdv-f-b1154": {
   "q": "**Kịch bản**:\nDeveloper Productivity with Claude Bạn đang xây dựng các công cụ nâng cao năng suất cho developer bằng Claude Agent SDK.\nAgent giúp các kỹ sư khám phá các codebase xa lạ, hiểu các hệ thống legacy, sinh code boilerplate và tự động hóa các tác vụ lặp đi lặp lại.\nCác review license của dependency tuân theo một rubric ổn định với các kiểm tra đã biết, trong khi các cuộc điều tra bug production trong các service xa lạ thay đổi tùy theo các call path, log và test thất bại được phát hiện.\nPrompt single-pass hiện tại bỏ sót các mục checklist trong các review và lãng phí công sức trong các cuộc điều tra.\nChiến lược phân rã nào là phù hợp nhất?",
@@ -387,7 +691,15 @@
    "C": "Dùng một prompt chain cố định cho các rubric review ổn định, và để agent điều chỉnh các subtask trong các cuộc điều tra mở.",
    "D": "Dùng một prompt lớn cho cả hai loại request, yêu cầu agent suy luận cẩn thận trước khi dùng bất kỳ tool nào."
   },
-  "exp": "Review license có rubric cố định thì dùng prompt chain cố định để không sót mục. Điều tra bug thì để agent tự điều chỉnh subtask theo phát hiện."
+  "exp": "Review license có rubric cố định thì dùng prompt chain cố định để không sót mục. Điều tra bug thì để agent tự điều chỉnh subtask theo phát hiện.",
+  "domain": 1,
+  "lesson": "1-1-workflow-hay-agent",
+  "tip": {
+   "title": "Rubric cố định → prompt chain; điều tra bug → agent tự điều chỉnh",
+   "body": [
+    "Giống câu b1152."
+   ]
+  }
  },
  "ccdv-f-b1155": {
   "q": "Một pipeline CI cần các phát hiện của Claude Code để tạo các comment pull request tự động.\nCách tiếp cận nào cung cấp tích hợp đáng tin cậy nhất?",
@@ -397,7 +709,15 @@
    "C": "Dùng JSON output với xác thực JSON schema",
    "D": "Viết lại các comment trước đó thành các bản ghi có cấu trúc"
   },
-  "exp": "CI tạo comment tự động thì cần JSON output kèm validate bằng JSON schema. Chỉ dặn bằng prompt hay dùng regex parse markdown đều dễ vỡ."
+  "exp": "CI tạo comment tự động thì cần JSON output kèm validate bằng JSON schema. Chỉ dặn bằng prompt hay dùng regex parse markdown đều dễ vỡ.",
+  "domain": 3,
+  "lesson": "3-1-van-hanh-claude-code",
+  "tip": {
+   "title": "CI tạo comment tự động → JSON + validate bằng schema",
+   "body": [
+    "Regex trên markdown rất dễ vỡ."
+   ]
+  }
  },
  "ccdv-f-b1156": {
   "q": "Một agent hỗ trợ khách hàng dùng Claude Agent SDK nhận được nhiều hồ sơ khách hàng có thể khớp khi người dùng cung cấp tên phổ biến và địa chỉ không đầy đủ.\nAgent đôi khi chọn một hồ sơ dựa trên hoạt động gần đây hoặc độ tương đồng tên, gây ra các khoản hoàn tiền sai và rò rỉ quyền riêng tư.\nThay đổi nào cải thiện độ tin cậy tốt nhất mà không chuyển các trường hợp thông thường cho con người một cách không cần thiết?",
@@ -407,7 +727,15 @@
    "C": "Escalate mọi yêu cầu có bản ghi khách hàng trùng lặp cho agent con người trước khi thực hiện bất kỳ lời gọi lookup_order nào.",
    "D": "Coi nhiều kết quả khớp khách hàng là danh tính chưa được giải quyết và yêu cầu một định danh phân biệt trước khi thực hiện bất kỳ thao tác đơn hàng hoặc hoàn tiền nào."
   },
-  "exp": "Nhiều profile khớp thì danh tính chưa được xác định. Hỏi thêm một định danh phân biệt trước khi tra đơn hoặc hoàn tiền. Đoán sai sẽ dẫn đến hoàn tiền nhầm và lộ dữ liệu."
+  "exp": "Nhiều profile khớp thì danh tính chưa được xác định. Hỏi thêm một định danh phân biệt trước khi tra đơn hoặc hoàn tiền. Đoán sai sẽ dẫn đến hoàn tiền nhầm và lộ dữ liệu.",
+  "domain": 7,
+  "lesson": "7-2-guardrail-nhieu-lop",
+  "tip": {
+   "title": "Nhiều profile khớp → danh tính chưa xác định, hỏi thêm định danh",
+   "body": [
+    "Đoán sai dẫn tới hoàn tiền nhầm, lộ dữ liệu."
+   ]
+  }
  },
  "ccdv-f-b1157": {
   "q": "Một báo cáo nghiên cứu chứa hai nghiên cứu đáng tin cậy với các số liệu thống kê năng suất khác nhau.\nSynthesis agent chọn con số lớn hơn làm kết quả chính thức.\nThay đổi nào cải thiện độ tin cậy?",
@@ -417,7 +745,15 @@
    "C": "Lấy trung bình hai số liệu thống kê.",
    "D": "Giữ cả hai số liệu thống kê kèm ghi nhận nguồn, ghi chú phương pháp luận và chú thích xung đột"
   },
-  "exp": "Hai nguồn uy tín mâu thuẫn thì giữ cả hai, ghi nguồn, ghi chú phương pháp và đánh dấu xung đột. Không tự chọn số lớn hơn."
+  "exp": "Hai nguồn uy tín mâu thuẫn thì giữ cả hai, ghi nguồn, ghi chú phương pháp và đánh dấu xung đột. Không tự chọn số lớn hơn.",
+  "domain": 6,
+  "lesson": "6-3-xu-ly-output",
+  "tip": {
+   "title": "Hai nguồn uy tín mâu thuẫn → giữ cả hai, ghi nguồn, phương pháp, đánh dấu xung đột",
+   "body": [
+    "Không tự chọn số lớn hơn."
+   ]
+  }
  },
  "ccdv-f-b1158": {
   "q": "Một hệ thống QA structured extraction tạo ra JSON hợp lệ, nhưng các phát hiện của reviewer không nhất quán và khó hành động.\nĐiều gì nên cải thiện tính nhất quán?",
@@ -427,7 +763,15 @@
    "C": "Dùng biểu thức chính quy để sửa các chi tiết còn thiếu",
    "D": "Chỉ yêu cầu các phản hồi ngắn gọn có độ tin cậy cao"
   },
-  "exp": "Findings không nhất quán thì đưa ví dụ mẫu về một finding đầy đủ, có thể hành động (few-shot)."
+  "exp": "Findings không nhất quán thì đưa ví dụ mẫu về một finding đầy đủ, có thể hành động (few-shot).",
+  "domain": 6,
+  "lesson": "6-2-viet-prompt",
+  "tip": {
+   "title": "Finding thiếu nhất quán → ví dụ mẫu về finding đầy đủ",
+   "body": [
+    "Few-shot định nghĩa chuẩn."
+   ]
+  }
  },
  "ccdv-f-b1159": {
   "q": "Bạn đang thiết lập một ứng dụng Claude yêu cầu các API key cho nhiều dịch vụ bên ngoài.\nCách tốt nhất để lưu trữ các key là gì?",
@@ -437,7 +781,15 @@
    "C": "Lưu các key trong một secrets manager hoặc cấu hình theo từng môi trường không được check vào source code, và nạp chúng khi runtime.",
    "D": "Đặt các key trong file cấu hình của ứng dụng và check file cấu hình đó vào repository của nhóm cùng với phần còn lại của source code."
   },
-  "exp": "API key lưu trong secrets manager hoặc config theo môi trường (không commit vào git) và load lúc runtime."
+  "exp": "API key lưu trong secrets manager hoặc config theo môi trường (không commit vào git) và load lúc runtime.",
+  "domain": 7,
+  "lesson": "7-4-api-key-va-bi-mat",
+  "tip": {
+   "title": "API key → secrets manager/config theo môi trường, load lúc runtime",
+   "body": [
+    "Không bao giờ commit vào git."
+   ]
+  }
  },
  "ccdv-f-b1160": {
   "q": "Bạn đang thiết kế một ứng dụng Claude duy trì các phiên người dùng qua các cuộc hội thoại nhiều lượt.\nNhóm sản phẩm đã hỏi ứng dụng sẽ xử lý vòng đời phiên như thế nào: khi nào phiên nên hết hạn, trạng thái được reset ra sao, và ứng dụng tránh mang ngữ cảnh cũ vào các cuộc hội thoại mới như thế nào.\nBạn sẽ thiết kế vòng đời phiên như thế nào?",
@@ -447,7 +799,15 @@
    "C": "Định nghĩa các trigger reset trạng thái gắn với các sự kiện ứng dụng cụ thể nhưng áp dụng chúng trên mọi phiên một cách toàn cục, không có quy tắc hết hạn theo từng phiên.",
    "D": "Định nghĩa các quy tắc hết hạn phiên rõ ràng nhưng dựa vào người dùng để bắt đầu các cuộc hội thoại mới khi họ muốn ngữ cảnh mới, không có trigger reset tự động nào trong ứng dụng."
   },
-  "exp": "Session lifecycle cần đủ ba phần: quy tắc hết hạn, trigger reset state và quy tắc bắt đầu phiên mới, để context cũ không rò sang hội thoại mới."
+  "exp": "Session lifecycle cần đủ ba phần: quy tắc hết hạn, trigger reset state và quy tắc bắt đầu phiên mới, để context cũ không rò sang hội thoại mới.",
+  "domain": 2,
+  "lesson": "2-5-thiet-ke-ung-dung-claude",
+  "tip": {
+   "title": "Vòng đời session → quy tắc hết hạn + trigger reset + khi nào bắt đầu mới",
+   "body": [
+    "Không để context cũ rò sang hội thoại mới."
+   ]
+  }
  },
  "ccdv-f-b1161": {
   "q": "Bạn đang xây dựng một MCP server cung cấp nhiều nguồn dữ liệu nội bộ dưới dạng các MCP resource.\nServer cần được triển khai để nhiều ứng dụng Claude có thể tích hợp với nó.\nBạn sẽ tiếp cận việc xây dựng và triển khai như thế nào?",
@@ -457,7 +817,15 @@
    "C": "Chỉ triển khai MCP server trên máy của từng developer, với các ứng dụng Claude không thể truy cập server bên ngoài máy của từng developer.",
    "D": "Bỏ qua MCP server và nhúng trực tiếp từng nguồn dữ liệu vào mọi ứng dụng Claude cần dữ liệu đó, với mỗi ứng dụng tự duy trì tích hợp của riêng nó."
   },
-  "exp": "MCP server dùng chung: định nghĩa rõ resources, tools, prompts; chọn transport phù hợp; deploy ở nơi các ứng dụng truy cập được."
+  "exp": "MCP server dùng chung: định nghĩa rõ resources, tools, prompts; chọn transport phù hợp; deploy ở nơi các ứng dụng truy cập được.",
+  "domain": 8,
+  "lesson": "8-2-viet-mcp-server",
+  "tip": {
+   "title": "MCP server dùng chung → định nghĩa resources/tools/prompts, chọn transport, deploy truy cập được",
+   "body": [
+    "Giống câu m1-9."
+   ]
+  }
  },
  "ccdv-f-b1162": {
   "q": "Nhóm của bạn đang chuẩn bị một ứng dụng Claude mới cho production, và nhóm sản phẩm đã yêu cầu một bản dự toán chi phí.\nNhóm cần ước tính chi phí dựa trên khối lượng request dự kiến, độ dài input trung bình và độ dài output trung bình.\nBạn sẽ xây dựng bản dự toán như thế nào?",
@@ -467,7 +835,15 @@
    "C": "Xây dựng một mô hình chi phí kết hợp khối lượng request dự kiến và số input token trung bình, coi output token là một phần chi phí đủ nhỏ để bỏ ra khỏi bản dự toán.",
    "D": "Xây dựng một mô hình chi phí dựa trên khối lượng request dự kiến và giá của model được chọn, coi số lượng input và output token trung bình là các biến sẽ được ước tính sau khi ra mắt."
   },
-  "exp": "Cost model phải gồm: số request, số token input và output trung bình, bảng giá của model và phần tiết kiệm nhờ caching. Output token thường đắt hơn input nên không được bỏ qua."
+  "exp": "Cost model phải gồm: số request, số token input và output trung bình, bảng giá của model và phần tiết kiệm nhờ caching. Output token thường đắt hơn input nên không được bỏ qua.",
+  "domain": 5,
+  "lesson": "5-4-chi-phi-va-token",
+  "tip": {
+   "title": "Dự toán chi phí → số request × (input + output token) × giá model − tiết kiệm từ cache",
+   "body": [
+    "Output token thường đắt hơn input."
+   ]
+  }
  },
  "ccdv-f-b1163": {
   "q": "Ứng dụng Claude của bạn sử dụng structured output được code downstream tiêu thụ.\nNhóm muốn xử lý output sai định dạng hoặc không mong đợi một cách linh hoạt để nó không làm sập các hệ thống downstream.\nLựa chọn tốt nhất để xử lý vấn đề này là...",
@@ -477,7 +853,15 @@
    "C": "Áp dụng defensive parsing để xử lý các field không mong đợi, giá trị bị thiếu và sự không khớp kiểu mà code downstream có thể bị crash vì chúng.",
    "D": "Âm thầm loại bỏ bất kỳ output nào không khớp kỳ vọng để các hệ thống downstream không thấy output sai định dạng mà ứng dụng nhận được từ model."
   },
-  "exp": "Defensive parsing: xử lý được field lạ, giá trị thiếu, sai kiểu dữ liệu mà không làm sập downstream. Không crash, nhưng cũng không âm thầm bỏ dữ liệu."
+  "exp": "Defensive parsing: xử lý được field lạ, giá trị thiếu, sai kiểu dữ liệu mà không làm sập downstream. Không crash, nhưng cũng không âm thầm bỏ dữ liệu.",
+  "domain": 6,
+  "lesson": "6-3-xu-ly-output",
+  "tip": {
+   "title": "Output có thể lỗi → parse phòng thủ (field lạ, thiếu giá trị, sai kiểu)",
+   "body": [
+    "Không sập, cũng không âm thầm bỏ dữ liệu."
+   ]
+  }
  },
  "ccdv-f-b1164": {
   "q": "Nhóm của bạn sử dụng nhiều plugin trên nhiều ứng dụng Claude, và một bản cập nhật plugin gần đây đã gây ra một regression.\nNhóm đã không theo dõi các phiên bản plugin, nên không thể dễ dàng xác định phiên bản nào trước đó hoạt động tốt.\nBạn sẽ xử lý việc này như thế nào?",
@@ -487,7 +871,15 @@
    "C": "Ngừng sử dụng tất cả plugin cho đến khi nhóm có thể xây dựng lại chức năng tương đương trực tiếp vào code ứng dụng, coi việc tránh plugin là cách loại bỏ rủi ro liên quan đến phiên bản.",
    "D": "Coi các plugin là code bên thứ ba không thể theo dõi và dựa vào các tác giả plugin để thông báo các thay đổi gây lỗi khi chúng xảy ra, không có theo dõi phiên bản nội bộ."
   },
-  "exp": "Plugin cũng như dependency: phải theo dõi version (pin) để biết bản nào đang chạy ổn, và chủ động nâng cấp."
+  "exp": "Plugin cũng như dependency: phải theo dõi version (pin) để biết bản nào đang chạy ổn, và chủ động nâng cấp.",
+  "domain": 2,
+  "lesson": "2-6-quan-ly-cau-hinh",
+  "tip": {
+   "title": "Plugin như dependency → ghim và theo dõi phiên bản",
+   "body": [
+    "Biết bản nào đang chạy ổn để quay lại."
+   ]
+  }
  },
  "ccdv-f-b1165": {
   "q": "Bạn đang cân nhắc giữa việc triển khai một agent chạy bằng Claude trên hạ tầng do Anthropic lưu trữ hoặc tự lưu trữ theo mô hình \"bring your own cloud\" trong tài khoản AWS của riêng bạn.\nAgent xử lý dữ liệu khách hàng chịu sự điều chỉnh của các chính sách data residency của doanh nghiệp bạn, nhưng nhóm muốn ship nhanh và tránh phải quản lý hạ tầng.\nBạn sẽ đề xuất mô hình triển khai nào?",
@@ -497,7 +889,15 @@
    "C": "Triển khai trên hạ tầng do Anthropic lưu trữ trong khi nhóm soạn một yêu cầu cập nhật chính sách data residency của doanh nghiệp để chấp nhận các triển khai AI được lưu trữ.",
    "D": "Tự lưu trữ theo BYOC cho một đợt pilot ban đầu, sau đó đánh giá xem có nên chuyển sang hạ tầng do Anthropic lưu trữ hay không khi các pattern xử lý dữ liệu của agent đã được hiểu rõ hơn."
   },
-  "exp": "Data residency là yêu cầu bắt buộc, không đánh đổi lấy tốc độ. Chọn BYOC để đáp ứng compliance, rồi cùng đội hạ tầng giảm chi phí vận hành."
+  "exp": "Data residency là yêu cầu bắt buộc, không đánh đổi lấy tốc độ. Chọn BYOC để đáp ứng compliance, rồi cùng đội hạ tầng giảm chi phí vận hành.",
+  "domain": 2,
+  "lesson": "2-1-tu-yeu-cau-den-cau-hinh",
+  "tip": {
+   "title": "Data residency bắt buộc → chọn cách triển khai đáp ứng, rồi giảm chi phí vận hành",
+   "body": [
+    "Không đánh đổi tuân thủ lấy tốc độ."
+   ]
+  }
  },
  "ccdv-f-b1166": {
   "q": "Ứng dụng Claude của bạn sử dụng tool calling để lấy dữ liệu bệnh nhân và tạo các báo cáo tóm tắt.\nLuồng đôi khi thất bại vì model trả về một block tool_use tham chiếu các argument không có trong schema, và code ứng dụng của bạn không xử lý trường hợp này một cách linh hoạt.\nBạn sẽ xử lý việc này như thế nào?",
@@ -507,7 +907,15 @@
    "C": "Retry cùng một request lặp đi lặp lại cho đến khi model trả về một block tool_use hợp lệ khớp với schema như mong đợi.",
    "D": "Ghi log các block tool_use không hợp lệ khi chúng xảy ra và cho phép việc điều phối tool tiếp tục, dựa vào cơ chế xử lý lỗi của chính tool để đưa các lỗi trở lại ứng dụng."
   },
-  "exp": "Validate tham số trong tool_use theo schema trước khi gọi tool, và coi tham số sai là một nhánh lỗi được xử lý rõ ràng."
+  "exp": "Validate tham số trong tool_use theo schema trước khi gọi tool, và coi tham số sai là một nhánh lỗi được xử lý rõ ràng.",
+  "domain": 8,
+  "lesson": "8-1-viet-tool",
+  "tip": {
+   "title": "tool_use có tham số lạ → validate theo schema trước khi gọi, coi là nhánh lỗi",
+   "body": [
+    "Coi input từ model là không tin cậy."
+   ]
+  }
  },
  "ccdv-f-b1167": {
   "q": "Prompt của ứng dụng Claude của bạn được viết từ nhiều tháng trước và chưa được cập nhật.\nNhóm đã phát hiện qua các eval rằng prompt cho kết quả tốt trên các trường hợp phổ biến nhưng hoạt động kém trên một danh mục input cụ thể đã tăng về khối lượng.\nBạn sẽ phản ứng như thế nào?",
@@ -517,7 +925,15 @@
    "C": "Lặp lại cải thiện prompt để giải quyết danh mục hoạt động kém, xác thực thay đổi bằng các eval, và tiếp tục tinh chỉnh khi cần.",
    "D": "Thay prompt bằng một prompt mới phù hợp với danh mục hoạt động kém, coi mọi thay đổi hiệu năng ở các trường hợp phổ biến là một sự đánh đổi đã biết."
   },
-  "exp": "Prompt yếu ở một nhóm input thì iterate prompt, validate bằng eval (tránh regression ở các case phổ biến) và tiếp tục tinh chỉnh."
+  "exp": "Prompt yếu ở một nhóm input thì iterate prompt, validate bằng eval (tránh regression ở các case phổ biến) và tiếp tục tinh chỉnh.",
+  "domain": 6,
+  "lesson": "6-2-viet-prompt",
+  "tip": {
+   "title": "Prompt yếu ở một nhóm input → iterate + eval để tránh regression",
+   "body": [
+    "Tiếp tục tinh chỉnh có đo."
+   ]
+  }
  },
  "ccdv-f-b1168": {
   "q": "Một đồng nghiệp đang xem xét threat model của nhóm cho một ứng dụng Claude và nhờ bạn xác định các danh mục mối đe dọa đặc thù của AI mà mô hình nên bao gồm.\nĐồng nghiệp đã liệt kê các mối đe dọa ứng dụng web truyền thống và muốn biết cần thêm những danh mục nào áp dụng cho một ứng dụng Claude.\nBạn sẽ bổ sung những danh mục mối đe dọa đặc thù của AI nào?",
@@ -527,7 +943,15 @@
    "C": "Tấn công từ chối dịch vụ ở cấp mạng và tấn công vào hạ tầng vật lý, vì các danh mục này bao gồm những mối đe dọa có nhiều khả năng ảnh hưởng đến bất kỳ ứng dụng Claude nào trong môi trường production.",
    "D": "Cross-site scripting và SQL injection, vì các mối đe dọa ứng dụng web truyền thống này áp dụng với mức độ ngang nhau cho bất kỳ ứng dụng nào sử dụng Claude theo bất kỳ cách nào."
   },
-  "exp": "Các mối đe dọa đặc thù AI: prompt injection, rò dữ liệu từ prompt hoặc context, jailbreak, output không an toàn vượt qua kiểm soát của ứng dụng."
+  "exp": "Các mối đe dọa đặc thù AI: prompt injection, rò dữ liệu từ prompt hoặc context, jailbreak, output không an toàn vượt qua kiểm soát của ứng dụng.",
+  "domain": 7,
+  "lesson": "7-1-bao-mat-ung-dung-ai",
+  "tip": {
+   "title": "Mối đe doạ riêng của AI → prompt injection, rò dữ liệu, jailbreak, output không an toàn",
+   "body": [
+    "Bổ sung vào threat model web truyền thống."
+   ]
+  }
  },
  "ccdv-f-b1169": {
   "q": "Ứng dụng Claude mà nhóm bạn xây dựng đã phát triển qua sáu tháng, và mã xử lý prompt đã tích tụ sự trùng lặp cùng luồng điều khiển rối rắm.\nChức năng vẫn hoạt động, nhưng việc thêm tính năng mới ngày càng khó.\nBạn sẽ giải quyết vấn đề này như thế nào?",
@@ -537,7 +961,15 @@
    "C": "Tiếp tục thêm tính năng và lên kế hoạch cho đợt refactoring sau hai chu kỳ phát hành tiếp theo, khi nhóm có nhiều nguồn lực hơn cho công việc nội bộ.",
    "D": "Chuyển toàn bộ mã xử lý prompt vào một hàm lớn duy nhất để giảm số lượng tệp mà lập trình viên phải duyệt khi đọc mã."
   },
-  "exp": "Code đã thành technical debt cản trở tính năng mới thì lên kế hoạch refactor có chủ đích (gộp logic trùng, tách concern, đơn giản hóa luồng điều khiển) trước khi thêm tính năng."
+  "exp": "Code đã thành technical debt cản trở tính năng mới thì lên kế hoạch refactor có chủ đích (gộp logic trùng, tách concern, đơn giản hóa luồng điều khiển) trước khi thêm tính năng.",
+  "domain": 2,
+  "lesson": "2-4-nen-tang-ky-thuat-phan-mem",
+  "tip": {
+   "title": "Technical debt cản tính năng mới → lên kế hoạch refactor trước",
+   "body": [
+    "Gộp logic trùng, tách concern."
+   ]
+  }
  },
  "ccdv-f-b1170": {
   "q": "Bạn đang xây dựng một ứng dụng Claude cần chuyển output của model đến người dùng cuối ngay khi nó được tạo ra, thay vì chờ toàn bộ phản hồi hoàn tất.\nCơ chế của Claude API mà bạn sẽ dùng là...",
@@ -547,7 +979,15 @@
    "C": "Prompt caching, giúp cải thiện chi phí cho các request sau và không ảnh hưởng đến thời điểm phân phối của phản hồi đầu tiên.",
    "D": "Structured JSON output, chỉ phân phối phản hồi sau khi model đã hoàn thiện cấu trúc JSON của toàn bộ phản hồi."
   },
-  "exp": "Hiển thị output dần dần khi đang sinh thì dùng streaming. Batch API dành cho xử lý offline."
+  "exp": "Hiển thị output dần dần khi đang sinh thì dùng streaming. Batch API dành cho xử lý offline.",
+  "domain": 2,
+  "lesson": "2-3-co-che-messages-api",
+  "tip": {
+   "title": "Hiện output dần → streaming",
+   "body": [
+    "Batch dành cho xử lý offline."
+   ]
+  }
  },
  "ccdv-f-b1171": {
   "q": "Anthropic API đã deprecate một tham số request mà ứng dụng Claude của bạn sử dụng ở khoảng 40 vị trí trong codebase.\nThông báo deprecation đưa ra khoảng thời gian sáu tháng trước khi tham số bị gỡ bỏ và đề xuất một tham số thay thế có ngữ nghĩa hơi khác.\nBạn sẽ phản ứng với việc deprecation này bằng cách...",
@@ -557,7 +997,15 @@
    "C": "Thêm các regression test bao phủ hành vi của tham số, sau đó migrate các vị trí gọi theo từng đợt và xác thực chúng bằng các regression test.",
    "D": "Thay thế cả 40 vị trí gọi trong một thay đổi duy nhất ngay lập tức để tránh công việc migration kéo dài làm chậm hoạt động hiện tại."
   },
-  "exp": "Có 6 tháng thì làm an toàn: viết regression test cho hành vi hiện tại, rồi migrate từng đợt và kiểm tra bằng test, vì tham số mới có ngữ nghĩa hơi khác."
+  "exp": "Có 6 tháng thì làm an toàn: viết regression test cho hành vi hiện tại, rồi migrate từng đợt và kiểm tra bằng test, vì tham số mới có ngữ nghĩa hơi khác.",
+  "domain": 2,
+  "lesson": "2-2-vong-doi-he-thong",
+  "tip": {
+   "title": "Deprecation có thời hạn → regression test trước, migrate theo đợt",
+   "body": [
+    "Tham số mới khác ngữ nghĩa nên phải có test bảo vệ."
+   ]
+  }
  },
  "ccdv-f-b1172": {
   "q": "Ứng dụng của bạn dùng Messages API để xử lý các cuộc hội thoại nhiều lượt (multi-turn).\nMỗi lượt mới gửi lại toàn bộ lịch sử hội thoại, và chi phí token tăng lên khi cuộc hội thoại dài hơn.\nBạn nghi ngờ có một cách hiệu quả hơn.\nBạn sẽ giải quyết vấn đề này như thế nào?",
@@ -567,7 +1015,15 @@
    "C": "Dùng prompt caching để tái sử dụng các phần tĩnh của context hội thoại qua các lượt, thay vì trả theo mức giá input-token thông thường cho chúng ở mỗi request mà ứng dụng gửi đi.",
    "D": "Chuyển sang Batch API cho mọi lượt để giảm chi phí mỗi lệnh gọi, coi batch là cơ chế kiểm soát chi phí chính của nhóm cho công việc multi-turn."
   },
-  "exp": "Phần lịch sử lặp lại mỗi lượt là prefix tĩnh, nên prompt caching giúp không phải trả giá input đầy đủ cho nó mỗi lần. Cắt bớt hay tóm tắt sẽ làm mất thông tin."
+  "exp": "Phần lịch sử lặp lại mỗi lượt là prefix tĩnh, nên prompt caching giúp không phải trả giá input đầy đủ cho nó mỗi lần. Cắt bớt hay tóm tắt sẽ làm mất thông tin.",
+  "domain": 5,
+  "lesson": "5-4-chi-phi-va-token",
+  "tip": {
+   "title": "Lịch sử gửi lại mỗi lượt → prompt caching",
+   "body": [
+    "Prefix lặp lại được tính giá rẻ hơn."
+   ]
+  }
  },
  "ccdv-f-b1173": {
   "q": "Bạn đang cấu hình Claude Code cho một dự án mới.\nNhóm cần thiết lập quyền (permissions), lựa chọn model mặc định và hành vi theo môi trường ở cấp dự án để cấu hình nhất quán giữa tất cả lập trình viên làm việc trên repository.\nCơ chế của Claude Code mà bạn sẽ dùng là...",
@@ -577,7 +1033,15 @@
    "C": "Một bảng tính dùng chung liệt kê các giá trị cấu hình để các thành viên trong nhóm tham khảo và cập nhật thủ công khi dự án phát triển.",
    "D": "Tệp settings.json, được đặt phạm vi ở cấp dự án để cấu hình áp dụng nhất quán giữa các lập trình viên và được lưu cùng repository."
   },
-  "exp": "Cấu hình Claude Code chung cho cả team (permissions, model, môi trường) đặt trong `.claude/settings.json` ở cấp project và commit vào repo."
+  "exp": "Cấu hình Claude Code chung cho cả team (permissions, model, môi trường) đặt trong `.claude/settings.json` ở cấp project và commit vào repo.",
+  "domain": 3,
+  "lesson": "3-1-van-hanh-claude-code",
+  "tip": {
+   "title": "Permissions, model, môi trường cho cả team → .claude/settings.json cấp project",
+   "body": [
+    "Commit cùng repo."
+   ]
+  }
  },
  "ccdv-f-b1174": {
   "q": "Nhóm của bạn đang chuẩn bị triển khai một thay đổi cấu hình cập nhật nhiều phiên bản prompt trong một ứng dụng Claude được nhiều hệ thống downstream sử dụng.\nThay đổi đã được kiểm thử trên staging, nhưng nhóm chưa đánh giá thay đổi prompt sẽ ảnh hưởng thế nào đến từng hệ thống downstream phụ thuộc vào output của ứng dụng.\nBạn sẽ làm gì trước khi triển khai thay đổi?",
@@ -587,7 +1051,15 @@
    "C": "Giới hạn việc triển khai ở những hệ thống đã được đưa vào kiểm thử staging và hoãn tất cả các hệ thống downstream khác sang một chu kỳ phát hành sau.",
    "D": "Đánh giá tác động của cấu hình lên từng hệ thống downstream trước khi triển khai, và phối hợp với chủ sở hữu các hệ thống downstream khi cần."
   },
-  "exp": "Trước khi rollout thay đổi prompt, đánh giá tác động lên từng hệ thống downstream và phối hợp với chủ của các hệ thống đó. Staging test chưa đủ."
+  "exp": "Trước khi rollout thay đổi prompt, đánh giá tác động lên từng hệ thống downstream và phối hợp với chủ của các hệ thống đó. Staging test chưa đủ.",
+  "domain": 2,
+  "lesson": "2-6-quan-ly-cau-hinh",
+  "tip": {
+   "title": "Đổi prompt có downstream → đánh giá tác động từng hệ thống trước khi rollout",
+   "body": [
+    "Staging pass chưa đủ."
+   ]
+  }
  },
  "ccdv-f-b1175": {
   "q": "Một đồng nghiệp đã gửi một pull request thêm tính năng sử dụng Claude vào service của bạn.\nMã hoạt động, nhưng prompt và lựa chọn model được hard-code trực tiếp, thiếu xử lý lỗi và không có test nào cho phần tích hợp.\nBạn sẽ yêu cầu gì trong quá trình code review?",
@@ -597,7 +1069,15 @@
    "C": "Yêu cầu thay đổi để chuyển cấu hình prompt và model sang một vị trí có thể cấu hình được và thêm test, coi việc thiếu xử lý lỗi là hạng mục cho bản phát hành tiếp theo.",
    "D": "Yêu cầu thay đổi để chuyển cấu hình prompt và model sang một vị trí có thể cấu hình được, thêm xử lý lỗi cho các lỗi của Claude API và thêm test cho phần tích hợp."
   },
-  "exp": "Code review đầy đủ: tách prompt và model ra config, thêm xử lý lỗi khi gọi API, thêm test cho phần tích hợp. Xử lý lỗi không phải \"để sau\"."
+  "exp": "Code review đầy đủ: tách prompt và model ra config, thêm xử lý lỗi khi gọi API, thêm test cho phần tích hợp. Xử lý lỗi không phải \"để sau\".",
+  "domain": 2,
+  "lesson": "2-4-nen-tang-ky-thuat-phan-mem",
+  "tip": {
+   "title": "Review tích hợp Claude → config hoá prompt/model + error handling + test",
+   "body": [
+    "Cả ba, không bỏ phần nào."
+   ]
+  }
  },
  "ccdv-f-b1176": {
   "q": "Bạn đang thiết lập Claude Code cho một repository dự án mới.\nNhóm của bạn có các tiêu chuẩn viết mã dùng chung, các thư viện ưu tiên và context riêng của dự án mà mọi lập trình viên làm việc trên repository đều cần có sẵn khi sử dụng Claude Code.\nBạn sẽ thiết lập điều này như thế nào?",
@@ -607,7 +1087,15 @@
    "C": "Khởi tạo Claude Code trong repository và ghi lại các tiêu chuẩn cùng context riêng của dự án trong một tệp CLAUDE.md ở thư mục gốc của repository.",
    "D": "Thêm các tiêu chuẩn viết mã và context dự án vào tệp README hiện có của repository và hướng dẫn lập trình viên tham khảo nó khi bắt đầu các phiên Claude Code."
   },
-  "exp": "Coding standard và context của dự án cho Claude Code thì viết vào `CLAUDE.md` ở thư mục gốc repo, tự động nạp mỗi phiên."
+  "exp": "Coding standard và context của dự án cho Claude Code thì viết vào `CLAUDE.md` ở thư mục gốc repo, tự động nạp mỗi phiên.",
+  "domain": 3,
+  "lesson": "3-1-van-hanh-claude-code",
+  "tip": {
+   "title": "Standard và context dự án → CLAUDE.md ở gốc repo",
+   "body": [
+    "Tự nạp mỗi phiên."
+   ]
+  }
  },
  "ccdv-f-b1177": {
   "q": "Bạn đang xem xét một sơ đồ kiến trúc cho hệ thống đặt vé du lịch sử dụng Claude.\nSơ đồ cho thấy một thành phần cấp cao nhất diễn giải các yêu cầu của người dùng và ba thành phần cấp dưới xử lý chuyến bay, khách sạn và vận chuyển mặt đất.\nThành phần cấp cao nhất chịu trách nhiệm định tuyến từng yêu cầu, sắp xếp thứ tự các thành phần cấp dưới và đối chiếu output của chúng thành một lịch trình cuối cùng.\nSơ đồ cũng cho thấy mỗi thành phần cấp dưới có danh sách tool riêng và lịch sử hội thoại ngắn riêng không được chia sẻ với các thành phần khác.\nSơ đồ này mô tả gần nhất với mẫu kiến trúc (architectural pattern) nào?",
@@ -617,7 +1105,15 @@
    "C": "Mẫu pipeline, trong đó mỗi thành phần xử lý yêu cầu của người dùng theo thứ tự và chuyển toàn bộ lịch sử hội thoại cùng yêu cầu cho thành phần tiếp theo trong pipeline.",
    "D": "Mẫu retrieval-augmented, trong đó thành phần cấp cao nhất truy xuất context liên quan từ các kho dữ liệu được lập chỉ mục của các thành phần cấp dưới trước khi tạo mỗi phản hồi."
   },
-  "exp": "Coordinator điều phối các subagent chuyên biệt, mỗi subagent có tool riêng và lịch sử riêng không chia sẻ: đây là pattern manager/supervisor với context tách biệt."
+  "exp": "Coordinator điều phối các subagent chuyên biệt, mỗi subagent có tool riêng và lịch sử riêng không chia sẻ: đây là pattern manager/supervisor với context tách biệt.",
+  "domain": 1,
+  "lesson": "1-3-mau-agent-va-framework",
+  "tip": {
+   "title": "Một agent trên điều phối nhiều subagent chuyên biệt → manager/supervisor",
+   "body": [
+    "Mỗi subagent có context và tool riêng."
+   ]
+  }
  },
  "ccdv-f-b1178": {
   "q": "Bạn đang bắt đầu một ứng dụng Claude mới và có một tập nhỏ các ví dụ được gán nhãn tốt minh họa định dạng output mong muốn.\nBạn muốn dùng các ví dụ này để định hướng hành vi của Claude.\nBạn sẽ định hướng hành vi của ứng dụng như thế nào?",
@@ -627,7 +1123,15 @@
    "C": "Nhúng các ví dụ vào một cơ sở dữ liệu và truy xuất chúng khi chạy như tài liệu tham khảo cho nhóm.",
    "D": "Huấn luyện một model tùy chỉnh trên các ví dụ được gán nhãn trước khi triển khai để ứng dụng không cần đưa các ví dụ vào bất kỳ prompt nào trong quá trình vận hành."
   },
-  "exp": "Có ví dụ có nhãn tốt thì đưa vào prompt (multi-shot hoặc few-shot) để Claude bắt chước format."
+  "exp": "Có ví dụ có nhãn tốt thì đưa vào prompt (multi-shot hoặc few-shot) để Claude bắt chước format.",
+  "domain": 6,
+  "lesson": "6-2-viet-prompt",
+  "tip": {
+   "title": "Có ví dụ có nhãn → multi-shot trong prompt",
+   "body": [
+    "Chưa cần fine-tune."
+   ]
+  }
  },
  "ccdv-f-b1179": {
   "q": "Bạn đang thiết lập cách quản lý cấu hình cho một dự án Claude Code mới.\nNhóm của bạn sẽ dùng các tệp CLAUDE.md và settings.json để kiểm soát hành vi, và bạn muốn đảm bảo các thay đổi được theo dõi và có thể review.\nCách quản lý cấu hình sẽ...",
@@ -637,7 +1141,15 @@
    "C": "Version-control CLAUDE.md cùng với mã nguồn của dự án còn các tệp settings.json trong một repository riêng tách khỏi mã nguồn của dự án.",
    "D": "Version-control các tệp CLAUDE.md và settings.json cùng với mã nguồn của dự án, với các thay đổi được review qua quy trình pull request tiêu chuẩn mà nhóm áp dụng."
   },
-  "exp": "`CLAUDE.md` và `settings.json` version-control cùng source code và review qua pull request như code bình thường."
+  "exp": "`CLAUDE.md` và `settings.json` version-control cùng source code và review qua pull request như code bình thường.",
+  "domain": 2,
+  "lesson": "2-6-quan-ly-cau-hinh",
+  "tip": {
+   "title": "CLAUDE.md + settings.json → version control + review bằng PR",
+   "body": [
+    "Config được đối xử như code."
+   ]
+  }
  },
  "ccdv-f-b1180": {
   "q": "Agent của bạn xử lý các tác vụ mất từ 30 đến 60 phút để hoàn thành.\nMỗi tác vụ có các checkpoint trung gian được xác định rõ, và nhóm muốn agent có thể tiếp tục từ checkpoint gần nhất nếu một tiến trình bị gián đoạn.\nBạn sẽ triển khai khả năng tiếp tục này như thế nào?",
@@ -647,7 +1159,15 @@
    "C": "Chạy song song hai bản sao của agent cho mọi tác vụ và dùng bản nào hoàn thành trước làm nguồn sự thật.",
    "D": "Khởi động lại tác vụ từ đầu mỗi khi một tiến trình bị gián đoạn."
   },
-  "exp": "Task dài có checkpoint thì dùng checkpointing: lưu state trung gian và nạp lại khi resume."
+  "exp": "Task dài có checkpoint thì dùng checkpointing: lưu state trung gian và nạp lại khi resume.",
+  "domain": 1,
+  "lesson": "1-2-cach-dung-agent",
+  "tip": {
+   "title": "Task dài cần resume → checkpointing",
+   "body": [
+    "Lưu state trung gian, nạp lại khi chạy tiếp."
+   ]
+  }
  },
  "ccdv-f-b1181": {
   "q": "Một nhóm đã triển khai hệ thống multi-agent trong đó một agent chính phân rã các yêu cầu của người dùng và giao các tác vụ con cho ba subagent chuyên biệt: một cho truy xuất dữ liệu, một cho phân tích và một cho tạo báo cáo.\nTrong production, nhóm quan sát thấy các subagent thực hiện các lệnh gọi tool dư thừa, đôi khi vượt quá ngân sách token, và đôi khi tạo ra các output mâu thuẫn nhau - tất cả đều được agent chính chuyển tiếp mà không phát hiện.\nCách phù hợp nhất để khắc phục các lỗi này là gì?",
@@ -657,7 +1177,15 @@
    "C": "Tăng cường lớp quản lý của agent chính để thực thi ngân sách tool cho từng subagent, xác thực output theo một schema đã định nghĩa trước khi chuyển tiếp, và thiết lập các hợp đồng bàn giao (handoff contract) rõ ràng giữa các giai đoạn.",
    "D": "Gộp ba subagent thành một lệnh gọi model context lớn duy nhất xử lý truy xuất, phân tích và tạo báo cáo trong một lượt."
   },
-  "exp": "Củng cố tầng quản lý ở agent chính: giới hạn ngân sách tool cho từng subagent, validate output theo schema trước khi chuyển tiếp, và có handoff contract rõ ràng giữa các bước."
+  "exp": "Củng cố tầng quản lý ở agent chính: giới hạn ngân sách tool cho từng subagent, validate output theo schema trước khi chuyển tiếp, và có handoff contract rõ ràng giữa các bước.",
+  "domain": 1,
+  "lesson": "1-3-mau-agent-va-framework",
+  "tip": {
+   "title": "Subagent gọi tool thừa, output lỗi → ngân sách tool + validate schema + handoff contract",
+   "body": [
+    "Sửa ở tầng quản lý của agent chính."
+   ]
+  }
  },
  "ccdv-f-b1182": {
   "q": "Agent của bạn thực hiện 10 đến 15 lệnh gọi tool cho mỗi tác vụ, và bạn nhận thấy đôi khi nó mất dấu các kết quả trước đó khi đến các bước sau.\nContext window của agent đủ lớn để chứa tất cả message, nhưng thông tin liên quan dường như bị chìm đi khi cuộc hội thoại dài ra.\nBạn sẽ giải quyết vấn đề này như thế nào?",
@@ -667,7 +1195,15 @@
    "C": "Tăng context window hơn nữa để tất cả output tool từ mọi bước trước đó được giữ đầy đủ chi tiết trong suốt tác vụ.",
    "D": "Áp dụng một mẫu quản lý context tóm tắt hoặc loại bỏ (prune) các output tool cũ hơn trong khi vẫn giữ nguyên trạng thái tác vụ đang hoạt động."
   },
-  "exp": "Thông tin bị \"chôn\" trong context dài thì quản lý context: tóm tắt hoặc cắt bớt tool output cũ, giữ nguyên task state đang hoạt động."
+  "exp": "Thông tin bị \"chôn\" trong context dài thì quản lý context: tóm tắt hoặc cắt bớt tool output cũ, giữ nguyên task state đang hoạt động.",
+  "domain": 6,
+  "lesson": "6-1-quan-ly-context",
+  "tip": {
+   "title": "Thông tin bị chôn trong context dài → tóm tắt/cắt tool output cũ",
+   "body": [
+    "Giữ nguyên task state đang hoạt động."
+   ]
+  }
  },
  "ccdv-f-b1183": {
   "q": "Một đồng nghiệp hỏi tại sao ứng dụng Claude của bạn đôi khi tạo ra phản hồi lặp lại nguyên văn nội dung prompt, và đôi khi lại tạo ra phản hồi diễn đạt lại nội dung prompt.\nHọ nghi ngờ có lỗi trong việc xây dựng request của ứng dụng.\nBạn sẽ phản hồi như thế nào?",
@@ -677,7 +1213,15 @@
    "C": "Xác nhận rằng sự biến thiên là một lỗi trong việc xây dựng request của ứng dụng và bắt đầu điều tra phần nào của ứng dụng đang tạo ra nội dung prompt không nhất quán.",
    "D": "Nói với đồng nghiệp rằng sự biến thiên là do ứng dụng gửi hai prompt khác nhau ở các lần chạy khác nhau và đề xuất một thay đổi mã để ghim system prompt vào một phiên bản duy nhất."
   },
-  "exp": "LLM sinh từng token theo xác suất, nên việc lặp lại hay diễn đạt lại prompt là đặc tính của quá trình sinh, không phải bug khi build request."
+  "exp": "LLM sinh từng token theo xác suất, nên việc lặp lại hay diễn đạt lại prompt là đặc tính của quá trình sinh, không phải bug khi build request.",
+  "domain": 5,
+  "lesson": "5-1-nen-tang-llm",
+  "tip": {
+   "title": "Output lúc lặp lúc diễn đạt lại → bản chất sinh từng token",
+   "body": [
+    "Không phải bug build request."
+   ]
+  }
  },
  "ccdv-f-b1184": {
   "q": "Bạn đang thiết kế một workflow Claude nhiều bước trong đó một số bước phải suy luận mà không nhìn thấy toàn bộ lịch sử hội thoại trước đó.\nNhóm muốn giữ context cụ thể được cô lập cho các bước cụ thể.\nKỹ thuật context engineering mà bạn sẽ dùng là...",
@@ -687,7 +1231,15 @@
    "C": "Cô lập context (context isolation) thông qua subagent hoặc các agentic workflow nhiều bước, giới hạn context của mỗi bước chỉ ở những gì bước đó cần.",
    "D": "Nhúng toàn bộ lịch sử trước đó vào mỗi bước bất kể bước đó có cần lịch sử trước đó cho việc suy luận của mình hay không."
   },
-  "exp": "Cô lập context bằng subagent hoặc multi-step workflow: mỗi bước chỉ thấy đúng phần context mình cần."
+  "exp": "Cô lập context bằng subagent hoặc multi-step workflow: mỗi bước chỉ thấy đúng phần context mình cần.",
+  "domain": 6,
+  "lesson": "6-1-quan-ly-context",
+  "tip": {
+   "title": "Bước không được thấy toàn bộ lịch sử → context isolation bằng subagent",
+   "body": [
+    "Mỗi bước chỉ nhận phần cần."
+   ]
+  }
  },
  "ccdv-f-b1185": {
   "q": "Một đồng nghiệp hỏi bạn tại sao các tool của Claude agent của bạn bao gồm mô tả chi tiết trong định nghĩa tool, ngay cả khi tên tool đã mang tính mô tả.\nĐồng nghiệp đề xuất xóa các mô tả để đơn giản hóa định nghĩa tool.\nBạn sẽ phản hồi như thế nào?",
@@ -697,7 +1249,15 @@
    "C": "Giải thích rằng model dùng mô tả tool để quyết định khi nào gọi tool, và các mô tả giúp phân biệt rõ ràng trong những trường hợp tên tool không đủ.",
    "D": "Đề xuất chuyển các mô tả ra khỏi định nghĩa tool và đưa vào một tệp tài liệu riêng mà nhóm duy trì để định nghĩa tool ngắn gọn và các mô tả vẫn có sẵn."
   },
-  "exp": "Model đọc tool description để quyết định khi nào gọi tool. Description giúp phân biệt các trường hợp mà tên tool không đủ rõ."
+  "exp": "Model đọc tool description để quyết định khi nào gọi tool. Description giúp phân biệt các trường hợp mà tên tool không đủ rõ.",
+  "domain": 8,
+  "lesson": "8-1-viet-tool",
+  "tip": {
+   "title": "Model chọn tool dựa vào description",
+   "body": [
+    "Tên tool không đủ để phân biệt."
+   ]
+  }
  },
  "ccdv-f-b1186": {
   "q": "Cách xử lý lỗi của ứng dụng Claude của bạn hiện ghi log mọi lỗi API với cùng một mức độ nghiêm trọng.\nNhóm muốn phân biệt giữa các lỗi cần gọi (page) kỹ sư trực (on-call) và các lỗi chỉ cần ghi log để xem xét sau.\nBạn sẽ cấu trúc việc xử lý lỗi như thế nào?",
@@ -707,7 +1267,15 @@
    "C": "Phân loại lỗi theo mức độ nghiêm trọng dựa trên tác động và khả năng phục hồi, sau đó định tuyến mỗi danh mục đến kênh phù hợp để paging hoặc ghi log.",
    "D": "Ghi log mọi lỗi với cùng một mức độ nghiêm trọng, với lý do việc phân biệt mức độ nghiêm trọng thêm phức tạp mà không đem lại lợi ích trong hầu hết các thiết lập ứng dụng theo thời gian."
   },
-  "exp": "Phân loại lỗi theo mức độ (tác động, khả năng tự phục hồi) rồi route đúng kênh: lỗi nghiêm trọng thì page on-call, lỗi nhẹ thì log để xem sau."
+  "exp": "Phân loại lỗi theo mức độ (tác động, khả năng tự phục hồi) rồi route đúng kênh: lỗi nghiêm trọng thì page on-call, lỗi nhẹ thì log để xem sau.",
+  "domain": 4,
+  "lesson": "4-1-go-loi-va-xu-ly-loi",
+  "tip": {
+   "title": "Lỗi ngang hàng → phân loại theo tác động + khả năng phục hồi, route theo kênh",
+   "body": [
+    "Nghiêm trọng thì page, nhẹ thì log."
+   ]
+  }
  },
  "ccdv-f-b1187": {
   "q": "Ứng dụng Claude của bạn thực hiện các lệnh gọi API với khối lượng lớn trong giờ làm việc và rất ít lệnh gọi vào ban đêm.\nNhóm lo ngại về việc duy trì trong giới hạn rate limit trong giờ cao điểm và muốn hiểu cách Claude API thực thi các giới hạn đó.\nBạn sẽ tiến hành như thế nào?",
@@ -717,7 +1285,15 @@
    "C": "Xem lại tài liệu API về các endpoint streaming và đánh giá xem việc chuyển các lệnh gọi giờ cao điểm sang streaming có giảm mức độ chịu tác động của việc thực thi rate limit hay không.",
    "D": "Xác định các rate limit, thiết kế ứng dụng để nằm trong các giới hạn đó vào giờ cao điểm, và dùng exponential backoff khi chạm giới hạn."
   },
-  "exp": "Nắm rõ rate limit, thiết kế để không vượt giờ cao điểm, và dùng exponential backoff khi bị 429."
+  "exp": "Nắm rõ rate limit, thiết kế để không vượt giờ cao điểm, và dùng exponential backoff khi bị 429.",
+  "domain": 5,
+  "lesson": "5-2-goi-api-qua-sdk-va-rest",
+  "tip": {
+   "title": "Rate limit giờ cao điểm → biết giới hạn, thiết kế dưới ngưỡng, exponential backoff",
+   "body": [
+    "429 thì lùi và thử lại."
+   ]
+  }
  },
  "ccdv-f-b1188": {
   "q": "Bạn đang mở rộng một Claude agent bằng một khả năng cần được tái sử dụng giữa nhiều nhóm trong tổ chức, với mỗi nhóm có thể gọi và sử dụng nó một cách độc lập.\nBạn sẽ xây dựng khả năng đó như thế nào?",
@@ -727,7 +1303,15 @@
    "C": "Như một Skill hoặc MCP server vì cả hai đều được thiết kế riêng cho việc tái sử dụng giữa các nhóm, do từng nhóm sử dụng một cách độc lập.",
    "D": "Như một wrapper bao quanh một built-in tool hiện có để bổ sung chức năng còn thiếu, với lý do các built-in tool đáp ứng mẫu tái sử dụng khi được mở rộng cẩn thận."
   },
-  "exp": "Năng lực dùng chung cho nhiều team thì đóng gói thành Skill hoặc MCP server, vì cả hai được thiết kế để tái sử dụng độc lập."
+  "exp": "Năng lực dùng chung cho nhiều team thì đóng gói thành Skill hoặc MCP server, vì cả hai được thiết kế để tái sử dụng độc lập.",
+  "domain": 8,
+  "lesson": "8-3-tool-skill-hay-mcp",
+  "tip": {
+   "title": "Dùng chung nhiều team → Skill hoặc MCP server",
+   "body": [
+    "Mỗi team gọi độc lập."
+   ]
+  }
  },
  "ccdv-f-b1189": {
   "q": "Bạn đang lựa chọn giữa giao tiếp dựa trên STDIO và giao tiếp dựa trên HTTP cho một ACP server.\nServer sẽ được gọi bởi một phiên Claude Code chạy cục bộ.\nBạn sẽ dùng mẫu giao tiếp nào?",
@@ -737,7 +1321,15 @@
    "C": "HTTP polling đối với MCP server, coi HTTP là sự thay thế cho các mẫu giao tiếp MCP tiêu chuẩn.",
    "D": "STDIO vì STDIO phù hợp với giao tiếp tiến trình cục bộ và tránh việc thiết lập mạng không cần thiết."
   },
-  "exp": "Server chạy local cùng phiên Claude Code thì dùng STDIO: đơn giản, không cần cấu hình mạng. (Đề ghi \"ACP\" nhưng ý là MCP.)"
+  "exp": "Server chạy local cùng phiên Claude Code thì dùng STDIO: đơn giản, không cần cấu hình mạng. (Đề ghi \"ACP\" nhưng ý là MCP.)",
+  "domain": 8,
+  "lesson": "8-2-viet-mcp-server",
+  "tip": {
+   "title": "Server chạy local → STDIO; từ xa → HTTP",
+   "body": [
+    "STDIO không cần cấu hình mạng."
+   ]
+  }
  },
  "ccdv-f-b1190": {
   "q": "Các API key của ứng dụng Claude của bạn được lưu trong một secrets manager.\nNhóm đang tranh luận về việc có nên dùng cùng một key cho các môi trường development, staging và production hay không.\nBạn sẽ xử lý các key giữa các môi trường như thế nào?",
@@ -747,7 +1339,15 @@
    "C": "Dùng cùng một key cho tất cả môi trường cho đơn giản và coi việc lan truyền của bất kỳ sự xâm phạm nào là một đánh đổi vận hành đã biết trong cách quản lý key của nhóm.",
    "D": "Dùng một key development duy nhất ở mọi nơi, với lý do các key production quá rủi ro để triển khai trên ba môi trường của ứng dụng trong vận hành bình thường."
   },
-  "exp": "Mỗi môi trường một key riêng để nếu một môi trường bị lộ key thì các môi trường khác không bị ảnh hưởng (blast radius nhỏ)."
+  "exp": "Mỗi môi trường một key riêng để nếu một môi trường bị lộ key thì các môi trường khác không bị ảnh hưởng (blast radius nhỏ).",
+  "domain": 7,
+  "lesson": "7-4-api-key-va-bi-mat",
+  "tip": {
+   "title": "Mỗi môi trường một key riêng",
+   "body": [
+    "Lộ một key không kéo theo môi trường khác."
+   ]
+  }
  },
  "ccdv-f-b1191": {
   "q": "Bạn đang giải thích cho một bên liên quan (stakeholder) tại sao chạy cùng một prompt Claude hai lần có thể cho kết quả hơi khác nhau.\nStakeholder lo ngại điều này có nghĩa là ứng dụng bị hỏng.\nBạn sẽ giải quyết mối lo ngại của stakeholder như thế nào?",
@@ -757,7 +1357,15 @@
    "C": "Giải thích rằng LLM mặc định là không tất định (non-deterministic) do sampling, và mô tả cách ứng dụng xử lý điều này thông qua validation, retry hoặc điều chỉnh temperature.",
    "D": "Nói với stakeholder rằng sự biến thiên là do Claude được Anthropic cập nhật liên tục, và việc chuyển sang một model snapshot cố định sẽ loại bỏ hoàn toàn sự biến thiên."
   },
-  "exp": "LLM mặc định không deterministic do sampling. Giải thích cho stakeholder rằng ứng dụng xử lý việc này bằng validation, retry hoặc chỉnh temperature."
+  "exp": "LLM mặc định không deterministic do sampling. Giải thích cho stakeholder rằng ứng dụng xử lý việc này bằng validation, retry hoặc chỉnh temperature.",
+  "domain": 5,
+  "lesson": "5-1-nen-tang-llm",
+  "tip": {
+   "title": "Chạy hai lần khác nhau → sampling, không phải lỗi",
+   "body": [
+    "Xử lý bằng validation, retry, temperature."
+   ]
+  }
  },
  "ccdv-f-b1192": {
   "q": "Nhóm sản phẩm nhờ bạn chọn một model Claude cho một tính năng mới.\nNhóm đã cung cấp các yêu cầu chức năng nhưng chưa chỉ định mục tiêu về hiệu năng, chi phí hoặc chất lượng.\nProduct manager nói: \"Hãy dùng model nào cho chúng tôi kết quả tốt nhất.\"\nBạn sẽ phản hồi như thế nào?",
@@ -767,7 +1375,15 @@
    "C": "Chọn một model tầm trung và phát hành tính năng, vì các model tầm trung phù hợp với hầu hết các trường hợp sử dụng khi không có mục tiêu cụ thể.",
    "D": "Chọn model Claude lớn nhất, có năng lực cao nhất, với lý do \"kết quả tốt nhất\" nhiều khả năng có nghĩa là chất lượng cao nhất."
   },
-  "exp": "\"Tốt nhất\" phụ thuộc mục tiêu. Hỏi lại target về chất lượng, latency và chi phí, rồi chọn model có trade-off phù hợp nhất."
+  "exp": "\"Tốt nhất\" phụ thuộc mục tiêu. Hỏi lại target về chất lượng, latency và chi phí, rồi chọn model có trade-off phù hợp nhất.",
+  "domain": 5,
+  "lesson": "5-3-chon-model",
+  "tip": {
+   "title": "\"Model tốt nhất\" → hỏi target chất lượng, latency, chi phí trước",
+   "body": [
+    "Rồi chọn trade-off phù hợp."
+   ]
+  }
  },
  "ccdv-f-b1193": {
   "q": "Ứng dụng Claude của bạn được triển khai lên các môi trường development, staging và production.\nMỗi môi trường dùng một phiên bản model khác nhau, các phiên bản prompt khác nhau và các plugin dependency khác nhau, nhưng cấu hình hiện đang nằm rải rác trong các biến môi trường, các giá trị hard-code và các script thiết lập không có tài liệu.\nBạn sẽ quản lý cấu hình như thế nào?",
@@ -777,7 +1393,15 @@
    "C": "Hợp nhất cấu hình vào một hệ thống được version-control, ghi tài liệu việc ghim phiên bản model (model version pinning), phiên bản prompt và các plugin dependency cho từng môi trường.",
    "D": "Chuẩn hóa tất cả môi trường để dùng cùng các giá trị cấu hình nhằm loại bỏ sự khác biệt giữa development, staging và production."
   },
-  "exp": "Gom config về một hệ thống có version control, ghi rõ version model được pin, version prompt và plugin dependency cho từng môi trường."
+  "exp": "Gom config về một hệ thống có version control, ghi rõ version model được pin, version prompt và plugin dependency cho từng môi trường.",
+  "domain": 2,
+  "lesson": "2-6-quan-ly-cau-hinh",
+  "tip": {
+   "title": "Config rải rác → gom vào hệ thống có version control",
+   "body": [
+    "Pin model, version prompt, plugin theo từng môi trường."
+   ]
+  }
  },
  "ccdv-f-b1194": {
   "q": "Bạn đang thiết kế một ứng dụng Claude sẽ yêu cầu output JSON có cấu trúc cho xử lý downstream.\nSchema output đã được định nghĩa rõ ràng, và các hệ thống downstream sẽ từ chối JSON sai định dạng.\nThiết kế ứng dụng của bạn sẽ ...",
@@ -787,7 +1411,15 @@
    "C": "định nghĩa một schema rõ ràng và cấu trúc prompt để yêu cầu output theo schema đó, với các hệ thống downstream xử lý bất kỳ việc validation nào cần thiết.",
    "D": "định nghĩa một schema rõ ràng, cấu trúc prompt để yêu cầu output theo schema đó, và validate output của Claude theo schema trước khi chuyển xuống downstream."
   },
-  "exp": "Định nghĩa schema, prompt yêu cầu đúng schema, và validate output trước khi đẩy xuống downstream."
+  "exp": "Định nghĩa schema, prompt yêu cầu đúng schema, và validate output trước khi đẩy xuống downstream.",
+  "domain": 6,
+  "lesson": "6-3-xu-ly-output",
+  "tip": {
+   "title": "Downstream cần JSON → schema + prompt theo schema + validate",
+   "body": [
+    "Validate trước khi đẩy đi."
+   ]
+  }
  },
  "ccdv-f-b1195": {
   "q": "Bạn đang thiết kế một ứng dụng Claude sẽ xử lý các ticket hỗ trợ khách hàng theo hai giai đoạn: giai đoạn triage phân loại ticket và giai đoạn response soạn thảo phản hồi.\nNhóm đang tranh luận có nên dùng một lệnh gọi Claude duy nhất xử lý cả hai giai đoạn hay các lệnh gọi Claude riêng cho từng giai đoạn.\nBạn sẽ cấu trúc ứng dụng như thế nào?",
@@ -797,7 +1429,15 @@
    "C": "Dùng các lệnh gọi Claude riêng cho triage và response, vì mỗi giai đoạn có input, output và tiêu chí thành công riêng biệt được hưởng lợi từ các prompt tập trung.",
    "D": "Dùng một lệnh gọi Claude duy nhất cho cả hai giai đoạn, với lý do một lệnh gọi rẻ hơn nhiều lệnh gọi trong mọi thiết lập ứng dụng Claude production."
   },
-  "exp": "Hai giai đoạn có input, output và tiêu chí thành công khác nhau thì tách thành hai lời gọi riêng với prompt tập trung (prompt chaining)."
+  "exp": "Hai giai đoạn có input, output và tiêu chí thành công khác nhau thì tách thành hai lời gọi riêng với prompt tập trung (prompt chaining).",
+  "domain": 1,
+  "lesson": "1-1-workflow-hay-agent",
+  "tip": {
+   "title": "Hai giai đoạn khác tiêu chí → tách hai lời gọi (prompt chaining)",
+   "body": [
+    "Mỗi prompt tập trung một việc."
+   ]
+  }
  },
  "ccdv-f-b1196": {
   "q": "Một agent mới mà nhóm bạn xây dựng xử lý các ticket hỗ trợ khách hàng, nhưng nó thường xuyên bị rối khi một ticket duy nhất trải rộng qua các vấn đề về thanh toán (billing), vận chuyển (shipping) và sản phẩm.\nAgent thường mất dấu những sub-issue nào nó đã xử lý và quay lại xử lý cùng một vấn đề.\nNhóm đang cân nhắc các thay đổi kiến trúc.\nBạn sẽ khuyến nghị thay đổi kiến trúc nào?",
@@ -807,7 +1447,15 @@
    "C": "Đưa vào một orchestrator agent giao các sub-issue về billing, shipping và sản phẩm cho các subagent chuyên trách.",
    "D": "Tăng kích thước context window của agent để nó có thể chứa toàn bộ lịch sử ticket cùng một lúc."
   },
-  "exp": "Ticket gồm nhiều mảng (billing, shipping, product) thì dùng orchestrator giao từng mảng cho subagent chuyên trách. Mỗi phần được theo dõi riêng, không bị xử lý lặp lại."
+  "exp": "Ticket gồm nhiều mảng (billing, shipping, product) thì dùng orchestrator giao từng mảng cho subagent chuyên trách. Mỗi phần được theo dõi riêng, không bị xử lý lặp lại.",
+  "domain": 1,
+  "lesson": "1-3-mau-agent-va-framework",
+  "tip": {
+   "title": "Ticket nhiều mảng, xử lý lặp → orchestrator + subagent theo mảng",
+   "body": [
+    "Mỗi phần được theo dõi riêng."
+   ]
+  }
  },
  "ccdv-f-b1197": {
   "q": "Các hook của Claude agent của bạn hiện được kích hoạt cho mọi hành động, làm agent chậm đi đáng kể ngay cả khi các hành động không có rủi ro.\nNhóm muốn giới hạn phạm vi hook cẩn thận hơn.\nBạn sẽ giới hạn phạm vi hook như thế nào?",
@@ -817,7 +1465,15 @@
    "C": "Vô hiệu hóa agent trong giờ cao điểm để chi phí hook không làm chậm ứng dụng trong những khoảng thời gian bận rộn nhất trong ngày trong quá trình vận hành ứng dụng.",
    "D": "Thay hook bằng các chỉ dẫn trong system prompt, với lý do các chỉ dẫn trong prompt có thể tạo ra cùng hiệu quả thực thi mà hook tạo ra đối với các hành động của agent."
   },
-  "exp": "Chỉ gắn hook cho hành động rủi ro cao (xóa, truy cập dữ liệu nhạy cảm), bỏ hook ở hành động vô hại để cân bằng giữa an toàn và hiệu năng."
+  "exp": "Chỉ gắn hook cho hành động rủi ro cao (xóa, truy cập dữ liệu nhạy cảm), bỏ hook ở hành động vô hại để cân bằng giữa an toàn và hiệu năng.",
+  "domain": 7,
+  "lesson": "7-3-hook-chan-hanh-dong-nguy-hiem",
+  "tip": {
+   "title": "Hook làm chậm → chỉ gắn cho hành động rủi ro cao",
+   "body": [
+    "Cân bằng an toàn và hiệu năng."
+   ]
+  }
  },
  "ccdv-f-b1198": {
   "q": "Bạn đang thiết kế một ứng dụng Claude xử lý văn bản do người dùng gửi.\nMột số văn bản đó có thể chứa thông tin nhạy cảm như số tài khoản hoặc mật khẩu mà ứng dụng không nên gửi cho Claude.\nBạn sẽ thiết kế ứng dụng như thế nào?",
@@ -827,7 +1483,15 @@
    "C": "Ghi log toàn bộ văn bản do người dùng gửi trước khi gửi cho Claude và định kỳ xem lại log để xác định xem thông tin nhạy cảm có đang đến được model hay không.",
    "D": "Áp dụng lọc tại ranh giới cho các mẫu dữ liệu nhạy cảm thường gặp nhất và mở rộng phạm vi bao phủ sang các mẫu bổ sung dựa trên các phát hiện từ việc giám sát production."
   },
-  "exp": "Định nghĩa rõ ranh giới ứng dụng, xác định dữ liệu nào được phép gửi ra cho Claude, và lọc hoặc redact ngay tại ranh giới đó. Prompt hay log không ngăn được dữ liệu đã bị gửi đi."
+  "exp": "Định nghĩa rõ ranh giới ứng dụng, xác định dữ liệu nào được phép gửi ra cho Claude, và lọc hoặc redact ngay tại ranh giới đó. Prompt hay log không ngăn được dữ liệu đã bị gửi đi.",
+  "domain": 7,
+  "lesson": "7-1-bao-mat-ung-dung-ai",
+  "tip": {
+   "title": "Dữ liệu nhạy cảm không được gửi đi → redact tại ranh giới ứng dụng",
+   "body": [
+    "Dặn trong prompt là đã quá muộn."
+   ]
+  }
  },
  "ccdv-f-b1199": {
   "q": "Ứng dụng Claude của bạn chạy các agentic workflow dài trong đó agent thực hiện nhiều lệnh gọi tool, và lịch sử hội thoại tăng nhanh.\nSau khoảng 20 lệnh gọi tool, bạn nhận thấy phản hồi của agent trở nên kém tập trung hơn và đôi khi bỏ qua các ràng buộc của tác vụ ở trước đó.\nBạn sẽ giải quyết vấn đề này như thế nào?",
@@ -837,7 +1501,15 @@
    "C": "Tăng context window của model để agent có thể giữ mọi output tool ở mức chi tiết đầy đủ trong toàn bộ workflow bất kể nó tích lũy bao nhiêu lệnh gọi tool.",
    "D": "Khởi động lại agent sau mỗi năm lệnh gọi tool để ngăn mọi sự trôi (drift), với việc agent mất toàn bộ trạng thái tác vụ tại mỗi điểm khởi động lại trong workflow."
   },
-  "exp": "Sau nhiều tool call, context bị loãng. Dùng context engineering (cắt bớt tool output, compaction) để giữ task state và constraint luôn rõ."
+  "exp": "Sau nhiều tool call, context bị loãng. Dùng context engineering (cắt bớt tool output, compaction) để giữ task state và constraint luôn rõ.",
+  "domain": 6,
+  "lesson": "6-1-quan-ly-context",
+  "tip": {
+   "title": "Sau nhiều tool call agent mất tập trung → pruning/compaction",
+   "body": [
+    "Giữ constraint luôn hiển thị."
+   ]
+  }
  },
  "ccdv-f-b1200": {
   "q": "Bạn đang thiết kế một agent xử lý workflow xử lý yêu cầu bồi thường (claim) phức tạp.\nMỗi claim đi qua các bước trích xuất sự kiện (fact extraction), đánh giá điều kiện đủ (eligibility evaluation) và bước quyết định.\nBa tác vụ con có tiêu chí thành công riêng biệt, và một số claim cần lặp lại giữa trích xuất sự kiện và đánh giá điều kiện đủ trước khi có thể đưa ra quyết định.\nBạn sẽ áp dụng mẫu agent nào?",
@@ -847,7 +1519,15 @@
    "C": "Mẫu vòng lặp tool-use đơn lẻ, cho một agent quyền truy cập tất cả các tool cần thiết cho trích xuất sự kiện, đánh giá điều kiện đủ và ra quyết định.",
    "D": "Mẫu chuỗi tuyến tính (linear chain) xử lý mọi claim qua trích xuất sự kiện, rồi đánh giá điều kiện đủ, rồi quyết định, không có đường quay lại giữa các tác vụ con."
   },
-  "exp": "Có vòng lặp qua lại giữa trích xuất dữ kiện và đánh giá điều kiện, mỗi subtask có tiêu chí riêng, nên pattern dạng graph (chuyển bước theo state) là phù hợp. Chain tuyến tính không quay lui được."
+  "exp": "Có vòng lặp qua lại giữa trích xuất dữ kiện và đánh giá điều kiện, mỗi subtask có tiêu chí riêng, nên pattern dạng graph (chuyển bước theo state) là phù hợp. Chain tuyến tính không quay lui được.",
+  "domain": 1,
+  "lesson": "1-3-mau-agent-va-framework",
+  "tip": {
+   "title": "Cần quay lui giữa các bước → pattern graph theo state",
+   "body": [
+    "Chain tuyến tính không lặp được."
+   ]
+  }
  },
  "ccdv-f-b1201": {
   "q": "Doanh nghiệp của bạn có hợp đồng với AWS yêu cầu các lệnh gọi Claude API phải đi qua Amazon Bedrock thay vì Anthropic API trực tiếp.\nNhóm của bạn đang xây dựng một ứng dụng Claude mới và chưa quen với ràng buộc này.\nBạn sẽ xây dựng ứng dụng như thế nào?",
@@ -857,7 +1537,15 @@
    "C": "Cấu hình ứng dụng để gọi Claude qua đường dẫn API tương thích Bedrock trong khi giữ logic của ứng dụng độc lập với nhà cung cấp (provider-agnostic).",
    "D": "Xây dựng ứng dụng dựa trên Anthropic API trực tiếp và bỏ qua yêu cầu hợp đồng về việc định tuyến các lệnh gọi Claude qua Amazon Bedrock."
   },
-  "exp": "Hợp đồng bắt buộc đi qua Bedrock thì gọi Claude qua Bedrock ngay từ đầu, và giữ logic ứng dụng không phụ thuộc provider."
+  "exp": "Hợp đồng bắt buộc đi qua Bedrock thì gọi Claude qua Bedrock ngay từ đầu, và giữ logic ứng dụng không phụ thuộc provider.",
+  "domain": 2,
+  "lesson": "2-1-tu-yeu-cau-den-cau-hinh",
+  "tip": {
+   "title": "Hợp đồng bắt đi qua Bedrock → gọi qua Bedrock, logic không phụ thuộc provider",
+   "body": [
+    "Ràng buộc hợp đồng đặt ra từ đầu."
+   ]
+  }
  },
  "ccdv-f-b1202": {
   "q": "Ứng dụng Claude của bạn đã chạy qua nhiều lượt hội thoại, và bạn nhận thấy model đôi khi tham chiếu đến thông tin đã được thảo luận từ nhiều lượt trước nhưng không còn liên quan.\nBạn nghi ngờ context drift đang khiến model đánh giá quá cao nội dung đã cũ.\nBạn sẽ giải quyết sự drift này như thế nào?",
@@ -867,7 +1555,15 @@
    "C": "Áp dụng compaction để tóm tắt các phần cũ hơn của cuộc hội thoại sao cho phần cốt lõi vẫn được giữ lại trong khi các chi tiết cụ thể có trọng số thấp hơn.",
    "D": "Cắt bớt cuộc hội thoại để model chỉ thấy lượt gần nhất trong mỗi phản hồi tiếp theo."
   },
-  "exp": "Thông tin cũ bị đánh trọng số quá cao thì dùng compaction: tóm tắt phần cũ, giữ ý chính nhưng giảm chi tiết."
+  "exp": "Thông tin cũ bị đánh trọng số quá cao thì dùng compaction: tóm tắt phần cũ, giữ ý chính nhưng giảm chi tiết.",
+  "domain": 6,
+  "lesson": "6-1-quan-ly-context",
+  "tip": {
+   "title": "Context drift do nội dung cũ → compaction",
+   "body": [
+    "Giữ ý chính, bớt chi tiết."
+   ]
+  }
  },
  "ccdv-f-b1203": {
   "q": "Bạn đang xây dựng một ứng dụng Claude cần duy trì kết nối liên tục tới một service truyền các cập nhật thời gian thực.\nNhóm chưa chắc nên dùng mẫu giao tiếp nào.\nBạn sẽ dùng mẫu giao tiếp nào?",
@@ -877,7 +1573,15 @@
    "C": "Một HTTP request dài duy nhất mà server giữ mở vô thời hạn, không có framing WebSocket tiêu chuẩn trên kết nối.",
    "D": "Giao tiếp dựa trên tệp, trong đó service ghi các cập nhật mới vào đĩa và ứng dụng thăm dò (poll) hệ thống tệp để phát hiện thay đổi."
   },
-  "exp": "Kết nối hai chiều, liên tục, real-time thì dùng WebSocket."
+  "exp": "Kết nối hai chiều, liên tục, real-time thì dùng WebSocket.",
+  "domain": 2,
+  "lesson": "2-5-thiet-ke-ung-dung-claude",
+  "tip": {
+   "title": "Hai chiều, liên tục, real-time → WebSocket",
+   "body": [
+    "SSE chỉ một chiều."
+   ]
+  }
  },
  "ccdv-f-b1204": {
   "q": "Một đồng nghiệp hỏi Claude SDK xử lý các lỗi API tạm thời (transient), chẳng hạn sự cố mạng tạm thời hoặc phản hồi rate-limit ngắn, như thế nào.\nHọ muốn biết mã ứng dụng có cần xử lý mọi lỗi tạm thời hay SDK có cung cấp hành vi mặc định nào không.\nBạn sẽ mô tả hành vi mặc định của SDK như thế nào?",
@@ -887,7 +1591,15 @@
    "C": "SDK ghi log các lỗi tạm thời vào một luồng lỗi mặc định và tiếp tục thực thi mà không retry, để mã ứng dụng chịu trách nhiệm phát hiện và phản ứng với các lệnh gọi thất bại.",
    "D": "SDK cung cấp hành vi retry mặc định cho nhiều lỗi tạm thời, và mã ứng dụng có thể cấu hình hoặc mở rộng hành vi đó khi cần."
   },
-  "exp": "SDK mặc định đã retry nhiều lỗi tạm thời (lỗi mạng, 429, 5xx), và có thể cấu hình như `max_retries` hoặc mở rộng thêm."
+  "exp": "SDK mặc định đã retry nhiều lỗi tạm thời (lỗi mạng, 429, 5xx), và có thể cấu hình như `max_retries` hoặc mở rộng thêm.",
+  "domain": 5,
+  "lesson": "5-2-goi-api-qua-sdk-va-rest",
+  "tip": {
+   "title": "SDK tự retry lỗi tạm thời",
+   "body": [
+    "Cấu hình được, ví dụ max_retries."
+   ]
+  }
  },
  "ccdv-f-b1205": {
   "q": "Nhóm của bạn đang tranh luận về cách quản lý các prompt được dùng trong ứng dụng Claude.\nMột số prompt được commit vào repository mã nguồn, một số nằm trong tệp cấu hình riêng, và một số được xây dựng trực tiếp (inline) khi chạy.\nKết quả là không nhất quán, và một thay đổi prompt gần đây đã được đưa ra mà không qua code review.\nBạn sẽ thực hiện những bước nào?",
@@ -897,7 +1609,15 @@
    "C": "Thiết lập một nguồn sự thật duy nhất cho các prompt nhưng để việc review thay đổi là tùy chọn, cho phép lập trình viên cập nhật prompt trực tiếp khi thay đổi khẩn cấp.",
    "D": "Thiết lập một nguồn sự thật duy nhất cho các prompt, version-control chúng cùng với mã, và yêu cầu code review cho các thay đổi prompt."
   },
-  "exp": "Prompt là code: một nguồn duy nhất, version-control cùng code và bắt buộc review khi thay đổi."
+  "exp": "Prompt là code: một nguồn duy nhất, version-control cùng code và bắt buộc review khi thay đổi.",
+  "domain": 2,
+  "lesson": "2-6-quan-ly-cau-hinh",
+  "tip": {
+   "title": "Prompt là code → một nguồn, version control, bắt buộc review",
+   "body": [
+    "Không để prompt đi production mà không review."
+   ]
+  }
  },
  "ccdv-f-b1206": {
   "q": "Ứng dụng Claude của bạn đang chạm giới hạn context window khi xử lý các bản ghi (transcript) dịch vụ khách hàng dài.\nMột lập trình viên junior đề xuất tăng tham số temperature để khắc phục vấn đề.\nBạn sẽ phản hồi như thế nào?",
@@ -907,7 +1627,15 @@
    "C": "Xóa hoàn toàn system prompt để nhường chỗ cho các transcript dài hơn trong mỗi request, giải phóng không gian context window mà system prompt sẽ chiếm.",
    "D": "Tăng tham số temperature như lập trình viên junior đề xuất và quan sát xem vấn đề context window có được giải quyết trong vài lần chạy tiếp theo của ứng dụng trong production hay không."
   },
-  "exp": "Temperature điều chỉnh độ ngẫu nhiên, không liên quan đến dung lượng context. Vấn đề context thì giải bằng tóm tắt hoặc chia nhỏ (chunking)."
+  "exp": "Temperature điều chỉnh độ ngẫu nhiên, không liên quan đến dung lượng context. Vấn đề context thì giải bằng tóm tắt hoặc chia nhỏ (chunking).",
+  "domain": 5,
+  "lesson": "5-1-nen-tang-llm",
+  "tip": {
+   "title": "Temperature ≠ context",
+   "body": [
+    "Tràn context thì tóm tắt hoặc chunking."
+   ]
+  }
  },
  "ccdv-f-b1207": {
   "q": "Bạn đang tích hợp Claude vào một ứng dụng viết bằng Python.\nClaude SDK cung cấp một Python client bao bọc REST API bên dưới.\nBạn sẽ tích hợp SDK như thế nào?",
@@ -917,7 +1645,15 @@
    "C": "Dùng SDK của một nhà cung cấp LLM khác và chuyển đổi các phản hồi sang dạng API của Claude để ứng dụng có thể đổi nhà cung cấp trong tương lai.",
    "D": "Bỏ qua SDK và nhúng các lệnh gọi Claude vào các lệnh shell được gọi từ Python, để ứng dụng chạy các lệnh gọi bên ngoài tiến trình Python chính."
   },
-  "exp": "Dùng Python SDK chính thức theo cách tài liệu hướng dẫn: SDK đã lo xác thực, retry và parse response."
+  "exp": "Dùng Python SDK chính thức theo cách tài liệu hướng dẫn: SDK đã lo xác thực, retry và parse response.",
+  "domain": 5,
+  "lesson": "5-2-goi-api-qua-sdk-va-rest",
+  "tip": {
+   "title": "Có SDK chính thức → dùng theo pattern tài liệu",
+   "body": [
+    "SDK lo auth, retry, parse."
+   ]
+  }
  },
  "ccdv-f-b1208": {
   "q": "Claude agent của bạn có quyền truy cập một tool truy xuất bản ghi khách hàng.\nMột đồng nghiệp nhận thấy agent đôi khi gọi tool với các đối số mà schema không khai báo, và service downstream của tool trả về lỗi mỗi lần.\nĐồng nghiệp đề xuất nới lỏng schema để tool chấp nhận bất kỳ đối số nào mà model tạo ra.\nBạn sẽ phản hồi như thế nào?",
@@ -927,7 +1663,15 @@
    "C": "Xóa hoàn toàn schema và dựa vào service downstream để từ chối các lệnh gọi không hợp lệ, coi service downstream là lớp thực thi chính của nhóm.",
    "D": "Nới lỏng schema như đồng nghiệp đề xuất để service downstream nhận mọi lệnh gọi mà agent thực hiện trong vận hành bình thường."
   },
-  "exp": "Giữ schema chặt, validate tham số trước khi gọi, trả lỗi có cấu trúc để agent tự sửa và gọi lại. Nới schema chỉ làm lỗi trôi xuống dưới."
+  "exp": "Giữ schema chặt, validate tham số trước khi gọi, trả lỗi có cấu trúc để agent tự sửa và gọi lại. Nới schema chỉ làm lỗi trôi xuống dưới.",
+  "domain": 8,
+  "lesson": "8-1-viet-tool",
+  "tip": {
+   "title": "Tham số lạ → giữ schema chặt, validate, trả lỗi có cấu trúc",
+   "body": [
+    "Nới schema chỉ đẩy lỗi xuống dưới."
+   ]
+  }
  },
  "ccdv-f-b1209": {
   "q": "Ứng dụng Claude của bạn đang tạo ra các output không nhất quán cho các input tương tự, ngay cả khi dùng cùng model và prompt.\nBạn muốn debug vấn đề một cách có hệ thống.\nCách debug của bạn sẽ...",
@@ -937,7 +1681,15 @@
    "C": "Giả định rằng các output không nhất quán phản ánh tính không tất định bình thường của LLM và ghi lại sự biến thiên như một đặc tính được chấp nhận trong hành vi của ứng dụng.",
    "D": "Thu thập các trace đầy đủ của input, system prompt, user message, output của model và các tham số, sau đó phân tích sự khác biệt giữa các lần chạy nhất quán và không nhất quán."
   },
-  "exp": "Debug có hệ thống: thu đầy đủ trace (input, system prompt, message, output, tham số) rồi so sánh các lần chạy ổn định với lần không ổn định."
+  "exp": "Debug có hệ thống: thu đầy đủ trace (input, system prompt, message, output, tham số) rồi so sánh các lần chạy ổn định với lần không ổn định.",
+  "domain": 4,
+  "lesson": "4-1-go-loi-va-xu-ly-loi",
+  "tip": {
+   "title": "Output không nhất quán → thu full trace và so sánh các lần chạy",
+   "body": [
+    "Input, system prompt, output, tham số."
+   ]
+  }
  },
  "ccdv-f-b1210": {
   "q": "Bạn đang xây dựng một agent cần gọi nhiều API nội bộ và một cơ sở dữ liệu theo cách có cấu trúc, lặp lại được.\nNhóm của bạn đã quyết định dùng Claude Agent SDK thay vì xây dựng một vòng lặp tùy chỉnh.\nBạn đang thiết lập các định nghĩa tool và vòng lặp thực thi của agent.\nBạn sẽ thiết lập các tool và vòng lặp thực thi như thế nào?",
@@ -947,7 +1699,15 @@
    "C": "Dùng giao diện tool và vòng lặp của SDK, với lịch sử hội thoại được lưu trong một cơ sở dữ liệu riêng của nhóm.",
    "D": "Dùng giao diện tool của SDK và viết vòng lặp cùng lớp lịch sử trong mã của chính nhóm."
   },
-  "exp": "Đã chọn Agent SDK thì dùng tool interface của SDK và để SDK lo vòng lặp, dispatch và lịch sử. Không tự viết lại."
+  "exp": "Đã chọn Agent SDK thì dùng tool interface của SDK và để SDK lo vòng lặp, dispatch và lịch sử. Không tự viết lại.",
+  "domain": 1,
+  "lesson": "1-3-mau-agent-va-framework",
+  "tip": {
+   "title": "Đã chọn Agent SDK → dùng tool interface, để SDK lo loop",
+   "body": [
+    "Không tự viết lại vòng lặp."
+   ]
+  }
  },
  "ccdv-f-b1211": {
   "q": "Chi phí token của ứng dụng Claude của bạn tăng nhanh hơn dự kiến.\nNhóm chưa theo dõi mức sử dụng token theo tính năng, nên nhóm không thể xác định tính năng nào đang đẩy chi phí lên.\nNhóm đang tranh luận cách ứng phó.\nBạn sẽ phản hồi như thế nào?",
@@ -957,7 +1717,15 @@
    "C": "Giảm mức sử dụng token đồng đều trên tất cả tính năng một nửa, áp dụng mức cắt giảm đều khắp ứng dụng trong vận hành bình thường.",
    "D": "Thêm theo dõi mức sử dụng token theo tính năng vào phần ghi log của ứng dụng để nhóm có thể xác định tính năng nào đẩy chi phí lên trước khi đề xuất thay đổi."
   },
-  "exp": "Chưa đo thì chưa tối ưu được. Thêm tracking token theo từng tính năng để biết tính năng nào tốn tiền nhất."
+  "exp": "Chưa đo thì chưa tối ưu được. Thêm tracking token theo từng tính năng để biết tính năng nào tốn tiền nhất.",
+  "domain": 5,
+  "lesson": "5-4-chi-phi-va-token",
+  "tip": {
+   "title": "Chi phí tăng mà chưa đo → tracking token theo tính năng trước",
+   "body": [
+    "Đo rồi mới tối ưu."
+   ]
+  }
  },
  "ccdv-f-b1212": {
   "q": "Ứng dụng Claude của bạn tạo ra các phản hồi tốt cho các input điển hình nhưng gặp khó khăn với các trường hợp biên (edge case).\nBạn có một số ví dụ được gán nhãn về các input trường hợp biên và phản hồi mong muốn cho mỗi input.\nBạn muốn dùng các ví dụ này để cải thiện cách model xử lý các trường hợp biên.\nCách tốt nhất để sử dụng các ví dụ này là gì?",
@@ -967,7 +1735,15 @@
    "C": "Huấn luyện một model tùy chỉnh trên các ví dụ trường hợp biên và triển khai model tùy chỉnh đó thay cho phần tích hợp Claude hiện tại của nhóm.",
    "D": "Yêu cầu người dùng tránh gửi các input trường hợp biên cho ứng dụng bằng cách thêm cảnh báo vào giao diện người dùng của ứng dụng."
   },
-  "exp": "Có ví dụ edge case kèm đáp án mẫu thì đưa vào prompt làm few-shot."
+  "exp": "Có ví dụ edge case kèm đáp án mẫu thì đưa vào prompt làm few-shot.",
+  "domain": 6,
+  "lesson": "6-2-viet-prompt",
+  "tip": {
+   "title": "Ví dụ edge case có đáp án → few-shot",
+   "body": [
+    "Model học pattern từ ví dụ."
+   ]
+  }
  },
  "ccdv-f-b1213": {
   "q": "Bạn vừa đưa một ứng dụng sử dụng Claude mới vào production.\nGiai đoạn phát triển đã hoàn tất, và hệ thống hiện đang được các nhóm nội bộ sử dụng tích cực.\nGiai đoạn công việc tiếp theo của hệ thống này là...",
@@ -977,7 +1753,15 @@
    "C": "Vận hành và bảo trì hệ thống, bao gồm giám sát, phản ứng với các sự cố và lập kế hoạch cho sự phát triển.",
    "D": "Bàn giao hệ thống cho một nhóm vận hành riêng sẽ quản lý nó độc lập với nhóm phát triển từ nay về sau."
   },
-  "exp": "Sau khi ship là giai đoạn vận hành và bảo trì: monitoring, xử lý sự cố, lên kế hoạch phát triển tiếp."
+  "exp": "Sau khi ship là giai đoạn vận hành và bảo trì: monitoring, xử lý sự cố, lên kế hoạch phát triển tiếp.",
+  "domain": 2,
+  "lesson": "2-2-vong-doi-he-thong",
+  "tip": {
+   "title": "Sau khi ship → vận hành và bảo trì",
+   "body": [
+    "Monitoring, xử lý sự cố, kế hoạch phát triển."
+   ]
+  }
  },
  "ccdv-f-b1214": {
   "q": "Một đồng nghiệp hỏi cách mở rộng Claude Code bằng một Skill tùy chỉnh mà nhóm có thể gọi trong các phiên làm việc.\nSkill gồm một tập các chỉ dẫn và một vài script hỗ trợ mà nhóm muốn Claude có thể gọi khi Skill được nạp.\nĐâu là nơi đúng để định nghĩa Skill?",
@@ -987,7 +1771,15 @@
    "C": "Định nghĩa Skill trong một thư mục Skills được Claude Code nhận diện, nơi Claude có thể phát hiện và nạp nó trong các phiên làm việc cho các repository của nhóm.",
    "D": "Định nghĩa Skill trong một thư mục nháp cá nhân trên máy của mỗi lập trình viên và nạp thủ công trước mỗi phiên Claude Code cần đến nó."
   },
-  "exp": "Skill đặt trong thư mục Skills mà Claude Code nhận diện được (ví dụ `.claude/skills/`), để Claude tự phát hiện và nạp khi cần."
+  "exp": "Skill đặt trong thư mục Skills mà Claude Code nhận diện được (ví dụ `.claude/skills/`), để Claude tự phát hiện và nạp khi cần.",
+  "domain": 3,
+  "lesson": "3-1-van-hanh-claude-code",
+  "tip": {
+   "title": "Skill của team → thư mục skills Claude Code nhận diện",
+   "body": [
+    "Ví dụ .claude/skills/."
+   ]
+  }
  },
  "ccdv-f-b1292": {
   "q": "Một ứng dụng Claude đôi khi từ chối trả lời các câu hỏi lẽ ra thuộc phạm vi, bao gồm cả các câu hỏi mà ứng dụng đã trả lời đúng trong quá khứ.\nBạn muốn điều tra.\nBước đầu tiên trong cuộc điều tra của bạn là gì?",
@@ -997,7 +1789,15 @@
    "C": "Đánh giá xem các lần từ chối có tập trung quanh các mẫu input, loại câu hỏi hoặc khoảng thời gian cụ thể hay không bằng cách phân tích phân bố của các request bị từ chối trong log.",
    "D": "Xem xét các trace của các request bị từ chối để xác định điều gì kích hoạt việc từ chối, dù là mẫu input, nội dung system prompt hay context khác."
   },
-  "exp": "Bước đầu tiên: xác định các câu hỏi bị từ chối và so sánh với các câu đã được trả lời trước đó để tìm điểm khác biệt giữa lượt thành công và lượt bị từ chối (đầu vào, hướng dẫn, model hoặc ngữ cảnh). Bằng chứng này giúp khoanh vùng nguyên nhân trước khi sửa. (Sửa/bỏ hướng dẫn ngay là thay đổi trước khi tìm nguyên nhân; phân tích phân bố hay xem trace hữu ích nhưng chưa so trực tiếp lượt thành công và thất bại đã biết.)"
+  "exp": "Bước đầu tiên: xác định các câu hỏi bị từ chối và so sánh với các câu đã được trả lời trước đó để tìm điểm khác biệt giữa lượt thành công và lượt bị từ chối (đầu vào, hướng dẫn, model hoặc ngữ cảnh). Bằng chứng này giúp khoanh vùng nguyên nhân trước khi sửa. (Sửa/bỏ hướng dẫn ngay là thay đổi trước khi tìm nguyên nhân; phân tích phân bố hay xem trace hữu ích nhưng chưa so trực tiếp lượt thành công và thất bại đã biết.)",
+  "domain": 4,
+  "lesson": "4-1-go-loi-va-xu-ly-loi",
+  "tip": {
+   "title": "Từ chối bất thường → so câu bị từ chối với câu từng trả lời được",
+   "body": [
+    "Tìm điều gì đã thay đổi."
+   ]
+  }
  },
  "ccdv-f-b1215": {
   "q": "Nhóm sản phẩm đã mô tả một tính năng Claude mới bằng ngôn ngữ kinh doanh: \"các agent nên giúp các nhà phân tích của chúng tôi tạo memo cho khách hàng nhanh hơn.\"\nBạn cần chuyển điều này thành các yêu cầu kỹ thuật có thể hành động cho nhóm kỹ sư.\nBước đầu tiên của bạn sẽ là...",
@@ -1007,7 +1807,15 @@
    "C": "Xem xét các khả năng của model và các tùy chọn tier có sẵn và xác định cái nào hỗ trợ tốt nhất cho workflow soạn thảo memo mà nhóm sản phẩm mô tả.",
    "D": "Diễn giải các yêu cầu về chức năng và hạ tầng được hàm ý bởi mục tiêu kinh doanh."
   },
-  "exp": "Yêu cầu dạng business thì trước hết phải diễn giải ra yêu cầu chức năng và hạ tầng mà mục tiêu đó ngụ ý, rồi mới chọn model hay thiết kế."
+  "exp": "Yêu cầu dạng business thì trước hết phải diễn giải ra yêu cầu chức năng và hạ tầng mà mục tiêu đó ngụ ý, rồi mới chọn model hay thiết kế.",
+  "domain": 2,
+  "lesson": "2-1-tu-yeu-cau-den-cau-hinh",
+  "tip": {
+   "title": "Yêu cầu business → diễn giải ra yêu cầu chức năng và hạ tầng trước",
+   "body": [
+    "Chọn model, thiết kế để sau."
+   ]
+  }
  },
  "ccdv-f-b1216": {
   "q": "Bạn đang thiết kế một agent xử lý một tác vụ nghiên cứu nhiều bước.\nBạn muốn agent chia tác vụ thành các phần nhỏ hơn, giao từng phần cho một subagent tập trung và hợp nhất các kết quả.\nMẫu agent mà bạn sẽ áp dụng là...",
@@ -1017,7 +1825,15 @@
    "C": "Một mẫu pruning context window loại bỏ nội dung của mỗi tác vụ con sau khi agent chuyển sang tác vụ tiếp theo.",
    "D": "Một vòng lặp tool-use duy nhất bao gồm mọi tool mà agent có thể cần cho tất cả các tác vụ con."
   },
-  "exp": "Chia task, giao cho subagent chuyên biệt rồi gom kết quả: đó là pattern orchestrator–subagent."
+  "exp": "Chia task, giao cho subagent chuyên biệt rồi gom kết quả: đó là pattern orchestrator–subagent.",
+  "domain": 1,
+  "lesson": "1-3-mau-agent-va-framework",
+  "tip": {
+   "title": "Chia việc, giao subagent, gom kết quả → orchestrator–subagent",
+   "body": [
+    "Mỗi subagent một mảng."
+   ]
+  }
  },
  "ccdv-f-b1217": {
   "q": "Ứng dụng Claude của bạn nhận input không đáng tin cậy (untrusted) từ các nguồn bên ngoài.\nNhóm đang xác lập cách ứng dụng nên xử lý input không đáng tin cậy này.\nInput không đáng tin cậy sẽ được...",
@@ -1027,7 +1843,15 @@
    "C": "Định tuyến qua một ứng dụng Claude riêng với các biện pháp kiểm soát bảo mật lỏng lẻo hơn để ứng dụng gốc không xử lý trực tiếp input không đáng tin cậy.",
    "D": "Chặn hoàn toàn để ứng dụng chỉ chấp nhận input đáng tin cậy, không có đường nào cho input bên ngoài hợp lệ mà ứng dụng có thể xử lý."
   },
-  "exp": "Input không tin cậy phải được validate và làm sạch, và luôn coi là dữ liệu, không phải chỉ dẫn. Đây là biện pháp chống prompt injection."
+  "exp": "Input không tin cậy phải được validate và làm sạch, và luôn coi là dữ liệu, không phải chỉ dẫn. Đây là biện pháp chống prompt injection.",
+  "domain": 7,
+  "lesson": "7-1-bao-mat-ung-dung-ai",
+  "tip": {
+   "title": "Input không tin cậy → validate, làm sạch, coi là dữ liệu",
+   "body": [
+    "Chống prompt injection."
+   ]
+  }
  },
  "ccdv-f-b1218": {
   "q": "Output của ứng dụng Claude của bạn không nhất quán về định dạng.\nCác chỉ dẫn của nhóm nằm rải rác trong system prompt và các user message, với một số chỉ dẫn chỉ được nêu một lần và một số khác được lặp lại.\nBạn sẽ khắc phục sự không nhất quán này như thế nào?",
@@ -1037,7 +1861,15 @@
    "C": "Đặt mỗi chỉ dẫn ở nơi mà lập trình viên đầu tiên viết nó thấy tự nhiên nhất, giữ nguyên ý định ban đầu.",
    "D": "Lặp lại tất cả chỉ dẫn trong cả system prompt và user message để model thấy mỗi chỉ dẫn nhiều hơn một lần."
   },
-  "exp": "Gom chỉ dẫn hành vi và format vào system prompt, còn user message chỉ chứa input của người dùng."
+  "exp": "Gom chỉ dẫn hành vi và format vào system prompt, còn user message chỉ chứa input của người dùng.",
+  "domain": 6,
+  "lesson": "6-2-viet-prompt",
+  "tip": {
+   "title": "Chỉ dẫn rải rác → gom vào system prompt",
+   "body": [
+    "User message chỉ chứa input."
+   ]
+  }
  },
  "ccdv-f-b1219": {
   "q": "Nhóm của bạn sử dụng Claude Code trên nhiều repository.\nBạn muốn các quy tắc và tiêu chuẩn lập trình chung của nhóm áp dụng cho tất cả repository, còn các quy tắc khác chỉ áp dụng cho một số repository cụ thể.\nHiện tại nhóm đang sao chép lặp lại các hướng dẫn trong tệp CLAUDE.md của từng repository.\nBạn sẽ giải quyết vấn đề này như thế nào?",
@@ -1047,7 +1879,15 @@
    "C": "Ngừng sử dụng CLAUDE.md hoàn toàn và yêu cầu từng lập trình viên tự cấu hình Claude Code thủ công cho mỗi dự án họ làm việc.",
    "D": "Dùng CLAUDE.md của một repository làm nguồn tham chiếu trung tâm và liên kết tới nó từ tệp CLAUDE.md của mọi repository khác."
   },
-  "exp": "Phân cấp CLAUDE.md: chuẩn chung đặt ở cấp rộng (user hoặc tổ chức), context riêng của từng repo đặt trong CLAUDE.md của repo đó. Hết trùng lặp."
+  "exp": "Phân cấp CLAUDE.md: chuẩn chung đặt ở cấp rộng (user hoặc tổ chức), context riêng của từng repo đặt trong CLAUDE.md của repo đó. Hết trùng lặp.",
+  "domain": 3,
+  "lesson": "3-1-van-hanh-claude-code",
+  "tip": {
+   "title": "Trùng chỉ dẫn giữa repo → phân cấp CLAUDE.md",
+   "body": [
+    "Chung ở cấp rộng, riêng ở từng repo."
+   ]
+  }
  },
  "ccdv-f-b1290": {
   "q": "Bạn đang chạy Claude Code như một phần của pipeline tích hợp liên tục (CI) tự động.\nPipeline cần Claude Code thực thi một tập các tác vụ đã được xác định rõ mà không yêu cầu xác nhận, và đầu ra cần được ghi lại để xử lý ở các bước tiếp theo.\nBạn sẽ cấu hình pipeline như thế nào?",
@@ -1057,7 +1897,15 @@
    "C": "Thay Claude Code bằng một công cụ khác không cần cấu hình gì để hoạt động mà không có lời nhắc xác nhận trong pipeline.",
    "D": "Chạy Claude Code ở chế độ interactive và để một lập trình viên phê duyệt thủ công mọi lời nhắc xác nhận trong khi pipeline thực thi các tác vụ."
   },
-  "exp": "CI pipeline thì chạy Claude Code headless (`-p`), cấu hình quyền sẵn trong settings.json và capture output để xử lý tiếp."
+  "exp": "CI pipeline thì chạy Claude Code headless (`-p`), cấu hình quyền sẵn trong settings.json và capture output để xử lý tiếp.",
+  "domain": 3,
+  "lesson": "3-1-van-hanh-claude-code",
+  "tip": {
+   "title": "CI không ai duyệt → headless (-p) + quyền trong settings.json",
+   "body": [
+    "Capture output cho bước sau."
+   ]
+  }
  },
  "ccdv-f-b1291": {
   "q": "Một đồng nghiệp yêu cầu bạn giải thích vì sao ứng dụng Claude của nhóm bị tính phí cho output token ở mức giá khác với input token.\nHọ đã cho rằng hai mức giá này bằng nhau. Bạn sẽ giải thích sự khác biệt này như thế nào?",
@@ -1067,7 +1915,15 @@
    "C": "Output token hoàn toàn không bị tính phí, vì chi phí chỉ được xác định bởi các input token gửi tới mô hình trong mỗi request.",
    "D": "Output token thường được tính phí cao hơn input token, và mô hình chi phí của ứng dụng nên phản ánh riêng từng mức giá."
   },
-  "exp": "Output token thường đắt hơn input token, nên cost model phải tính hai mức giá riêng."
+  "exp": "Output token thường đắt hơn input token, nên cost model phải tính hai mức giá riêng.",
+  "domain": 5,
+  "lesson": "5-4-chi-phi-va-token",
+  "tip": {
+   "title": "Output token đắt hơn input token",
+   "body": [
+    "Cost model tính hai mức riêng."
+   ]
+  }
  },
  "ccdv-f-b1343": {
   "q": "Một công cụ nội bộ nhỏ cần đọc tệp, chạy lệnh shell và tìm kiếm trong codebase cho một tác vụ refactor một lần bằng Claude Agent SDK.\nKhông có hệ thống bên ngoài hay logic nghiệp vụ tùy chỉnh nào liên quan.\nĐiểm khởi đầu phù hợp nhất là gì?",
@@ -1077,7 +1933,15 @@
    "C": "Kết nối một MCP server bên ngoài triển khai lại việc truy cập hệ thống tệp và shell qua một giao thức mạng",
    "D": "Viết một Skill chứa hướng dẫn cách đọc tệp và chạy lệnh để thay cho các công cụ tích hợp sẵn"
   },
-  "exp": "Task đơn giản trên file và shell thì dùng ngay các tool có sẵn của SDK (Read, Edit, Bash, Glob, Grep), không cần custom tool hay MCP."
+  "exp": "Task đơn giản trên file và shell thì dùng ngay các tool có sẵn của SDK (Read, Edit, Bash, Glob, Grep), không cần custom tool hay MCP.",
+  "domain": 8,
+  "lesson": "8-3-tool-skill-hay-mcp",
+  "tip": {
+   "title": "Việc file/shell đơn giản → tool có sẵn của SDK",
+   "body": [
+    "Read, Edit, Bash, Glob, Grep."
+   ]
+  }
  },
  "ccdv-f-b1342": {
   "q": "Một công ty khởi nghiệp fintech đang xây dựng một agent hỗ trợ nội bộ bằng Claude Agent SDK.\nAgent phải tra cứu số dư tài khoản từ một dịch vụ sổ cái độc quyền chỉ có thể truy cập qua một cổng REST nội bộ, không có MCP server hay SDK công khai nào sẵn có.\nCách tiếp cận nào phù hợp nhất với yêu cầu này?",
@@ -1087,7 +1951,15 @@
    "C": "Viết một Skill mô tả schema của sổ cái và mong Claude suy luận số dư từ trí nhớ",
    "D": "Tìm một MCP server của cộng đồng có thể cung cấp khả năng tra cứu số dư sổ cái tương tự"
   },
-  "exp": "Hệ thống nội bộ không có MCP hay SDK sẵn thì viết custom tool gọi REST gateway, đăng ký qua in-process MCP server (SDK MCP server)."
+  "exp": "Hệ thống nội bộ không có MCP hay SDK sẵn thì viết custom tool gọi REST gateway, đăng ký qua in-process MCP server (SDK MCP server).",
+  "domain": 8,
+  "lesson": "8-2-viet-mcp-server",
+  "tip": {
+   "title": "Hệ thống nội bộ chưa có MCP → custom tool qua in-process MCP server",
+   "body": [
+    "SDK MCP server."
+   ]
+  }
  },
  "ccdv-f-b1341": {
   "q": "Một nhóm đang xây dựng một agent tự động bằng Claude Agent SDK chạy không giám sát trong pipeline CI.\nAgent cần chạy một tập công cụ cố định (`Read`, `Grep`, `Bash(npm test)`) mà không có con người để phê duyệt các lời nhắc, và mọi lệnh gọi công cụ nằm ngoài tập cố định đó phải bị từ chối ngay lập tức thay vì treo chờ phê duyệt.\nCấu hình nào đạt được điều này?",
@@ -1097,7 +1969,15 @@
    "C": "Đặt `permission_mode` là `plan` và đặt `allowed_tools` là tập cố định, vì chế độ plan tự động từ chối mọi lệnh gọi công cụ không được phê duyệt trước một cách tường minh.",
    "D": "Đặt `permission_mode` là `default` và đăng ký một callback `canUseTool` luôn ném ngoại lệ đối với các công cụ nằm ngoài tập cố định."
   },
-  "exp": "`allowed_tools` cho tập tool cố định cộng với `permission_mode: dontAsk`: tool trong danh sách chạy bình thường, mọi tool khác bị từ chối ngay, không chờ ai duyệt."
+  "exp": "`allowed_tools` cho tập tool cố định cộng với `permission_mode: dontAsk`: tool trong danh sách chạy bình thường, mọi tool khác bị từ chối ngay, không chờ ai duyệt.",
+  "domain": 7,
+  "lesson": "7-2-guardrail-nhieu-lop",
+  "tip": {
+   "title": "CI không người duyệt → allowed_tools + permission_mode dontAsk",
+   "body": [
+    "Ngoài danh sách thì bị từ chối ngay."
+   ]
+  }
  },
  "ccdv-f-b1340": {
   "q": "Một kỹ sư cấu hình một hook của Claude Code muốn nó kích hoạt cho mọi lệnh gọi công cụ Bash, Edit và NotebookEdit mà không cần liệt kê tường minh từng tên công cụ.\nTheo tài liệu của Anthropic về matcher dựa trên regex, cấu hình nào đạt được điều này?",
@@ -1107,7 +1987,15 @@
    "C": "Bỏ hoàn toàn trường matcher, khiến hook chỉ kích hoạt cho các công cụ có tên dài hơn bốn ký tự, chẳng hạn Bash và NotebookEdit.",
    "D": "Một matcher là `Bash+Edit+NotebookEdit`, trong đó dấu cộng đóng vai trò toán tử nối chuỗi, khiến mẫu được đánh giá như một chuỗi khớp chính xác duy nhất."
   },
-  "exp": "Matcher có ký tự regex như `|` hay `.*` sẽ được đánh giá như regex: `Bash|Edit.*` khớp Bash, Edit và NotebookEdit (vì chứa \"Edit\")."
+  "exp": "Matcher có ký tự regex như `|` hay `.*` sẽ được đánh giá như regex: `Bash|Edit.*` khớp Bash, Edit và NotebookEdit (vì chứa \"Edit\").",
+  "domain": 7,
+  "lesson": "7-3-hook-chan-hanh-dong-nguy-hiem",
+  "tip": {
+   "title": "Matcher có ký tự regex → khớp theo regex",
+   "body": [
+    "Bash|Edit.* khớp mọi tool có chuỗi đó."
+   ]
+  }
  },
  "ccdv-f-b1339": {
   "q": "Những phát biểu nào sau đây về mức ưu tiên quyết định của hook và phạm vi cấu hình là chính xác theo tài liệu của Anthropic? (Chọn 3)",
@@ -1119,7 +2007,15 @@
    "E": "Hook PostToolUse có thể chặn một lệnh gọi công cụ trước khi nó thực thi, giống như hook PreToolUse",
    "F": "Đầu ra của hook bất đồng bộ (async) có thể chặn, sửa đổi hoặc chèn ngữ cảnh vào thao tác một cách an toàn miễn là `asyncTimeout` được đặt đủ cao"
   },
-  "exp": "Đúng: `settings.local.json` bị gitignore, chỉ dùng local; managed policy do admin quản lý và có ưu tiên cao nhất; khi các hook xung đột thì deny &gt; defer &gt; ask &gt; allow. Sai: PostToolUse chạy sau khi tool đã thực thi nên không chặn được; hook async không thể chặn hay sửa thao tác."
+  "exp": "Đúng: `settings.local.json` bị gitignore, chỉ dùng local; managed policy do admin quản lý và có ưu tiên cao nhất; khi các hook xung đột thì deny &gt; defer &gt; ask &gt; allow. Sai: PostToolUse chạy sau khi tool đã thực thi nên không chặn được; hook async không thể chặn hay sửa thao tác.",
+  "domain": 7,
+  "lesson": "7-3-hook-chan-hanh-dong-nguy-hiem",
+  "tip": {
+   "title": "Hook mâu thuẫn → deny > defer > ask > allow",
+   "body": [
+    "Quyết định chặt nhất thắng."
+   ]
+  }
  },
  "ccdv-f-b1338": {
   "q": "Một tổ chức y tế có tổ chức Claude API đã bật HIPAA gửi một request có bao gồm công cụ code execution.\nAPI phản hồi lỗi 400 invalid_request_error cho biết tính năng này không khả dụng đối với các tổ chức chịu quy định HIPAA nếu không có Zero Data Retention.\nBiện pháp khắc phục ngay lập tức phù hợp nhất cho request cụ thể này là gì?",
@@ -1129,7 +2025,15 @@
    "C": "Chuyển request sang một organization ID khác không liên quan và không có BAA để hạn chế tính năng không còn áp dụng",
    "D": "Bỏ qua lỗi và gửi lại cùng request nhiều lần, vì các hạn chế tính năng của HIPAA chỉ là cảnh báo mang tính khuyến nghị chứ không phải chặn thực sự"
   },
-  "exp": "Tổ chức có HIPAA mà không có Zero Data Retention thì không dùng được code execution. Bỏ tool đó khỏi request và chỉ dùng các tính năng đủ điều kiện HIPAA."
+  "exp": "Tổ chức có HIPAA mà không có Zero Data Retention thì không dùng được code execution. Bỏ tool đó khỏi request và chỉ dùng các tính năng đủ điều kiện HIPAA.",
+  "domain": 7,
+  "lesson": "7-1-bao-mat-ung-dung-ai",
+  "tip": {
+   "title": "HIPAA → chỉ dùng tính năng có trong bảng đủ điều kiện",
+   "body": [
+    "Bỏ tính năng không đủ điều kiện như code execution."
+   ]
+  }
  },
  "ccdv-f-b1293": {
   "q": "Ứng dụng Claude của bạn xử lý các hợp đồng pháp lý 50 trang và tạo bản tóm tắt kèm tham chiếu trích dẫn về nguồn.\nNhóm đang tranh luận nên gửi nguyên cả hợp đồng hay chia thành các phần nhỏ hơn.\nCác hợp đồng vừa với context window của Claude.\nThử nghiệm ban đầu cho thấy xử lý toàn bộ tài liệu tạo ra các bản tóm tắt có khả năng suy luận liên phần mạnh hơn nhưng đôi khi lệch độ chính xác của trích dẫn ở các phần sau.\nXử lý theo chunk cho độ chính xác trích dẫn tốt hơn trên mỗi chunk nhưng mất khả năng suy luận liên phần.\nNhóm chưa quyết định thuộc tính nào quan trọng hơn.\nBạn sẽ hướng dẫn quyết định của nhóm như thế nào?",
@@ -1139,7 +2043,15 @@
    "C": "Xem xét kết quả độ chính xác trích dẫn từ xử lý theo chunk và xác định liệu việc mất khả năng suy luận liên phần có tạo ra các bản tóm tắt vẫn đạt ngưỡng chất lượng của ứng dụng hay không.",
    "D": "Xác định thuộc tính nào quan trọng hơn đối với trường hợp sử dụng thực tế của ứng dụng và để quyết định đó dẫn dắt cách tiếp cận chia chunk, sau đó kiểm chứng lựa chọn trên các hợp đồng đại diện."
   },
-  "exp": "Hai cách đều có trade-off. Trước hết phải xác định tính chất nào quan trọng hơn với use case thực tế (suy luận xuyên suốt hay độ chính xác trích dẫn), rồi validate trên bộ hợp đồng mẫu."
+  "exp": "Hai cách đều có trade-off. Trước hết phải xác định tính chất nào quan trọng hơn với use case thực tế (suy luận xuyên suốt hay độ chính xác trích dẫn), rồi validate trên bộ hợp đồng mẫu.",
+  "domain": 6,
+  "lesson": "6-1-quan-ly-context",
+  "tip": {
+   "title": "Chọn cách chunking → theo thuộc tính quan trọng nhất của use case",
+   "body": [
+    "Rồi kiểm chứng bằng truy vấn đại diện."
+   ]
+  }
  },
  "ccdv-f-b1295": {
   "q": "Bạn đang viết một system prompt cho một ứng dụng Claude cần tạo đầu ra theo một cấu trúc JSON cụ thể.\nHệ thống phía sau sẽ từ chối mọi đầu ra không khớp với schema.\nPrompt của bạn cần phải...",
@@ -1149,7 +2061,15 @@
    "C": "Bỏ qua mọi đề cập đến định dạng và dựa vào một bước hậu xử lý trong ứng dụng để định hình lại đầu ra của Claude.",
    "D": "Bao gồm các ràng buộc tường minh mô tả JSON schema bắt buộc và một chỉ dẫn chỉ tạo đầu ra khớp với schema đó."
   },
-  "exp": "Prompt phải mô tả rõ JSON schema bắt buộc và yêu cầu chỉ xuất output đúng schema. Kết hợp structured output hoặc validation sẽ an toàn hơn."
+  "exp": "Prompt phải mô tả rõ JSON schema bắt buộc và yêu cầu chỉ xuất output đúng schema. Kết hợp structured output hoặc validation sẽ an toàn hơn.",
+  "domain": 6,
+  "lesson": "6-3-xu-ly-output",
+  "tip": {
+   "title": "Cần JSON → mô tả schema rõ + chỉ xuất đúng schema",
+   "body": [
+    "Ràng buộc tường minh."
+   ]
+  }
  },
  "ccdv-f-b1296": {
   "q": "Bạn đang xây dựng một ứng dụng Claude xử lý 10.000 email khách hàng qua đêm để trích xuất dữ liệu có cấu trúc.\nCông việc này không tương tác, chạy một lần mỗi ngày và có khung thời gian hoàn thành linh hoạt vài giờ.\nBạn sẽ dùng Claude API nào?",
@@ -1159,7 +2079,15 @@
    "C": "Messages API thời gian thực, xử lý từng email một cách tuần tự để đảm bảo thứ tự kết quả nhất quán.",
    "D": "Messages API thời gian thực với các request đồng thời để xử lý email nhanh nhất có thể trong khoảng thời gian qua đêm."
   },
-  "exp": "10.000 email xử lý qua đêm, không cần tương tác, có thời hạn linh hoạt thì dùng Batch API: rẻ hơn khoảng 50%."
+  "exp": "10.000 email xử lý qua đêm, không cần tương tác, có thời hạn linh hoạt thì dùng Batch API: rẻ hơn khoảng 50%.",
+  "domain": 5,
+  "lesson": "5-4-chi-phi-va-token",
+  "tip": {
+   "title": "Không cần trả ngay → Batch API",
+   "body": [
+    "Rẻ hơn, xong trong cửa sổ linh hoạt."
+   ]
+  }
  },
  "ccdv-f-b1297": {
   "q": "Nhóm đang tranh luận nên tích hợp trực tiếp với Claude API hay thông qua một lớp trừu tượng của bên thứ ba hỗ trợ nhiều nhà cung cấp LLM.\nNhóm đã xác định rằng mọi trường hợp sử dụng hiện tại và dự kiến đều chạy trên Claude, không có khách hàng nội bộ nào yêu cầu khả năng chuyển đổi LLM, và lộ trình sản phẩm không đề cập hỗ trợ đa nhà cung cấp trong hai năm tới.\nLớp trừu tượng của bên thứ ba sẽ làm tăng khoảng 15 phần trăm độ phức tạp của mã và thêm một dependency.\nBạn sẽ đề xuất cách tích hợp nào?",
@@ -1169,7 +2097,15 @@
    "C": "Một lớp trừu tượng đa nhà cung cấp tự xây dựng nội bộ để nhóm kiểm soát mọi phần của lớp trừu tượng mà ứng dụng dùng cho các lệnh gọi API.",
    "D": "Tích hợp trực tiếp với Claude thông qua SDK của nó, vì không có nhu cầu đa nhà cung cấp và lớp trừu tượng sẽ thêm độ phức tạp mà không mang lại lợi ích tương xứng."
   },
-  "exp": "YAGNI: không có nhu cầu multi-provider thì tích hợp thẳng qua SDK của Claude. Thêm abstraction chỉ tăng độ phức tạp mà không có lợi ích."
+  "exp": "YAGNI: không có nhu cầu multi-provider thì tích hợp thẳng qua SDK của Claude. Thêm abstraction chỉ tăng độ phức tạp mà không có lợi ích.",
+  "domain": 2,
+  "lesson": "2-5-thiet-ke-ung-dung-claude",
+  "tip": {
+   "title": "Không cần đa provider → gọi thẳng SDK Claude",
+   "body": [
+    "Lớp trừu tượng thừa chỉ thêm phức tạp."
+   ]
+  }
  },
  "ccdv-f-b1298": {
   "q": "Bạn đang triển khai một custom tool cho agent Claude của mình.\nCông cụ này cần tương tác với một dịch vụ định giá bên ngoài trả về dữ liệu sản phẩm.\nThực hành tốt nhất nào sau đây bạn sẽ áp dụng khi phát triển công cụ này?",
@@ -1179,7 +2115,15 @@
    "C": "Triển khai công cụ mà không xử lý lỗi và để agent loop bắt các lỗi mỗi khi dịch vụ định giá trả về lỗi trong quá trình hoạt động.",
    "D": "Định nghĩa công cụ với một schema rõ ràng, viết mô tả chính xác về thời điểm cần gọi nó, và xử lý tường minh các lỗi của dịch vụ định giá."
   },
-  "exp": "Custom tool tốt: schema rõ, description nói rõ khi nào nên gọi, và xử lý lỗi từ dịch vụ bên ngoài một cách tường minh."
+  "exp": "Custom tool tốt: schema rõ, description nói rõ khi nào nên gọi, và xử lý lỗi từ dịch vụ bên ngoài một cách tường minh.",
+  "domain": 8,
+  "lesson": "8-1-viet-tool",
+  "tip": {
+   "title": "Tool mới → schema rõ + mô tả khi nào gọi + xử lý lỗi",
+   "body": [
+    "Ba phần của một tool tốt."
+   ]
+  }
  },
  "ccdv-f-b1299": {
   "q": "Ứng dụng Claude của bạn có các workflow nhiều bước, trong đó đầu ra của mỗi bước chỉ cần trong thời gian ngắn trước khi agent chuyển sang bước tiếp theo.\nĐầu ra công cụ tích lũy đang lấp đầy context window bằng nội dung không còn liên quan.\nBạn sẽ xử lý đầu ra công cụ đang tích lũy này như thế nào?",
@@ -1189,7 +2133,15 @@
    "C": "Chuyển sang một mô hình Claude nhỏ hơn xử lý ngữ cảnh hiệu quả hơn và chấp nhận mọi sự suy giảm chất lượng như một sự đánh đổi để giảm chi phí.",
    "D": "Giữ mọi đầu ra công cụ trong ngữ cảnh vô thời hạn để agent có bản ghi đầy đủ về mọi bước nó đã thực hiện trong workflow."
   },
-  "exp": "Tool output chỉ cần trong thời gian ngắn thì cắt bỏ (pruning) khi các bước sau không còn dùng. Caching chỉ giảm tiền, không giảm độ loãng của context."
+  "exp": "Tool output chỉ cần trong thời gian ngắn thì cắt bỏ (pruning) khi các bước sau không còn dùng. Caching chỉ giảm tiền, không giảm độ loãng của context.",
+  "domain": 6,
+  "lesson": "6-1-quan-ly-context",
+  "tip": {
+   "title": "Tool output không còn cần → pruning",
+   "body": [
+    "Giảm context thừa."
+   ]
+  }
  },
  "ccdv-f-b1300": {
   "q": "Một ứng dụng Claude hoạt động tốt trong quá trình thử nghiệm nay thỉnh thoảng trả về các đầu ra đề cập đến thông tin không có trong đầu vào.\nNhóm phát triển ban đầu cho rằng mô hình đang hallucinate, nên họ nhờ bạn khắc phục sự cố.\nBạn sẽ làm gì trước tiên?",
@@ -1199,7 +2151,15 @@
    "C": "Áp dụng mẫu retrieval-augmented generation để neo các phản hồi vào nội dung nguồn trước khi điều tra thêm các trace production.",
    "D": "Thêm một chỉ dẫn vào system prompt yêu cầu mô hình không bịa thông tin, với lý do chỉ dẫn ở cấp prompt là cách sửa nhanh nhất cho các lo ngại về hallucination."
   },
-  "exp": "Đừng vội kết luận là hallucination. Xem trace production để xác định nguyên nhân thật (hallucination, mất context, prompt injection…) rồi mới chọn cách sửa."
+  "exp": "Đừng vội kết luận là hallucination. Xem trace production để xác định nguyên nhân thật (hallucination, mất context, prompt injection…) rồi mới chọn cách sửa.",
+  "domain": 4,
+  "lesson": "4-1-go-loi-va-xu-ly-loi",
+  "tip": {
+   "title": "Chưa rõ nguyên nhân → xem trace production trước",
+   "body": [
+    "Hallucination, mất context hay injection?"
+   ]
+  }
  },
  "ccdv-f-b1302": {
   "q": "Ứng dụng Claude của nhóm bạn đã chạy trong production được một năm, và nhóm quyết định chính thức hóa chiến lược kiểm thử.\nHiện tại, nhóm viết các bài kiểm thử ad-hoc cho từng tính năng nhưng không có cách tiếp cận kiểm thử tổng thể.\nBạn sẽ chính thức hóa cách tiếp cận kiểm thử nào?",
@@ -1209,7 +2169,15 @@
    "C": "Tiếp tục viết các bài kiểm thử ad-hoc khi các tính năng được phát hành và bổ sung một bước peer review để đảm bảo mỗi bài kiểm thử bao phủ đầy đủ tính năng được phát hành.",
    "D": "Định nghĩa một cách tiếp cận kiểm thử duy nhất sử dụng end-to-end test và áp dụng nhất quán cho mọi tính năng mới khi chúng được thêm vào codebase."
   },
-  "exp": "Chiến lược test chuẩn theo kim tự tháp: unit test cho hàm, integration test cho phần tích hợp Claude, end-to-end test cho luồng quan trọng, áp dụng nhất quán."
+  "exp": "Chiến lược test chuẩn theo kim tự tháp: unit test cho hàm, integration test cho phần tích hợp Claude, end-to-end test cho luồng quan trọng, áp dụng nhất quán.",
+  "domain": 4,
+  "lesson": "4-1-go-loi-va-xu-ly-loi",
+  "tip": {
+   "title": "Chiến lược test → unit + integration + end-to-end",
+   "body": [
+    "Áp dụng nhất quán."
+   ]
+  }
  },
  "ccdv-f-b1303": {
   "q": "Một đồng nghiệp yêu cầu bạn giải thích sự khác biệt giữa context engineering và prompt engineering.\nHọ đã nghe hai thuật ngữ này được dùng thay thế cho nhau và chưa chắc mỗi thuật ngữ áp dụng thế nào cho một ứng dụng Claude xử lý các tác vụ nhiều bước chạy dài.\nBạn sẽ mô tả sự khác biệt như thế nào?",
@@ -1219,7 +2187,15 @@
    "C": "Prompt engineering định hình từng prompt riêng lẻ để có các đầu ra cụ thể, còn context engineering quản lý cách nội dung luân chuyển qua các lượt và các bước, đồng thời thực hiện các biện pháp để giữ trạng thái liên quan luôn hiển thị.",
    "D": "Prompt engineering và context engineering đều xử lý nội dung mà nhóm cung cấp cho Claude, nhưng nhóm có thể gộp chúng vào một workflow duy nhất vì các thực hành này có các kỹ thuật chồng lấn."
   },
-  "exp": "Prompt engineering tối ưu từng prompt để ra output mong muốn. Context engineering quản lý toàn bộ dòng chảy context qua nhiều lượt và nhiều bước, giữ state liên quan luôn hiện diện."
+  "exp": "Prompt engineering tối ưu từng prompt để ra output mong muốn. Context engineering quản lý toàn bộ dòng chảy context qua nhiều lượt và nhiều bước, giữ state liên quan luôn hiện diện.",
+  "domain": 6,
+  "lesson": "6-1-quan-ly-context",
+  "tip": {
+   "title": "Prompt engineering = một prompt; context engineering = dòng nội dung qua các lượt",
+   "body": [
+    "Hai cấp độ khác nhau."
+   ]
+  }
  },
  "ccdv-f-b1304": {
   "q": "Nhóm đang tranh luận nên xây dựng một khả năng mới dưới dạng custom tool hay dùng một công cụ tích hợp sẵn gần như bao phủ trường hợp sử dụng nhưng thiếu một tính năng cụ thể.\nBạn sẽ quyết định như thế nào?",
@@ -1229,7 +2205,15 @@
    "C": "Xem xét phương án custom tool bằng cách ước lượng công sức triển khai và xác định liệu sự linh hoạt bổ sung có xứng đáng với chi phí phát triển và bảo trì hay không.",
    "D": "Xem lại tài liệu của công cụ tích hợp sẵn và đánh giá liệu các khả năng hiện có của nó có đủ để bao phủ trường hợp sử dụng mà không cần sửa đổi hay mở rộng hay không."
   },
-  "exp": "Đánh giá xem phần thiếu có thể bổ sung bằng cách mở rộng tool có sẵn không, hay cần custom tool, rồi chọn theo kết quả đó."
+  "exp": "Đánh giá xem phần thiếu có thể bổ sung bằng cách mở rộng tool có sẵn không, hay cần custom tool, rồi chọn theo kết quả đó.",
+  "domain": 8,
+  "lesson": "8-3-tool-skill-hay-mcp",
+  "tip": {
+   "title": "Tool có sẵn thiếu tính năng → xét mở rộng hay viết custom",
+   "body": [
+    "Đánh giá trước khi chọn."
+   ]
+  }
  },
  "ccdv-f-b1305": {
   "q": "Ứng dụng Claude của bạn trả về các câu trả lời nghe có vẻ tự tin, nhưng đôi khi các câu trả lời đó chứa lỗi thực tế mà các hệ thống phía sau coi là sự thật hiển nhiên.\nNhóm lo ngại về khoảng cách giữa độ tự tin và độ chính xác của ứng dụng.\nBạn sẽ giải quyết khoảng cách này như thế nào?",
@@ -1239,7 +2223,15 @@
    "C": "Từ chối mọi phản hồi mà ứng dụng tạo ra cho đến khi có đánh giá độ chính xác thủ công trên từng phản hồi bởi một người review trước khi bất kỳ hệ thống phía sau nào sử dụng.",
    "D": "Thêm một tuyên bố miễn trừ vào mọi đầu ra yêu cầu người dùng tự kiểm tra độ chính xác của đầu ra và coi tuyên bố miễn trừ đó là cơ chế chính để quản lý khoảng cách giữa độ tự tin và độ chính xác."
   },
-  "exp": "Đừng tin output chỉ vì nghe tự tin. Thêm bước validation, yêu cầu dẫn nguồn hoặc hiệu chỉnh confidence trước khi coi là sự thật. Disclaimer không phải cơ chế kiểm soát."
+  "exp": "Đừng tin output chỉ vì nghe tự tin. Thêm bước validation, yêu cầu dẫn nguồn hoặc hiệu chỉnh confidence trước khi coi là sự thật. Disclaimer không phải cơ chế kiểm soát.",
+  "domain": 7,
+  "lesson": "7-2-guardrail-nhieu-lop",
+  "tip": {
+   "title": "Output tự tin ≠ đúng → validate, đòi nguồn, hiệu chỉnh confidence",
+   "body": [
+    "Không coi là sự thật ngay."
+   ]
+  }
  },
  "ccdv-f-b1306": {
   "q": "Bạn đang thiết kế một agent xử lý hóa đơn của nhà cung cấp.\nCông việc gồm một số ít bước đã được hiểu rõ, nhưng đôi khi một hóa đơn đến với định dạng không mong đợi, đòi hỏi hệ thống phải quyết định giữa việc định tuyến lại, yêu cầu làm rõ, hoặc gắn cờ để con người xem xét.\nKiến trúc phù hợp nhất cho hệ thống này là...",
@@ -1249,7 +2241,15 @@
    "C": "Một prompt lớn duy nhất xử lý mọi hóa đơn đến, cả tiêu chuẩn lẫn không mong đợi, trong một lệnh gọi mô hình.",
    "D": "Một workflow cho luồng tiêu chuẩn với một agent được gọi tại điểm quyết định cho các định dạng không mong đợi."
   },
-  "exp": "Luồng chuẩn rõ ràng thì dùng workflow cố định. Chỉ gọi agent ở điểm cần ra quyết định với format lạ. Đơn giản nhất mà đủ dùng."
+  "exp": "Luồng chuẩn rõ ràng thì dùng workflow cố định. Chỉ gọi agent ở điểm cần ra quyết định với format lạ. Đơn giản nhất mà đủ dùng.",
+  "domain": 1,
+  "lesson": "1-1-workflow-hay-agent",
+  "tip": {
+   "title": "Đường chuẩn → workflow; điểm bất thường → gọi agent",
+   "body": [
+    "Kết hợp cả hai."
+   ]
+  }
  },
  "ccdv-f-b1307": {
   "q": "Một đồng nghiệp yêu cầu bạn giải thích khi nào một Skill là lựa chọn đúng so với một MCP server.\nĐồng nghiệp chưa chắc hai thứ này khác nhau thế nào trong thực tế khi cả hai đều có thể được tái sử dụng giữa các nhóm.\nBạn sẽ giải thích sự khác biệt như thế nào?",
@@ -1259,7 +2259,15 @@
    "C": "Skill được ưu tiên cho việc tái sử dụng giữa các nhóm vì nó tải hiệu quả hơn MCP server trong quá trình vận hành bình thường với các khối lượng công việc đa nhóm điển hình của nhóm.",
    "D": "Skill đóng gói prompt, script và dữ liệu thành một gói mà mô hình tải như một đơn vị, trong khi MCP server cung cấp resource, tool và prompt thông qua một giao diện client chuẩn."
   },
-  "exp": "Skill là gói prompt, script và dữ liệu mà model nạp như một đơn vị. MCP server expose resources, tools và prompts qua giao thức chuẩn cho client."
+  "exp": "Skill là gói prompt, script và dữ liệu mà model nạp như một đơn vị. MCP server expose resources, tools và prompts qua giao thức chuẩn cho client.",
+  "domain": 8,
+  "lesson": "8-3-tool-skill-hay-mcp",
+  "tip": {
+   "title": "Skill = gói prompt/script/data; MCP = giao thức resource/tool/prompt",
+   "body": [
+    "Khác nhau ở cách đóng gói và tích hợp."
+   ]
+  }
  },
  "ccdv-f-b1308": {
   "q": "Nhóm của bạn đang chọn cách thêm một khả năng vào ứng dụng Claude.\nBạn muốn áp dụng lựa chọn phù hợp, dù là công cụ tích hợp sẵn, custom tool, Skill hay MCP server, dựa trên trường hợp sử dụng.\nBạn sẽ chọn lựa chọn nào...",
@@ -1269,7 +2277,15 @@
    "C": "Dễ xây dựng nhất với các công cụ và quy trình phát triển hiện tại của nhóm.",
    "D": "Phù hợp với phạm vi, nhu cầu tái sử dụng và bối cảnh tích hợp của trường hợp sử dụng."
   },
-  "exp": "Chọn cơ chế mở rộng dựa trên phạm vi use case, nhu cầu tái sử dụng và bối cảnh tích hợp, không theo cái quen tay hay cái mới nhất."
+  "exp": "Chọn cơ chế mở rộng dựa trên phạm vi use case, nhu cầu tái sử dụng và bối cảnh tích hợp, không theo cái quen tay hay cái mới nhất.",
+  "domain": 8,
+  "lesson": "8-3-tool-skill-hay-mcp",
+  "tip": {
+   "title": "Chọn tool, Skill hay MCP → theo phạm vi, nhu cầu tái dùng, ngữ cảnh tích hợp",
+   "body": [
+    "Không có lựa chọn đúng cho mọi trường hợp."
+   ]
+  }
  },
  "ccdv-f-b1309": {
   "q": "Một code-review agent cần đọc 40 tệp, nhưng nhóm muốn cuộc hội thoại chính ngắn gọn để các lượt sau không phải trả phí cho các token dùng cho mọi tệp đã mở trong quá trình review.\nKiến trúc nào giữ cho ngữ cảnh của agent chính gọn nhẹ?",
@@ -1279,7 +2295,15 @@
    "C": "Đặt effort là \"low\" trên query chính để mỗi lượt đọc tệp tiêu tốn ít reasoning token hơn, dù cả 40 tệp vẫn được tải đầy đủ vào cuộc hội thoại chính dùng chung.",
    "D": "Bật include_partial_messages để nội dung tệp được stream về cuộc hội thoại chính từng phần dưới dạng text delta thay vì đến cùng một lúc."
   },
-  "exp": "Giao việc đọc 40 file cho subagent: các lần đọc nằm trong context riêng của subagent, chỉ bản tóm tắt cuối cùng quay về agent chính."
+  "exp": "Giao việc đọc 40 file cho subagent: các lần đọc nằm trong context riêng của subagent, chỉ bản tóm tắt cuối cùng quay về agent chính.",
+  "domain": 1,
+  "lesson": "1-2-cach-dung-agent",
+  "tip": {
+   "title": "Việc đọc nhiều file → subagent qua AgentDefinition",
+   "body": [
+    "Chỉ bản tóm tắt quay về agent chính."
+   ]
+  }
  },
  "ccdv-f-b1310": {
   "q": "Một phiên agent chạy dài đang tiến gần đến giới hạn context window.\nNhóm muốn hai điều: một bản sao đầy đủ, không rút gọn của cuộc hội thoại được lưu lại trước khi SDK tóm tắt lịch sử cũ hơn, và một đảm bảo rằng một quy tắc định dạng cụ thể được giữ nguyên qua mọi lần compaction mà không bị diễn đạt lại làm mất.\nTổ hợp cơ chế nào đáp ứng cả hai nhu cầu?",
@@ -1289,7 +2313,15 @@
    "C": "Chỉ dựa vào bản tóm tắt compaction tự động để giữ lại cả transcript lẫn quy tắc định dạng, vì các bản tóm tắt được thiết kế để giữ nguyên văn các chi tiết của cuộc hội thoại.",
    "D": "Đăng ký một hook PostToolUse để lưu trữ transcript sau mỗi lệnh gọi công cụ hoàn tất, và đặt quy tắc định dạng bên trong prompt của AgentDefinition của một subagent thay vì phiên chính."
   },
-  "exp": "Hook PreCompact chạy trước khi nén nên archive được transcript đầy đủ. Quy tắc đặt trong CLAUDE.md được nạp lại mỗi request nên không bị tóm tắt mất."
+  "exp": "Hook PreCompact chạy trước khi nén nên archive được transcript đầy đủ. Quy tắc đặt trong CLAUDE.md được nạp lại mỗi request nên không bị tóm tắt mất.",
+  "domain": 6,
+  "lesson": "6-1-quan-ly-context",
+  "tip": {
+   "title": "Compaction làm mất quy tắc → PreCompact hook lưu transcript + quy tắc vào CLAUDE.md",
+   "body": [
+    "CLAUDE.md được nạp lại mỗi request."
+   ]
+  }
  },
  "ccdv-f-b1311": {
   "q": "Một kiến trúc sư phần mềm đang so sánh ba framework agent mã nguồn mở cho một dự án yêu cầu tích hợp với nhiều nhà cung cấp LLM và khả năng quan sát (observability) đầu cuối qua OpenTelemetry.\nLogic agent của dự án là tuyến tính và không yêu cầu chỉ định thủ công các đồ thị thực thi.\nCác framework đang được xem xét là Strands Agents SDK, LangGraph và Pydantic AI.\nDựa trên hiểu biết của bạn về các framework này, những phát biểu nào sau đây là đúng? (Chọn tất cả đáp án phù hợp.)",
@@ -1301,7 +2333,15 @@
    "E": "Strands Agents SDK bắt buộc mọi agent phải được triển khai trên AWS và không cho phép sử dụng các API mô hình của bên thứ ba.",
    "F": "LangGraph phù hợp nhất cho các chuỗi agent đơn giản, tuyến tính vì mô hình đồ thị của nó giới hạn lập trình viên trong một đường thực thi duy nhất."
   },
-  "exp": "Đúng: Strands Agents SDK model-agnostic và hỗ trợ OpenTelemetry; LangGraph mô hình hóa workflow dạng graph có hướng, kiểm soát được rẽ nhánh và vòng lặp. LangGraph không do Anthropic phát triển và không bị giới hạn ở luồng tuyến tính."
+  "exp": "Đúng: Strands Agents SDK model-agnostic và hỗ trợ OpenTelemetry; LangGraph mô hình hóa workflow dạng graph có hướng, kiểm soát được rẽ nhánh và vòng lặp. LangGraph không do Anthropic phát triển và không bị giới hạn ở luồng tuyến tính.",
+  "domain": 1,
+  "lesson": "1-3-mau-agent-va-framework",
+  "tip": {
+   "title": "Model-agnostic + OpenTelemetry → Strands Agents SDK",
+   "body": [
+    "Xuất trace ra nền tảng quan sát."
+   ]
+  }
  },
  "ccdv-f-b1312": {
   "q": "Một nhóm muốn có các câu trả lời đáng tin cậy hơn từ một prompt phát hiện gian lận áp dụng cho mô tả một giao dịch.\nThay vì xem xét các góc độ khác nhau, họ chạy chính prompt đó trên cùng một giao dịch năm lần và giữ lại kết luận -- gian lận hay hợp lệ -- xuất hiện nhiều nhất trong năm lần chạy.\nHọ đang sử dụng mẫu nào?",
@@ -1311,7 +2351,15 @@
    "C": "Evaluator-optimizer, trong đó một lệnh gọi LLM thứ hai phê bình kết luận đầu tiên và prompt được sửa đổi cho đến khi thỏa mãn các tiêu chí.",
    "D": "Prompt chaining, trong đó mỗi lần trong năm lần chạy sử dụng kết luận do lần chạy ngay trước đó tạo ra."
   },
-  "exp": "Chạy cùng một prompt nhiều lần rồi lấy kết quả chiếm đa số: đó là parallelization theo kiểu voting."
+  "exp": "Chạy cùng một prompt nhiều lần rồi lấy kết quả chiếm đa số: đó là parallelization theo kiểu voting.",
+  "domain": 1,
+  "lesson": "1-1-workflow-hay-agent",
+  "tip": {
+   "title": "Chạy cùng task nhiều lần, lấy đa số → parallelization voting",
+   "body": [
+    "Sectioning là chia task khác nhau."
+   ]
+  }
  },
  "ccdv-f-b1313": {
   "q": "Một pipeline xử lý ticket hỗ trợ chạy một bước phân loại cảm xúc (sentiment) đơn giản trên mọi ticket đến trước khi cuộc hội thoại chính tiếp tục với lập luận phức tạp hơn.\nViệc phân loại này xảy ra thường xuyên hơn bất kỳ bước nào khác và không cần mô hình mạnh nhất của nhóm.\nNhóm nên giảm chi phí cho bước cụ thể này như thế nào?",
@@ -1321,7 +2369,15 @@
    "C": "Chuyển bước phân loại thành một vòng lặp evaluator-optimizer, vì mẫu đó luôn dùng một mô hình rẻ hơn cho nửa evaluator của vòng lặp.",
    "D": "Chuyển pipeline thành một agent team, vì mọi thành viên trong agent team tự động mặc định dùng mô hình rẻ nhất hiện có."
   },
-  "exp": "Bước tần suất cao, đơn giản thì giao cho subagent dùng model nhanh và rẻ. Subagent cấu hình được model riêng."
+  "exp": "Bước tần suất cao, đơn giản thì giao cho subagent dùng model nhanh và rẻ. Subagent cấu hình được model riêng.",
+  "domain": 5,
+  "lesson": "5-3-chon-model",
+  "tip": {
+   "title": "Bước đơn giản → subagent dùng model nhanh, rẻ",
+   "body": [
+    "Subagent đặt model riêng được."
+   ]
+  }
  },
  "ccdv-f-b1314": {
   "q": "Một cuộc hội thoại agent tự chủ chạy dài thường xuyên tiến gần đến giới hạn context window của mô hình.\nKiến trúc cần nền tảng tự động tóm tắt các phần trước của cuộc hội thoại ở phía server, và xóa các kết quả công cụ cũ khi gần đến giới hạn token, mà client không phải quản lý thủ công.\nKiến trúc nên bật hai tính năng nào?",
@@ -1333,7 +2389,15 @@
    "E": "Batch processing",
    "F": "Files API"
   },
-  "exp": "Compaction tóm tắt hội thoại cũ phía server, còn context editing tự dọn tool result cũ khi gần chạm giới hạn. Cả hai đều chạy tự động."
+  "exp": "Compaction tóm tắt hội thoại cũ phía server, còn context editing tự dọn tool result cũ khi gần chạm giới hạn. Cả hai đều chạy tự động.",
+  "domain": 6,
+  "lesson": "6-1-quan-ly-context",
+  "tip": {
+   "title": "Context sắp đầy → compaction / context editing",
+   "body": [
+    "Tóm tắt hoặc xoá nội dung cũ."
+   ]
+  }
  },
  "ccdv-f-b1316": {
   "q": "Một agent xây dựng bằng Claude Agent SDK đọc một module xác thực trong một lệnh gọi query, và nhóm muốn một lệnh gọi query thứ hai, sau đó, tham chiếu đến 'nó' nghĩa là cùng module đó mà không phải đọc lại hay giải thích lại ngữ cảnh.\nHọ nên lấy và tái sử dụng gì từ lần gọi đầu tiên để đạt được điều này?",
@@ -1343,7 +2407,15 @@
    "C": "Lấy nội dung tệp đã đọc trong query đầu tiên và mã hóa cứng vào system prompt dùng cho lệnh gọi query thứ hai.",
    "D": "Lấy tool_use_id từ lệnh gọi công cụ Read của query đầu tiên và truyền nó làm tham số model ở lệnh gọi query thứ hai."
   },
-  "exp": "Lấy `session_id` từ SystemMessage init của lần query đầu, rồi truyền vào option `resume` ở lần query sau để tiếp tục cùng phiên."
+  "exp": "Lấy `session_id` từ SystemMessage init của lần query đầu, rồi truyền vào option `resume` ở lần query sau để tiếp tục cùng phiên.",
+  "domain": 1,
+  "lesson": "1-3-mau-agent-va-framework",
+  "tip": {
+   "title": "Tiếp tục phiên → lấy session_id từ SystemMessage init, truyền vào resume",
+   "body": [
+    "Query đầu cấp session_id."
+   ]
+  }
  },
  "ccdv-f-b1317": {
   "q": "Một kỹ sư xây dựng tự động hóa SDLC muốn một agent chạy git status, stage các thay đổi và commit chúng như một phần của workflow theo kịch bản, ngoài việc đọc và chỉnh sửa tệp nguồn.\nCông cụ Agent SDK tích hợp sẵn nào cấp khả năng chạy trực tiếp các lệnh quản lý phiên bản?",
@@ -1353,7 +2425,15 @@
    "C": "WebFetch, truy xuất và phân tích nội dung trang web và không thể thực thi các lệnh quản lý phiên bản cục bộ",
    "D": "AskUserQuestion, nhắc người dùng bằng các câu hỏi làm rõ dạng trắc nghiệm thay vì thực thi lệnh shell"
   },
-  "exp": "Bash chạy được lệnh terminal, kể cả git status, git add, git commit."
+  "exp": "Bash chạy được lệnh terminal, kể cả git status, git add, git commit.",
+  "domain": 8,
+  "lesson": "8-3-tool-skill-hay-mcp",
+  "tip": {
+   "title": "Chạy git, script, lệnh terminal → Bash",
+   "body": [
+    "Tool có sẵn của SDK."
+   ]
+  }
  },
  "ccdv-f-b1318": {
   "q": "Một dịch vụ xử lý theo lô chạy hàng nghìn tác vụ phân loại tài liệu đơn lẻ, độc lập mỗi giờ bằng Agent SDK.\nMỗi tác vụ không liên quan đến các tác vụ khác, không bao giờ được phép tiếp tục (resume) về sau, và nhóm muốn tránh các thao tác ghi đĩa không cần thiết cho các phiên dùng một lần này trong dịch vụ TypeScript của họ.\nCấu hình phiên đúng là gì?",
@@ -1363,7 +2443,15 @@
    "C": "Gọi `resume` với một session ID được tạo ngẫu nhiên cho mỗi tác vụ, điều này tạo một phiên chỉ nằm trong bộ nhớ và bỏ qua việc lưu xuống đĩa",
    "D": "Dùng `ClaudeSDKClient` của Python SDK thay thế, vì chỉ Python SDK mới có tùy chọn bỏ qua việc ghi transcript phiên ra đĩa"
   },
-  "exp": "`persistSession: false` khiến phiên chỉ tồn tại trong bộ nhớ, không ghi transcript ra đĩa. Hợp với task dùng một lần."
+  "exp": "`persistSession: false` khiến phiên chỉ tồn tại trong bộ nhớ, không ghi transcript ra đĩa. Hợp với task dùng một lần.",
+  "domain": 7,
+  "lesson": "7-1-bao-mat-ung-dung-ai",
+  "tip": {
+   "title": "Không ghi phiên ra đĩa → persistSession: false",
+   "body": [
+    "Phiên chỉ tồn tại trong bộ nhớ."
+   ]
+  }
  },
  "ccdv-f-b1319": {
   "q": "Một lập trình viên tiếp tục một phiên chạy dài bằng `claude --resume`, phiên này trước đó chạy trên Opus 4.6.\nGiữa phiên gốc và lúc resume, quản trị viên của tổ chức đã ngừng cung cấp Opus 4.6 và nó không còn truy cập được.\nĐiều gì xảy ra khi phiên được resume?",
@@ -1373,7 +2461,15 @@
    "C": "Phiên vẫn âm thầm resume trên Opus 4.6, vì Claude Code lưu cục bộ định dạng phản hồi của mô hình và không cần truy cập mô hình đã ngừng cung cấp để tiếp tục một transcript hiện có",
    "D": "Phiên tự động và vĩnh viễn cập nhật cài đặt `model` đã lưu thành bất kỳ mô hình nào mà lần resume tình cờ dùng thay thế, ghi đè lựa chọn `/model` tường minh trước đó của người dùng cho mọi phiên trong tương lai"
   },
-  "exp": "Model cũ không còn thì phiên resume chọn model theo thứ tự ưu tiên thông thường, không bị lỗi cứng."
+  "exp": "Model cũ không còn thì phiên resume chọn model theo thứ tự ưu tiên thông thường, không bị lỗi cứng.",
+  "domain": 1,
+  "lesson": "1-3-mau-agent-va-framework",
+  "tip": {
+   "title": "Resume mà model cũ không còn → theo thứ tự ưu tiên chọn model bình thường",
+   "body": [
+    "Không fail."
+   ]
+  }
  },
  "ccdv-f-b1320": {
   "q": "Một nhóm đang xác định phạm vi các giới hạn vận hành của Message Batches API trước khi cam kết dùng nó cho một job hằng đêm định kỳ.\nHãy chọn các phát biểu dưới đây mô tả chính xác những giới hạn này.",
@@ -1384,7 +2480,15 @@
    "D": "Các batch mặc định hiển thị trên mọi Workspace trong một tổ chức, nên một batch được tạo ở một Workspace có thể được liệt kê và tải kết quả bởi bất kỳ Workspace nào khác.",
    "E": "Một batch có thể bao gồm `stream: true` trên từng request riêng lẻ miễn là bản thân lệnh gọi batch được gửi không streaming, cho phép mỗi request tự chỉ định hành vi streaming của nó."
   },
-  "exp": "Giới hạn của Message Batches: tối đa 100.000 request hoặc 256 MB mỗi batch; batch hết hạn nếu chưa xong trong 24 giờ; kết quả tải được trong 29 ngày. Request trong batch không stream được, và batch không chia sẻ giữa các Workspace."
+  "exp": "Giới hạn của Message Batches: tối đa 100.000 request hoặc 256 MB mỗi batch; batch hết hạn nếu chưa xong trong 24 giờ; kết quả tải được trong 29 ngày. Request trong batch không stream được, và batch không chia sẻ giữa các Workspace.",
+  "domain": 5,
+  "lesson": "5-2-goi-api-qua-sdk-va-rest",
+  "tip": {
+   "title": "Một batch tối đa 100.000 request hoặc 256 MB",
+   "body": [
+    "Vượt là bị từ chối ngay."
+   ]
+  }
  },
  "ccdv-f-b1321": {
   "q": "Một nhóm nền tảng triển khai `.claude/settings.json` tới mọi repository với một quy tắc `permissions.deny` chặn `Bash(curl *)`.\nMột lập trình viên riêng lẻ thêm quy tắc ngược lại, một mục `allow` cho `Bash(curl *)`, trong `.claude/settings.local.json` của riêng họ vì họ cần curl cho một script gỡ lỗi cá nhân.\nKhi lập trình viên đó chạy Claude Code trong repo, điều gì xảy ra với các lệnh `curl`?",
@@ -1394,7 +2498,15 @@
    "C": "Các lệnh curl yêu cầu phê duyệt thủ công mỗi lần, vì các quy tắc allow và deny xung đột giữa các phạm vi triệt tiêu lẫn nhau và quay về xác nhận tương tác",
    "D": "Các lệnh curl vẫn bị chặn chỉ cho đến khi lập trình viên khởi động lại Claude Code, sau đó quy tắc allow của tệp cài đặt cục bộ có hiệu lực ở phiên tiếp theo"
   },
-  "exp": "Permission rule được merge giữa các scope, không scope nào ghi đè scope khác. Deny ở cấp project vẫn có hiệu lực, allow ở local không gỡ được."
+  "exp": "Permission rule được merge giữa các scope, không scope nào ghi đè scope khác. Deny ở cấp project vẫn có hiệu lực, allow ở local không gỡ được.",
+  "domain": 3,
+  "lesson": "3-1-van-hanh-claude-code",
+  "tip": {
+   "title": "Permission rule gộp giữa các scope, deny thắng",
+   "body": [
+    "Allow ở local không gỡ được deny ở project."
+   ]
+  }
  },
  "ccdv-f-b1322": {
   "q": "Một nhà cung cấp muốn đóng gói một tập các skill quy trình nội bộ, một subagent tùy chỉnh, một hook ghi nhật ký kiểm toán và một MCP server cơ sở dữ liệu thành một đơn vị có thể tái sử dụng để các nhóm dự án khác nhau tải vào phiên Claude Code của riêng họ mà không phải sao chép tệp vào từng dự án.\nThiết kế nào đáp ứng yêu cầu này?",
@@ -1404,7 +2516,15 @@
    "C": "Xuất bản các skill, định nghĩa subagent, script hook và cấu hình MCP server như một tệp CLAUDE.md duy nhất với các mục như `## Skills`, `## Agents`, `## Hooks` và `## MCP`, và để mỗi dự án tải nó bằng cách thêm một chỉ thị import trong cấu hình dự án.",
    "D": "Đăng ký các skill, logic subagent, script hook và cấu hình MCP server như một hàm custom tool duy nhất trong tool registry của Agent SDK, và để mỗi nhóm dự án bật nó bằng cách thêm công cụ vào vòng lặp gọi công cụ của phiên của họ."
   },
-  "exp": "Đóng gói skills, agents, hooks và `.mcp.json` thành một plugin, rồi mỗi project nạp qua option `plugins`. Không phải copy file."
+  "exp": "Đóng gói skills, agents, hooks và `.mcp.json` thành một plugin, rồi mỗi project nạp qua option `plugins`. Không phải copy file.",
+  "domain": 3,
+  "lesson": "3-1-van-hanh-claude-code",
+  "tip": {
+   "title": "Dùng chung skills/agents/hooks/MCP cho nhiều project → plugin",
+   "body": [
+    "Một gói, mỗi project nạp vào."
+   ]
+  }
  },
  "ccdv-f-b1323": {
   "q": "Một nhóm sản phẩm cần một mô hình cho việc sinh mã, phân tích dữ liệu và sử dụng công cụ kiểu agent trên một cơ sở người dùng lớn.\nHọ muốn sự kết hợp tốt nhất giữa tốc độ và trí thông minh thay vì mô hình có năng lực cao nhất và đắt nhất.\nMô hình Claude hiện tại nào phù hợp với yêu cầu này?",
@@ -1414,7 +2534,15 @@
    "C": "Claude Sonnet 5.5",
    "D": "Claude Mythos 5.1"
   },
-  "exp": "Cân bằng tốt nhất giữa tốc độ và trí tuệ cho code, phân tích dữ liệu và agent ở quy mô lớn là Sonnet. Opus mạnh hơn nhưng đắt hơn."
+  "exp": "Cân bằng tốt nhất giữa tốc độ và trí tuệ cho code, phân tích dữ liệu và agent ở quy mô lớn là Sonnet. Opus mạnh hơn nhưng đắt hơn.",
+  "domain": 5,
+  "lesson": "5-3-chon-model",
+  "tip": {
+   "title": "Cân bằng chất lượng và chi phí → Sonnet",
+   "body": [
+    "Opus cho việc khó nhất, Haiku cho việc nhanh, rẻ."
+   ]
+  }
  },
  "ccdv-f-b1324": {
   "q": "Mức sử dụng của một nhóm nằm thấp hơn nhiều so với giới hạn requests-per-minute đã công bố, nhưng họ bắt đầu gặp lỗi 429 sau khi một chiến dịch marketing khiến lưu lượng API tăng gấp ba trong vài phút.\nMức sử dụng trước đó ổn định trước đợt tăng đột biến.\nGiải thích khả dĩ nhất là gì, và nhóm nên thay đổi điều gì để tránh tái diễn?",
@@ -1424,7 +2552,15 @@
    "C": "Các phản hồi 429 cho biết API key của tổ chức đã tự động bị thu hồi vì nghi ngờ lạm dụng và phải được tạo lại trong Console",
    "D": "Đợt tăng đột biến đã vượt quá giới hạn kích thước request của Messages API, nên mỗi request quá cỡ bị từ chối riêng lẻ với lỗi rate-limit"
   },
-  "exp": "Traffic tăng đột ngột dù chưa chạm RPM thì có thể đã vướng acceleration limit, cơ chế chặn tăng tải đột biến. Hãy tăng traffic từ từ."
+  "exp": "Traffic tăng đột ngột dù chưa chạm RPM thì có thể đã vướng acceleration limit, cơ chế chặn tăng tải đột biến. Hãy tăng traffic từ từ.",
+  "domain": 5,
+  "lesson": "5-2-goi-api-qua-sdk-va-rest",
+  "tip": {
+   "title": "Tăng đột ngột bị chặn → acceleration limit",
+   "body": [
+    "Tăng traffic từ từ."
+   ]
+  }
  },
  "ccdv-f-b1325": {
   "q": "Một kỹ sư đang cân nhắc, đối với một số request thất bại, liệu chỉ chuyển sang streaming API hay tăng max_tokens có giải quyết được lỗi hay không.\nHãy chọn tất cả các kịch bản dưới đây mà cả hai thay đổi đó đều không khắc phục được lỗi được mô tả.",
@@ -1435,7 +2571,15 @@
    "D": "Một request thất bại với lỗi 401 authentication_error vì API key dùng để ký request đã hết hạn",
    "E": "Một request thất bại với lỗi 504 timeout_error vì một lần sinh không streaming rất lớn chạy quá giới hạn kết nối nhàn rỗi trên một mạng không ổn định"
   },
-  "exp": "Streaming hay tăng max_tokens không sửa được: 401 (key hết hạn), 413 (payload quá lớn), 409 (xung đột tài nguyên). Lỗi stop_reason=max_tokens thì tăng max_tokens là sửa được; 504 timeout với request dài thì streaming sẽ giúp."
+  "exp": "Streaming hay tăng max_tokens không sửa được: 401 (key hết hạn), 413 (payload quá lớn), 409 (xung đột tài nguyên). Lỗi stop_reason=max_tokens thì tăng max_tokens là sửa được; 504 timeout với request dài thì streaming sẽ giúp.",
+  "domain": 5,
+  "lesson": "5-2-goi-api-qua-sdk-va-rest",
+  "tip": {
+   "title": "413 request_too_large → payload vượt giới hạn kích thước",
+   "body": [
+    "Khác với tràn context window."
+   ]
+  }
  },
  "ccdv-f-b1326": {
   "q": "Một khối lượng công việc nhạy cảm về chi phí cần biết chính xác một prompt lớn sẽ tiêu tốn bao nhiêu token trước khi gửi tới Claude, để nhóm có thể giữ trong ngân sách.\nHọ nên dùng gì?",
@@ -1445,7 +2589,15 @@
    "C": "Files API, vì các tệp được tải lên tự động báo cáo kích thước token trước khi bắt đầu sinh",
    "D": "Trường budget_tokens của extended thinking, giới hạn và báo cáo tổng mức sử dụng token của request"
   },
-  "exp": "Muốn biết chính xác số token trước khi gửi thì dùng token counting endpoint."
+  "exp": "Muốn biết chính xác số token trước khi gửi thì dùng token counting endpoint.",
+  "domain": 5,
+  "lesson": "5-4-chi-phi-va-token",
+  "tip": {
+   "title": "Biết số token trước khi gửi → token counting",
+   "body": [
+    "Tránh tràn context và ước chi phí."
+   ]
+  }
  },
  "ccdv-f-b1327": {
   "q": "Khi streaming một phản hồi có bật extended thinking, một client nhận được một thinking content block kết thúc bằng một sự kiện signature_delta ngay trước content_block_stop.\nMục đích của sự kiện signature_delta này là gì?",
@@ -1455,7 +2607,15 @@
    "C": "Nó cho biết thinking block đã bị che (redacted) vì tuân thủ chính sách và nội dung của nó nên bị loại bỏ.",
    "D": "Nó báo hiệu rằng một mô hình dự phòng đã tiếp quản việc sinh cho phần còn lại của phản hồi."
   },
-  "exp": "`signature_delta` cung cấp chữ ký để xác minh tính toàn vẹn của thinking block, đảm bảo nó không bị chỉnh sửa khi gửi lại."
+  "exp": "`signature_delta` cung cấp chữ ký để xác minh tính toàn vẹn của thinking block, đảm bảo nó không bị chỉnh sửa khi gửi lại.",
+  "domain": 5,
+  "lesson": "5-1-nen-tang-llm",
+  "tip": {
+   "title": "signature trong thinking block → kiểm tra toàn vẹn",
+   "body": [
+    "Gửi lại nguyên vẹn khi dùng tool."
+   ]
+  }
  },
  "ccdv-f-b1328": {
   "q": "Một kỹ sư mới hỏi vì sao Claude dường như tạo văn bản từng đoạn một thay vì sinh toàn bộ phản hồi ngay lập tức.\nGiải thích nào khớp nhất với cách Claude sinh đầu ra?",
@@ -1465,7 +2625,15 @@
    "C": "Claude sinh toàn bộ phản hồi như một chuỗi hoàn chỉnh trong một lần forward pass qua mô hình, rồi chỉ chia nó thành token để truyền cho client.",
    "D": "Claude sinh các token theo thứ tự ngẫu nhiên, rồi áp dụng một hàm sắp xếp lại đã học để sắp xếp chúng thành một phản hồi mạch lạc trước khi trả về."
   },
-  "exp": "LLM sinh văn bản theo cơ chế autoregressive: dự đoán token tiếp theo dựa trên prompt và các token đã sinh, lặp lại cho đến khi xong."
+  "exp": "LLM sinh văn bản theo cơ chế autoregressive: dự đoán token tiếp theo dựa trên prompt và các token đã sinh, lặp lại cho đến khi xong.",
+  "domain": 5,
+  "lesson": "5-1-nen-tang-llm",
+  "tip": {
+   "title": "LLM sinh tự hồi quy, từng token",
+   "body": [
+    "Dựa trên prompt và các token đã sinh."
+   ]
+  }
  },
  "ccdv-f-b1329": {
   "q": "Một dịch vụ phân loại ticket hỗ trợ gửi cùng một system prompt 6.000 token và các định nghĩa công cụ với mỗi request, theo sau là một tin nhắn khách hàng duy nhất.\nCác request đến theo từng đợt khoảng mỗi 30 giây trong suốt cả ngày.\nNhóm muốn cắt giảm chi phí input token cho phần tiền tố lặp lại mà không thêm hạ tầng.\nThay đổi nào giải quyết trực tiếp nhất?",
@@ -1475,7 +2643,15 @@
    "C": "Giảm tham số max_tokens trên mọi request xuống mức tối thiểu cần cho một phản hồi phân loại ngắn, để các completion của Claude ngắn gọn và chi phí token trung bình mỗi lệnh gọi giảm.",
    "D": "Chuyển các định nghĩa công cụ sang một JSON schema gọn hơn với tên thuộc tính ngắn hơn và ít đối tượng lồng nhau hơn, để tiền tố 6.000 token co lại và mỗi request tiêu tốn ít input token hơn."
   },
-  "exp": "Prefix 6.000 token lặp lại, request cách nhau khoảng 30 giây, nằm trong TTL 5 phút, nên đặt `cache_control` ephemeral để các request sau đọc từ cache, rẻ hơn nhiều."
+  "exp": "Prefix 6.000 token lặp lại, request cách nhau khoảng 30 giây, nằm trong TTL 5 phút, nên đặt `cache_control` ephemeral để các request sau đọc từ cache, rẻ hơn nhiều.",
+  "domain": 5,
+  "lesson": "5-4-chi-phi-va-token",
+  "tip": {
+   "title": "Prefix lặp lại → cache_control breakpoint",
+   "body": [
+    "System prompt và tool definition đặt trước."
+   ]
+  }
  },
  "ccdv-f-b1330": {
   "q": "Một kỹ sư đang xây dựng một research agent cần đọc hàng chục tệp trong một repository lớn để trả lời một câu hỏi, mà không để toàn bộ nội dung tệp đó chất đống trong ngữ cảnh của cuộc hội thoại chính.\nThiết kế nào đạt được điều này tốt nhất?",
@@ -1485,7 +2661,15 @@
    "C": "Đọc mọi tệp trực tiếp trong vòng lặp agent chính, nhưng đặt effort là low để nội dung tệp bổ sung tiêu tốn ít token hơn mỗi lượt",
    "D": "Lưu toàn bộ nội dung tệp trong một MCP resource tùy chỉnh và để agent chính tải một resource URI gộp duy nhất thay vì từng tệp riêng lẻ"
   },
-  "exp": "Giao việc đọc nhiều file cho subagent: context riêng của nó chứa các lần đọc, chỉ bản tóm tắt quay về agent chính."
+  "exp": "Giao việc đọc nhiều file cho subagent: context riêng của nó chứa các lần đọc, chỉ bản tóm tắt quay về agent chính.",
+  "domain": 6,
+  "lesson": "6-1-quan-ly-context",
+  "tip": {
+   "title": "Khám phá nhiều file làm đầy context → subagent",
+   "body": [
+    "Chỉ bản tóm tắt quay về."
+   ]
+  }
  },
  "ccdv-f-b1331": {
   "q": "Một prompt được viết cho một công cụ tóm tắt tài liệu pháp lý tạo ra cấu trúc không nhất quán qua các lần chạy, và các kỹ sư trong nhóm bất đồng về nguyên nhân.\nTrước khi tinh chỉnh prompt thêm, thực hành nào sẽ trực tiếp bộc lộ sự mơ hồ trong cách diễn đạt hiện tại nhất?",
@@ -1495,7 +2679,15 @@
    "C": "Yêu cầu Claude giải thích lại các chỉ dẫn của chính nó trong một lệnh gọi riêng, coi bản diễn giải prompt của mô hình là sự thay thế đáng tin cậy cho việc kiểm tra mức độ hiểu của con người",
    "D": "Giảm temperature về không cho các request của công cụ tóm tắt, với giả định rằng sự mơ hồ trong cách diễn đạt được giải quyết bằng lấy mẫu có phương sai thấp hơn thay vì bằng các chỉ dẫn rõ ràng hơn"
   },
-  "exp": "Đưa prompt cho một đồng nghiệp ít context đọc và làm theo. Chỗ nào người đó bối rối thì Claude nhiều khả năng cũng bối rối."
+  "exp": "Đưa prompt cho một đồng nghiệp ít context đọc và làm theo. Chỗ nào người đó bối rối thì Claude nhiều khả năng cũng bối rối.",
+  "domain": 6,
+  "lesson": "6-2-viet-prompt",
+  "tip": {
+   "title": "Kiểm prompt → đưa đồng nghiệp ít context làm theo",
+   "body": [
+    "Người bối rối thì model cũng dễ bối rối."
+   ]
+  }
  },
  "ccdv-f-b1332": {
   "q": "Một dịch vụ tóm tắt phân tích văn bản phản hồi dưới dạng JSON. Với các bản ghi hội thoại rất dài, chuỗi JSON đôi khi bị cắt giữa chừng một đối tượng và parser báo lỗi giải mã. Khi điều tra, kỹ sư thấy stop_reason là \"max_tokens\" ở mọi lệnh gọi thất bại.\nLogic phân tích phòng thủ nên làm gì?",
@@ -1505,7 +2697,15 @@
    "C": "Giảm max_tokens thêm nữa để Claude buộc phải tạo các completion ngắn hơn, an toàn hơn",
    "D": "Coi mọi lỗi giải mã JSON là sự cố mạng tạm thời và gửi lại chính request đó"
   },
-  "exp": "`stop_reason = max_tokens` nghĩa là output bị cắt. Bắt lỗi parse, kiểm tra stop_reason và xử lý như response chưa hoàn chỉnh (ví dụ tăng max_tokens hoặc chia nhỏ)."
+  "exp": "`stop_reason = max_tokens` nghĩa là output bị cắt. Bắt lỗi parse, kiểm tra stop_reason và xử lý như response chưa hoàn chỉnh (ví dụ tăng max_tokens hoặc chia nhỏ).",
+  "domain": 6,
+  "lesson": "6-3-xu-ly-output",
+  "tip": {
+   "title": "JSON lỗi parse → kiểm stop_reason max_tokens",
+   "body": [
+    "Response bị cắt, coi là chưa hoàn chỉnh."
+   ]
+  }
  },
  "ccdv-f-b1333": {
   "q": "Trong quá trình thử nghiệm, một agent đôi khi gọi công cụ create_ticket mà bỏ sót trường priority bắt buộc.\nNhững cách nào sau đây là phù hợp để xử lý điều này trong cuộc hội thoại, theo khuyến nghị xử lý lỗi tool-use? (Chọn tất cả đáp án phù hợp)",
@@ -1517,7 +2717,15 @@
    "E": "Ghi log việc bỏ sót một cách im lặng và tiếp tục tạo ticket với giá trị priority là null",
    "F": "Viết lại schema để priority là tùy chọn nhằm không bao giờ bị báo là thiếu nữa"
   },
-  "exp": "Cách xử lý đúng: trả tool_result với `is_error: true`, nêu rõ field bị thiếu để Claude gọi lại; bật `strict: true` để validate input theo schema; viết description nói rõ priority là bắt buộc."
+  "exp": "Cách xử lý đúng: trả tool_result với `is_error: true`, nêu rõ field bị thiếu để Claude gọi lại; bật `strict: true` để validate input theo schema; viết description nói rõ priority là bắt buộc.",
+  "domain": 8,
+  "lesson": "8-1-viet-tool",
+  "tip": {
+   "title": "Thiếu field → tool_result is_error nêu field; hoặc strict: true",
+   "body": [
+    "Claude sửa và gọi lại."
+   ]
+  }
  },
  "ccdv-f-b1334": {
   "q": "Một prompt nối hai tài liệu nguồn dưới dạng văn bản thuần, không phân biệt, và các phản hồi của Claude đôi khi gán nhầm một sự kiện đến từ tài liệu nào.\nViệc tái cấu trúc nào khắc phục tốt nhất vấn đề gán nguồn này?",
@@ -1527,7 +2735,15 @@
    "C": "Thêm tiền tố cho mỗi tài liệu bằng một tiêu đề markdown được đánh số (ví dụ: \"# Document 1\") và sau đó đưa vào prompt một chỉ dẫn để Claude gán các sự kiện chỉ dựa trên tiêu đề mà chúng xuất hiện bên dưới.",
    "D": "Chuyển cả hai tài liệu thành một tệp CSV duy nhất trong đó mỗi hàng chứa một đoạn văn và cột bên trái ghi nhãn tài liệu nguồn, để Claude đọc dữ liệu dạng bảng và gán các sự kiện về đúng nguồn."
   },
-  "exp": "Bọc mỗi tài liệu trong tag XML riêng (kèm tag con cho nội dung và nguồn) nằm trong một tag cha. Ranh giới rõ ràng nên attribution chính xác hơn."
+  "exp": "Bọc mỗi tài liệu trong tag XML riêng (kèm tag con cho nội dung và nguồn) nằm trong một tag cha. Ranh giới rõ ràng nên attribution chính xác hơn.",
+  "domain": 6,
+  "lesson": "6-2-viet-prompt",
+  "tip": {
+   "title": "Nhiều tài liệu → mỗi cái một thẻ XML có source và metadata",
+   "body": [
+    "Ranh giới rõ ràng."
+   ]
+  }
  },
  "ccdv-f-b1335": {
   "q": "Một subagent được định nghĩa để tự động sinh thêm các subagent khác nhằm chia nhỏ khối lượng công việc của chính nó, và những subagent đó đến lượt có thể sinh thêm nữa.\nĐiều gì chi phối độ sâu của việc lồng nhau này, và làm thế nào một nhóm có thể ngăn một subagent cụ thể sinh ra bất kỳ subagent con nào?",
@@ -1537,7 +2753,15 @@
    "C": "Việc lồng nhau chỉ bị giới hạn ở hai cấp khi subagent chạy ở foreground, vì thực thi foreground giới hạn việc lồng nhau ở hai cấp, và để ngăn một subagent sinh subagent con, hãy đặt `permissionMode` của nó là `plan` để hạn chế nó ở chế độ chỉ đọc và ngăn việc sinh.",
    "D": "Việc lồng nhau là không giới hạn bất kể chế độ thực thi, vì không có giới hạn độ sâu tích hợp, và để ngăn một subagent cụ thể sinh subagent con, nhóm phải loại công cụ `Bash` khỏi danh sách tools của nó để chặn việc thực thi các lệnh sinh subagent con."
   },
-  "exp": "Giới hạn độ sâu lồng nhau được cấu hình bằng setting tương ứng. Muốn chặn một subagent sinh subagent con thì bỏ tool `Agent` khỏi danh sách tool của nó (hoặc thêm vào disallowedTools)."
+  "exp": "Giới hạn độ sâu lồng nhau được cấu hình bằng setting tương ứng. Muốn chặn một subagent sinh subagent con thì bỏ tool `Agent` khỏi danh sách tool của nó (hoặc thêm vào disallowedTools).",
+  "domain": 1,
+  "lesson": "1-2-cach-dung-agent",
+  "tip": {
+   "title": "Giới hạn lồng subagent → mặc định 3 cấp, chỉnh bằng biến môi trường",
+   "body": [
+    "Bỏ tool Agent khỏi subagent để chặn lồng."
+   ]
+  }
  },
  "ccdv-f-b1336": {
   "q": "Một agent hỗ trợ xây dựng trên Claude có quyền truy cập một công cụ cơ sở dữ liệu khách hàng và chuyển tiếp các bản ghi hội thoại tới một nhà cung cấp phân tích bên thứ ba để giám sát chất lượng.\nCác bản ghi hội thoại thường xuyên chứa họ tên đầy đủ, email và số tài khoản của khách hàng.\nNhóm nên thực hiện những hành động nào sau đây để ngăn việc lộ PII không cần thiết? (Chọn tất cả đáp án phù hợp.)",
@@ -1549,7 +2773,15 @@
    "E": "Xem xét những trường nào mà trường hợp sử dụng giám sát chất lượng của nhà cung cấp phân tích thực sự cần trước khi quyết định đưa gì vào mỗi lần xuất bản ghi hội thoại",
    "F": "Yêu cầu Claude cảnh báo bằng lời với khách hàng ở đầu mỗi cuộc chat rằng dữ liệu của họ có thể được chia sẻ ra bên ngoài, rồi tiếp tục mà không thay đổi gì thêm"
   },
-  "exp": "Giảm lộ PII: redact hoặc mask trước khi dữ liệu rời hệ thống, áp dụng tương tự cho log nội bộ, và rà soát xem vendor thực sự cần field nào. Nén file không phải là redact."
+  "exp": "Giảm lộ PII: redact hoặc mask trước khi dữ liệu rời hệ thống, áp dụng tương tự cho log nội bộ, và rà soát xem vendor thực sự cần field nào. Nén file không phải là redact.",
+  "domain": 7,
+  "lesson": "7-1-bao-mat-ung-dung-ai",
+  "tip": {
+   "title": "Gửi dữ liệu cho vendor → redact PII, chỉ gửi field cần",
+   "body": [
+    "Tối thiểu hoá dữ liệu."
+   ]
+  }
  },
  "ccdv-f-b1337": {
   "q": "Một công ty fintech đang triển khai một cố vấn chạy bằng Claude đa tenant, đọc dữ liệu tài khoản của một khách hàng mỗi phiên và có thể đặt giao dịch thông qua một API nội bộ.\nTổ hợp thực hành nào hỗ trợ tốt nhất cho xác thực, phân quyền và bảo mật thông tin giữa các tenant? (Chọn tất cả đáp án phù hợp.)",
@@ -1561,6 +2793,14 @@
    "E": "Yêu cầu một bước kiểm tra phân quyền mới ở backend trước khi thực thi bất kỳ hành động giao dịch nào mà agent yêu cầu, thay vì chỉ tin vào phán đoán của chính agent",
    "F": "Cho phép một phiên tiếp tục đọc dữ liệu của một khách hàng khác giữa cuộc hội thoại nếu agent quyết định điều đó liên quan theo ngữ cảnh đến lời khuyên hiện tại"
   },
-  "exp": "Đa tenant an toàn: giới hạn tool của mỗi phiên trong đúng dữ liệu khách hàng đã xác thực; backend tự kiểm tra quyền trước mỗi giao dịch; lọc instruction bị chèn trong ghi chú và tin nhắn trước khi trả về cho Claude."
+  "exp": "Đa tenant an toàn: giới hạn tool của mỗi phiên trong đúng dữ liệu khách hàng đã xác thực; backend tự kiểm tra quyền trước mỗi giao dịch; lọc instruction bị chèn trong ghi chú và tin nhắn trước khi trả về cho Claude.",
+  "domain": 7,
+  "lesson": "7-2-guardrail-nhieu-lop",
+  "tip": {
+   "title": "Agent hỗ trợ khách → giới hạn quyền theo khách đã xác thực + lọc nội dung đầu vào",
+   "body": [
+    "Chống injection và lộ dữ liệu chéo."
+   ]
+  }
  }
 }

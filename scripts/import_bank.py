@@ -14,7 +14,7 @@ BANK = {'ccaf': 'ccar-f', 'ccao': 'ccao-f', 'ccdf': 'ccdv-f'}
 MOCK = {'ccar-f': 60, 'ccao-f': 60, 'ccdv-f': 53}  # items on the real exam; mock exams draw this many
 KEEP = ('domain', 'lesson', 'tip', 'ask')
 # Items whose explanation notes the answer came from an outside site's key; left out at the owner's request.
-SKIP = {'159', '196', '239', '1232', '1402', '1407', '1408', '1428', '214', '1412'}  # 1412: options are empty
+SKIP = {'159', '196', '239', '1232', '1402', '1407', '1408', '1428', '214', '1412', '1096'}  # 1412: options are empty
 
 
 def text(h):
