@@ -286,3 +286,4 @@ dialog h2 { font-size: 20px; line-height: 28px; margin-bottom: 8px; }
 .md pre code { background: none; padding: 0; }
 /* Mermaid uses .label internally; keep the page's eyebrow .label style out of diagrams. */
 .md .mermaid .label { text-transform: none; letter-spacing: normal; font-size: inherit; font-weight: inherit; color: inherit; margin: 0; }
+.otrans { display: block; margin-top: 4px; font-size: 14px; line-height: 21px; color: var(--info); }

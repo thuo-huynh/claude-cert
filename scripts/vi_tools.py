@@ -24,11 +24,15 @@ def problems(cert, entries):
         if not q:
             out.append(f'{qid}: unknown question'); continue
         keys = {o['k'] for o in q['options']}
-        if set(e.get('opts', {})) != keys:
-            out.append(f'{qid}: opts {sorted(e.get("opts", {}))} != {sorted(keys)}')
-        for f in ('q', 'tip', 'ask', 'lesson'):
+        bank = 'exp' in e  # imported bank: translated options + one explanation, domain tagged here
+        per_option = e.get('o' if bank else 'opts', {})
+        if set(per_option) != keys:
+            out.append(f'{qid}: options {sorted(per_option)} != {sorted(keys)}')
+        for f in ('q', 'tip', 'lesson') + (('domain', 'exp') if bank else ('ask',)):
             if not e.get(f):
                 out.append(f'{qid}: missing {f}')
+        if bank and e.get('domain') and e['domain'] not in {d['n'] for d in data['domains']}:
+            out.append(f'{qid}: bad domain {e["domain"]!r}')
         if e.get('tip') and not (e['tip'].get('title') and e['tip'].get('body')):
             out.append(f'{qid}: tip needs title and body')
         if e.get('ask') and not (e['ask'].get('title') and e['ask'].get('body')):
@@ -44,6 +48,14 @@ def main():
         cert, a, b = sys.argv[2], int(sys.argv[3]), int(sys.argv[4])
         data = load(f'data/{cert}.json')
         dom = {d['n']: d['name'] for d in data['domains']}
+        if data['questions'][0]['domain'] is None:  # imported bank: compact view for tagging
+            vi = load(f'data/vi/{cert}.json')
+            print('DOMAINS:', ' | '.join(f'{n}={v}' for n, v in dom.items()))
+            for q in data['questions'][a - 1:b]:
+                right = ' / '.join(o['t'] for o in q['options'] if o['k'] in q['answer'])
+                print(f"## {q['id']} | ans {','.join(q['answer'])}\nQ: {q['q'][:420]}\nRIGHT: {right[:260]}\nVI: {vi[q['id']]['exp'][:300]}\n")
+            print('LESSONS:', ' | '.join(l['slug'] for l in load(f'content/{cert}/index.json') if l['task']))
+            return
         for q in data['questions'][a - 1:b]:
             scen = f" | scenario: {q['scenario']}" if q.get('scenario') else ''
             print(f"## {q['id']} | D{q['domain']} {dom[q['domain']]} | ans {','.join(q['answer'])}{scen}")
@@ -57,11 +69,12 @@ def main():
         print('LESSONS:', ' | '.join(f"{l['slug']}" for l in load(f'content/{cert}/index.json') if l['task']))
     elif cmd == 'merge':
         cert, batch = sys.argv[2], json.load(open(sys.argv[3], encoding='utf-8'))
+        path = os.path.join(ROOT, 'data', 'vi', f'{cert}.json')
+        cur = json.load(open(path, encoding='utf-8')) if os.path.exists(path) else {}
+        batch = {k: {**cur.get(k, {}), **v} for k, v in batch.items()}  # add fields to existing entries
         errs = problems(cert, batch)
         if errs:
             print('\n'.join(errs)); sys.exit(1)
-        path = os.path.join(ROOT, 'data', 'vi', f'{cert}.json')
-        cur = json.load(open(path, encoding='utf-8')) if os.path.exists(path) else {}
         cur.update(batch)
         order = [q['id'] for q in load(f'data/{cert}.json')['questions']]
         cur = {k: cur[k] for k in order if k in cur}

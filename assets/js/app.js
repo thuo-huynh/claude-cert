@@ -25,7 +25,10 @@ async function loadCert(code) {
     getJSON(`data/vi/${code}.json`).catch(() => ({})),
     getJSON(`content/${code}/index.json`).catch(() => []),
   ]);
-  if (!d.byId) Object.assign(d, { byId: Object.fromEntries(d.questions.map((q) => [q.id, q])), vi, lessons });
+  if (!d.byId) {
+    for (const q of d.questions) if (q.domain == null && vi[q.id]?.domain) q.domain = vi[q.id].domain;
+    Object.assign(d, { byId: Object.fromEntries(d.questions.map((q) => [q.id, q])), vi, lessons });
+  }
   return d;
 }
 const domainName = (d, n) => d.domains.find((x) => x.n === n)?.name || `Domain ${n}`;
@@ -123,6 +126,10 @@ document.getElementById('theme').addEventListener('click', () => {
 
 // ---------- shared bits ----------
 const bar = (p, cls = '') => `<div class="bar ${cls}" role="img" aria-label="${p}%"><span style="width:${p}%"></span></div>`;
+// Fixed mock sets when the source provides them (CCAR-P); otherwise draw an exam-length random set.
+const mockIds = (d, k) => (d.questions.some((q) => q.set === k)
+  ? S.selectQuestions(state, d.questions, { set: k })
+  : S.shuffled(d.questions.map((q) => q.id)).slice(0, d.mockSize || 60));
 const KIND_LABEL = { practice: 'Luyện tập', mock1: 'Thi thử · Đề 1', mock2: 'Thi thử · Đề 2', mock3: 'Thi thử · Đề 3' };
 
 function certHeader(d, active) {
@@ -301,11 +308,11 @@ async function mockListView(code) {
   actions.startMock = (k) => {
     const old = state.sessions[S.sessionKey(code, k)];
     if (old && !old.submitted && !confirm('Đề này đang làm dở. Làm lại từ đầu?')) return;
-    S.startSession(state, { cert: code, kind: k, ids: S.selectQuestions(state, d.questions, { set: k }), explain: 'end', minutes: d.mockMinutes, label: KIND_LABEL[k] });
+    S.startSession(state, { cert: code, kind: k, ids: mockIds(d, k), explain: 'end', minutes: d.mockMinutes, label: KIND_LABEL[k] });
     persist(); go(`#/c/${code}/lam/${k}`);
   };
   return `<div class="wrap narrow">${certHeader(d, 'mock')}
-  <p class="muted" style="margin:0 0 20px">Mỗi đề 15 câu, ${d.mockMinutes} phút, không xem đáp án trong lúc làm. Hết giờ bài tự nộp.</p>
+  <p class="muted" style="margin:0 0 20px">${d.mockSize ? `Mỗi lần làm bốc ngẫu nhiên ${d.mockSize} câu từ ${d.questions.length} câu, như độ dài đề thật` : 'Mỗi đề 15 câu'}, ${d.mockMinutes} phút, không xem đáp án trong lúc làm. Hết giờ bài tự nộp.</p>
   <div style="display:flex;flex-direction:column;gap:12px">${['mock1', 'mock2', 'mock3'].map((k, i) => {
     const s = state.sessions[S.sessionKey(code, k)];
     let status = '<span class="muted small">Chưa làm</span>', btns = `<button class="btn primary" data-act="startMock" data-arg="${k}">Bắt đầu</button>`;
@@ -411,26 +418,27 @@ async function runnerView(code, kind, query) {
       ? `<div class="badges">${isAns ? '<span class="chip ok">✓ Đáp án đúng</span>' : ''}${picked ? `<span class="chip ${isAns ? 'ok' : 'bad'}">Bạn chọn</span>` : ''}</div>` : '';
     return `<div class="option ${cls}">
       <button ${multi ? `role="checkbox" aria-checked="${picked}"` : `role="radio" aria-checked="${picked}"`} data-act="pick" data-arg="${o.k}" ${revealed ? 'disabled' : ''} lang="en">
-        <span class="letter" aria-hidden="true">${o.k}</span><span><span class="vh">Đáp án ${o.k}: </span>${fmt(o.t)}</span></button>
+        <span class="letter" aria-hidden="true">${o.k}</span><span><span class="vh">Đáp án ${o.k}: </span>${fmt(o.t)}${ui.showVi[id] && vi.o?.[o.k] ? `<span class="otrans" lang="vi">${fmt(vi.o[o.k])}</span>` : ''}</span></button>
       ${badges}
       ${showWhy ? `<p class="why"><b>${isAns ? 'Vì sao đúng:' : 'Vì sao sai:'}</b> ${fmt(why)}</p>` : ''}
     </div>`;
   }).join('');
 
   const correct = S.isCorrect(pick, q.answer);
-  const hasVi = Boolean(vi.opts || vi.tip || vi.ask);
-  const showEn = ui.showEn[id] ?? !hasVi;
+  const hasVi = Boolean(vi.opts || vi.tip || vi.ask || vi.exp);
+  const showEn = Boolean(q.why) && (ui.showEn[id] ?? !hasVi);
   const lesson = vi.lesson ? d.lessons.find((l) => l.slug === vi.lesson) : lessonsOf(d).find((l) => l.domain === q.domain);
   const explain = revealed ? `<section class="card explain" aria-labelledby="exph">
     <div class="head"><h2 id="exph" tabindex="-1">Giải thích</h2>
       ${pick.length ? `<span class="chip ${correct ? 'ok' : 'bad'}">${correct ? '✓ Bạn trả lời đúng' : '✕ Bạn trả lời chưa đúng'}</span>` : '<span class="chip">Bạn chưa trả lời</span>'}
       <span class="chip">Đáp án đúng: ${q.answer.join(', ')}</span></div>
     ${!hasVi ? '<p class="notice">Câu này chưa có giải thích tiếng Việt. Tạm thời bạn xem giải thích gốc tiếng Anh bên dưới.</p>' : ''}
+    ${vi.exp ? `<p style="margin:0 0 20px">${fmt(vi.exp)}</p>` : ''}
     ${vi.tip ? `<div class="tip"><p class="label">Mẹo nhớ</p><p class="title">${fmt(vi.tip.title)}</p>${(vi.tip.body || []).map((p) => `<p>${fmt(p)}</p>`).join('')}</div>` : ''}
     ${vi.ask ? `<p class="label">Đề hỏi gì</p><p style="margin:0 0 4px;font-weight:600">${fmt(vi.ask.title)}</p><p style="margin:0 0 20px;font-size:15px;line-height:24px">${fmt(vi.ask.body)}</p>` : ''}
     <div class="row" style="border-top:1px dashed var(--border);padding-top:16px">
       ${lesson ? `<a class="btn" href="#/kien-thuc/${code}/${lesson.slug}">Học lại: ${esc(lesson.task)} · ${esc(lesson.title)}</a>` : ''}
-      <button class="btn" data-act="en" aria-expanded="${showEn}"><span class="tag">EN</span>${showEn ? 'Ẩn giải thích gốc' : 'Xem giải thích gốc'}</button>
+      ${q.why ? `<button class="btn" data-act="en" aria-expanded="${showEn}"><span class="tag">EN</span>${showEn ? 'Ẩn giải thích gốc' : 'Xem giải thích gốc'}</button>` : ''}
     </div>
     ${showEn ? `<p class="en" lang="en"><strong>${q.answer.join(', ')}.</strong> ${fmt(q.why)}</p>` : ''}
   </section>` : '';
@@ -463,7 +471,7 @@ async function runnerView(code, kind, query) {
         <div class="qtop">
           <span class="chip">Câu ${s.i + 1}</span>
           <span class="chip">${multi ? `Chọn ${q.answer.length} đáp án` : '1 đáp án'}</span>
-          ${isMock && !review ? '' : `<span class="chip accent" lang="en">${esc(domainName(d, q.domain))}</span>`}
+          ${(isMock && !review) || q.domain == null ? '' : `<span class="chip accent" lang="en">${esc(domainName(d, q.domain))}</span>`}
           <span class="grow"></span>
           ${!review && !now ? `<button class="btn" data-act="flag" aria-pressed="${!!s.flags[id]}" style="min-height:40px">${s.flags[id] ? '⚑ Đã đánh dấu' : '⚐ Đánh dấu xem lại'}</button>` : ''}
           ${vi.q ? `<button class="btn" data-act="vi" aria-pressed="${!!ui.showVi[id]}" style="min-height:40px;color:var(--info)">${ui.showVi[id] ? 'Ẩn bản dịch' : 'Dịch câu hỏi'}</button>` : ''}
@@ -507,7 +515,7 @@ async function resultView(code, kind) {
   const shown = ui.review === 'wrong' ? wrongItems : items;
   actions.filter = (v) => { ui.review = v; render(); };
   actions.again = () => {
-    S.startSession(state, { cert: code, kind, ids: kind === 'practice' ? s.ids : S.selectQuestions(state, d.questions, { set: kind }), explain: s.explain,
+    S.startSession(state, { cert: code, kind, ids: kind === 'practice' ? s.ids : mockIds(d, kind), explain: s.explain,
       minutes: kind === 'practice' ? 0 : d.mockMinutes, label: s.label });
     persist(); go(`#/c/${code}/lam/${kind}`);
   };
