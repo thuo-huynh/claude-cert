@@ -1,1 +1,1602 @@
-{}
+{
+ "ccar-f-p1": {
+  "q": "Agent hỗ trợ của bạn giải quyết được hầu hết ticket nhưng đôi khi lặp vô hạn, gọi lại lookup_order trên cùng một đơn hàng. Cách sửa mang tính cấu trúc là gì?",
+  "opts": {
+   "A": "Tăng max_tokens chỉ cho vòng lặp thêm chỗ để kéo dài, triệu chứng vẫn còn.",
+   "B": "Bỏ tool lookup_order là phá luôn khả năng giải quyết ticket.",
+   "C": "Vòng lặp agent cần điều kiện dừng được thiết kế: giới hạn số lần gọi tool, phát hiện lời gọi lặp giống hệt, và chuyển sang escalate_to_human khi không còn tiến triển.",
+   "D": "Temperature không giới hạn được số vòng lặp."
+  },
+  "tip": {
+   "title": "Agent lặp mãi → iteration cap + phát hiện lặp + đường thoát lên người",
+   "body": [
+    "Vòng lặp agent luôn cần **điều kiện dừng do code đặt ra**, không trông vào model tự dừng."
+   ]
+  },
+  "ask": {
+   "title": "Agent hỗ trợ gọi lookup_order lặp vô hạn",
+   "body": "Đề hỏi cách sửa ở mức cấu trúc cho vòng lặp không hội tụ."
+  },
+  "lesson": "1-1-vong-lap-agent"
+ },
+ "ccar-f-p2": {
+  "q": "process_refund hiện chấp nhận mọi số tiền. Chính sách hỗ trợ giới hạn hoàn tiền do agent khởi tạo ở mức 200 USD, lớn hơn phải có người. Quy tắc đó nên nằm ở đâu?",
+  "opts": {
+   "A": "Viết thật mạnh trong system prompt vẫn là xác suất, trong khi yêu cầu là tuyệt đối.",
+   "B": "Trông vào suy luận của model cũng là xác suất.",
+   "C": "Đào tạo nhân viên không ràng buộc được agent.",
+   "D": "Thực thi ở tầng tool: tool từ chối số tiền vượt ngưỡng bằng lỗi có cấu trúc, và hook hoặc chính tool chuyển ca lớn sang escalation. Giới hạn chính sách cứng được thực thi tất định ở ranh giới tool."
+  },
+  "tip": {
+   "title": "Giới hạn cứng (số tiền, quyền) → enforce trong tool/hook, không trong prompt",
+   "body": [
+    "Từ khoá **policy caps / must** → code tất định. Prompt chỉ dùng cho hướng dẫn mềm."
+   ]
+  },
+  "ask": {
+   "title": "Đặt giới hạn hoàn tiền 200 USD ở đâu",
+   "body": "Đề hỏi vị trí đúng để thực thi một quy tắc chính sách cứng."
+  },
+  "lesson": "1-5-hook-agent-sdk"
+ },
+ "ccar-f-p3": {
+  "q": "Coordinator giao việc cho các subagent search, analysis và report. Báo cáo cuối trích dẫn nguồn không hỗ trợ nhận định của nó, dù từng subagent đều hoạt động hợp lý khi chạy riêng. Nguyên nhân kiến trúc khả dĩ nhất là gì?",
+  "opts": {
+   "A": "Nguồn gốc thông tin bị mất khi chuyển giao: nhận định và nguồn không được truyền cùng nhau ở dạng có cấu trúc, nên subagent viết báo cáo phải đoán ghép trích dẫn với nhận định.",
+   "B": "Model nhỏ không giải thích được việc dữ kiện đúng nhưng trích dẫn sai.",
+   "C": "Web không đáng tin không giải thích được lỗi ghép sai.",
+   "D": "Chạy song song không gây ra việc ghép sai nguồn."
+  },
+  "tip": {
+   "title": "Trích dẫn sai trong pipeline nhiều agent → provenance mất ở handoff",
+   "body": [
+    "Khi từng phần đều đúng mà kết quả cuối sai, xem **định dạng chuyển giao**. Claim và source phải đi **cùng nhau** trong cấu trúc."
+   ]
+  },
+  "ask": {
+   "title": "Báo cáo nghiên cứu trích nguồn không khớp",
+   "body": "Từng subagent đều chạy tốt, nhưng báo cáo ghép sai nguồn. Đề hỏi nguyên nhân kiến trúc."
+  },
+  "lesson": "5-6-nguon-goc-thong-tin"
+ },
+ "ccar-f-p4": {
+  "q": "Subagent analysis trả về bản dump tài liệu 30.000 token cho coordinator, khiến coordinator vượt giới hạn context. Cách sửa đúng là gì?",
+  "opts": {
+   "A": "Context lớn hơn chỉ hoãn thất bại.",
+   "B": "Cho subagent trả về trích xuất có cấu trúc (phát hiện kèm trích dẫn và độ tin cậy), còn tài liệu đầy đủ ở lại context của subagent hoặc file nháp. Cô lập context là mục đích của việc giao cho subagent.",
+   "C": "Âm thầm bỏ tin nhắn cũ làm mất thông tin tuỳ tiện.",
+   "D": "Chạy hai lần lấy bản ngắn hơn không thay đổi gì về cấu trúc."
+  },
+  "tip": {
+   "title": "Subagent trả về quá nhiều → trả bản chắt lọc có cấu trúc",
+   "body": [
+    "Nguyên tắc: **dữ liệu thô ở lại ngoài rìa, kết quả chắt lọc mới đi về coordinator**."
+   ]
+  },
+  "ask": {
+   "title": "Coordinator bị tràn context vì subagent",
+   "body": "Subagent đổ cả tài liệu dài về. Đề hỏi cách sửa đúng."
+  },
+  "lesson": "1-3-goi-subagent-va-truyen-context"
+ },
+ "ccar-f-p5": {
+  "q": "Monorepo của bạn có thư mục frontend và backend với quy ước khác nhau, và một quy tắc chung cho cả đội về cách viết commit. Mỗi phần cấu hình nên đặt ở đâu?",
+  "opts": {
+   "A": "Một CLAUDE.md ở gốc sẽ nạp mọi thứ ở mọi nơi, tốn context.",
+   "B": "CLAUDE.md cá nhân ở cấp user sẽ lệch nhau giữa các kỹ sư.",
+   "C": "Quy tắc commit để trong CLAUDE.md cấp project, quy ước từng khu vực để trong rule theo đường dẫn ở .claude/rules/, chỉ nạp khi đụng tới file khớp. Đó đúng là lý do hệ phân cấp tồn tại.",
+   "D": "Trang wiki không bao giờ đến được với model."
+  },
+  "tip": {
+   "title": "Chung cả đội → CLAUDE.md project; theo thư mục → .claude/rules có path",
+   "body": [
+    "Nhớ 3 cấp: **user** (cá nhân), **project** (cả đội, commit vào repo), **path-scoped rules** (chỉ nạp khi cần)."
+   ]
+  },
+  "ask": {
+   "title": "Đặt cấu hình Claude Code trong monorepo",
+   "body": "Có quy tắc chung và quy ước riêng cho frontend/backend. Đề hỏi chỗ đặt từng loại."
+  },
+  "lesson": "3-3-rule-theo-duong-dan"
+ },
+ "ccar-f-p6": {
+  "q": "Job CI chạy Claude Code để review pull request, và pipeline phải parse kết quả tự động. Cách gọi nào đúng?",
+  "opts": {
+   "A": "Có người copy kết quả thì không còn là CI.",
+   "B": "Plan mode là cổng duyệt cho làm việc tương tác, không phải định dạng output.",
+   "C": "Grep bản ghi dạng văn xuôi sẽ vỡ ngay khi cách diễn đạt thay đổi.",
+   "D": "Chế độ không tương tác với -p, kèm --output-format json và schema, để kết quả về dạng máy đọc được và đã kiểm tra."
+  },
+  "tip": {
+   "title": "Claude Code trong CI → -p + --output-format json (+ schema)",
+   "body": [
+    "Headless = **-p**. Máy cần đọc = **JSON có schema**."
+   ]
+  },
+  "ask": {
+   "title": "Gọi Claude Code trong CI để parse kết quả",
+   "body": "Đề hỏi cách gọi đúng cho pipeline tự động."
+  },
+  "lesson": "3-6-claude-code-trong-ci"
+ },
+ "ccar-f-p7": {
+  "q": "Reviewer tự động gắn cờ hàng chục lỗi style vụn vặt mỗi PR, và kỹ sư bắt đầu phớt lờ nó. Thay đổi nào xử lý vấn đề báo sai theo đúng cách blueprint gợi ý?",
+  "opts": {
+   "A": "Định nghĩa tiêu chí review rõ trong prompt: gắn cờ gì, bỏ qua gì, ngưỡng mức độ nghiêm trọng, kèm vài ví dụ phát hiện trong và ngoài phạm vi. Độ chính xác đến từ tiêu chí rõ và few-shot.",
+   "B": "Chạy hai lần lọc được ngẫu nhiên, nhưng không lọc được thói soi vụn có hệ thống.",
+   "C": "Giới hạn 3 phát hiện cứng nhắc sẽ bỏ sót lỗi thật vào hôm có nhiều lỗi.",
+   "D": "Đẩy vào kênh không ai đọc là đầu hàng."
+  },
+  "tip": {
+   "title": "Báo sai nhiều → tiêu chí rõ (flag/ignore/severity) + few-shot",
+   "body": [
+    "Đây là chủ đề task 4.1. Thấy **false positives** → **explicit criteria + examples**."
+   ]
+  },
+  "ask": {
+   "title": "Reviewer tự động soi quá nhiều lỗi vụn",
+   "body": "Đề hỏi cách giảm báo sai đúng hướng."
+  },
+  "lesson": "4-1-tieu-chi-ro-rang"
+ },
+ "ccar-f-p8": {
+  "q": "Hoá đơn đôi khi không có số đơn mua hàng (PO), và schema trích xuất phải xử lý trung thực trường hợp này mà vẫn bắt được trường hợp thiếu thật. Thiết kế schema đúng là gì?",
+  "opts": {
+   "A": "Bắt buộc mọi trường sẽ ép model bịa hoặc làm hỏng tài liệu hợp lệ.",
+   "B": "Cho purchase_order nullable để ghi null khi không có, rồi kiểm tra ở bước sau rằng nó phải có khi loại tài liệu yêu cầu. Schema phản ánh đúng thực tế.",
+   "C": "Cho mọi thứ optional thì không phát hiện được thiếu thật.",
+   "D": "Bịa số hợp lý là làm hỏng dữ liệu."
+  },
+  "tip": {
+   "title": "Trường có thể vắng thật → nullable + validate có điều kiện",
+   "body": [
+    "Không bao giờ ép model bịa. **null** là câu trả lời trung thực, rồi code kiểm tra theo luật nghiệp vụ."
+   ]
+  },
+  "ask": {
+   "title": "Schema cho trường PO có thể thiếu",
+   "body": "Đề hỏi cách thiết kế schema vừa trung thực vừa bắt được lỗi thiếu thật."
+  },
+  "lesson": "4-3-output-co-cau-truc"
+ },
+ "ccar-f-p9": {
+  "q": "Pipeline báo độ chính xác trường 98%, đo trên những tài liệu đã qua schema validation sạch sẽ. Kiểm toán viên gọi con số này là gây hiểu lầm. Vì sao?",
+  "opts": {
+   "A": "Chỉ đo trên tài liệu khó nhất thì lệch theo hướng ngược lại.",
+   "B": "Không có \"chuẩn ngành\" nào được nêu, đây là chi tiết bịa.",
+   "C": "Tài liệu qua validation sạch là mẫu bị lệch. Thước đo trung thực cần mẫu có nhãn lấy từ toàn bộ tài liệu, gồm cả tài liệu lỗi hoặc suýt không qua.",
+   "D": "Field accuracy là chỉ số có thật."
+  },
+  "tip": {
+   "title": "Chỉ đo ở chỗ đã thành công → thổi phồng; cần mẫu nhãn đại diện toàn bộ",
+   "body": [
+    "Hiệu chỉnh độ tin cậy cần **labeled sample** đại diện cho **toàn bộ** luồng đầu vào."
+   ]
+  },
+  "ask": {
+   "title": "98% accuracy bị gọi là gây hiểu lầm",
+   "body": "Đề hỏi vì sao cách đo này sai."
+  },
+  "lesson": "5-5-nguoi-duyet-va-do-tin-cay"
+ },
+ "ccar-f-p10": {
+  "q": "Agent khám phá codebase có ba tool get_file_contents, read_source, fetch_file cùng đọc file, và thường chọn sai giữa chúng. Cách sửa đúng là gì?",
+  "opts": {
+   "A": "Thêm tool thứ tư làm chồng chéo nặng hơn.",
+   "B": "Fine-tune là quá tay cho vấn đề mô tả tool.",
+   "C": "Chọn ngẫu nhiên là thể chế hoá sự rối.",
+   "D": "Gộp về một tool đọc file, hoặc viết mô tả khác biệt rõ ràng nêu chính xác khi nào dùng tool nào. Việc chọn tool dựa vào mô tả, chồng chéo mơ hồ gây lưỡng lự."
+  },
+  "tip": {
+   "title": "Tool chồng chéo → gộp hoặc mô tả phân biệt rõ",
+   "body": [
+    "Model chọn tool **dựa trên mô tả**. Mô tả trùng ý → chọn bừa."
+   ]
+  },
+  "ask": {
+   "title": "Ba tool đọc file gây chọn sai",
+   "body": "Đề hỏi cách sửa việc chọn tool kém."
+  },
+  "lesson": "2-1-thiet-ke-tool"
+ },
+ "ccar-f-p11": {
+  "q": "Một workflow hỗ trợ giải quyết ticket bằng cách tra tài khoản, kiểm tra quyền lợi, rồi soạn trả lời, luôn theo đúng thứ tự đó. Kiến trúc nào đúng?",
+  "opts": {
+   "A": "Pipeline tất định gọi model ở từng bước đã định. Chuỗi cố định nên được mã hoá thay vì để model tự khám phá lại mỗi lần, rẻ hơn, nhanh hơn, kiểm thử được từng bước.",
+   "B": "Một agent tự quyết từng bước thêm bất định mà không được gì.",
+   "C": "Ba agent thương lượng thứ tự còn bất định hơn.",
+   "D": "Một prompt chứa cả ba bước làm mất các điểm kiểm tra giữa các bước."
+  },
+  "tip": {
+   "title": "Thứ tự cố định → pipeline tất định",
+   "body": [
+    "**Known, fixed sequence** → workflow/pipeline. Agent chỉ dùng khi đường đi phải quyết định lúc chạy."
+   ]
+  },
+  "ask": {
+   "title": "Workflow ticket 3 bước cố định",
+   "body": "Đề hỏi kiến trúc phù hợp."
+  },
+  "lesson": "1-4-ep-quy-trinh-va-chuyen-giao"
+ },
+ "ccar-f-p12": {
+  "q": "Lý do mạnh nhất để chia việc cho các subagent là gì?",
+  "opts": {
+   "A": "Nhiều bước hợp với workflow, không nhất thiết cần subagent.",
+   "B": "Các mạch việc riêng biệt cần context riêng, và trộn chúng làm cả hai kém đi. Subagent tồn tại để cô lập context.",
+   "C": "Giao việc cho subagent thường thêm độ trễ chứ không bớt.",
+   "D": "Output ghép từ nhiều phần cũng hợp với workflow."
+  },
+  "tip": {
+   "title": "Subagent = cô lập context",
+   "body": [
+    "Lý do đúng là **context contamination**, không phải số bước hay tốc độ."
+   ]
+  },
+  "ask": {
+   "title": "Khi nào nên dùng subagent",
+   "body": "Đề hỏi lý do mạnh nhất."
+  },
+  "lesson": "1-3-goi-subagent-va-truyen-context"
+ },
+ "ccar-f-p13": {
+  "q": "Một agent lặp qua lại giữa hai tool mà không hội tụ. Biện pháp kiểm soát đầu tiên phù hợp nhất là gì?",
+  "opts": {
+   "A": "Context lớn hơn không đảm bảo hội tụ.",
+   "B": "Model lớn hơn cũng không đảm bảo hội tụ.",
+   "C": "Đặt trần số bước và định nghĩa rõ điều kiện kết thúc. Cách này chặn chi phí và làm lỗi lộ ra.",
+   "D": "Bỏ một tool có thể làm hỏng tác vụ."
+  },
+  "tip": {
+   "title": "Không hội tụ → step ceiling + điều kiện dừng rõ",
+   "body": [
+    "Giống câu p1: vòng lặp agent phải có **giới hạn cứng**."
+   ]
+  },
+  "ask": {
+   "title": "Agent lặp giữa hai tool",
+   "body": "Đề hỏi biện pháp đầu tiên."
+  },
+  "lesson": "1-1-vong-lap-agent"
+ },
+ "ccar-f-p14": {
+  "q": "Thuộc tính nào làm tăng rủi ro vận hành của thiết kế agent nhiều nhất?",
+  "opts": {
+   "A": "Gọi nhiều model ảnh hưởng chi phí và độ phức tạp, không phải phạm vi thiệt hại.",
+   "B": "Output có cấu trúc không tăng rủi ro.",
+   "C": "Chạy lâu ảnh hưởng chi phí, không phải phạm vi thiệt hại.",
+   "D": "Thực hiện hành động không đảo ngược được mà không có điểm kiểm tra. Khả năng đảo ngược quyết định cái giá của việc làm sai."
+  },
+  "tip": {
+   "title": "Rủi ro lớn nhất = hành động không đảo ngược mà không có checkpoint",
+   "body": [
+    "Xoá, chuyển tiền, gửi ra ngoài → cần **checkpoint/approval**."
+   ]
+  },
+  "ask": {
+   "title": "Điều gì làm agent rủi ro nhất",
+   "body": "Đề hỏi thuộc tính làm tăng rủi ro vận hành nhiều nhất."
+  },
+  "lesson": "5-2-chuyen-cho-nguoi-va-mo-ho"
+ },
+ "ccar-f-p15": {
+  "q": "Hệ thống agent nên xử lý thế nào với một bước mà nó không kiểm chứng được kết quả?",
+  "opts": {
+   "A": "Đưa bước không kiểm chứng được ra cho người xác nhận trước khi hành động dựa trên nó. Đó chính là chỗ cần phán đoán của con người.",
+   "B": "Cứ làm tiếp vì model thường đúng là hành động trên output chưa kiểm.",
+   "C": "Hai lần chạy đồng ý chỉ chứng minh nhất quán, không chứng minh đúng.",
+   "D": "Ghi log rồi làm tiếp vẫn là hành động trên output chưa kiểm."
+  },
+  "tip": {
+   "title": "Không kiểm chứng được → dừng, hỏi người trước khi hành động",
+   "body": [
+    "Retry đến khi khớp = nhất quán ≠ đúng. Loại."
+   ]
+  },
+  "ask": {
+   "title": "Bước không kiểm chứng được trong agent",
+   "body": "Đề hỏi cách xử lý đúng."
+  },
+  "lesson": "5-5-nguoi-duyet-va-do-tin-cay"
+ },
+ "ccar-f-p16": {
+  "q": "Một đội đề xuất dùng agent cho tác vụ mà mọi đầu vào đều đúng định dạng và mọi quy tắc đều đã biết. Kiến trúc sư nên khuyến nghị gì?",
+  "opts": {
+   "A": "\"Linh hoạt cho tương lai\" là trả giá cho một nhu cầu chưa có.",
+   "B": "Triển khai tất định bằng code, chỉ gọi model cho những phần thực sự mơ hồ. Quy tắc đã biết trên đầu vào chuẩn là việc của code.",
+   "C": "Agent bị giới hạn bước vẫn mang chi phí bất định không cần thiết.",
+   "D": "Multi-agent còn đắt và bất định hơn."
+  },
+  "tip": {
+   "title": "Quy tắc biết hết + đầu vào chuẩn → code, không phải agent",
+   "body": [
+    "Chỉ dùng model ở chỗ **thật sự mơ hồ**. Phần còn lại viết code."
+   ]
+  },
+  "ask": {
+   "title": "Có nên dùng agent cho tác vụ hoàn toàn xác định?",
+   "body": "Đề hỏi khuyến nghị đúng."
+  },
+  "lesson": "1-6-chia-nho-nhiem-vu"
+ },
+ "ccar-f-p17": {
+  "q": "Điều gì cải thiện nhiều nhất khả năng gỡ lỗi của hệ thống agent trên production?",
+  "opts": {
+   "A": "Ít tool hơn đơn giản hoá nhưng không giải thích được lỗi.",
+   "B": "Một model cho mọi bước cũng không giải thích được lỗi.",
+   "C": "Ghi trace đầu vào, lời gọi tool và output của từng bước. Trace từng bước giúp dựng lại một lần chạy bất định sau sự việc.",
+   "D": "Tăng giới hạn bước chỉ làm lỗi kéo dài hơn."
+  },
+  "tip": {
+   "title": "Debug agent → per-step trace",
+   "body": [
+    "Agent bất định nên **phải có trace** mới dựng lại được chuyện gì đã xảy ra."
+   ]
+  },
+  "ask": {
+   "title": "Gỡ lỗi agent production",
+   "body": "Đề hỏi điều cải thiện khả năng debug nhiều nhất."
+  },
+  "lesson": "5-3-lan-truyen-loi"
+ },
+ "ccar-f-p18": {
+  "q": "Quy ước áp dụng cho mọi người làm việc trong một repository nên được ghi ở đâu?",
+  "opts": {
+   "A": "Cài đặt cá nhân không lan sang người khác.",
+   "B": "Template PR không được đọc như context làm việc.",
+   "C": "Tin nhắn ghim không được đọc như context làm việc.",
+   "D": "Trong CLAUDE.md được commit vào repository: có phiên bản, review được, dùng chung."
+  },
+  "tip": {
+   "title": "Quy ước cả đội → CLAUDE.md commit vào repo",
+   "body": [
+    "Câu hỏi về **team convention** cho Claude Code gần như luôn trả lời bằng **project-level CLAUDE.md**."
+   ]
+  },
+  "ask": {
+   "title": "Ghi quy ước chung của repo ở đâu",
+   "body": "Đề hỏi vị trí đúng để Claude Code và cả đội cùng dùng."
+  },
+  "lesson": "3-1-phan-cap-claude-md"
+ },
+ "ccar-f-p19": {
+  "q": "Loại công việc nào phù hợp với headless mode?",
+  "opts": {
+   "A": "Việc được định nghĩa rõ và lặp lại được, nên chạy tự động không người giám sát.",
+   "B": "Việc phức tạp cần giám sát sát nên dùng chế độ tương tác.",
+   "C": "Số tool không quyết định có hợp headless hay không.",
+   "D": "Độ dài output không quyết định có hợp headless hay không."
+  },
+  "tip": {
+   "title": "Headless (-p) → việc rõ ràng, lặp lại, không ai ngồi xem",
+   "body": [
+    "Ví dụ: review PR trong CI, sinh changelog, kiểm tra lint theo lịch."
+   ]
+  },
+  "ask": {
+   "title": "Khi nào dùng headless mode",
+   "body": "Đề hỏi đặc điểm của công việc hợp với headless."
+  },
+  "lesson": "3-6-claude-code-trong-ci"
+ },
+ "ccar-f-p20": {
+  "q": "Một skill và một subagent đều có thể đáp ứng một nhu cầu. Điều gì quyết định chọn cái nào?",
+  "opts": {
+   "A": "Không có ưu tiên tuyệt đối nào.",
+   "B": "Nhu cầu đó là kiến thức/quy trình dùng lại được (skill) hay là một mạch việc riêng cần context riêng (subagent). Hai thứ giải quyết hai vấn đề khác nhau.",
+   "C": "Độ dài tác vụ không phải tiêu chí.",
+   "D": "Có CLAUDE.md hay chưa không liên quan."
+  },
+  "tip": {
+   "title": "Skill = quy trình dùng lại; Subagent = cô lập context",
+   "body": [
+    "Cần **cách làm** đóng gói lại → skill. Cần **một mạch việc tách context** → subagent."
+   ]
+  },
+  "ask": {
+   "title": "Chọn skill hay subagent",
+   "body": "Đề hỏi tiêu chí phân biệt."
+  },
+  "lesson": "3-2-slash-command-va-skill"
+ },
+ "ccar-f-p21": {
+  "q": "Cách dùng đúng của hook trong workflow Claude Code là gì?",
+  "opts": {
+   "A": "Chỉ dẫn cho model thuộc về project memory (CLAUDE.md).",
+   "B": "Context dự án cũng thuộc về project memory.",
+   "C": "Thực thi một hành động tất định tại một điểm định sẵn, độc lập với model. Hook chạy như code nên là ép buộc, không phải yêu cầu.",
+   "D": "Chọn model là việc của cấu hình."
+  },
+  "tip": {
+   "title": "Hook = code chạy ở điểm cố định → ép buộc, không xin phép",
+   "body": [
+    "Ví dụ: chặn lệnh nguy hiểm, chạy formatter sau khi sửa file, kiểm tra trước khi commit."
+   ]
+  },
+  "ask": {
+   "title": "Hook dùng để làm gì",
+   "body": "Đề hỏi cách dùng đúng của hook."
+  },
+  "lesson": "1-5-hook-agent-sdk"
+ },
+ "ccar-f-p22": {
+  "q": "Claude Code chạy tốt với một kỹ sư nhưng không ổn định với cả đội. Nguyên nhân khả dĩ nhất là gì?",
+  "opts": {
+   "A": "Phần cứng không giải thích được khác biệt chất lượng output.",
+   "B": "Kích thước repo như nhau với mọi người.",
+   "C": "Terminal không ảnh hưởng chất lượng output.",
+   "D": "Quy ước làm việc nằm trong thiết lập cục bộ của một người thay vì trong repository. Context không được commit thì không lan sang người khác."
+  },
+  "tip": {
+   "title": "Tốt với 1 người, kém với đội → context nằm ở máy cá nhân",
+   "body": [
+    "Chuyển từ **user-level** sang **project-level** (commit vào repo)."
+   ]
+  },
+  "ask": {
+   "title": "Chênh lệch kết quả giữa các kỹ sư",
+   "body": "Đề hỏi nguyên nhân khả dĩ nhất."
+  },
+  "lesson": "3-1-phan-cap-claude-md"
+ },
+ "ccar-f-p23": {
+  "q": "Một pipeline yêu cầu output luôn khớp schema. Cách làm đúng là gì?",
+  "opts": {
+   "A": "Khai báo schema như một tool mà model phải gọi, và kiểm tra khi nhận. Schema trở thành một phần của hợp đồng thay vì một lời đề nghị.",
+   "B": "Yêu cầu schema trong prompt vẫn để hình dạng output cho may rủi.",
+   "C": "Sửa JSON lỗi bằng code là chữa cháy.",
+   "D": "Temperature không đảm bảo cấu trúc."
+  },
+  "tip": {
+   "title": "Output phải đúng schema → tool use với input_schema (hoặc structured outputs) + validate",
+   "body": [
+    "Đây là chủ đề task 4.3: **ép cấu trúc bằng tool/JSON schema**, không bằng lời dặn."
+   ]
+  },
+  "ask": {
+   "title": "Đảm bảo output luôn đúng schema",
+   "body": "Đề hỏi cách làm đúng."
+  },
+  "lesson": "4-3-output-co-cau-truc"
+ },
+ "ccar-f-p24": {
+  "q": "Trích xuất chính xác với trường hợp phổ biến nhưng lỗi với định dạng hiếm. Cách xử lý hiệu quả nhất là gì?",
+  "opts": {
+   "A": "Tăng temperature chỉ thêm biến động.",
+   "B": "Thêm ví dụ cho các định dạng hiếm và định nghĩa trả về gì khi thiếu trường. Ca hiếm lỗi vì chưa được đặc tả.",
+   "C": "Model lớn hơn không nhắm vào đúng khoảng trống.",
+   "D": "Bảo model \"cố gắng hơn\" không phải đặc tả."
+  },
+  "tip": {
+   "title": "Lỗi ở ca hiếm → few-shot cho ca hiếm + luật cho trường vắng",
+   "body": [
+    "Ca nào chưa được **mô tả/minh hoạ** thì model đoán. Thêm ví dụ đúng chỗ."
+   ]
+  },
+  "ask": {
+   "title": "Trích xuất lỗi với định dạng hiếm",
+   "body": "Đề hỏi cách cải thiện hiệu quả nhất."
+  },
+  "lesson": "4-2-few-shot"
+ },
+ "ccar-f-p25": {
+  "q": "Schema nên định nghĩa gì cho một trường mà tài liệu nguồn có thể không có?",
+  "opts": {
+   "A": "Model tự bỏ trường đi thì mơ hồ: thiếu thật hay lỗi?",
+   "B": "Giá trị mặc định trông hợp lý là bịa dữ liệu.",
+   "C": "Một biểu diễn rõ ràng cho việc vắng mặt (ví dụ null), để phân biệt \"không có\" với \"chưa điền\".",
+   "D": "Trường ghi chú tự do không giúp máy đọc được trạng thái."
+  },
+  "tip": {
+   "title": "Trường có thể vắng → biểu diễn vắng mặt rõ ràng (null)",
+   "body": [
+    "Giống câu p8: **nullable**, không bịa, không bỏ im lặng."
+   ]
+  },
+  "ask": {
+   "title": "Schema cho trường có thể không tồn tại",
+   "body": "Đề hỏi cách định nghĩa đúng."
+  },
+  "lesson": "4-3-output-co-cau-truc"
+ },
+ "ccar-f-p26": {
+  "q": "Thực hành nào cải thiện nhiều nhất sự nhất quán của một job trích xuất có cấu trúc chạy dài?",
+  "opts": {
+   "A": "Thứ tự tài liệu không liên quan.",
+   "B": "Giới hạn token chỉ ảnh hưởng độ dài.",
+   "C": "Chạy mỗi tài liệu hai lần đo được biến động, không loại bỏ nó.",
+   "D": "Ghim cố định prompt, schema và phiên bản model, và ghi chúng cùng output. Có vậy kết quả mới so sánh và tái lập được."
+  },
+  "tip": {
+   "title": "Nhất quán dài hạn → ghim prompt + schema + model version, ghi kèm output",
+   "body": [
+    "Thứ gì ảnh hưởng output thì phải **cố định và ghi lại**."
+   ]
+  },
+  "ask": {
+   "title": "Giữ nhất quán cho job trích xuất dài",
+   "body": "Đề hỏi thực hành hiệu quả nhất."
+  },
+  "lesson": "4-5-xu-ly-theo-lo"
+ },
+ "ccar-f-p27": {
+  "q": "Một prompt trộn chỉ dẫn, dữ liệu và định dạng output trong một đoạn văn liền mạch. Cải tiến đầu tiên là gì?",
+  "opts": {
+   "A": "Tách các phần để chỉ dẫn, đầu vào và định dạng yêu cầu phân biệt được (ví dụ dùng thẻ XML). Cấu trúc giúp model phân biệt chỉ dẫn với dữ liệu.",
+   "B": "Rút ngắn có thể bỏ mất chi tiết cần thiết.",
+   "C": "Dời vào system prompt không làm rõ ràng hơn.",
+   "D": "Nhấn mạnh không tách được các phần."
+  },
+  "tip": {
+   "title": "Prompt lộn xộn → tách phần (XML tags: instructions / input / format)",
+   "body": [
+    "Trộn chỉ dẫn với dữ liệu là nguồn nhầm lẫn phổ biến nhất trong prompt dài."
+   ]
+  },
+  "ask": {
+   "title": "Prompt trộn chỉ dẫn, dữ liệu và định dạng",
+   "body": "Đề hỏi cải tiến đầu tiên."
+  },
+  "lesson": "4-1-tieu-chi-ro-rang"
+ },
+ "ccar-f-p28": {
+  "q": "Dấu hiệu mạnh nhất cho thấy bộ tool cần thiết kế lại là gì?",
+  "opts": {
+   "A": "Trên 10 tool tự nó không phải vấn đề.",
+   "B": "Model thường xuyên chọn một tool không thể đáp ứng yêu cầu. Đó là bằng chứng các tool không phân biệt được qua mô tả.",
+   "C": "Trả JSON không phải vấn đề.",
+   "D": "Tool nằm ở nhiều service không phải vấn đề."
+  },
+  "tip": {
+   "title": "Chọn sai tool lặp lại → lỗi thiết kế mô tả/ranh giới tool",
+   "body": [
+    "Số lượng tool không phải là lỗi. **Chọn sai có hệ thống** mới là lỗi."
+   ]
+  },
+  "ask": {
+   "title": "Khi nào bộ tool cần thiết kế lại",
+   "body": "Đề hỏi dấu hiệu mạnh nhất."
+  },
+  "lesson": "2-1-thiet-ke-tool"
+ },
+ "ccar-f-p29": {
+  "q": "Một tool thực hiện hành động không đảo ngược được nên được thiết kế thế nào?",
+  "opts": {
+   "A": "Mô tả cảnh báo chỉ là lời đề nghị, không phải đảm bảo.",
+   "B": "Thêm tham số không giới hạn quyền.",
+   "C": "Để việc cấp quyền và xác nhận được thực thi bên ngoài model. Hệ thống xung quanh mới kiểm soát được tính không đảo ngược.",
+   "D": "Khai báo sau cùng không giới hạn quyền."
+  },
+  "tip": {
+   "title": "Hành động không đảo ngược → authorization + confirmation ngoài model",
+   "body": [
+    "Không bao giờ dựa vào **mô tả tool** để ngăn hành động nguy hiểm."
+   ]
+  },
+  "ask": {
+   "title": "Thiết kế tool có hành động không đảo ngược",
+   "body": "Đề hỏi cách thiết kế đúng."
+  },
+  "lesson": "2-3-phan-tool-va-tool-choice"
+ },
+ "ccar-f-p30": {
+  "q": "Một tool trả về payload lớn chiếm gần hết context window. Nên thay đổi gì?",
+  "opts": {
+   "A": "Tăng context window chỉ hoãn vấn đề.",
+   "B": "Gọi model thứ hai để tóm tắt thêm chi phí và điểm lỗi.",
+   "C": "Gọi ít hơn không đổi kích thước payload.",
+   "D": "Chỉ trả về những gì tác vụ cần, kèm cách yêu cầu thêm chi tiết. Giữ context cho việc suy luận."
+  },
+  "tip": {
+   "title": "Tool trả quá nhiều → trả đúng thứ cần + cho phép lấy thêm",
+   "body": [
+    "Thiết kế tool **task-relevant**, có phân trang/filter/chi tiết theo yêu cầu."
+   ]
+  },
+  "ask": {
+   "title": "Payload tool chiếm hết context",
+   "body": "Đề hỏi thay đổi đúng."
+  },
+  "lesson": "2-1-thiet-ke-tool"
+ },
+ "ccar-f-p31": {
+  "q": "Mô tả của một tool nên chứa gì?",
+  "opts": {
+   "A": "Tool làm gì, khi nào nên dùng, và các tham số nghĩa là gì. Mô tả là hướng dẫn chọn tool của model.",
+   "B": "Ngôn ngữ và framework triển khai không giúp model chọn tool.",
+   "C": "SLA không liên quan đến việc chọn.",
+   "D": "Tên đội sở hữu không liên quan đến việc chọn."
+  },
+  "tip": {
+   "title": "Mô tả tool = làm gì + khi nào dùng + tham số",
+   "body": [
+    "Viết cho **model đọc để chọn**, không phải cho người vận hành."
+   ]
+  },
+  "ask": {
+   "title": "Nội dung mô tả tool",
+   "body": "Đề hỏi những gì thuộc về mô tả tool."
+  },
+  "lesson": "2-1-thiet-ke-tool"
+ },
+ "ccar-f-p32": {
+  "q": "Một lượt chạy agent dài giảm chất lượng dần theo thời gian. Nguyên nhân khả dĩ nhất là gì?",
+  "opts": {
+   "A": "Phiên bản model không đổi giữa chừng.",
+   "B": "Context tích luỹ đến mức thông tin liên quan phải cạnh tranh với thông tin cũ. Suy giảm dần trong lượt chạy dài là dấu hiệu của tích luỹ và trôi context.",
+   "C": "Temperature thấp giảm đa dạng, không giảm chất lượng theo thời gian.",
+   "D": "Tool chậm không ảnh hưởng tính đúng."
+  },
+  "tip": {
+   "title": "Chạy dài, tệ dần → context tích luỹ/trôi",
+   "body": [
+    "Giải pháp đi kèm: **compaction có chủ đích, subagent, ghi trạng thái ra file**."
+   ]
+  },
+  "ask": {
+   "title": "Agent tệ dần trong lượt chạy dài",
+   "body": "Đề hỏi nguyên nhân khả dĩ nhất."
+  },
+  "lesson": "5-1-quan-ly-context"
+ },
+ "ccar-f-p33": {
+  "q": "Cách đúng để mang trạng thái qua ranh giới compaction (nén context) là gì?",
+  "opts": {
+   "A": "Trông vào model tự nhớ là không tin cậy.",
+   "B": "Context lớn hơn chỉ dời ranh giới đi xa hơn.",
+   "C": "Viết các quyết định và ràng buộc cần giữ vào một bản tóm tắt rõ ràng được mang theo. Compaction vốn mất mát, nên việc giữ lại phải có chủ đích.",
+   "D": "Bắt đầu lại sau compaction là vứt bỏ công việc."
+  },
+  "tip": {
+   "title": "Qua compaction → ghi rõ quyết định/ràng buộc vào summary mang theo",
+   "body": [
+    "Compaction **lossy by design**. Cái gì quan trọng phải được **viết ra**."
+   ]
+  },
+  "ask": {
+   "title": "Giữ trạng thái khi context bị nén",
+   "body": "Đề hỏi cách đúng."
+  },
+  "lesson": "5-1-quan-ly-context"
+ },
+ "ccar-f-p34": {
+  "q": "Biện pháp nào cải thiện độ tin cậy nhiều nhất cho workflow không được phép âm thầm tạo output sai?",
+  "opts": {
+   "A": "Model lớn hơn cải thiện trung bình, không bắt được ca xấu.",
+   "B": "Prompt dài hơn cũng vậy.",
+   "C": "Thêm ví dụ cũng vậy.",
+   "D": "Một bước kiểm tra có thể từ chối output và kích hoạt phương án dự phòng định sẵn. Chống lỗi âm thầm cần phát hiện và phản ứng định trước."
+  },
+  "tip": {
+   "title": "Không được sai âm thầm → validation + fallback",
+   "body": [
+    "Loại các đáp án chỉ làm \"trung bình tốt hơn\". Cần thứ **bắt được** ca sai."
+   ]
+  },
+  "ask": {
+   "title": "Chống output sai âm thầm",
+   "body": "Đề hỏi biện pháp tăng độ tin cậy nhất."
+  },
+  "lesson": "4-4-kiem-tra-va-thu-lai"
+ },
+ "ccar-f-p35": {
+  "q": "Nên đo gì để biết hệ thống agent trên production có khoẻ không?",
+  "opts": {
+   "A": "Tỷ lệ hoàn thành tác vụ theo tiêu chí định nghĩa, cùng tỷ lệ và hình dạng các lỗi. Sức khoẻ được định nghĩa bởi việc hệ thống có làm được việc không và hỏng như thế nào.",
+   "B": "Tổng token là tín hiệu chi phí.",
+   "C": "Thời gian phản hồi trung bình là tín hiệu hành vi.",
+   "D": "Số lời gọi tool mỗi lượt không nói gì về tính đúng."
+  },
+  "tip": {
+   "title": "Sức khoẻ agent = task success + phân tích lỗi",
+   "body": [
+    "Token, latency, số lời gọi là **chi phí/hành vi**, không phải **tính đúng**."
+   ]
+  },
+  "ask": {
+   "title": "Đo sức khoẻ hệ thống agent",
+   "body": "Đề hỏi chỉ số nên đo."
+  },
+  "lesson": "5-5-nguoi-duyet-va-do-tin-cay"
+ },
+ "ccar-f-m1-1": {
+  "q": "(Tình huống: agent Agent SDK xử lý đổi trả, tranh chấp thanh toán, vấn đề tài khoản qua các tool MCP get_customer, lookup_order, process_refund, escalate_to_human.) Agent đôi khi trả lời câu hỏi thanh toán bằng một đơn hàng nó đã tra ba lượt trước cho một khách hàng khác. Cách sửa kiến trúc là gì?",
+  "opts": {
+   "A": "Context lớn hơn còn giữ được nhiều dữ liệu cũ hơn, làm lẫn lộn nặng hơn.",
+   "B": "Giới hạn context mỗi cuộc hội thoại cho một khách hàng, và xoá hoặc cô lập các lần tra cứu trước khi chủ đề đổi. Lẫn dữ liệu giữa khách là lỗi phạm vi context.",
+   "C": "Bỏ lookup_order là phá chức năng.",
+   "D": "Dặn model cẩn thận không phải kiểm soát."
+  },
+  "tip": {
+   "title": "Lẫn dữ liệu giữa các khách → scope context theo khách, không phải tăng window",
+   "body": [
+    "Từ khoá: **contamination**. Giải pháp: **isolation/scoping**."
+   ]
+  },
+  "ask": {
+   "title": "Agent dùng nhầm đơn hàng của khách khác",
+   "body": "Đề hỏi cách sửa ở mức kiến trúc."
+  },
+  "lesson": "5-1-quan-ly-context"
+ },
+ "ccar-f-m1-2": {
+  "q": "(Cùng tình huống agent hỗ trợ.) process_refund thỉnh thoảng lỗi vì backend thanh toán bị timeout. Tool nên trả về gì để agent hành xử hợp lý?",
+  "opts": {
+   "A": "Chuỗi rỗng khiến agent không biết đã có lỗi.",
+   "B": "Một thông báo cho người dùng không giúp agent quyết định.",
+   "C": "Lỗi có cấu trúc kèm loại lỗi và cờ retryable, để agent chủ động retry hoặc escalate.",
+   "D": "Stack trace làm lộ chi tiết bên trong và không giúp agent quyết định."
+  },
+  "tip": {
+   "title": "Tool lỗi → structured error (category + retryable)",
+   "body": [
+    "Đây là task 2.2. Agent cần **biết loại lỗi** để chọn: thử lại, đổi hướng, hay chuyển cho người."
+   ]
+  },
+  "ask": {
+   "title": "Tool hoàn tiền bị timeout",
+   "body": "Đề hỏi tool nên trả gì khi lỗi."
+  },
+  "lesson": "2-2-loi-co-cau-truc-mcp"
+ },
+ "ccar-f-m1-3": {
+  "q": "(Cùng tình huống agent hỗ trợ.) Điều kiện nào nên chuyển ticket sang escalate_to_human thay vì tiếp tục tự xử lý?",
+  "opts": {
+   "A": "Khách viết bằng ngôn ngữ agent hỗ trợ không phải lý do chuyển.",
+   "B": "Tuổi đơn hàng không phải trigger chuyển.",
+   "C": "Số lượt hội thoại không phải trigger chuyển.",
+   "D": "Yêu cầu nằm ngoài chính sách đã ghi, hoặc agent không tiến triển được sau một số lần thử giới hạn."
+  },
+  "tip": {
+   "title": "Escalate khi: ngoài chính sách, hoặc hết tiến triển",
+   "body": [
+    "Không dùng ngưỡng tuỳ tiện như số lượt hay tuổi đơn hàng."
+   ]
+  },
+  "ask": {
+   "title": "Khi nào chuyển ticket cho người",
+   "body": "Đề hỏi điều kiện đúng để escalate."
+  },
+  "lesson": "5-2-chuyen-cho-nguoi-va-mo-ho"
+ },
+ "ccar-f-m1-4": {
+  "q": "(Cùng tình huống agent hỗ trợ.) Agent đôi khi gọi get_customer khi lẽ ra phải gọi lookup_order. Thay đổi hiệu quả nhất là gì?",
+  "opts": {
+   "A": "Viết lại mô tả cả hai tool để mỗi cái nêu chính xác khi nào dùng và khác cái kia thế nào. Model chọn tool dựa trên mô tả.",
+   "B": "Thứ tự trong cấu hình không giải quyết nhầm lẫn ngữ nghĩa.",
+   "C": "Gộp thành một tool có cờ mode giấu sự khác biệt.",
+   "D": "Tăng temperature làm chọn bừa hơn."
+  },
+  "tip": {
+   "title": "Nhầm giữa hai tool → mô tả phân biệt rõ",
+   "body": [
+    "Giống câu luyện tập p10."
+   ]
+  },
+  "ask": {
+   "title": "Nhầm get_customer với lookup_order",
+   "body": "Đề hỏi thay đổi hiệu quả nhất."
+  },
+  "lesson": "2-1-thiet-ke-tool"
+ },
+ "ccar-f-m1-5": {
+  "q": "(Tình huống: một đội dùng Claude Code trong monorepo để sinh code, refactor, review.) Quy ước backend chỉ nên áp dụng khi đụng tới file backend. Chúng nên đặt ở đâu?",
+  "opts": {
+   "A": "CLAUDE.md ở gốc nạp mọi lúc, trái với yêu cầu.",
+   "B": "Rule theo đường dẫn trong .claude/rules/ với frontmatter khớp đường dẫn backend. Rule này nạp có điều kiện, đúng như yêu cầu.",
+   "C": "Cấu hình cá nhân không chia sẻ cho đội.",
+   "D": "Wiki không đến được model."
+  },
+  "tip": {
+   "title": "Chỉ áp dụng cho một số file → path-scoped rule (.claude/rules + paths)",
+   "body": [
+    "Giống câu luyện tập p5."
+   ]
+  },
+  "ask": {
+   "title": "Quy ước chỉ cho file backend",
+   "body": "Đề hỏi nơi đặt cấu hình."
+  },
+  "lesson": "3-3-rule-theo-duong-dan"
+ },
+ "ccar-f-m1-6": {
+  "q": "(Cùng tình huống monorepo.) Khi nào plan mode phù hợp hơn làm ngay?",
+  "opts": {
+   "A": "Không phải thay đổi nào cũng cần plan, vì làm vậy chậm và thừa.",
+   "B": "Độ quen ngôn ngữ không phải tiêu chí.",
+   "C": "Khi thay đổi đủ lớn hoặc đủ rủi ro để một người nên duyệt cách tiếp cận trước khi sửa. Plan mode là cổng duyệt theo rủi ro.",
+   "D": "Context gần đầy không phải lý do dùng plan mode."
+  },
+  "tip": {
+   "title": "Plan mode khi thay đổi lớn/rủi ro, cần duyệt cách làm trước",
+   "body": [
+    "Việc nhỏ, rõ ràng → làm ngay. Refactor lớn, nhiều file, khó đảo ngược → plan."
+   ]
+  },
+  "ask": {
+   "title": "Khi nào dùng plan mode",
+   "body": "Đề hỏi tiêu chí chọn plan mode."
+  },
+  "lesson": "3-4-plan-mode-hay-lam-ngay"
+ },
+ "ccar-f-m1-7": {
+  "q": "(Cùng tình huống monorepo.) Một quy trình review nhiều bước lặp lại cần cho cả đội gọi bằng một lệnh. Cơ chế đúng là gì?",
+  "opts": {
+   "A": "Tài liệu mô tả các bước vẫn phải làm tay.",
+   "B": "CLAUDE.md dài hơn không biến thành một lệnh gọi được.",
+   "C": "Transcript chat không phải cơ chế gọi lại.",
+   "D": "Một custom slash command hoặc skill được commit vào repository."
+  },
+  "tip": {
+   "title": "Quy trình lặp lại cho cả đội → slash command / skill commit vào repo",
+   "body": [
+    "Không phải văn xuôi, mà là thứ **gọi được**."
+   ]
+  },
+  "ask": {
+   "title": "Đóng gói quy trình review cho cả đội",
+   "body": "Đề hỏi cơ chế đúng."
+  },
+  "lesson": "3-2-slash-command-va-skill"
+ },
+ "ccar-f-m1-8": {
+  "q": "(Tình huống: coordinator giao việc cho các subagent search, analysis, synthesis, report để tạo báo cáo có trích dẫn.) Subagent trả cả tài liệu nguồn về coordinator khiến nó vượt giới hạn context. Thay đổi thiết kế đúng là gì?",
+  "opts": {
+   "A": "Subagent trả về phát hiện có cấu trúc kèm trích dẫn, còn nguồn thô ở lại ngoài rìa hoặc trong scratchpad.",
+   "B": "Model lớn hơn không đổi lượng dữ liệu đổ về.",
+   "C": "Còn một subagent thì mất lợi ích cô lập context.",
+   "D": "Cắt còn trang đầu làm mất thông tin tuỳ tiện."
+  },
+  "tip": {
+   "title": "Subagent trả quá nhiều → trả bản chắt lọc",
+   "body": [
+    "Giống câu luyện tập p4."
+   ]
+  },
+  "ask": {
+   "title": "Coordinator bị tràn context",
+   "body": "Đề hỏi thay đổi thiết kế đúng."
+  },
+  "lesson": "1-3-goi-subagent-va-truyen-context"
+ },
+ "ccar-f-m1-9": {
+  "q": "(Cùng tình huống nghiên cứu đa agent.) Báo cáo cuối gán nhận định cho sai nguồn, dù từng subagent đều chính xác. Nguyên nhân khả dĩ là gì?",
+  "opts": {
+   "A": "Model synthesis nhỏ không giải thích lỗi ghép nguồn.",
+   "B": "Định dạng chuyển giao không mang nhận định và nguồn đi cùng nhau, nên nguồn gốc bị mất giữa các bước.",
+   "C": "Nhiều kết quả tìm kiếm không gây ghép sai.",
+   "D": "Không có dấu hiệu báo cáo chạy trước analysis."
+  },
+  "tip": {
+   "title": "Ghép sai nguồn → provenance mất ở handoff",
+   "body": [
+    "Giống câu luyện tập p3."
+   ]
+  },
+  "ask": {
+   "title": "Báo cáo gán nhầm nguồn",
+   "body": "Đề hỏi nguyên nhân."
+  },
+  "lesson": "5-6-nguon-goc-thong-tin"
+ },
+ "ccar-f-m1-10": {
+  "q": "(Cùng tình huống nghiên cứu đa agent.) Một subagent lỗi vĩnh viễn với một nguồn. Coordinator nên nhận được gì?",
+  "opts": {
+   "A": "Không nhận gì thì báo cáo có lỗ hổng mà không ai biết.",
+   "B": "Retry âm thầm đến khi thành công có thể lặp mãi.",
+   "C": "Một lỗi được truyền lên kèm đủ context để coordinator chọn: thử lại, loại bỏ nguồn và ghi chú khoảng trống, hoặc dừng.",
+   "D": "Cờ lỗi chung chung không đủ để quyết định."
+  },
+  "tip": {
+   "title": "Lỗi trong hệ đa agent → truyền lên kèm context để chọn cách phục hồi",
+   "body": [
+    "Task 5.3: **không nuốt lỗi, không retry mù**."
+   ]
+  },
+  "ask": {
+   "title": "Subagent lỗi vĩnh viễn với một nguồn",
+   "body": "Đề hỏi coordinator nên nhận gì."
+  },
+  "lesson": "5-3-lan-truyen-loi"
+ },
+ "ccar-f-m1-11": {
+  "q": "(Tình huống: Claude Code chạy review tự động trên PR và đăng phản hồi.) Reviewer phải xuất kết quả mà pipeline parse được. Cách gọi nào đúng?",
+  "opts": {
+   "A": "Phiên tương tác ghi ra log không phải output có cấu trúc.",
+   "B": "Plan mode có bước duyệt không dành cho pipeline tự động.",
+   "C": "Cron gửi email transcript không parse được.",
+   "D": "Chế độ print không tương tác với output JSON và schema."
+  },
+  "tip": {
+   "title": "CI → -p + JSON + schema",
+   "body": [
+    "Giống câu luyện tập p6."
+   ]
+  },
+  "ask": {
+   "title": "Reviewer CI cần output parse được",
+   "body": "Đề hỏi cách gọi đúng."
+  },
+  "lesson": "3-6-claude-code-trong-ci"
+ },
+ "ccar-f-m1-12": {
+  "q": "(Cùng tình huống review CI.) Review gắn cờ quá nhiều lỗi style giá trị thấp và kỹ sư giờ phớt lờ chúng. Thay đổi nào giải quyết được?",
+  "opts": {
+   "A": "Định nghĩa tiêu chí review rõ và ngưỡng mức độ trong prompt, kèm ví dụ phát hiện trong và ngoài phạm vi.",
+   "B": "Đổi kênh đăng không giảm nhiễu.",
+   "C": "Chỉ chạy với PR lớn bỏ sót PR nhỏ có lỗi thật.",
+   "D": "Giới hạn 5 phát hiện là tuỳ tiện."
+  },
+  "tip": {
+   "title": "Nhiễu nhiều → tiêu chí + severity + ví dụ",
+   "body": [
+    "Giống câu luyện tập p7."
+   ]
+  },
+  "ask": {
+   "title": "Review soi lỗi vụn",
+   "body": "Đề hỏi thay đổi đúng."
+  },
+  "lesson": "4-1-tieu-chi-ro-rang"
+ },
+ "ccar-f-m1-13": {
+  "q": "(Tình huống: tài liệu được parse thành bản ghi đã kiểm tra cho hệ thống downstream.) Một số hoá đơn hợp lệ không có ngày giao hàng. Schema nên thể hiện điều này thế nào?",
+  "opts": {
+   "A": "Bắt buộc rồi để trích xuất thất bại là làm hỏng tài liệu hợp lệ.",
+   "B": "Cho trường nullable để ghi nhận vắng mặt rõ ràng, kèm kiểm tra có điều kiện nơi loại tài liệu yêu cầu.",
+   "C": "Bỏ trường khỏi schema là mất dữ liệu khi nó có.",
+   "D": "Mặc định ngày hôm nay là bịa dữ liệu."
+  },
+  "tip": {
+   "title": "Vắng hợp lệ → nullable",
+   "body": [
+    "Giống câu luyện tập p8, p25."
+   ]
+  },
+  "ask": {
+   "title": "Hoá đơn không có ngày giao",
+   "body": "Đề hỏi cách biểu diễn trong schema."
+  },
+  "lesson": "4-3-output-co-cau-truc"
+ },
+ "ccar-f-m1-14": {
+  "q": "(Cùng tình huống trích xuất.) Vòng lặp nào cho output trích xuất tin cậy nhất?",
+  "opts": {
+   "A": "Duyệt tay mọi bản ghi không mở rộng được.",
+   "B": "Bỏ phiếu đa số chỉ giảm ngẫu nhiên, không đảm bảo đúng schema.",
+   "C": "Ép JSON schema qua tool use, kiểm tra, và khi lỗi thì retry kèm thông báo lỗi validation đưa lại cho model.",
+   "D": "Temperature 0 rồi chấp nhận kết quả không có bước kiểm tra."
+  },
+  "tip": {
+   "title": "Trích xuất tin cậy → schema qua tool use + validate + retry kèm lỗi",
+   "body": [
+    "Task 4.4: **validation-retry loop** là mẫu chuẩn."
+   ]
+  },
+  "ask": {
+   "title": "Vòng lặp trích xuất tin cậy nhất",
+   "body": "Đề hỏi quy trình cho kết quả tin cậy nhất."
+  },
+  "lesson": "4-4-kiem-tra-va-thu-lai"
+ },
+ "ccar-f-m1-15": {
+  "q": "(Cùng tình huống trích xuất.) Đội báo độ chính xác 97% chỉ đo trên bản ghi đã qua validation. Vì sao con số này gây hiểu lầm?",
+  "opts": {
+   "A": "Đo theo trường hay theo bản ghi không phải gốc vấn đề.",
+   "B": "Con số cao hay thấp không phải vấn đề.",
+   "C": "Validation và độ chính xác có liên quan, chính vì vậy mà mẫu bị lệch.",
+   "D": "Nó loại bỏ các ca lỗi, nên đo chỗ hệ thống đã thành công chứ không phải tỷ lệ thật trên mọi tài liệu."
+  },
+  "tip": {
+   "title": "Đo trên mẫu đã lọc → thổi phồng",
+   "body": [
+    "Giống câu luyện tập p9."
+   ]
+  },
+  "ask": {
+   "title": "97% đo trên bản ghi đã validate",
+   "body": "Đề hỏi vì sao con số gây hiểu lầm."
+  },
+  "lesson": "5-5-nguoi-duyet-va-do-tin-cay"
+ },
+ "ccar-f-m2-1": {
+  "q": "Một pipeline có 4 bước, thứ tự không bao giờ đổi và output từng bước kiểm tra được. Nó nên là gì?",
+  "opts": {
+   "A": "Agent tự lên kế hoạch mỗi lần thêm bất định.",
+   "B": "Bốn agent cũng thêm bất định.",
+   "C": "Workflow tất định gọi model ở các điểm định sẵn: rẻ hơn, kiểm thử được từng bước.",
+   "D": "Một prompt cho cả bốn bước làm mất điểm kiểm tra."
+  },
+  "tip": {
+   "title": "Thứ tự cố định → workflow tất định",
+   "body": [
+    "Giống câu luyện tập p11."
+   ]
+  },
+  "ask": {
+   "title": "Pipeline 4 bước cố định",
+   "body": "Đề hỏi kiến trúc phù hợp."
+  },
+  "lesson": "1-4-ep-quy-trinh-va-chuyen-giao"
+ },
+ "ccar-f-m2-2": {
+  "q": "Chi phí chính của việc thêm một subagent là gì?",
+  "opts": {
+   "A": "Subagent mất context mà agent cha đang giữ, trừ khi phần chuyển giao mang nó theo rõ ràng. Giao việc mua được sự cô lập và trả giá bằng context.",
+   "B": "Không cần model lớn hơn.",
+   "C": "Subagent dùng được tool.",
+   "D": "Chi phí thay đổi theo công việc, không phải luôn gấp đôi."
+  },
+  "tip": {
+   "title": "Subagent không tự biết context của cha → handoff phải đầy đủ",
+   "body": [
+    "Task 1.3: **truyền context cho đủ** khi gọi subagent."
+   ]
+  },
+  "ask": {
+   "title": "Cái giá của subagent",
+   "body": "Đề hỏi chi phí chính khi thêm subagent."
+  },
+  "lesson": "1-3-goi-subagent-va-truyen-context"
+ },
+ "ccar-f-m2-3": {
+  "q": "Một bước tự động sẽ sửa dữ liệu production. Kiến trúc cần gì?",
+  "opts": {
+   "A": "Model mạnh hơn không giới hạn được hậu quả.",
+   "B": "Prompt dặn thận trọng không giới hạn được hậu quả.",
+   "C": "Chính sách retry không giới hạn được hậu quả.",
+   "D": "Một checkpoint nơi người cấp phép hành động, hoặc cơ chế đảo ngược được, thực thi bên ngoài model."
+  },
+  "tip": {
+   "title": "Tác động không đảo ngược → approval checkpoint hoặc reversible",
+   "body": [
+    "Giống câu luyện tập p14, p29."
+   ]
+  },
+  "ask": {
+   "title": "Bước tự động sửa dữ liệu production",
+   "body": "Đề hỏi kiến trúc cần gì."
+  },
+  "lesson": "1-5-hook-agent-sdk"
+ },
+ "ccar-f-m2-4": {
+  "q": "Điều gì giúp chẩn đoán lỗi của agent sau sự việc nhiều nhất?",
+  "opts": {
+   "A": "Chỉ có output cuối thì không biết lệch ở đâu.",
+   "B": "Trace đầu vào, lời gọi tool và output của từng bước.",
+   "C": "Tổng token không chỉ ra chỗ lệch.",
+   "D": "Phiên bản model không chỉ ra chỗ lệch."
+  },
+  "tip": {
+   "title": "Chẩn đoán agent → per-step trace",
+   "body": [
+    "Giống câu luyện tập p17."
+   ]
+  },
+  "ask": {
+   "title": "Chẩn đoán lỗi agent",
+   "body": "Đề hỏi thứ giúp nhiều nhất."
+  },
+  "lesson": "5-3-lan-truyen-loi"
+ },
+ "ccar-f-m2-5": {
+  "q": "Quy ước toàn repository cho Claude Code nên nằm ở đâu?",
+  "opts": {
+   "A": "Cấu hình cục bộ không lan sang người khác.",
+   "B": "Trong CLAUDE.md được commit vào repository: dùng chung, có phiên bản, được review cùng code.",
+   "C": "Chat không được đọc như context.",
+   "D": "Cấu hình CI chỉ phủ phần tự động, không phủ làm việc tương tác."
+  },
+  "tip": {
+   "title": "Quy ước cả repo → CLAUDE.md commit",
+   "body": [
+    "Giống câu luyện tập p18."
+   ]
+  },
+  "ask": {
+   "title": "Nơi đặt quy ước toàn repo",
+   "body": "Đề hỏi vị trí đúng."
+  },
+  "lesson": "3-1-phan-cap-claude-md"
+ },
+ "ccar-f-m2-6": {
+  "q": "Tác vụ nào phù hợp nhất với Claude Code headless trong CI?",
+  "opts": {
+   "A": "Debug khám phá một lỗi lạ cần người tham gia.",
+   "B": "Thiết kế kiến trúc module mới cần người tham gia.",
+   "C": "Pair programming cần người tham gia.",
+   "D": "Một kiểm tra lặp lại, đặc tả rõ, chạy trên mọi PR."
+  },
+  "tip": {
+   "title": "Headless → việc lặp lại, rõ ràng, không cần người",
+   "body": [
+    "Giống câu luyện tập p19."
+   ]
+  },
+  "ask": {
+   "title": "Việc hợp với headless trong CI",
+   "body": "Đề hỏi tác vụ phù hợp nhất."
+  },
+  "lesson": "3-6-claude-code-trong-ci"
+ },
+ "ccar-f-m2-7": {
+  "q": "Hook dùng để làm gì?",
+  "opts": {
+   "A": "Chạy một hành động tất định tại một điểm định sẵn, độc lập với model. Đây là cách thực thi một đảm bảo.",
+   "B": "Chỉ dẫn dùng lại thuộc về project memory hoặc skill.",
+   "C": "Context dự án thuộc về project memory.",
+   "D": "Chọn model là cấu hình."
+  },
+  "tip": {
+   "title": "Hook = code tất định ở điểm cố định",
+   "body": [
+    "Giống câu luyện tập p21."
+   ]
+  },
+  "ask": {
+   "title": "Mục đích của hook",
+   "body": "Đề hỏi hook dùng để làm gì."
+  },
+  "lesson": "1-5-hook-agent-sdk"
+ },
+ "ccar-f-m2-8": {
+  "q": "Một pipeline cần output luôn đúng một hình dạng cố định. Cơ chế đúng là gì?",
+  "opts": {
+   "A": "Yêu cầu trong prompt rồi parse vẫn để hình dạng cho may rủi.",
+   "B": "Parse văn xuôi bằng regex rất dễ vỡ.",
+   "C": "Khai báo hình dạng là schema mà model phải thoả, và kiểm tra khi nhận. Schema biến hình dạng thành hợp đồng.",
+   "D": "Temperature không đảm bảo hình dạng."
+  },
+  "tip": {
+   "title": "Hình dạng cố định → schema + validate",
+   "body": [
+    "Giống câu luyện tập p23."
+   ]
+  },
+  "ask": {
+   "title": "Output luôn đúng hình dạng",
+   "body": "Đề hỏi cơ chế đúng."
+  },
+  "lesson": "4-3-output-co-cau-truc"
+ },
+ "ccar-f-m2-9": {
+  "q": "Schema nên xử lý thế nào với một giá trị mà nguồn có thể không có?",
+  "opts": {
+   "A": "Bỏ trường im lặng thì mơ hồ: thiếu thật hay lỗi?",
+   "B": "Giá trị mặc định trông hợp lý là bịa dữ liệu.",
+   "C": "Chuỗi rỗng lẫn lộn \"không có\" với \"giá trị rỗng\".",
+   "D": "Định nghĩa một biểu diễn rõ ràng cho sự vắng mặt, để phân biệt khoảng trống thật với lỗi."
+  },
+  "tip": {
+   "title": "Vắng mặt → biểu diễn rõ (null)",
+   "body": [
+    "Giống câu luyện tập p25."
+   ]
+  },
+  "ask": {
+   "title": "Giá trị có thể không tồn tại",
+   "body": "Đề hỏi cách schema xử lý đúng."
+  },
+  "lesson": "4-3-output-co-cau-truc"
+ },
+ "ccar-f-m2-10": {
+  "q": "Trích xuất thành công với đầu vào thông thường nhưng lỗi với đầu vào lạ. Cách xử lý hiệu quả nhất là gì?",
+  "opts": {
+   "A": "Tăng temperature chỉ thêm biến động.",
+   "B": "Model lớn hơn không nhắm vào đúng khoảng trống.",
+   "C": "Thêm ví dụ cho các định dạng lạ và nêu rõ trả về gì khi thiếu trường. Ca lạ lỗi vì chưa từng được đặc tả.",
+   "D": "Bảo model cẩn thận không phải đặc tả."
+  },
+  "tip": {
+   "title": "Ca lạ lỗi → few-shot + luật cho trường thiếu",
+   "body": [
+    "Giống câu luyện tập p24."
+   ]
+  },
+  "ask": {
+   "title": "Lỗi với đầu vào bất thường",
+   "body": "Đề hỏi cách xử lý hiệu quả nhất."
+  },
+  "lesson": "4-2-few-shot"
+ },
+ "ccar-f-m2-11": {
+  "q": "Dấu hiệu rõ nhất cho thấy bộ tool cần thiết kế lại chứ không phải sửa prompt là gì?",
+  "opts": {
+   "A": "Trên 5 tool không phải lỗi.",
+   "B": "Model liên tục chọn một tool không thể đáp ứng yêu cầu. Các tool không phân biệt được qua mô tả.",
+   "C": "Tool ở nhiều service không phải lỗi.",
+   "D": "Payload lớn là vấn đề riêng."
+  },
+  "tip": {
+   "title": "Chọn sai lặp lại → thiết kế lại tool",
+   "body": [
+    "Giống câu luyện tập p28."
+   ]
+  },
+  "ask": {
+   "title": "Khi nào cần thiết kế lại tool",
+   "body": "Đề hỏi dấu hiệu rõ nhất."
+  },
+  "lesson": "2-1-thiet-ke-tool"
+ },
+ "ccar-f-m2-12": {
+  "q": "Một tool xoá bản ghi nên được ràng buộc thế nào?",
+  "opts": {
+   "A": "Thực thi cấp quyền và phạm vi bên ngoài model. Năng lực phá huỷ được giới hạn bởi hệ thống xung quanh.",
+   "B": "Mô tả cảnh báo chỉ là lời đề nghị.",
+   "C": "Thêm tham số không giới hạn quyền.",
+   "D": "Khai báo cuối cùng không giới hạn quyền."
+  },
+  "tip": {
+   "title": "Tool phá huỷ → quyền và phạm vi ngoài model",
+   "body": [
+    "Giống câu luyện tập p29."
+   ]
+  },
+  "ask": {
+   "title": "Ràng buộc tool xoá dữ liệu",
+   "body": "Đề hỏi cách giới hạn đúng."
+  },
+  "lesson": "2-3-phan-tool-va-tool-choice"
+ },
+ "ccar-f-m2-13": {
+  "q": "Một tích hợp MCP mở toàn bộ database qua một tool truy vấn tổng quát. Mối lo kiến trúc là gì?",
+  "opts": {
+   "A": "Quyền của model không có giới hạn, và không áp dụng được least privilege.",
+   "B": "Tốc độ là chuyện phụ.",
+   "C": "Token là chuyện phụ.",
+   "D": "Output có cấu trúc vẫn làm được."
+  },
+  "tip": {
+   "title": "Một tool truy vấn mọi thứ → mất least privilege",
+   "body": [
+    "Thiết kế tool **hẹp, theo nghiệp vụ** để giới hạn được model chạm tới đâu."
+   ]
+  },
+  "ask": {
+   "title": "Một tool truy vấn cả database",
+   "body": "Đề hỏi mối lo kiến trúc."
+  },
+  "lesson": "2-4-tich-hop-mcp-server"
+ },
+ "ccar-f-m2-14": {
+  "q": "Chất lượng giảm đều trong một lượt chạy agent dài. Nguyên nhân khả dĩ nhất là gì?",
+  "opts": {
+   "A": "Phiên bản không đổi giữa chừng.",
+   "B": "Context tích luỹ làm loãng những thông tin quan trọng.",
+   "C": "Temperature thấp giảm đa dạng chứ không giảm chất lượng.",
+   "D": "Tool chậm không ảnh hưởng tính đúng."
+  },
+  "tip": {
+   "title": "Tệ dần trong lượt dài → tích luỹ context",
+   "body": [
+    "Giống câu luyện tập p32."
+   ]
+  },
+  "ask": {
+   "title": "Chất lượng giảm theo độ dài lượt chạy",
+   "body": "Đề hỏi nguyên nhân."
+  },
+  "lesson": "5-1-quan-ly-context"
+ },
+ "ccar-f-m2-15": {
+  "q": "Điều gì phải xảy ra để trạng thái sống sót qua ranh giới compaction?",
+  "opts": {
+   "A": "Model không giữ được mọi thứ quan trọng.",
+   "B": "Context lớn hơn chỉ dời ranh giới.",
+   "C": "Các quyết định và ràng buộc cần giữ được viết vào một bản tóm tắt rõ ràng được mang theo.",
+   "D": "Chạy lại từ đầu là vứt bỏ công việc."
+  },
+  "tip": {
+   "title": "Compaction → viết ra summary có chủ đích",
+   "body": [
+    "Giống câu luyện tập p33."
+   ]
+  },
+  "ask": {
+   "title": "Giữ trạng thái qua compaction",
+   "body": "Đề hỏi điều cần làm."
+  },
+  "lesson": "5-1-quan-ly-context"
+ },
+ "ccar-f-m3-1": {
+  "q": "Một thiết kế agent gọi đi gọi lại cùng một tool đắt tiền với tham số giống hệt. Điều này cho thấy gì?",
+  "opts": {
+   "A": "Đây không phải hành vi retry lành mạnh.",
+   "B": "Tốc độ tool không giải thích được.",
+   "C": "Agent không giữ hoặc dùng lại kết quả, tức là vấn đề nằm ở thiết kế trạng thái.",
+   "D": "Năng lực model không giải thích được."
+  },
+  "tip": {
+   "title": "Gọi lặp với tham số y hệt → kết quả cũ không còn trong trạng thái",
+   "body": [
+    "Xem lại cách **lưu trạng thái/kết quả** giữa các bước."
+   ]
+  },
+  "ask": {
+   "title": "Agent gọi lặp cùng một tool",
+   "body": "Đề hỏi dấu hiệu này nói lên điều gì."
+  },
+  "lesson": "1-7-session-tiep-tuc-va-fork"
+ },
+ "ccar-f-m3-2": {
+  "q": "Điều gì quyết định hai mạch việc có nên tách thành hai subagent riêng?",
+  "opts": {
+   "A": "Mỗi mạch có cần context mà mạch kia sẽ làm ô nhiễm hay không.",
+   "B": "Tổng độ dài xử lý được trong một context.",
+   "C": "Khác tool vẫn xử lý được trong một context.",
+   "D": "Chạy song song vẫn có thể trong một context."
+  },
+  "tip": {
+   "title": "Tách subagent khi context của hai mạch làm ô nhiễm nhau",
+   "body": [
+    "Giống câu luyện tập p12."
+   ]
+  },
+  "ask": {
+   "title": "Khi nào tách thành hai subagent",
+   "body": "Đề hỏi tiêu chí."
+  },
+  "lesson": "1-2-dieu-phoi-nhieu-agent"
+ },
+ "ccar-f-m3-3": {
+  "q": "Thiết kế nào giảm nhiều nhất cái giá của một quyết định tự động sai?",
+  "opts": {
+   "A": "Model lớn hơn giảm xác suất sai, không giảm cái giá.",
+   "B": "Prompt dài hơn giảm xác suất sai, không giảm cái giá.",
+   "C": "Thêm tool không giảm cái giá.",
+   "D": "Làm hành động đảo ngược được, hoặc chặn nó sau bước xác nhận. Cách này giới hạn hậu quả."
+  },
+  "tip": {
+   "title": "Giảm cái giá khi sai → reversible hoặc confirmation gate",
+   "body": [
+    "Phân biệt **xác suất sai** với **hậu quả khi sai**. Đề hỏi cái thứ hai."
+   ]
+  },
+  "ask": {
+   "title": "Giảm thiệt hại khi agent quyết định sai",
+   "body": "Đề hỏi thiết kế hiệu quả nhất."
+  },
+  "lesson": "5-2-chuyen-cho-nguoi-va-mo-ho"
+ },
+ "ccar-f-m3-4": {
+  "q": "Một CLAUDE.md đã phình lên vài nghìn dòng. Ảnh hưởng khả dĩ là gì?",
+  "opts": {
+   "A": "Nhiều hơn không tự động tốt hơn.",
+   "B": "Các chỉ dẫn quan trọng phải cạnh tranh với nội dung không còn áp dụng. Project memory cũng là context và cũng bị loãng.",
+   "C": "Nó không miễn phí: được nạp vào context.",
+   "D": "Không làm gì nhanh hơn."
+  },
+  "tip": {
+   "title": "CLAUDE.md quá dài → loãng; tách bằng @import / rule theo path",
+   "body": [
+    "Giữ CLAUDE.md **gọn, đang dùng**. Phần theo khu vực → **.claude/rules** có path."
+   ]
+  },
+  "ask": {
+   "title": "CLAUDE.md vài nghìn dòng",
+   "body": "Đề hỏi ảnh hưởng khả dĩ."
+  },
+  "lesson": "3-1-phan-cap-claude-md"
+ },
+ "ccar-f-m3-5": {
+  "q": "Một skill cần thoả điều gì trước khi được commit vào repository chung?",
+  "opts": {
+   "A": "Độ dài không chứng minh sự hữu ích.",
+   "B": "Nó mã hoá một quy trình đội thực sự lặp lại, và review được như code.",
+   "C": "Người viết là ai không quan trọng.",
+   "D": "Không cần bao phủ mọi ca biên."
+  },
+  "tip": {
+   "title": "Skill chung → quy trình lặp lại thật + review được",
+   "body": [
+    "Đừng đóng gói thứ chỉ làm một lần."
+   ]
+  },
+  "ask": {
+   "title": "Điều kiện để commit skill dùng chung",
+   "body": "Đề hỏi tiêu chí."
+  },
+  "lesson": "3-2-slash-command-va-skill"
+ },
+ "ccar-f-m3-6": {
+  "q": "Vì sao cấu hình được commit tốt hơn cấu hình từng người cho quy ước của đội?",
+  "opts": {
+   "A": "Tốc độ nạp không phải lý do.",
+   "B": "Kích thước context không phải lý do.",
+   "C": "Vẫn có thể ghi đè cục bộ.",
+   "D": "Nó có phiên bản, được review, và áp dụng cho mọi người kể cả automation (CI)."
+  },
+  "tip": {
+   "title": "Commit cấu hình → versioned + reviewed + áp cho cả người lẫn CI",
+   "body": [
+    "Giống các câu về CLAUDE.md project-level."
+   ]
+  },
+  "ask": {
+   "title": "Cấu hình commit vs cấu hình cá nhân",
+   "body": "Đề hỏi lý do cấu hình commit tốt hơn."
+  },
+  "lesson": "3-1-phan-cap-claude-md"
+ },
+ "ccar-f-m3-7": {
+  "q": "Một response có kiểm tra schema thỉnh thoảng (vài trăm lần mới một lần) không qua validation. Xử lý đúng là gì?",
+  "opts": {
+   "A": "Định nghĩa đường dự phòng: retry, rồi báo lỗi rõ ràng thay vì đẩy dữ liệu sai đi tiếp.",
+   "B": "Bỏ qua vì tỷ lệ thấp là để dữ liệu sai đi tiếp.",
+   "C": "Tắt validation còn tệ hơn.",
+   "D": "Giới hạn token không phải nguyên nhân."
+  },
+  "tip": {
+   "title": "Lỗi hiếm vẫn cần đường xử lý: retry → fail rõ ràng",
+   "body": [
+    "Không bao giờ để **invalid data** đi qua âm thầm."
+   ]
+  },
+  "ask": {
+   "title": "Validation thỉnh thoảng thất bại",
+   "body": "Đề hỏi cách xử lý đúng."
+  },
+  "lesson": "4-4-kiem-tra-va-thu-lai"
+ },
+ "ccar-f-m3-8": {
+  "q": "Lợi thế của việc kiểm tra output có cấu trúc ngay tại ranh giới thay vì ở các bước sau là gì?",
+  "opts": {
+   "A": "Không chủ yếu là chuyện chi phí.",
+   "B": "Schema chính là thứ làm việc kiểm tra khả thi.",
+   "C": "Lỗi được bắt ở chỗ còn retry hoặc từ chối được, trước khi lan sang các bước sau.",
+   "D": "Không thay đổi độ chính xác của model."
+  },
+  "tip": {
+   "title": "Validate tại ranh giới → khoanh lỗi trước khi lan",
+   "body": [
+    "Bắt sớm = còn **retry được** và **không làm bẩn** dữ liệu phía sau."
+   ]
+  },
+  "ask": {
+   "title": "Vì sao validate ngay tại ranh giới",
+   "body": "Đề hỏi lợi thế."
+  },
+  "lesson": "4-4-kiem-tra-va-thu-lai"
+ },
+ "ccar-f-m3-9": {
+  "q": "Một tác vụ trích xuất có cấu trúc phải ghi lại mỗi giá trị lấy từ đâu trong nguồn. Điều này đòi hỏi gì?",
+  "opts": {
+   "A": "Model lớn hơn không tạo ra trường mới.",
+   "B": "Prompt dài hơn không tạo ra trường mới.",
+   "C": "Lượt trích xuất thứ hai không cần nếu schema đã yêu cầu.",
+   "D": "Schema phải có trường nguồn gốc (provenance) mà model bắt buộc điền. Thứ gì output phải mang theo thì phải nằm trong hình dạng đã khai báo."
+  },
+  "tip": {
+   "title": "Cần ghi nguồn → thêm trường provenance vào schema",
+   "body": [
+    "Muốn output có gì thì **khai báo trong schema**."
+   ]
+  },
+  "ask": {
+   "title": "Ghi lại vị trí nguồn của từng giá trị",
+   "body": "Đề hỏi yêu cầu cần đáp ứng."
+  },
+  "lesson": "5-6-nguon-goc-thong-tin"
+ },
+ "ccar-f-m3-10": {
+  "q": "Hai tool làm gần như cùng một việc với tên khác nhau. Lỗi kiến trúc là gì?",
+  "opts": {
+   "A": "Trùng code là hệ quả phụ.",
+   "B": "Độ trễ là hệ quả phụ.",
+   "C": "Model không có cơ sở tin cậy để chọn giữa chúng. Sự mơ hồ ở điểm lựa chọn là lỗi chính.",
+   "D": "Chi phí token là hệ quả phụ."
+  },
+  "tip": {
+   "title": "Tool trùng chức năng → model không chọn được",
+   "body": [
+    "Giống câu luyện tập p10."
+   ]
+  },
+  "ask": {
+   "title": "Hai tool gần giống nhau",
+   "body": "Đề hỏi lỗi kiến trúc."
+  },
+  "lesson": "2-1-thiet-ke-tool"
+ },
+ "ccar-f-m3-11": {
+  "q": "Một tool nên làm gì khi nhận tham số nó không thể đáp ứng?",
+  "opts": {
+   "A": "Trả kết quả gần nhất là sai âm thầm.",
+   "B": "Trả lỗi rõ ràng nêu cái gì sai, để model sửa lời gọi. Lỗi có thông tin giúp model thích nghi.",
+   "C": "Trả rỗng là sai âm thầm.",
+   "D": "Ném exception dừng cả lượt chạy là bỏ một lượt chạy còn cứu được."
+  },
+  "tip": {
+   "title": "Tham số sai → lỗi rõ ràng để model tự sửa",
+   "body": [
+    "Task 2.2: lỗi phải **actionable** cho model."
+   ]
+  },
+  "ask": {
+   "title": "Tool nhận tham số không hợp lệ",
+   "body": "Đề hỏi tool nên phản hồi thế nào."
+  },
+  "lesson": "2-2-loi-co-cau-truc-mcp"
+ },
+ "ccar-f-m3-12": {
+  "q": "Một tool MCP mở thao tác ghi mà use case không bao giờ cần. Nên làm gì?",
+  "opts": {
+   "A": "Gỡ nó đi, vì quyền không dùng tới là rủi ro không cần thiết.",
+   "B": "Giữ lại cho \"sau này\" là để quyền vẫn với tới được.",
+   "C": "Ghi tài liệu cấm dùng vẫn để quyền với tới được.",
+   "D": "Đổi tên vẫn để quyền với tới được."
+  },
+  "tip": {
+   "title": "Quyền không cần → gỡ bỏ",
+   "body": [
+    "Least privilege, giống CCAR-P p1."
+   ]
+  },
+  "ask": {
+   "title": "Tool ghi không cần thiết",
+   "body": "Đề hỏi cách xử lý."
+  },
+  "lesson": "2-3-phan-tool-va-tool-choice"
+ },
+ "ccar-f-m3-13": {
+  "q": "Tín hiệu tin cậy sớm nhất cho thấy quản lý context đã thất bại trong lượt chạy dài là gì?",
+  "opts": {
+   "A": "Agent bắt đầu làm lặp lại việc đã làm hoặc mâu thuẫn với quyết định trước. Đây là dấu hiệu hành vi của trạng thái bị mất.",
+   "B": "Chạy lâu có nhiều nguyên nhân.",
+   "C": "Chi phí tăng có nhiều nguyên nhân.",
+   "D": "Tool trả lỗi không liên quan."
+  },
+  "tip": {
+   "title": "Lặp việc / tự mâu thuẫn → mất trạng thái",
+   "body": [
+    "Đó là lúc cần **ghi trạng thái ra ngoài**, compaction có chủ đích hoặc subagent."
+   ]
+  },
+  "ask": {
+   "title": "Dấu hiệu quản lý context thất bại",
+   "body": "Đề hỏi tín hiệu sớm nhất."
+  },
+  "lesson": "5-1-quan-ly-context"
+ },
+ "ccar-f-m3-14": {
+  "q": "Vì sao hệ thống agent tin cậy cần một tiêu chí thành công được định nghĩa?",
+  "opts": {
+   "A": "Không phải để giảm token.",
+   "B": "Không có nó thì không phân biệt được hoàn thành với thất bại, nên hệ thống không dừng đúng và không đo được.",
+   "C": "Không phải để prompt ngắn hơn.",
+   "D": "Không phải do nền tảng yêu cầu."
+  },
+  "tip": {
+   "title": "Definition of done → dừng đúng + đo được",
+   "body": [
+    "Không có tiêu chí thành công thì agent không biết khi nào xong."
+   ]
+  },
+  "ask": {
+   "title": "Vì sao cần tiêu chí thành công",
+   "body": "Đề hỏi lý do."
+  },
+  "lesson": "1-1-vong-lap-agent"
+ },
+ "ccar-f-m3-15": {
+  "q": "Một yêu cầu tin cậy nói output sai không bao giờ được đến tay người dùng mà không bị phát hiện. Thiết kế cần gì?",
+  "opts": {
+   "A": "Model mạnh hơn cải thiện trung bình, không bắt được ca xấu.",
+   "B": "Thêm ví dụ cũng vậy.",
+   "C": "Một bước phát hiện, kèm hành động định sẵn khi nó kích hoạt.",
+   "D": "Context lớn hơn cũng không bắt được ca xấu."
+  },
+  "tip": {
+   "title": "Không được sai âm thầm → detection + defined action",
+   "body": [
+    "Giống câu luyện tập p34."
+   ]
+  },
+  "ask": {
+   "title": "Output sai không được lọt qua",
+   "body": "Đề hỏi thiết kế cần gì."
+  },
+  "lesson": "4-4-kiem-tra-va-thu-lai"
+ }
+}
