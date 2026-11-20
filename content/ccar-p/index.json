@@ -1,0 +1,314 @@
+[
+ {
+  "slug": "on-nhanh",
+  "task": null,
+  "domain": null,
+  "domainName": null,
+  "title": "Tổng quan CCAR-P",
+  "lede": "Cả chứng chỉ CCAR-P trên một trang, giải thích ngay tại chỗ, kèm sơ đồ luồng, bẫy đề và bảng chọn nhanh. Chưa học bài nào vẫn đọc được."
+ },
+ {
+  "slug": "1-1-tu-bai-toan-den-giai-phap",
+  "task": "1.1",
+  "domain": 1,
+  "domainName": "Solution Design & Architecture",
+  "title": "Từ bài toán kinh doanh đến giải pháp dùng Claude",
+  "lede": "Cách biến một vấn đề kinh doanh thành giải pháp dùng Claude, gồm chia thành từng việc, giao việc nào cho Claude, chọn cách xây và đo thành công."
+ },
+ {
+  "slug": "1-2-kien-truc-dau-cuoi",
+  "task": "1.2",
+  "domain": 1,
+  "domainName": "Solution Design & Architecture",
+  "title": "Thiết kế kiến trúc đầu cuối",
+  "lede": "Một hệ thống dùng Claude gồm các tầng nhận đầu vào, xử lý, trả kết quả và vòng phản hồi. Bài nói mỗi tầng làm gì và việc nào phải đặt ở tầng nào."
+ },
+ {
+  "slug": "1-3-chon-mau-kien-truc",
+  "task": "1.3",
+  "domain": 1,
+  "domainName": "Solution Design & Architecture",
+  "title": "Chọn augmented LLM, workflow hay agent",
+  "lede": "Ba mẫu kiến trúc augmented LLM, workflow và agent khác nhau ở đâu, đánh đổi gì về độ trễ, chi phí, độ dễ đoán, và khi nào chọn mẫu nào."
+ },
+ {
+  "slug": "1-4-he-nhieu-agent",
+  "task": "1.4",
+  "domain": 1,
+  "domainName": "Solution Design & Architecture",
+  "title": "Thiết kế hệ nhiều agent và cách điều phối",
+  "lede": "Khi nào nên tách thành nhiều agent, chia việc theo context thay vì theo vai trò, giao việc cho subagent thế nào, và cần lo gì khi chạy thật."
+ },
+ {
+  "slug": "1-5-chia-nho-bai-toan",
+  "task": "1.5",
+  "domain": 1,
+  "domainName": "Solution Design & Architecture",
+  "title": "Chia nhỏ bài toán phức tạp",
+  "lede": "Các cách chia một bài toán lớn thành phần nhỏ, gồm tách phần cho code và phần cho Claude, nối chuỗi có bước kiểm, chạy song song, và tự kiểm rồi sửa."
+ },
+ {
+  "slug": "1-6-tru-cot-gia-tri",
+  "task": "1.6",
+  "domain": 1,
+  "domainName": "Solution Design & Architecture",
+  "title": "Gắn giải pháp với các trụ cột giá trị kinh doanh",
+  "lede": "Năm trụ cột giá trị efficiency, productivity, transformation, solution cost và performance SLA khác nhau ra sao, và cách dùng chúng khi so các phương án."
+ },
+ {
+  "slug": "2-1-chon-model",
+  "task": "2.1",
+  "domain": 2,
+  "domainName": "Claude Models, Prompting & Context Engineering",
+  "title": "Chọn model Claude theo đánh đổi",
+  "lede": "Bốn model Claude hiện nay khác nhau ra sao, bắt đầu với model nào, so model bằng chi phí trên mỗi việc xong, và khi nào dùng nhiều model cùng lúc."
+ },
+ {
+  "slug": "2-2-system-prompt-va-guardrail",
+  "task": "2.2",
+  "domain": 2,
+  "domainName": "Claude Models, Prompting & Context Engineering",
+  "title": "Thiết kế system prompt, template và guardrail",
+  "lede": "Viết system prompt bắt đầu bằng vai trò, chỉ dẫn rõ có lý do, biến prompt thành template dùng lại được, và đặt guardrail chống bịa, lộ prompt, jailbreak."
+ },
+ {
+  "slug": "2-3-ky-thuat-prompt",
+  "task": "2.3",
+  "domain": 2,
+  "domainName": "Claude Models, Prompting & Context Engineering",
+  "title": "Zero-shot, few-shot và chain-of-thought",
+  "lede": "Khi nào chỉ cần chỉ dẫn (zero-shot), khi nào thêm ví dụ (few-shot), khi nào cho Claude suy nghĩ trước (chain-of-thought, thinking), và cái giá của mỗi cách."
+ },
+ {
+  "slug": "2-4-context-window-va-token",
+  "task": "2.4",
+  "domain": 2,
+  "domainName": "Claude Models, Prompting & Context Engineering",
+  "title": "Tối ưu context window và quản lý token",
+  "lede": "Những gì chiếm context window, chuyện gì xảy ra khi chạm giới hạn, cách đo token trước và sau khi gọi, và cách giảm token ở từng giai đoạn của một yêu cầu."
+ },
+ {
+  "slug": "2-5-tai-su-dung-prompt",
+  "task": "2.5",
+  "domain": 2,
+  "domainName": "Claude Models, Prompting & Context Engineering",
+  "title": "Dùng lại prompt bằng caching, module và Skills",
+  "lede": "Ba cách dùng lại prompt là prompt caching cho phần đầu giống hệt nhau, prompt chia module để phần đầu ổn định, và Agent Skills cho quy trình dùng chung."
+ },
+ {
+  "slug": "3-1-cau-hinh-thua-nang-luc",
+  "task": "3.1",
+  "domain": 3,
+  "domainName": "Integration",
+  "title": "Đánh giá cấu hình tool bị thừa năng lực",
+  "lede": "Agent có quá nhiều tool thì chọn sai tool, tốn context và mở rộng bề mặt tấn công. Cách kiểm kê, giữ tool nào, gộp hay tách, và chặn bằng cấu hình."
+ },
+ {
+  "slug": "3-2-xac-thuc-va-phan-quyen",
+  "task": "3.2",
+  "domain": 3,
+  "domainName": "Integration",
+  "title": "Phân tích xác thực và phân quyền để tìm lỗ hổng",
+  "lede": "Tìm lỗ hổng xác thực và phân quyền khi dùng Claude, gồm danh tính từng người, kiểm quyền trước khi dữ liệu tới model, credential ngoài prompt, OAuth cho MCP."
+ },
+ {
+  "slug": "3-3-do-chinh-xac-va-do-tre",
+  "task": "3.3",
+  "domain": 3,
+  "domainName": "Integration",
+  "title": "Đánh đổi độ chính xác và độ trễ",
+  "lede": "Mỗi đòn bẩy giảm độ trễ như model, effort, streaming, fast mode, độ sâu truy xuất, caching tác động vào đâu, tốn gì, và chứng minh cấu hình bằng số liệu."
+ },
+ {
+  "slug": "3-4-quan-sat-o-quy-mo-lon",
+  "task": "3.4",
+  "domain": 3,
+  "domainName": "Integration",
+  "title": "Quan sát hệ thống agent ở quy mô lớn",
+  "lede": "Vì sao agent khó quan sát, cần metrics, log và trace nào, ghi gì để truy lỗi, và triển khai telemetry cho cả tổ chức mà không lộ dữ liệu hay tốn lưu trữ."
+ },
+ {
+  "slug": "3-5-rag-chunking-va-index",
+  "task": "3.5",
+  "domain": 3,
+  "domainName": "Integration",
+  "title": "Thiết kế pipeline RAG, chia chunk và đánh chỉ mục",
+  "lede": "Khi nào cần RAG, chia chunk theo hình dạng dữ liệu, contextual retrieval giảm truy xuất hỏng ra sao, và chọn embedding, chỉ mục cho một pipeline RAG."
+ },
+ {
+  "slug": "3-6-chien-luoc-truy-xuat",
+  "task": "3.6",
+  "domain": 3,
+  "domainName": "Integration",
+  "title": "Chọn chiến lược truy xuất theo dữ liệu và kiểu câu hỏi",
+  "lede": "Khớp cách truy xuất với dữ liệu và kiểu câu hỏi, từ cả kho trong prompt, embedding, BM25, truy vấn có cấu trúc, hybrid, rerank tới để agent tự tìm."
+ },
+ {
+  "slug": "3-7-chon-co-che-tich-hop",
+  "task": "3.7",
+  "domain": 3,
+  "domainName": "Integration",
+  "title": "Chọn cơ chế tích hợp MCP, API/CLI hay agent-to-agent",
+  "lede": "Khi nào gọi thẳng API, khi nào dựng MCP server, khi nào giao việc cho một agent khác, khi nào dùng Skill, và gắn MCP vào Claude Code, Messages API ra sao."
+ },
+ {
+  "slug": "3-8-nap-dan-hay-nap-het",
+  "task": "3.8",
+  "domain": 3,
+  "domainName": "Integration",
+  "title": "Nạp dần hay nạp hết context",
+  "lede": "So sánh nạp hết định nghĩa tool và hướng dẫn từ đầu với nạp dần khi cần (tool search, Skills, truy xuất đúng lúc), và cách chọn theo số tool, tần suất dùng."
+ },
+ {
+  "slug": "4-1-chi-so-danh-gia",
+  "task": "4.1",
+  "domain": 4,
+  "domainName": "Evaluation, Testing & Optimization",
+  "title": "Định nghĩa chỉ số đánh giá",
+  "lede": "Chọn chỉ số cho độ chính xác, độ trễ, chi phí, an toàn và bảo mật của hệ thống dùng Claude, mỗi chỉ số có ngưỡng riêng và gắn đúng với yêu cầu đã nêu."
+ },
+ {
+  "slug": "4-2-bo-du-lieu-danh-gia",
+  "task": "4.2",
+  "domain": 4,
+  "domainName": "Evaluation, Testing & Optimization",
+  "title": "Thiết kế bộ dữ liệu đánh giá và khung kiểm thử",
+  "lede": "Dựng bộ dữ liệu đánh giá sát việc thật, có ca biên và ca tấn công, chọn chấm bằng code, LLM hay người, và phối hợp nhiều loại kiểm thử trong một khung."
+ },
+ {
+  "slug": "4-3-ab-test-va-cai-tien",
+  "task": "4.3",
+  "domain": 4,
+  "domainName": "Evaluation, Testing & Optimization",
+  "title": "A/B test và cải tiến lặp",
+  "lede": "So prompt hay model mới với bản đang chạy, từ giả thuyết, cỡ mẫu, so offline rồi thử thật, đọc kết quả theo nhóm, tới đưa lên và quay lui theo phiên bản."
+ },
+ {
+  "slug": "4-4-chan-doan-su-co",
+  "task": "4.4",
+  "domain": 4,
+  "domainName": "Evaluation, Testing & Optimization",
+  "title": "Chẩn đoán sự cố của hệ thống dùng Claude",
+  "lede": "Khoanh lỗi vào tầng truy xuất, prompt, tool hay model trước khi sửa, xác nhận bịa thông tin, rồi so với bản tốt gần nhất, chạy lại và tái hiện để tìm gốc."
+ },
+ {
+  "slug": "4-5-toi-uu-chi-phi-va-do-tre",
+  "task": "4.5",
+  "domain": 4,
+  "domainName": "Evaluation, Testing & Optimization",
+  "title": "Tối ưu token, độ trễ và chi phí so với hiệu năng",
+  "lede": "Thứ tự tối ưu chi phí và độ trễ, gồm đo trước, lấy các khoản tiết kiệm không mất chất lượng, rồi mới đánh đổi effort và model, và đặt trần chi tiêu."
+ },
+ {
+  "slug": "4-6-giam-sat-van-hanh",
+  "task": "4.6",
+  "domain": 4,
+  "domainName": "Evaluation, Testing & Optimization",
+  "title": "Giám sát hiệu năng bằng log và công cụ quan sát",
+  "lede": "Đặc tả cần đo gì trước khi gắn đo, bật đúng tín hiệu OpenTelemetry, đọc trace tìm chỗ chậm, theo dõi chất lượng và chi phí, nhất là sau khi đổi model."
+ },
+ {
+  "slug": "5-1-guardrail-va-kiem-soat",
+  "task": "5.1",
+  "domain": 5,
+  "domainName": "Governance, Safety & Risk Management",
+  "title": "Triển khai guardrail và kiểm soát an toàn",
+  "lede": "Guardrail nhiều lớp cho ứng dụng dùng Claude, từ xác định kẻ tấn công, lọc đầu vào, xử lý nội dung không tin cậy, kiểm đầu ra, tới xử lý khi model từ chối."
+ },
+ {
+  "slug": "5-2-rui-ro-va-cach-hong",
+  "task": "5.2",
+  "domain": 5,
+  "domainName": "Governance, Safety & Risk Management",
+  "title": "Nhận diện rủi ro, giới hạn và kiểu hỏng của hệ thống LLM",
+  "lede": "Những kiểu hỏng chỉ hệ thống LLM mới có, rủi ro khi để agent tự hành động, thứ tự đánh giá rủi ro, và vì sao phải thiết kế cho trường hợp phòng thủ thất bại."
+ },
+ {
+  "slug": "5-3-nguoi-duyet-trong-vong-lap",
+  "task": "5.3",
+  "domain": 5,
+  "domainName": "Governance, Safety & Risk Management",
+  "title": "Áp dụng người duyệt trong vòng lặp",
+  "lede": "Đặt người duyệt ở đâu, giao việc theo loại rủi ro, lấy mẫu khi không duyệt hết, viết tiêu chí chuyển người, và cấu hình điểm duyệt trong agent cho đúng chỗ."
+ },
+ {
+  "slug": "5-4-tuan-thu-quy-dinh",
+  "task": "5.4",
+  "domain": 5,
+  "domainName": "Governance, Safety & Risk Management",
+  "title": "Bảo đảm tuân thủ quy định như GDPR, HIPAA, FedRAMP",
+  "lede": "Xác định quy định áp dụng, ai xử lý dữ liệu, dữ liệu giữ bao lâu, ZDR khác HIPAA readiness ra sao, DPA cho GDPR, và kiểm soát nào phải nằm ở ứng dụng."
+ },
+ {
+  "slug": "5-5-dao-duc-ai",
+  "task": "5.5",
+  "domain": 5,
+  "domainName": "Governance, Safety & Risk Management",
+  "title": "Đạo đức AI, gồm thiên lệch, công bằng và minh bạch",
+  "lede": "Thiên lệch vào hệ thống dùng Claude từ đâu, đo công bằng giữa các nhóm thế nào, vì sao khớp quyết định của người chưa đủ, và minh bạch với người dùng ra sao."
+ },
+ {
+  "slug": "6-1-khao-sat-yeu-cau",
+  "task": "6.1",
+  "domain": 6,
+  "domainName": "Stakeholder Communication & Lifecycle Management",
+  "title": "Khảo sát có cấu trúc và thu thập yêu cầu",
+  "lede": "Biến yêu cầu mơ hồ thành bản mô tả có người dùng, nhu cầu, ràng buộc, tiêu chí đạt và bài kiểm nghiệm thu viết trước, kèm cách tìm yêu cầu chưa ai nói."
+ },
+ {
+  "slug": "6-2-trinh-bay-quyet-dinh",
+  "task": "6.2",
+  "domain": 6,
+  "domainName": "Stakeholder Communication & Lifecycle Management",
+  "title": "Trình bày quyết định kiến trúc và các đánh đổi",
+  "lede": "Trình bày quyết định kiến trúc cho nhiều người nghe, gồm quyết định đặt trước, chi phí mỗi việc xong, phương án đã loại, rủi ro còn lại và lúc xem lại."
+ },
+ {
+  "slug": "6-3-ky-vong-va-sla",
+  "task": "6.3",
+  "domain": 6,
+  "domainName": "Stakeholder Communication & Lifecycle Management",
+  "title": "Vòng phản hồi, kỳ vọng của các bên và SLA",
+  "lede": "Cách viết một SLA đo được, dựa SLA trên đúng những gì Claude API cam kết, xử lý lo ngại và yêu cầu phát sinh, và giữ vòng phản hồi có nhịp với các bên."
+ },
+ {
+  "slug": "6-4-tai-lieu-kien-truc",
+  "task": "6.4",
+  "domain": 6,
+  "domainName": "Stakeholder Communication & Lifecycle Management",
+  "title": "Viết tài liệu kiến trúc và hướng dẫn triển khai",
+  "lede": "Viết tài liệu kiến trúc cho giải pháp dùng Claude, gồm người đọc, những gì phải chốt, ADR, gói bàn giao có runbook, và CLAUDE.md cho đội triển khai."
+ },
+ {
+  "slug": "6-5-vong-doi-du-an",
+  "task": "6.5",
+  "domain": 6,
+  "domainName": "Stakeholder Communication & Lifecycle Management",
+  "title": "Đồng hành qua các giai đoạn của vòng đời giải pháp",
+  "lede": "Các giai đoạn khảo sát, thiết kế, bàn giao, giám sát, cải tiến giao gì cho nhau, khi nào quay lại thiết kế, và làm gì khi model bị ngừng."
+ },
+ {
+  "slug": "7-1-cau-hinh-claude-code-cho-team",
+  "task": "7.1",
+  "domain": 7,
+  "domainName": "Developer Productivity & Operational Enablement",
+  "title": "Cấu hình Claude Code cho cả đội",
+  "lede": "Các nơi đặt cấu hình Claude Code, cái nào thắng khi trùng, viết luật quyền, đưa thứ bắt buộc vào managed settings, và triển khai cho đội theo từng bước."
+ },
+ {
+  "slug": "7-2-quy-trinh-lap-trinh-voi-ai",
+  "task": "7.2",
+  "domain": 7,
+  "domainName": "Developer Productivity & Operational Enablement",
+  "title": "Cải thiện quy trình lập trình bằng công cụ AI",
+  "lede": "Đặt Claude Code đúng chỗ trong quy trình của đội, làm theo vòng khám phá, lập kế hoạch, làm, kiểm, đóng gói việc lặp lại, giữ người duyệt khi vào CI."
+ },
+ {
+  "slug": "7-3-go-loi-va-su-co",
+  "task": "7.3",
+  "domain": 7,
+  "domainName": "Developer Productivity & Operational Enablement",
+  "title": "Gỡ lỗi và xử lý sự cố vận hành Claude Code",
+  "lede": "Gỡ lỗi Claude Code từ triệu chứng, kiểm cái gì đã nạp, xử lý ba trạng thái hỏng của MCP server, khoanh vùng bằng chế độ an toàn, và biết lỗi nào tự thử lại."
+ }
+]

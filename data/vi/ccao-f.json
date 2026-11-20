@@ -1,0 +1,23 @@
+{
+ "ccao-f-p1": {
+  "q": "Claude tóm tắt một hợp đồng với nhà cung cấp và cho biết điều khoản chấm dứt yêu cầu báo trước 60 ngày, trích dẫn mục 14.2. Bạn sắp gửi bản tóm tắt cho bộ phận pháp lý. Bạn nên làm gì **trước tiên**?",
+  "opts": {
+   "A": "Trích dẫn trông rất cụ thể vẫn có thể bị bịa ra (hallucination). Tài liệu sắp gửi bộ phận pháp lý thì bắt buộc phải đối chiếu với văn bản gốc, nên việc đầu tiên là mở mục 14.2 ra kiểm tra.",
+   "B": "Có số mục cụ thể không chứng minh thông tin là đúng. Claude hoàn toàn có thể trích một mục không tồn tại, hoặc ghi sai nội dung của mục đó.",
+   "C": "Mức tự tin mà Claude tự báo không phải tín hiệu đáng tin. Model có thể trả lời \"rất chắc chắn\" ngay cả khi đang sai.",
+   "D": "Viết lại cho trang trọng hơn chỉ đổi câu chữ. Nếu con số 60 ngày sai thì bản viết lại vẫn sai y như cũ."
+  },
+  "tip": {
+   "title": "Đề có \"first\" + output sắp gửi đi → chọn kiểm chứng với nguồn gốc",
+   "body": [
+    "**Dạng VERIFY FIRST:** Claude đưa ra con số, trích dẫn hoặc tên riêng, và kết quả sắp được dùng cho việc quan trọng (pháp lý, tài chính, gửi khách hàng). Gặp dạng này thì đáp án đúng gần như luôn là **mở tài liệu gốc ra đối chiếu**.",
+    "Các bẫy hay gặp: tin vì trông cụ thể, hỏi lại chính Claude, chạy lại nhiều lần, sửa câu chữ cho hay hơn. Không cách nào trong số đó kiểm tra được nội dung có đúng hay không."
+   ]
+  },
+  "ask": {
+   "title": "Kiểm chứng output trước khi gửi cho bộ phận pháp lý",
+   "body": "Bạn có bản tóm tắt hợp đồng do Claude viết, trong đó có trích dẫn **mục 14.2**. Đề hỏi việc phải làm **đầu tiên**, trước khi bản tóm tắt được gửi đi."
+  },
+  "lesson": "2-3-kiem-chung-thong-tin"
+ }
+}

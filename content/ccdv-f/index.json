@@ -1,0 +1,210 @@
+[
+ {
+  "slug": "on-nhanh",
+  "task": null,
+  "domain": null,
+  "domainName": null,
+  "title": "Tổng quan CCDV-F",
+  "lede": "Cả chứng chỉ CCDV-F trên một trang, giải thích ngay tại chỗ, kèm sơ đồ luồng, bẫy đề và bảng chọn nhanh. Chưa học bài nào vẫn đọc được."
+ },
+ {
+  "slug": "1-1-workflow-hay-agent",
+  "task": "1.1",
+  "domain": 1,
+  "domainName": "Agents and Workflows",
+  "title": "Workflow hay agent, và khi nào chia cho subagent",
+  "lede": "Chọn workflow hay agent theo việc ai quyết định bước tiếp theo, dựng orchestrator giao việc cho subagent, và biết khi nào chia nhiều agent thì đáng tiền."
+ },
+ {
+  "slug": "1-2-cach-dung-agent",
+  "task": "1.2",
+  "domain": 1,
+  "domainName": "Agents and Workflows",
+  "title": "Dựng agent với Claude - tự viết vòng lặp, Agent SDK hay Managed Agents",
+  "lede": "So sánh ba cách dựng agent với Claude (Client SDK, Agent SDK, Managed Agents), chọn nơi chạy agent, và dùng hook cho những việc phải xảy ra chắc chắn."
+ },
+ {
+  "slug": "1-3-mau-agent-va-framework",
+  "task": "1.3",
+  "domain": 1,
+  "domainName": "Agents and Workflows",
+  "title": "Các mẫu agent và framework - vòng lặp tool, subagent, bộ nhớ, context",
+  "lede": "Năm mẫu workflow, ai chạy vòng lặp tool, subagent để giữ context gọn, bộ nhớ sống qua nhiều phiên, checkpoint cho việc dài, và khi nào dùng framework."
+ },
+ {
+  "slug": "2-1-tu-yeu-cau-den-cau-hinh",
+  "task": "2.1",
+  "domain": 2,
+  "domainName": "Applications and Integration",
+  "title": "Từ yêu cầu nghiệp vụ đến yêu cầu chức năng và hạ tầng",
+  "lede": "Đọc mục tiêu nghiệp vụ thành yêu cầu chức năng và hạ tầng, rồi đổi từng yêu cầu thành lựa chọn - model, gọi tức thì hay theo lô, nền tảng, nơi xử lý dữ liệu."
+ },
+ {
+  "slug": "2-2-vong-doi-he-thong",
+  "task": "2.2",
+  "domain": 2,
+  "domainName": "Applications and Integration",
+  "title": "Vòng đời hệ thống - vận hành, model hết hạn và thay đổi phiên bản API",
+  "lede": "Sau khi ship là vận hành và bảo trì. Bài này nói vòng đời của model Claude, cách đổi model và tham số trước hạn, và kiểm tác động lên hệ thống phía sau."
+ },
+ {
+  "slug": "2-3-co-che-messages-api",
+  "task": "2.3",
+  "domain": 2,
+  "domainName": "Applications and Integration",
+  "title": "Cơ chế Messages API - hội thoại, streaming, ảnh, thinking, gọi theo lô",
+  "lede": "Một lần gọi Messages API gửi gì và nhận gì, giữ hội thoại ở đâu, khi nào stream, gửi ảnh ra sao, trả thinking về thế nào, và khi nào dùng Batch API."
+ },
+ {
+  "slug": "2-4-nen-tang-ky-thuat-phan-mem",
+  "task": "2.4",
+  "domain": 2,
+  "domainName": "Applications and Integration",
+  "title": "Nền tảng kỹ thuật phần mềm khi tích hợp Claude",
+  "lede": "Gọi Claude như một REST API trả JSON, dùng async client trong service bất đồng bộ, và giữ đủ kỷ luật phần mềm - version control, review, test, CI, refactor."
+ },
+ {
+  "slug": "2-5-thiet-ke-ung-dung-claude",
+  "task": "2.5",
+  "domain": 2,
+  "domainName": "Applications and Integration",
+  "title": "Thiết kế ứng dụng Claude - giao diện, ranh giới nội dung, schema, phiên, plugin",
+  "lede": "Cùng một prompt chạy khác nhau ở Claude Code, Agent SDK và API. Đặt chỉ dẫn và dữ liệu đúng chỗ, thiết kế schema đầu ra, quản lý phiên và plugin."
+ },
+ {
+  "slug": "2-6-quan-ly-cau-hinh",
+  "task": "2.6",
+  "domain": 2,
+  "domainName": "Applications and Integration",
+  "title": "Quản lý cấu hình - CLAUDE.md, settings.json, ghim model, phiên bản prompt, plugin",
+  "lede": "Đặt CLAUDE.md và settings.json đúng tầng, đưa vào version control, ghim model ID, quản lý phiên bản prompt có review, và ghim phiên bản plugin phụ thuộc."
+ },
+ {
+  "slug": "3-1-van-hanh-claude-code",
+  "task": "3.1",
+  "domain": 3,
+  "domainName": "Claude Code",
+  "title": "Vận hành Claude Code - thành phần, phiên, headless, auto mode",
+  "lede": "Các thành phần của Claude Code (rule, skill, command, agent, memory), khởi tạo repo bằng /init, quản lý phiên, chạy headless trong CI và chọn chế độ quyền."
+ },
+ {
+  "slug": "4-1-go-loi-va-xu-ly-loi",
+  "task": "4.1",
+  "domain": 4,
+  "domainName": "Eval, Testing, and Debugging",
+  "title": "Gỡ lỗi và xử lý lỗi - loại lỗi, cách phục hồi, đọc trace",
+  "lede": "Phân loại lỗi Claude API để biết sửa yêu cầu hay thử lại, chọn cách phục hồi, đọc trace tìm kiểu hỏng, và khoanh lỗi ở lớp tích hợp hay ở đầu ra của model."
+ },
+ {
+  "slug": "5-1-nen-tang-llm",
+  "task": "5.1",
+  "domain": 5,
+  "domainName": "Model Selection and Optimization",
+  "title": "Nền tảng LLM - token, context window, lấy mẫu, thinking và ví dụ trong prompt",
+  "lede": "Token là gì, model sinh chữ ra sao và vì sao có lúc bịa, context window chứa gì, vì sao cùng prompt ra kết quả khác, và thinking, effort, fast mode làm gì."
+ },
+ {
+  "slug": "5-2-goi-api-qua-sdk-va-rest",
+  "task": "5.2",
+  "domain": 5,
+  "domainName": "Model Selection and Optimization",
+  "title": "Gọi Claude qua REST và SDK - endpoint, header, phản hồi, WebSocket",
+  "lede": "Các endpoint của Claude API, header một lời gọi HTTP thô phải có, SDK làm thêm gì trên REST, đọc phản hồi và lỗi, và khi nào dùng SSE hay WebSocket."
+ },
+ {
+  "slug": "5-3-chon-model",
+  "task": "5.3",
+  "domain": 5,
+  "domainName": "Model Selection and Optimization",
+  "title": "Chọn model Claude - năng lực, độ trễ, chi phí và thay đổi giữa các bản",
+  "lede": "Opus, Sonnet, Haiku và Fable hợp với việc gì, cân chất lượng với độ trễ và chi phí cùng lúc, và nâng cấp model an toàn khi bản mới đổi hành vi."
+ },
+ {
+  "slug": "5-4-chi-phi-va-token",
+  "task": "5.4",
+  "domain": 5,
+  "domainName": "Model Selection and Optimization",
+  "title": "Quản lý chi phí và token - giá, dự toán, prompt caching, theo dõi mức dùng",
+  "lede": "Token vào và ra có giá khác nhau, các hệ số đổi giá, dự toán chi phí, đặt điểm cache cho phần prompt lặp lại, đếm token và theo dõi chi phí theo tính năng."
+ },
+ {
+  "slug": "6-1-quan-ly-context",
+  "task": "6.1",
+  "domain": 6,
+  "domainName": "Prompt and Context Engineering",
+  "title": "Context engineering - chống trôi và phình context, cô lập bằng subagent",
+  "lede": "Context engineering khác prompt engineering ở đâu, vì sao context dài làm Claude kém đi, cách cắt tỉa kết quả tool, nén hội thoại, cô lập bằng subagent."
+ },
+ {
+  "slug": "6-2-viet-prompt",
+  "task": "6.2",
+  "domain": 6,
+  "domainName": "Prompt and Context Engineering",
+  "title": "Viết prompt - chỉ dẫn rõ, ví dụ mẫu, đặt đúng chỗ, ràng buộc đầu ra, sửa có đo",
+  "lede": "Viết chỉ dẫn rõ kèm lý do, dùng ví dụ mẫu, đặt chỉ dẫn ở system prompt hay lượt user, ràng buộc định dạng đầu ra, làm sạch đầu vào, sửa prompt bằng eval."
+ },
+ {
+  "slug": "6-3-xu-ly-output",
+  "task": "6.3",
+  "domain": 6,
+  "domainName": "Prompt and Context Engineering",
+  "title": "Xử lý đầu ra - structured outputs, kiểm tra, đọc phòng thủ, hoài nghi câu trả lời tự tin",
+  "lede": "Lấy đầu ra đúng khuôn bằng structured outputs hay strict tool use, kiểm trước khi chuyển đi, đọc phòng thủ, và không coi câu trả lời tự tin là sự thật."
+ },
+ {
+  "slug": "7-1-bao-mat-ung-dung-ai",
+  "task": "7.1",
+  "domain": 7,
+  "domainName": "Security and Safety",
+  "title": "Bảo mật ứng dụng AI - prompt injection, jailbreak, nội dung không tin cậy, dữ liệu nhạy cảm",
+  "lede": "Các mối đe doạ riêng của ứng dụng dùng Claude, cách chặn jailbreak, đưa nội dung không tin cậy vào đúng chỗ, và lọc dữ liệu nhạy cảm tại ranh giới ứng dụng."
+ },
+ {
+  "slug": "7-2-guardrail-nhieu-lop",
+  "task": "7.2",
+  "domain": 7,
+  "domainName": "Security and Safety",
+  "title": "Guardrail nhiều lớp và triển khai an toàn - chính sách nội dung, quyền tối thiểu, định danh",
+  "lede": "Xếp guardrail nhiều lớp để một lớp hỏng không gây hại, thực thi chính sách nội dung bằng kiểm tra tất định, và thiết kế an toàn từ đầu với quyền tối thiểu."
+ },
+ {
+  "slug": "7-3-hook-chan-hanh-dong-nguy-hiem",
+  "task": "7.3",
+  "domain": 7,
+  "domainName": "Security and Safety",
+  "title": "Hook của Claude - chặn hành động phá huỷ một cách tất định",
+  "lede": "Hook làm guardrail tất định - sự kiện nào chặn được hành động, nhắm hook bằng matcher và if, các loại handler, đặt cấu hình ở đâu, chỉ gắn cho việc rủi ro."
+ },
+ {
+  "slug": "7-4-api-key-va-bi-mat",
+  "task": "7.4",
+  "domain": 7,
+  "domainName": "Security and Safety",
+  "title": "Định danh, khoá API và bí mật - loại khoá, lưu trữ, xoay vòng, xử lý khi lộ",
+  "lede": "Chọn loại khoá API theo danh tính nó mang, đọc lỗi 401 và 403, lưu khoá ngoài source code, mỗi môi trường một khoá, đặt hạn, xoay vòng, và xử lý khi khoá bị lộ."
+ },
+ {
+  "slug": "8-1-viet-tool",
+  "task": "8.1",
+  "domain": 8,
+  "domainName": "Tools and MCPs",
+  "title": "Viết tool cho Claude - chỗ tool chạy, schema, mô tả, lỗi và bộ tool gọn",
+  "lede": "Tool chạy ở đâu thì bạn phải làm gì, một định nghĩa tool gồm những gì, viết mô tả để Claude chọn đúng, kiểm tham số và trả lỗi có cấu trúc, và dựng bộ tool gọn."
+ },
+ {
+  "slug": "8-2-viet-mcp-server",
+  "task": "8.2",
+  "domain": 8,
+  "domainName": "Tools and MCPs",
+  "title": "Viết MCP server - host, client, server, ba primitive và hai cách giao tiếp",
+  "lede": "Vai trò host, client, server trong MCP, ba thứ một server cung cấp (tool, resource, prompt), chọn stdio hay Streamable HTTP, và đưa server tới nhiều ứng dụng."
+ },
+ {
+  "slug": "8-3-tool-skill-hay-mcp",
+  "task": "8.3",
+  "domain": 8,
+  "domainName": "Tools and MCPs",
+  "title": "Tool có sẵn, tool tự viết, skill hay MCP - chọn cách mở rộng Claude",
+  "lede": "Phân biệt tool có sẵn, tool tự viết, skill và MCP server theo ai viết schema, code chạy ở đâu, tốn bao nhiêu context, và chọn theo phạm vi, nhu cầu dùng lại."
+ }
+]

@@ -1,0 +1,2375 @@
+{
+ "code": "ccao-f",
+ "name": "Associate – Foundations",
+ "examCode": "CCAO-F",
+ "facts": {
+  "questions": "60 multiple-choice and multiple-response items",
+  "time": "120 minutes, with about 135 minutes of total seat time",
+  "passing": "720 on a scaled range of 100 to 1,000",
+  "fee": "99 USD, before any [partner-tier discount](../guide/faq.md#pricing-and-discounts)",
+  "validity": "12 months from the date you earn it",
+  "prerequisites": "None. No course is required"
+ },
+ "mockMinutes": 30,
+ "domains": [
+  {
+   "n": 1,
+   "name": "Prompting and Task Execution",
+   "weight": "14%"
+  },
+  {
+   "n": 2,
+   "name": "Output Evaluation and Validation",
+   "weight": "21%"
+  },
+  {
+   "n": 3,
+   "name": "Product and Model Selection",
+   "weight": "12%"
+  },
+  {
+   "n": 4,
+   "name": "Workflow Integration and Solution Design",
+   "weight": "16%"
+  },
+  {
+   "n": 5,
+   "name": "Configuration and Knowledge Management",
+   "weight": "12%"
+  },
+  {
+   "n": 6,
+   "name": "Governance, Risk, and Responsible Use",
+   "weight": "15%"
+  },
+  {
+   "n": 7,
+   "name": "Troubleshooting and Optimization",
+   "weight": "10%"
+  }
+ ],
+ "questions": [
+  {
+   "id": "ccao-f-p1",
+   "set": "practice",
+   "n": 1,
+   "domain": 2,
+   "q": "Claude summarizes a vendor contract for you and states that the termination clause requires 60 days' notice, citing section 14.2. You are about to send the summary to your legal team. What should you do first?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Check section 14.2 of the contract and confirm the notice period before sending"
+    },
+    {
+     "k": "B",
+     "t": "Send it, since Claude cited a specific section"
+    },
+    {
+     "k": "C",
+     "t": "Ask Claude how confident it is and send if the confidence is high"
+    },
+    {
+     "k": "D",
+     "t": "Rephrase the summary in more formal language, then send"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Specific-looking citations can be fabricated, and material bound for legal review requires verification against the source document. A specific citation is not evidence of accuracy (B), self-reported confidence is not a reliability signal (C), and rewording does nothing about correctness (D)."
+  },
+  {
+   "id": "ccao-f-p2",
+   "set": "practice",
+   "n": 2,
+   "domain": 2,
+   "q": "You ask Claude to draft a competitive analysis, and the output presents market share figures for three competitors without sources. The figures look plausible. What is the appropriate handling?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Include the figures, since plausibility is sufficient for internal documents"
+    },
+    {
+     "k": "B",
+     "t": "Verify each figure against a market research source and keep only what checks out, with citations"
+    },
+    {
+     "k": "C",
+     "t": "Delete the figures and note that no market data was available"
+    },
+    {
+     "k": "D",
+     "t": "Ask Claude to regenerate until the numbers stabilize across runs"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Unsourced quantitative claims are a classic hallucination surface; the professional move is verification against an authoritative source, keeping what survives. Plausibility is not accuracy (A), deleting everything discards genuinely verifiable material (C), and consistency across regenerations does not establish truth (D)."
+  },
+  {
+   "id": "ccao-f-p3",
+   "set": "practice",
+   "n": 3,
+   "domain": 1,
+   "q": "You need Claude to produce a quarterly report from meeting notes, a spreadsheet summary, and last quarter's report. The first attempt misses the required structure and tone. What is the most effective next step?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Retry the identical prompt, since outputs vary between runs"
+    },
+    {
+     "k": "B",
+     "t": "Switch to the most capable model and resend the same prompt"
+    },
+    {
+     "k": "C",
+     "t": "Rewrite the prompt to state the role, the required sections in order, the tone, and attach last quarter's report as a format example"
+    },
+    {
+     "k": "D",
+     "t": "Break the work into forty single-sentence prompts"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Structure, explicit constraints, and an example of the target format are the most effective fixes for a formatting and tone miss. Re-rolling (A) leaves the deficiency in place, a larger model does not learn unstated requirements (B), and over-fragmentation destroys coherence (D)."
+  },
+  {
+   "id": "ccao-f-p4",
+   "set": "practice",
+   "n": 4,
+   "domain": 1,
+   "q": "A colleague's prompt asks Claude to \"analyze our customer feedback and fix the problems.\" The output is generic. Which revision best applies task decomposition?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Add \"be specific and detailed\" to the prompt"
+    },
+    {
+     "k": "B",
+     "t": "Ask the same question three times and merge the answers"
+    },
+    {
+     "k": "C",
+     "t": "Paste more feedback into the same prompt"
+    },
+    {
+     "k": "D",
+     "t": "Ask first for a categorized list of complaint themes with counts, then for the top three by frequency, then for a proposed action per theme"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Decomposition turns a vague compound request into a sequence of verifiable steps, each with a concrete output. Vague intensifiers (A) do not add structure, repetition (B) multiplies the vagueness, and more input without more structure (C) usually worsens focus."
+  },
+  {
+   "id": "ccao-f-p5",
+   "set": "practice",
+   "n": 5,
+   "domain": 3,
+   "q": "Your team drafts hundreds of short, routine customer replies daily, and cost and speed matter more than nuance. Occasionally a complex escalation needs careful reasoning. What is the sound model strategy?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Use the most capable model for everything to maximize quality"
+    },
+    {
+     "k": "B",
+     "t": "Use the fastest, lowest-cost model for routine replies and switch to a more capable model for the complex escalations"
+    },
+    {
+     "k": "C",
+     "t": "Use the fastest model for everything, including escalations"
+    },
+    {
+     "k": "D",
+     "t": "Alternate models randomly to balance the load"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "**A** wastes cost and latency budget on routine work; **C** underserves exactly the cases that need depth; **D** matches nothing to anything. **B** aligns model choice with task requirements in both directions, which is the tested judgment."
+  },
+  {
+   "id": "ccao-f-p6",
+   "set": "practice",
+   "n": 6,
+   "domain": 4,
+   "q": "Your monthly close process involves collecting figures, drafting a variance commentary, and formatting a board pack. You want Claude to help durably, not just once. What is the strongest approach?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Create a Project with the commentary conventions and prior packs as knowledge, plus instructions for the structure, and run each close inside it"
+    },
+    {
+     "k": "B",
+     "t": "Paste everything into a fresh chat each month and ask for the pack"
+    },
+    {
+     "k": "C",
+     "t": "Ask Claude to do the whole close autonomously, including pulling the figures"
+    },
+    {
+     "k": "D",
+     "t": "Use Claude only for spellchecking the final pack"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Durable, repeated workflows belong in a Project where instructions and knowledge persist and improve. Re-pasting monthly (B) rebuilds context by hand every time, full autonomy over financial figures without review (C) ignores appropriate-use judgment, and spellchecking (D) forfeits the actual value."
+  },
+  {
+   "id": "ccao-f-p7",
+   "set": "practice",
+   "n": 7,
+   "domain": 4,
+   "q": "A department head asks you whether Claude could \"handle our customer onboarding.\" What is the right first move?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Say yes and start building immediately"
+    },
+    {
+     "k": "B",
+     "t": "Map the onboarding steps, identify which involve drafting, summarizing, or lookup that Claude does well, and which need human judgment or system access it does not have"
+    },
+    {
+     "k": "C",
+     "t": "Say no, since onboarding involves customer data"
+    },
+    {
+     "k": "D",
+     "t": "Forward the question to Anthropic support"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "The Associate's core skill is translating a business ask into a realistic division of labor: where Claude adds value, where humans stay, and what the limits are. Unqualified yes (A) and unqualified no (C) both skip the analysis, and support (D) does not know your process."
+  },
+  {
+   "id": "ccao-f-p8",
+   "set": "practice",
+   "n": 8,
+   "domain": 5,
+   "q": "Your team's Project answers policy questions from an uploaded handbook. HR publishes a new handbook version. What must happen for the Project to stay trustworthy?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Nothing; Claude will find the new version on its own"
+    },
+    {
+     "k": "B",
+     "t": "Add the new handbook alongside the old one so both are available"
+    },
+    {
+     "k": "C",
+     "t": "Replace the outdated handbook in the Project knowledge and spot-check answers against the new version"
+    },
+    {
+     "k": "D",
+     "t": "Tell users to mention the new version in every prompt"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Project knowledge is maintained, not self-updating; stale sources are a quality defect the configurer owns. Claude does not fetch your internal documents on its own (A), keeping both versions invites contradictory answers (B), and pushing the burden onto every user (D) is not maintenance."
+  },
+  {
+   "id": "ccao-f-p9",
+   "set": "practice",
+   "n": 9,
+   "domain": 6,
+   "q": "You want Claude to analyze churn patterns in an export that includes customer names, emails, and account numbers. Company policy forbids sharing personal data with external tools. What is the correct action?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Upload the file, since churn analysis is an internal purpose"
+    },
+    {
+     "k": "B",
+     "t": "Upload it but instruct Claude to ignore the personal columns"
+    },
+    {
+     "k": "C",
+     "t": "Abandon the analysis"
+    },
+    {
+     "k": "D",
+     "t": "Remove or pseudonymize the identifying columns first, then upload and analyze"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Make the task compliant, then do it: the identifiers are not needed for pattern analysis. Purpose does not override policy (A), an instruction to ignore data is not a control because the data still left the boundary (B), and abandoning the work (C) is unnecessary when anonymization enables it."
+  },
+  {
+   "id": "ccao-f-p10",
+   "set": "practice",
+   "n": 10,
+   "domain": 7,
+   "q": "A prompt that worked well for weeks now produces off-target answers after your team added many new documents to the Project. What is the best first diagnostic?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Check whether the newly added knowledge is diluting or contradicting the sources the answers should draw from"
+    },
+    {
+     "k": "B",
+     "t": "Rewrite the prompt from scratch"
+    },
+    {
+     "k": "C",
+     "t": "Switch to a larger model"
+    },
+    {
+     "k": "D",
+     "t": "Delete the Project and start over"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "The change that coincided with the regression is the first suspect: new knowledge can crowd out or conflict with the relevant sources. Rewriting the prompt (B), upgrading the model (C), or rebuilding everything (D) all treat symptoms before diagnosing the actual change."
+  },
+  {
+   "id": "ccao-f-p11",
+   "set": "practice",
+   "n": 11,
+   "domain": 2,
+   "q": "Claude produces a competitor comparison table where one row is marked “data unavailable” and the rest are filled in. A colleague asks you to delete the empty row so the table looks complete. What is the right response?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Delete the row, since an incomplete table undermines confidence"
+    },
+    {
+     "k": "B",
+     "t": "Keep the row and its label, because the gap is itself a finding the reader needs"
+    },
+    {
+     "k": "C",
+     "t": "Fill the row with a reasonable estimate and mark it as approximate"
+    },
+    {
+     "k": "D",
+     "t": "Ask Claude to search harder until every row is populated"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "A declared gap is information: it tells the reader where the analysis is thin. Deleting it (A) hides a limitation, an unmarked estimate (C) manufactures data, and pressing the model to fill the cell (D) invites fabrication rather than retrieval."
+  },
+  {
+   "id": "ccao-f-p12",
+   "set": "practice",
+   "n": 12,
+   "domain": 2,
+   "q": "Two runs of the same prompt give different figures for the same metric. Which conclusion is supported?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The higher figure is more likely correct because the model found more evidence"
+    },
+    {
+     "k": "B",
+     "t": "The figures should be averaged to reduce variance"
+    },
+    {
+     "k": "C",
+     "t": "Neither figure is established, and the metric must be checked against the source"
+    },
+    {
+     "k": "D",
+     "t": "The prompt is fine and the model needs a longer context window"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Disagreement between runs shows the figure is not grounded in a reliable source, so neither is established. Preferring the larger number (A) is arbitrary, averaging (B) treats two unverified numbers as measurements, and context length (D) is unrelated to whether the figure is true."
+  },
+  {
+   "id": "ccao-f-p13",
+   "set": "practice",
+   "n": 13,
+   "domain": 2,
+   "q": "You ask Claude to extract every payment term from a 40-page contract. The output lists four terms, cleanly formatted. What is the first check?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Confirm the formatting is consistent across the four entries"
+    },
+    {
+     "k": "B",
+     "t": "Ask Claude whether it found all of them"
+    },
+    {
+     "k": "C",
+     "t": "Run it again at a higher temperature to surface more terms"
+    },
+    {
+     "k": "D",
+     "t": "Read the contract's payment sections to confirm no term was omitted"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Extraction fails by omission more often than by error, and a tidy output gives no signal about completeness. Formatting (A) is cosmetic, self-report (B) is not evidence, and temperature (C) changes phrasing rather than recall."
+  },
+  {
+   "id": "ccao-f-p14",
+   "set": "practice",
+   "n": 14,
+   "domain": 2,
+   "q": "A summary you commissioned states a conclusion that contradicts your own reading of the source. What should you do?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Locate the passage the conclusion rests on and compare it against both readings"
+    },
+    {
+     "k": "B",
+     "t": "Defer to the summary, since the model read the whole document"
+    },
+    {
+     "k": "C",
+     "t": "Defer to your reading and treat the summary as wrong"
+    },
+    {
+     "k": "D",
+     "t": "Ask a colleague which of the two sounds more plausible"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "The disagreement is resolvable by returning to the passage in question, which settles it on evidence. Deferring either way (B, C) decides without checking, and canvassing opinion (D) substitutes plausibility for the source."
+  },
+  {
+   "id": "ccao-f-p15",
+   "set": "practice",
+   "n": 15,
+   "domain": 2,
+   "q": "Claude produces a well-argued recommendation with no citations, on a topic where you have no expertise. What is the appropriate use of it?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Adopt it, since the reasoning is internally consistent"
+    },
+    {
+     "k": "B",
+     "t": "Treat it as a hypothesis to test against sources before acting"
+    },
+    {
+     "k": "C",
+     "t": "Discard it, because unsourced output has no value"
+    },
+    {
+     "k": "D",
+     "t": "Ask for citations and adopt whatever comes back"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Unsourced reasoning is a starting point, useful for structuring an enquiry but not for deciding. Internal consistency is not accuracy (A), the reasoning may still be useful (C), and citations produced on demand need the same verification as the claim (D)."
+  },
+  {
+   "id": "ccao-f-p16",
+   "set": "practice",
+   "n": 16,
+   "domain": 4,
+   "q": "A team wants Claude to draft weekly customer health summaries from support tickets, CRM notes, and usage data. Which design detail matters most for the output to stay useful over months?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Choosing the largest available model"
+    },
+    {
+     "k": "B",
+     "t": "Running the summary daily instead of weekly"
+    },
+    {
+     "k": "C",
+     "t": "Defining what a health summary must contain and keeping that definition in one place the team maintains"
+    },
+    {
+     "k": "D",
+     "t": "Letting each team member write their own prompt"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "A stable, maintained definition of the deliverable is what keeps output consistent as people and inputs change. Model size (A) does not fix an undefined task, higher frequency (B) multiplies an unclear output, and per-person prompts (D) guarantee drift."
+  },
+  {
+   "id": "ccao-f-p17",
+   "set": "practice",
+   "n": 17,
+   "domain": 4,
+   "q": "Which task in a monthly reporting process is the weakest candidate for delegation to Claude?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Drafting the narrative summary from agreed figures"
+    },
+    {
+     "k": "B",
+     "t": "Reformatting last month's report into the new template"
+    },
+    {
+     "k": "C",
+     "t": "Extracting the top five variances from a spreadsheet export"
+    },
+    {
+     "k": "D",
+     "t": "Deciding which underperforming account to escalate to the executive team"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "The escalation decision carries accountability and depends on relationships and context the model does not hold. Drafting (A), reformatting (B), and extraction (C) are all bounded tasks with checkable output."
+  },
+  {
+   "id": "ccao-f-p18",
+   "set": "practice",
+   "n": 18,
+   "domain": 4,
+   "q": "A process works well for one analyst and poorly for three others using the same prompt. What is the most likely cause?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The prompt relies on context the first analyst supplies without noticing"
+    },
+    {
+     "k": "B",
+     "t": "The other three need a more capable model"
+    },
+    {
+     "k": "C",
+     "t": "The task is unsuitable for Claude"
+    },
+    {
+     "k": "D",
+     "t": "The other three are using shorter inputs"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "One person succeeding with the same prompt usually means they are contributing unstated context, such as knowing which file to attach or what good looks like. A model change (B) does not supply missing context, the task clearly works (C), and input length (D) is a symptom rather than a cause."
+  },
+  {
+   "id": "ccao-f-p19",
+   "set": "practice",
+   "n": 19,
+   "domain": 4,
+   "q": "When is it appropriate to keep a human approval step in an otherwise automated Claude workflow?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Always, since automation is inherently risky"
+    },
+    {
+     "k": "B",
+     "t": "When the action is hard to reverse or carries external consequences"
+    },
+    {
+     "k": "C",
+     "t": "Only while the workflow is new, then remove it"
+    },
+    {
+     "k": "D",
+     "t": "Never, because approval steps defeat the purpose of automation"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Approval earns its cost where a mistake is expensive or hard to undo. Blanket approval (A) and blanket removal (D) both ignore the specific risk, and a time-based rule (C) removes the check regardless of what the action does."
+  },
+  {
+   "id": "ccao-f-p20",
+   "set": "practice",
+   "n": 20,
+   "domain": 6,
+   "q": "A colleague proposes pasting a customer list into a prompt to draft personalised outreach. What is the correct handling?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Proceed, since the prompt is not stored anywhere permanent"
+    },
+    {
+     "k": "B",
+     "t": "Ask Claude to keep the names confidential"
+    },
+    {
+     "k": "C",
+     "t": "Remove or replace identifying details before drafting, and reattach them afterwards"
+    },
+    {
+     "k": "D",
+     "t": "Proceed but delete the conversation afterwards"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Working on anonymised data and reattaching identifiers afterwards achieves the task without exposing the personal data. Assumptions about storage (A) are not a control, an instruction to the model (B) is not a safeguard, and deleting afterwards (D) does not undo the disclosure."
+  },
+  {
+   "id": "ccao-f-p21",
+   "set": "practice",
+   "n": 21,
+   "domain": 6,
+   "q": "Which statement about instructing a model not to do something is accurate?",
+   "options": [
+    {
+     "k": "A",
+     "t": "An instruction in the prompt is an enforceable control"
+    },
+    {
+     "k": "B",
+     "t": "Instructions are enforceable if placed in a system prompt"
+    },
+    {
+     "k": "C",
+     "t": "Instructions are enforceable if repeated several times"
+    },
+    {
+     "k": "D",
+     "t": "An instruction shapes behavior but does not guarantee it, so controls belong outside the prompt"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Prompt instructions influence behavior and are not guarantees, so anything that must hold is enforced in the surrounding system. Placement (B) and repetition (C) change the strength of the steer, not its nature, and treating it as enforcement (A) is the error the question tests."
+  },
+  {
+   "id": "ccao-f-p22",
+   "set": "practice",
+   "n": 22,
+   "domain": 6,
+   "q": "A regulated report drafted with Claude is about to be filed. What is the reviewer accountable for?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The accuracy and compliance of the filed document, regardless of how it was drafted"
+    },
+    {
+     "k": "B",
+     "t": "Confirming that Claude was used according to policy"
+    },
+    {
+     "k": "C",
+     "t": "Confirming the prompt included the relevant regulations"
+    },
+    {
+     "k": "D",
+     "t": "Recording which model version produced the draft"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Accountability sits with the person who files, and the tool used does not transfer it. Policy compliance (B), prompt content (C), and version records (D) are all reasonable practices that do not replace responsibility for the document."
+  },
+  {
+   "id": "ccao-f-p23",
+   "set": "practice",
+   "n": 23,
+   "domain": 6,
+   "q": "When is disclosing that AI assisted a piece of work most clearly warranted?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Whenever any AI tool touched the work at any stage"
+    },
+    {
+     "k": "B",
+     "t": "When the audience's judgment of the work depends on how it was produced"
+    },
+    {
+     "k": "C",
+     "t": "Only when the output is published externally"
+    },
+    {
+     "k": "D",
+     "t": "Only when a written policy requires it"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Disclosure matters where provenance would change how a reader weighs the work. A universal rule (A) makes the signal meaningless, and confining it to external publication (C) or written policy (D) misses internal cases where it genuinely matters."
+  },
+  {
+   "id": "ccao-f-p24",
+   "set": "practice",
+   "n": 24,
+   "domain": 1,
+   "q": "A prompt produces output that is accurate but consistently too long. What is the most reliable fix?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Add “be concise” to the prompt"
+    },
+    {
+     "k": "B",
+     "t": "Ask for a summary of the output afterwards"
+    },
+    {
+     "k": "C",
+     "t": "State the limit in concrete terms, such as a word count or a number of bullet points"
+    },
+    {
+     "k": "D",
+     "t": "Use a smaller model"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Concrete limits are checkable and reproducible in a way that adjectives are not. “Be concise” (A) is interpreted differently each run, summarising afterwards (B) adds a step and a second failure point, and a smaller model (D) trades accuracy for brevity."
+  },
+  {
+   "id": "ccao-f-p25",
+   "set": "practice",
+   "n": 25,
+   "domain": 1,
+   "q": "You need output in a specific structure every time so it can be pasted into a template. What is the most effective technique?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Describing the structure in prose at the end of the prompt"
+    },
+    {
+     "k": "B",
+     "t": "Asking for the output to be well organized"
+    },
+    {
+     "k": "C",
+     "t": "Requesting the output twice and taking the better one"
+    },
+    {
+     "k": "D",
+     "t": "Providing a filled example of the exact structure you want"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "An example specifies the target unambiguously and is the strongest available signal for format. Prose description (A) leaves room for interpretation, a vague request (B) leaves more, and generating twice (C) does not define the target at all."
+  },
+  {
+   "id": "ccao-f-p26",
+   "set": "practice",
+   "n": 26,
+   "domain": 1,
+   "q": "A long prompt with many rules produces output that follows some rules and ignores others. What should you try first?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Separating the task into stages so each output is checked before the next"
+    },
+    {
+     "k": "B",
+     "t": "Repeating the ignored rules in capitals"
+    },
+    {
+     "k": "C",
+     "t": "Moving all the rules to the top of the prompt"
+    },
+    {
+     "k": "D",
+     "t": "Adding a rule that says all rules must be followed"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Splitting the work reduces how much must hold at once and gives a checkpoint between stages. Emphasis (B), ordering (C), and a meta-rule (D) all leave the same load in a single step."
+  },
+  {
+   "id": "ccao-f-p27",
+   "set": "practice",
+   "n": 27,
+   "domain": 1,
+   "q": "Which detail most improves a prompt asking Claude to review a document?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Stating that the review should be thorough"
+    },
+    {
+     "k": "B",
+     "t": "Stating what the review is for and what would count as a problem"
+    },
+    {
+     "k": "C",
+     "t": "Attaching several similar documents for comparison"
+    },
+    {
+     "k": "D",
+     "t": "Asking for the review as a numbered list"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Purpose and criteria tell the model what to look for, which is what a review depends on. Thoroughness (A) is unmeasurable, extra documents (C) add noise without criteria, and formatting (D) shapes presentation rather than substance."
+  },
+  {
+   "id": "ccao-f-p28",
+   "set": "practice",
+   "n": 28,
+   "domain": 3,
+   "q": "A task involves reading a 200-page report once and answering a single question. Which consideration should lead the choice?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The cheapest model available, since the task runs once"
+    },
+    {
+     "k": "B",
+     "t": "Whether the model supports the fastest response time"
+    },
+    {
+     "k": "C",
+     "t": "Whether the model can hold and reason over the whole document reliably"
+    },
+    {
+     "k": "D",
+     "t": "Whether the task can be split across several small models"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "The binding constraint is reliable comprehension across a long document, which is what the choice must satisfy. Cost (A) and speed (B) matter only among models that can do the task, and splitting (D) risks losing the cross-document reasoning the question needs."
+  },
+  {
+   "id": "ccao-f-p29",
+   "set": "practice",
+   "n": 29,
+   "domain": 3,
+   "q": "When does working in a Claude project make more sense than an API integration?",
+   "options": [
+    {
+     "k": "A",
+     "t": "When the volume is high and predictable"
+    },
+    {
+     "k": "B",
+     "t": "When the output must be inserted into another system automatically"
+    },
+    {
+     "k": "C",
+     "t": "When the task must run on a schedule"
+    },
+    {
+     "k": "D",
+     "t": "When the work is exploratory and done by people rather than systems"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Projects suit human, iterative work where the context is curated and reused by people. High volume (A), programmatic handoff (B), and scheduling (C) all describe system integration, which is what the API is for."
+  },
+  {
+   "id": "ccao-f-p30",
+   "set": "practice",
+   "n": 30,
+   "domain": 3,
+   "q": "A team asks whether to move to a larger model because outputs are inconsistent. What should be established first?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Whether the inconsistency comes from the prompt and the inputs rather than the model"
+    },
+    {
+     "k": "B",
+     "t": "The cost difference between the two models"
+    },
+    {
+     "k": "C",
+     "t": "Whether the larger model is available in their region"
+    },
+    {
+     "k": "D",
+     "t": "How much faster the current model is"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Inconsistency usually traces to an underspecified task or variable inputs, which a larger model does not fix. Cost (B), availability (C), and speed (D) are inputs to a decision that has not yet been shown to be the right one."
+  },
+  {
+   "id": "ccao-f-p31",
+   "set": "practice",
+   "n": 31,
+   "domain": 5,
+   "q": "What belongs in a project's knowledge rather than in individual prompts?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The specific question being asked today"
+    },
+    {
+     "k": "B",
+     "t": "Material that every conversation in the project should be able to draw on"
+    },
+    {
+     "k": "C",
+     "t": "The preferred output length for one report"
+    },
+    {
+     "k": "D",
+     "t": "A one-off document being reviewed this week"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Project knowledge holds what recurs, so each conversation starts from the same base. Today's question (A), a single formatting preference (C), and a one-off document (D) all belong in the prompt that needs them."
+  },
+  {
+   "id": "ccao-f-p32",
+   "set": "practice",
+   "n": 32,
+   "domain": 5,
+   "q": "A project's answers have grown vaguer as more documents were added. What is the likely cause?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The model version changed"
+    },
+    {
+     "k": "B",
+     "t": "The project has too few documents to ground answers"
+    },
+    {
+     "k": "C",
+     "t": "The knowledge now holds overlapping or outdated material competing with the right sources"
+    },
+    {
+     "k": "D",
+     "t": "The prompts have become too specific"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Accumulated, unmaintained knowledge dilutes retrieval, and the symptom is exactly this drift toward vagueness. A version change (A) is unrelated to what was added, and both too few documents (B) and overly specific prompts (D) contradict the described trend."
+  },
+  {
+   "id": "ccao-f-p33",
+   "set": "practice",
+   "n": 33,
+   "domain": 5,
+   "q": "How should project knowledge be treated as the underlying material changes?",
+   "options": [
+    {
+     "k": "A",
+     "t": "It updates automatically from the source systems"
+    },
+    {
+     "k": "B",
+     "t": "It only needs review when answers are visibly wrong"
+    },
+    {
+     "k": "C",
+     "t": "It should be rebuilt from scratch each quarter"
+    },
+    {
+     "k": "D",
+     "t": "It must be maintained deliberately, because it does not update itself"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Project knowledge is a curated copy and stays as accurate as the person maintaining it. It does not sync (A), waiting for visible errors (B) means acting after the damage, and periodic rebuilds (C) are wasteful and still unscheduled against real change."
+  },
+  {
+   "id": "ccao-f-p34",
+   "set": "practice",
+   "n": 34,
+   "domain": 7,
+   "q": "A workflow that has run reliably for months begins returning off-target output. What is the first diagnostic step?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Establish what changed: the inputs, the configuration, or the knowledge"
+    },
+    {
+     "k": "B",
+     "t": "Rewrite the prompt from scratch"
+    },
+    {
+     "k": "C",
+     "t": "Switch to a different model"
+    },
+    {
+     "k": "D",
+     "t": "Increase the amount of context supplied"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "A working system that degrades points to a change, and identifying it is faster and safer than rebuilding. Rewriting (B), switching models (C), and adding context (D) all alter the system before the cause is known."
+  },
+  {
+   "id": "ccao-f-p35",
+   "set": "practice",
+   "n": 35,
+   "domain": 7,
+   "q": "Output quality is acceptable but the process takes too long to be worth using. What should be examined first?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Whether a faster model would meet the quality bar"
+    },
+    {
+     "k": "B",
+     "t": "Whether the slow part is the model or the human steps around it"
+    },
+    {
+     "k": "C",
+     "t": "Whether the prompt can be shortened"
+    },
+    {
+     "k": "D",
+     "t": "Whether the task should be abandoned"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Locating the actual delay comes before optimising anything, and in practice the surrounding steps often dominate. Changing the model (A) or the prompt (C) assumes the model is the bottleneck, and abandoning (D) discards a process that already produces acceptable output."
+  },
+  {
+   "id": "ccao-f-m1-1",
+   "set": "mock1",
+   "n": 1,
+   "domain": 2,
+   "q": "A colleague shares a Claude-drafted policy summary that reads well and cites three internal documents by name. What is the appropriate review step before it circulates to the whole department?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Circulate it, since the named sources demonstrate grounding"
+    },
+    {
+     "k": "B",
+     "t": "Ask Claude to double-check its own work and circulate if it agrees"
+    },
+    {
+     "k": "C",
+     "t": "Confirm each named document exists and says what the summary claims"
+    },
+    {
+     "k": "D",
+     "t": "Add a disclaimer that the summary was AI-generated and circulate"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Named sources can be fabricated; verification against the actual documents is the diligence step. Self-checking (B) is not independent evidence, and a disclaimer (D) does not make content correct"
+  },
+  {
+   "id": "ccao-f-m1-2",
+   "set": "mock1",
+   "n": 2,
+   "domain": 1,
+   "q": "You need a first draft of a stakeholder update from a long project log. Which prompt is most likely to produce a usable draft on the first attempt?",
+   "options": [
+    {
+     "k": "A",
+     "t": "\"Summarize this project log.\""
+    },
+    {
+     "k": "B",
+     "t": "\"Write something good about this project log for my boss.\""
+    },
+    {
+     "k": "C",
+     "t": "\"Summarize this project log. Be detailed and thorough and professional.\""
+    },
+    {
+     "k": "D",
+     "t": "\"You are writing a weekly update for non-technical executives. From the log, produce: status in one line, three progress items, two risks with owners, and next week's focus. Keep it under 200 words.\""
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Role, audience, explicit structure, and length constraints are what turn a vague request into a usable draft. Intensifiers like \"detailed and thorough\" (C) add no structure"
+  },
+  {
+   "id": "ccao-f-m1-3",
+   "set": "mock1",
+   "n": 3,
+   "domain": 3,
+   "q": "A workflow drafts hundreds of routine appointment confirmations each day. Latency and cost dominate; the language is formulaic. Which choice fits?",
+   "options": [
+    {
+     "k": "A",
+     "t": "A fast, low-cost model, reserving a more capable one for exceptions"
+    },
+    {
+     "k": "B",
+     "t": "The most capable model, for consistency"
+    },
+    {
+     "k": "C",
+     "t": "Whichever model is newest"
+    },
+    {
+     "k": "D",
+     "t": "Alternate between models to spread cost"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Match the model tier to the work: fast and cheap for formulaic volume, capable for exceptions"
+  },
+  {
+   "id": "ccao-f-m1-4",
+   "set": "mock1",
+   "n": 4,
+   "domain": 5,
+   "q": "Your team's Project answers questions from a product manual. Users report confident answers about a feature that was removed last quarter. What is the most likely cause?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The model needs retraining"
+    },
+    {
+     "k": "B",
+     "t": "The Project's knowledge still contains the outdated manual"
+    },
+    {
+     "k": "C",
+     "t": "Users are asking the questions wrong"
+    },
+    {
+     "k": "D",
+     "t": "The context window is too small"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Project knowledge is maintained by you; stale documents produce confidently outdated answers"
+  },
+  {
+   "id": "ccao-f-m1-5",
+   "set": "mock1",
+   "n": 5,
+   "domain": 6,
+   "q": "Legal asks you to analyze a spreadsheet of support tickets containing customer names and email addresses. Your organization prohibits sending personal data to external tools. What do you do?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Upload it, since legal requested the analysis"
+    },
+    {
+     "k": "B",
+     "t": "Upload it and ask Claude to disregard the personal columns"
+    },
+    {
+     "k": "C",
+     "t": "Strip or pseudonymize the personal columns, then analyze what remains"
+    },
+    {
+     "k": "D",
+     "t": "Tell legal the analysis is not possible"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Make the task compliant, then do it. A requester's seniority does not override policy, and instructing the model to ignore data does not un-send it"
+  },
+  {
+   "id": "ccao-f-m1-6",
+   "set": "mock1",
+   "n": 6,
+   "domain": 1,
+   "q": "Claude produces a five-paragraph answer when you needed three bullet points, twice in a row. What is the most effective adjustment?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Ask again and hope for variation"
+    },
+    {
+     "k": "B",
+     "t": "Switch to a more capable model"
+    },
+    {
+     "k": "C",
+     "t": "Manually reformat each response"
+    },
+    {
+     "k": "D",
+     "t": "State the format explicitly, including the number of bullets and their maximum length"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Format failures are fixed by stating the format, not by re-rolling or upgrading the model"
+  },
+  {
+   "id": "ccao-f-m1-7",
+   "set": "mock1",
+   "n": 7,
+   "domain": 2,
+   "q": "Which of these is the strongest signal that a Claude-generated claim needs verification before use?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The claim is a specific number, date, or citation that would matter if wrong"
+    },
+    {
+     "k": "B",
+     "t": "The answer is long"
+    },
+    {
+     "k": "C",
+     "t": "The answer was produced quickly"
+    },
+    {
+     "k": "D",
+     "t": "The answer uses technical vocabulary"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Specific, consequential details are the highest-risk surface for fabrication. Length, speed, and vocabulary carry no accuracy signal"
+  },
+  {
+   "id": "ccao-f-m1-8",
+   "set": "mock1",
+   "n": 8,
+   "domain": 4,
+   "q": "A manager wants to know whether Claude can \"replace our weekly reporting process.\" What is the most useful response?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Yes, automation is what AI is for"
+    },
+    {
+     "k": "B",
+     "t": "A breakdown of which reporting steps Claude can draft or summarize, which need human judgment or system access, and what the review step would be"
+    },
+    {
+     "k": "C",
+     "t": "No, reporting requires human oversight"
+    },
+    {
+     "k": "D",
+     "t": "A recommendation to hire a consultant"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "The valued skill is a realistic division of labor with a review step, not a yes or a no"
+  },
+  {
+   "id": "ccao-f-m1-9",
+   "set": "mock1",
+   "n": 9,
+   "domain": 5,
+   "q": "You are configuring a Project that several colleagues will use for consistent client communications. What belongs in the Project instructions rather than in each individual prompt?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The specific client's name for today's message"
+    },
+    {
+     "k": "B",
+     "t": "Today's date"
+    },
+    {
+     "k": "C",
+     "t": "The house tone, required disclaimers, and the standard structure of a client message"
+    },
+    {
+     "k": "D",
+     "t": "The colleague's personal writing preferences"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Durable, shared conventions belong in instructions; per-message specifics belong in the prompt"
+  },
+  {
+   "id": "ccao-f-m1-10",
+   "set": "mock1",
+   "n": 10,
+   "domain": 2,
+   "q": "A summary Claude produced omits a material caveat that appears in the source document. What does this failure mode illustrate?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Hallucination through fabricated detail"
+    },
+    {
+     "k": "B",
+     "t": "A context window limit"
+    },
+    {
+     "k": "C",
+     "t": "A prompt injection attack"
+    },
+    {
+     "k": "D",
+     "t": "Omission, which requires reading the source rather than only reviewing the output"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Omission is as damaging as fabrication and is only visible if you read the source, not just the output"
+  },
+  {
+   "id": "ccao-f-m1-11",
+   "set": "mock1",
+   "n": 11,
+   "domain": 7,
+   "q": "Your prompt worked well last month and now returns weaker results after your team added twelve documents to the Project's knowledge. What is the first thing to investigate?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Whether the new documents are diluting or contradicting the sources the answers should use"
+    },
+    {
+     "k": "B",
+     "t": "Whether the model changed"
+    },
+    {
+     "k": "C",
+     "t": "Whether colleagues are using different browsers"
+    },
+    {
+     "k": "D",
+     "t": "Whether the prompt should be longer"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Diagnose the change that coincided with the regression before rewriting anything"
+  },
+  {
+   "id": "ccao-f-m1-12",
+   "set": "mock1",
+   "n": 12,
+   "domain": 4,
+   "q": "For which task is a Project with persistent instructions and knowledge clearly better than a one-off chat?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Asking for a synonym"
+    },
+    {
+     "k": "B",
+     "t": "A monthly report that follows the same structure and draws on the same reference documents"
+    },
+    {
+     "k": "C",
+     "t": "Checking a single fact"
+    },
+    {
+     "k": "D",
+     "t": "Rewriting one email"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Repeated work with stable context and structure is exactly what Projects are for"
+  },
+  {
+   "id": "ccao-f-m1-13",
+   "set": "mock1",
+   "n": 13,
+   "domain": 2,
+   "q": "Which practice best reduces the risk of sharing an inaccurate Claude output with a customer?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Reading the output for tone before sending"
+    },
+    {
+     "k": "B",
+     "t": "Sending it with a note that AI assisted"
+    },
+    {
+     "k": "C",
+     "t": "Verifying the claims that would cause harm if wrong, then having a second person review customer-facing material"
+    },
+    {
+     "k": "D",
+     "t": "Using the largest available model"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Verification of consequential claims plus human review for customer-facing material. Model size is not a control"
+  },
+  {
+   "id": "ccao-f-m1-14",
+   "set": "mock1",
+   "n": 14,
+   "domain": 4,
+   "q": "You want Claude to help redesign a slow approval process rather than just speed up its current steps. Which prompt direction fits that goal?",
+   "options": [
+    {
+     "k": "A",
+     "t": "\"Make our approval process faster.\""
+    },
+    {
+     "k": "B",
+     "t": "\"Automate our approvals.\""
+    },
+    {
+     "k": "C",
+     "t": "\"What do other companies do for approvals?\""
+    },
+    {
+     "k": "D",
+     "t": "\"Here are the current approval steps and where delays occur. Propose two redesigns: one that keeps the current structure and one that reorders or removes steps, with the tradeoffs of each.\""
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Process redesign requires giving Claude the current steps, the pain points, and asking for alternatives with tradeoffs"
+  },
+  {
+   "id": "ccao-f-m1-15",
+   "set": "mock1",
+   "n": 15,
+   "domain": 6,
+   "q": "Which situation most clearly calls for escalating to a technical colleague rather than solving it yourself?",
+   "options": [
+    {
+     "k": "A",
+     "t": "A request to connect Claude directly to the company's internal order database through an integration"
+    },
+    {
+     "k": "B",
+     "t": "A prompt that needs better structure"
+    },
+    {
+     "k": "C",
+     "t": "An output with the wrong tone"
+    },
+    {
+     "k": "D",
+     "t": "A Project that needs its knowledge updated"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "System integrations belong to the Developer and Architect scope; recognizing that boundary is an Associate competency"
+  },
+  {
+   "id": "ccao-f-m2-1",
+   "set": "mock2",
+   "n": 1,
+   "domain": 2,
+   "q": "Claude returns a policy answer that matches your expectation exactly, with no citation. What does the match tell you?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The answer is confirmed, since it agrees with your understanding"
+    },
+    {
+     "k": "B",
+     "t": "The answer is probably correct but should be reworded"
+    },
+    {
+     "k": "C",
+     "t": "Nothing about accuracy, because agreement with an expectation is not evidence"
+    },
+    {
+     "k": "D",
+     "t": "The model has read the policy document"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Agreement with what you already believed is the easiest error to miss, since nothing prompts a check. Neither confirmation (A), rewording (B), nor an assumption about retrieval (D) establishes that the claim is true"
+  },
+  {
+   "id": "ccao-f-m2-2",
+   "set": "mock2",
+   "n": 2,
+   "domain": 2,
+   "q": "A colleague asks Claude to check its own earlier answer, and it confirms the answer. How much weight does the confirmation carry?",
+   "options": [
+    {
+     "k": "A",
+     "t": "None on its own, because the check is not independent of the thing being checked"
+    },
+    {
+     "k": "B",
+     "t": "Substantial, because the model reviewed its own reasoning"
+    },
+    {
+     "k": "C",
+     "t": "Substantial if the confirmation is detailed"
+    },
+    {
+     "k": "D",
+     "t": "It depends on the model used"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Self-review is not an independent source and cannot establish correctness. Detail (C) and model choice (D) do not make a self-check independent"
+  },
+  {
+   "id": "ccao-f-m2-3",
+   "set": "mock2",
+   "n": 3,
+   "domain": 2,
+   "q": "A report drafted with Claude contains one figure you cannot verify from any available source. What is the appropriate handling before circulation?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Circulate it with a general disclaimer about AI assistance"
+    },
+    {
+     "k": "B",
+     "t": "Keep the figure and mark it as an estimate"
+    },
+    {
+     "k": "C",
+     "t": "Ask Claude to provide a source and keep whatever it returns"
+    },
+    {
+     "k": "D",
+     "t": "Remove the figure and note that it could not be verified"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "An unverifiable claim should not be presented as fact, and a labeled gap is honest. A blanket disclaimer (A) does not address the specific figure, an unfounded estimate (B) misrepresents it, and a citation produced on demand (C) needs the same verification"
+  },
+  {
+   "id": "ccao-f-m2-4",
+   "set": "mock2",
+   "n": 4,
+   "domain": 4,
+   "q": "Which of these is the strongest candidate to hand to Claude in a monthly close process?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Approving the final journal entries"
+    },
+    {
+     "k": "B",
+     "t": "Drafting the variance commentary from figures that are already agreed"
+    },
+    {
+     "k": "C",
+     "t": "Deciding which variances require investigation"
+    },
+    {
+     "k": "D",
+     "t": "Signing off the reconciliation"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Drafting from agreed inputs is bounded and checkable. Approval (A), sign-off (D), and the decision about what to investigate (C) all carry accountability"
+  },
+  {
+   "id": "ccao-f-m2-5",
+   "set": "mock2",
+   "n": 5,
+   "domain": 4,
+   "q": "A workflow produces good output but nobody uses it. What should be examined first?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Whether the model should be upgraded"
+    },
+    {
+     "k": "B",
+     "t": "Whether the output arrives where the work actually happens, in a form people can act on"
+    },
+    {
+     "k": "C",
+     "t": "Whether the prompt is long enough"
+    },
+    {
+     "k": "D",
+     "t": "Whether more people need training"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Adoption usually fails on fit with the existing process rather than on output quality. Model (A) and prompt length (C) address quality that is already acceptable, and training (D) treats a symptom"
+  },
+  {
+   "id": "ccao-f-m2-6",
+   "set": "mock2",
+   "n": 6,
+   "domain": 6,
+   "q": "A team wants to paste anonymised customer feedback into Claude for theme analysis. What remains a risk after names are removed?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Nothing, since anonymisation removes the risk entirely"
+    },
+    {
+     "k": "B",
+     "t": "The model may store the text permanently"
+    },
+    {
+     "k": "C",
+     "t": "Theme analysis is unreliable on anonymised data"
+    },
+    {
+     "k": "D",
+     "t": "Free text can still identify people through specific details, so review before sending is still needed"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Removing names does not remove identifying detail from free text, which is why a review step remains. Treating anonymisation as complete (A) is the error tested, and neither storage assumptions (B) nor reliability (C) is the governance issue here"
+  },
+  {
+   "id": "ccao-f-m2-7",
+   "set": "mock2",
+   "n": 7,
+   "domain": 6,
+   "q": "Who should decide whether a Claude-assisted output is fit to send to a customer?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The person accountable for the customer relationship"
+    },
+    {
+     "k": "B",
+     "t": "Whoever wrote the prompt"
+    },
+    {
+     "k": "C",
+     "t": "The model, if asked to assess its own output"
+    },
+    {
+     "k": "D",
+     "t": "Nobody, if the workflow was approved in advance"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Accountability for the outgoing communication decides the question. Prompt authorship (B) is incidental, self-assessment (C) is not independent, and prior approval of a workflow (D) does not review this instance"
+  },
+  {
+   "id": "ccao-f-m2-8",
+   "set": "mock2",
+   "n": 8,
+   "domain": 1,
+   "q": "A prompt works well until the input document is much longer than usual, when quality drops. What is the most likely explanation?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The model became less capable"
+    },
+    {
+     "k": "B",
+     "t": "The prompt is too short"
+    },
+    {
+     "k": "C",
+     "t": "The relevant material is now competing with far more surrounding text"
+    },
+    {
+     "k": "D",
+     "t": "Longer documents always produce worse output"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Dilution across a much longer input is the usual cause of this pattern. The model has not changed (A), prompt length (B) is not the variable that changed, and length alone is not determinative (D)"
+  },
+  {
+   "id": "ccao-f-m2-9",
+   "set": "mock2",
+   "n": 9,
+   "domain": 1,
+   "q": "You want the same analysis applied to fifty documents with consistent output. What matters most?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Using the largest model available"
+    },
+    {
+     "k": "B",
+     "t": "Processing the documents in one conversation"
+    },
+    {
+     "k": "C",
+     "t": "Reviewing only a sample of the outputs"
+    },
+    {
+     "k": "D",
+     "t": "Fixing the prompt and the required output structure, and applying both unchanged to every document"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Consistency across a set comes from holding the instruction and the output shape constant. Model size (A) does not create consistency, one long conversation (B) invites drift, and sampling (C) is a review policy rather than a design"
+  },
+  {
+   "id": "ccao-f-m2-10",
+   "set": "mock2",
+   "n": 10,
+   "domain": 3,
+   "q": "A task must return an answer within a second for an interactive interface, and the work is simple classification. What follows?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Use the most capable model to be safe"
+    },
+    {
+     "k": "B",
+     "t": "Batch the requests"
+    },
+    {
+     "k": "C",
+     "t": "Use the smallest model that meets the accuracy requirement, since latency is the binding constraint"
+    },
+    {
+     "k": "D",
+     "t": "Increase the context supplied"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "With a hard latency requirement and a simple task, the smallest sufficient model is the fit. The most capable model (A) spends latency for accuracy that is not needed, batching (B) breaks interactivity, and more context (D) adds cost and time"
+  },
+  {
+   "id": "ccao-f-m2-11",
+   "set": "mock2",
+   "n": 11,
+   "domain": 3,
+   "q": "What is the correct reading of a model's published benchmark score when choosing for a specific business task?",
+   "options": [
+    {
+     "k": "A",
+     "t": "It predicts performance on your task"
+    },
+    {
+     "k": "B",
+     "t": "It is a general signal that does not substitute for evaluating on your own task"
+    },
+    {
+     "k": "C",
+     "t": "It is irrelevant"
+    },
+    {
+     "k": "D",
+     "t": "It determines the price you should expect to pay"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Benchmarks indicate general capability and cannot stand in for measurement on the actual task. Treating them as predictive (A) or irrelevant (C) are both wrong, and they do not set price (D)"
+  },
+  {
+   "id": "ccao-f-m2-12",
+   "set": "mock2",
+   "n": 12,
+   "domain": 5,
+   "q": "Two teams keep separate copies of the same reference documents in their own projects. What is the main risk?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The copies drift apart, and the two teams begin answering the same question differently"
+    },
+    {
+     "k": "B",
+     "t": "Higher storage cost"
+    },
+    {
+     "k": "C",
+     "t": "Slower responses"
+    },
+    {
+     "k": "D",
+     "t": "The model becomes confused between projects"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Duplicated knowledge diverges as each copy is maintained separately, producing inconsistent answers. Storage (B) and speed (C) are minor, and projects do not leak into one another (D)"
+  },
+  {
+   "id": "ccao-f-m2-13",
+   "set": "mock2",
+   "n": 13,
+   "domain": 5,
+   "q": "What is the right first step when setting up a project for a recurring task?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Decide what the task needs to know every time, and add only that"
+    },
+    {
+     "k": "B",
+     "t": "Upload every document the team owns"
+    },
+    {
+     "k": "C",
+     "t": "Write the longest possible instruction"
+    },
+    {
+     "k": "D",
+     "t": "Add documents as questions come up, without review"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "A deliberate, minimal base keeps retrieval sharp and is maintainable. Uploading everything (B) and accumulating without review (D) both dilute, and instruction length (C) is not the question"
+  },
+  {
+   "id": "ccao-f-m2-14",
+   "set": "mock2",
+   "n": 14,
+   "domain": 7,
+   "q": "A user reports that Claude gave a wrong answer, but you cannot reproduce it. What is the most useful next step?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Assume the user made an error"
+    },
+    {
+     "k": "B",
+     "t": "Obtain the exact prompt, inputs, and configuration they used"
+    },
+    {
+     "k": "C",
+     "t": "Increase the model size for everyone"
+    },
+    {
+     "k": "D",
+     "t": "Add a warning to the interface"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Reproduction depends on the exact conditions, and gathering them is the only way to diagnose. Dismissing the report (A) discards the signal, and a model change (C) or a warning (D) acts before the cause is known"
+  },
+  {
+   "id": "ccao-f-m2-15",
+   "set": "mock2",
+   "n": 15,
+   "domain": 7,
+   "q": "Output quality varies between runs of an identical prompt on identical input. What does this indicate?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The system is broken"
+    },
+    {
+     "k": "B",
+     "t": "The temperature must be zero for all tasks"
+    },
+    {
+     "k": "C",
+     "t": "Some variation is expected, and the task needs constraints tight enough that the variation does not matter"
+    },
+    {
+     "k": "D",
+     "t": "The input must be shortened"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Generation is not deterministic, so the design must tolerate variation within acceptable bounds. Treating it as breakage (A) misreads normal behavior, a universal temperature rule (B) is too blunt, and input length (D) is unrelated"
+  },
+  {
+   "id": "ccao-f-m3-1",
+   "set": "mock3",
+   "n": 1,
+   "domain": 2,
+   "q": "A summary cites a statistic that turns out to be correct. Does that validate the rest of the summary?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Yes, one verified claim indicates the whole is reliable"
+    },
+    {
+     "k": "B",
+     "t": "Yes, if the statistic was the hardest claim"
+    },
+    {
+     "k": "C",
+     "t": "No, each material claim needs its own check"
+    },
+    {
+     "k": "D",
+     "t": "Only if the source was named"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Verification does not generalise from one claim to the others. Treating it as a proxy for the whole (A, B) is the error tested, and naming a source (D) does not verify the remaining claims"
+  },
+  {
+   "id": "ccao-f-m3-2",
+   "set": "mock3",
+   "n": 2,
+   "domain": 2,
+   "q": "Claude declines to answer part of a request and explains why. How should this be read?",
+   "options": [
+    {
+     "k": "A",
+     "t": "As information about a limit or a policy that is worth understanding before proceeding"
+    },
+    {
+     "k": "B",
+     "t": "As a failure that should be worked around"
+    },
+    {
+     "k": "C",
+     "t": "As a sign the prompt was too long"
+    },
+    {
+     "k": "D",
+     "t": "As a reason to switch models"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "A refusal with a reason is a signal about the task, not an obstacle to route around. Working around it (B) ignores the reason, and neither prompt length (C) nor model choice (D) is indicated"
+  },
+  {
+   "id": "ccao-f-m3-3",
+   "set": "mock3",
+   "n": 3,
+   "domain": 2,
+   "q": "You need to know whether a long report supports a specific conclusion. What is the most reliable approach?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Ask for a summary and read that"
+    },
+    {
+     "k": "B",
+     "t": "Ask whether the report supports the conclusion"
+    },
+    {
+     "k": "C",
+     "t": "Ask for a confidence score"
+    },
+    {
+     "k": "D",
+     "t": "Ask for the passages that bear on the conclusion, then read those passages yourself"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Retrieving the evidence and reading it keeps the judgment with you. A summary (A) and a direct verdict (B) hand the judgment to the model, and a confidence score (C) is not evidence"
+  },
+  {
+   "id": "ccao-f-m3-4",
+   "set": "mock3",
+   "n": 4,
+   "domain": 4,
+   "q": "A manual process takes four hours and produces a document nobody reads. What should happen before automating it?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Automate it, since four hours is significant"
+    },
+    {
+     "k": "B",
+     "t": "Establish whether the document is needed at all"
+    },
+    {
+     "k": "C",
+     "t": "Automate it and measure adoption afterwards"
+    },
+    {
+     "k": "D",
+     "t": "Split it across more people"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Automating unnecessary work makes waste faster. Proceeding regardless (A, C) skips the question, and redistributing it (D) does not address whether it is needed"
+  },
+  {
+   "id": "ccao-f-m3-5",
+   "set": "mock3",
+   "n": 5,
+   "domain": 4,
+   "q": "Which sequencing is correct when introducing Claude to a recurring team process?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Automate the whole process, then refine"
+    },
+    {
+     "k": "B",
+     "t": "Start with the step that is bounded and checkable, prove it, then extend"
+    },
+    {
+     "k": "C",
+     "t": "Start with the hardest step, since it has most value"
+    },
+    {
+     "k": "D",
+     "t": "Let each person adopt it however they prefer"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "A bounded first step produces evidence and trust cheaply. Full automation first (A) risks everything at once, the hardest step (C) is the least likely to succeed early, and uncoordinated adoption (D) produces drift"
+  },
+  {
+   "id": "ccao-f-m3-6",
+   "set": "mock3",
+   "n": 6,
+   "domain": 6,
+   "q": "A policy forbids sending customer data to external services. A colleague asks Claude to summarise a customer email. What applies?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Nothing, because summarising is not sending"
+    },
+    {
+     "k": "B",
+     "t": "The policy only if the customer is named"
+    },
+    {
+     "k": "C",
+     "t": "Nothing, because the output stays internal"
+    },
+    {
+     "k": "D",
+     "t": "The policy, since the email is customer data"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Submitting the content is the act the policy governs. Framing it as summarising (A) or by where the output goes (C) misreads the policy, and it is not limited to named individuals (B)"
+  },
+  {
+   "id": "ccao-f-m3-7",
+   "set": "mock3",
+   "n": 7,
+   "domain": 6,
+   "q": "What is the correct response to a request that a model output be presented as human-written to a customer?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Decline to misrepresent it, and raise the disclosure question with whoever owns the relationship"
+    },
+    {
+     "k": "B",
+     "t": "Comply, since the customer cares about quality not provenance"
+    },
+    {
+     "k": "C",
+     "t": "Comply if the output was heavily edited"
+    },
+    {
+     "k": "D",
+     "t": "Comply and record the decision internally"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Actively misrepresenting provenance is the issue, and it belongs to the person accountable for the relationship. Editing (C) and internal records (D) do not make the representation true, and quality (B) is not the point"
+  },
+  {
+   "id": "ccao-f-m3-8",
+   "set": "mock3",
+   "n": 8,
+   "domain": 1,
+   "q": "A prompt asks for a recommendation and gets a balanced discussion instead. What is the most likely cause?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The model is incapable of recommending"
+    },
+    {
+     "k": "B",
+     "t": "The temperature is too high"
+    },
+    {
+     "k": "C",
+     "t": "The prompt did not state that a single recommendation with a reason was required"
+    },
+    {
+     "k": "D",
+     "t": "The input was too short"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Output shape follows the instruction, and no decision was requested. Incapability (A) is not the issue, and neither temperature (B) nor input length (D) determines whether a recommendation is given"
+  },
+  {
+   "id": "ccao-f-m3-9",
+   "set": "mock3",
+   "n": 9,
+   "domain": 1,
+   "q": "What is the most effective way to get output pitched at the right level for a specific audience?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Ask for it to be clear"
+    },
+    {
+     "k": "B",
+     "t": "Ask for a shorter response"
+    },
+    {
+     "k": "C",
+     "t": "Ask for simpler words"
+    },
+    {
+     "k": "D",
+     "t": "Name the audience and what they already know"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Naming the reader and their prior knowledge is what calibrates level. Clarity (A), length (B), and vocabulary (C) are consequences rather than the instruction"
+  },
+  {
+   "id": "ccao-f-m3-10",
+   "set": "mock3",
+   "n": 10,
+   "domain": 3,
+   "q": "A colleague uses the largest model for every task including formatting. What should you point out?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Nothing, capability is never wasted"
+    },
+    {
+     "k": "B",
+     "t": "That the largest model is less accurate on simple tasks"
+    },
+    {
+     "k": "C",
+     "t": "That matching the model to the work saves cost without losing anything on simple tasks"
+    },
+    {
+     "k": "D",
+     "t": "That formatting should be done manually"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Fit-to-task is the principle, and simple work does not benefit from extra capability. Capability is not free (A), larger models are not less accurate on simple tasks (B), and manual work (D) is not the alternative"
+  },
+  {
+   "id": "ccao-f-m3-11",
+   "set": "mock3",
+   "n": 11,
+   "domain": 3,
+   "q": "When does the choice of interface matter more than the choice of model?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Never, the model determines the outcome"
+    },
+    {
+     "k": "B",
+     "t": "When the obstacle is how people supply context and act on output, not the quality of the answer"
+    },
+    {
+     "k": "C",
+     "t": "Only for very large teams"
+    },
+    {
+     "k": "D",
+     "t": "Only when cost is constrained"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Where adoption or context-supply is the bottleneck, interface dominates. Treating the model as decisive (A) misses that, and neither team size (C) nor cost (D) defines the case"
+  },
+  {
+   "id": "ccao-f-m3-12",
+   "set": "mock3",
+   "n": 12,
+   "domain": 5,
+   "q": "What is the risk of adding a document to project knowledge without removing the version it replaces?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Both versions can be drawn on, producing answers that mix current and superseded material"
+    },
+    {
+     "k": "B",
+     "t": "Storage cost"
+    },
+    {
+     "k": "C",
+     "t": "Slower responses"
+    },
+    {
+     "k": "D",
+     "t": "The project will refuse to answer"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Superseded material remains retrievable and contradicts the current version. Storage (B) and speed (C) are minor, and the project does not refuse (D)"
+  },
+  {
+   "id": "ccao-f-m3-13",
+   "set": "mock3",
+   "n": 13,
+   "domain": 5,
+   "q": "Which is the better test of whether something belongs in project knowledge?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Whether every conversation in the project would benefit from it"
+    },
+    {
+     "k": "B",
+     "t": "Whether it is long enough to be worth uploading"
+    },
+    {
+     "k": "C",
+     "t": "Whether it was recently created"
+    },
+    {
+     "k": "D",
+     "t": "Whether it is confidential"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Recurrence across conversations is what distinguishes shared knowledge from prompt content. Length (B), recency (C), and sensitivity (D) are unrelated to that test"
+  },
+  {
+   "id": "ccao-f-m3-14",
+   "set": "mock3",
+   "n": 14,
+   "domain": 7,
+   "q": "A previously reliable prompt now returns shorter answers than before. What is worth checking first?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Whether the model is deprecated"
+    },
+    {
+     "k": "B",
+     "t": "Whether the input or the instructions changed, including anything added to the project"
+    },
+    {
+     "k": "C",
+     "t": "Whether the network is slow"
+    },
+    {
+     "k": "D",
+     "t": "Whether the account has hit a limit"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "A behavioral change points to a change in inputs or configuration. Deprecation (A), network (C), and limits (D) produce errors rather than shorter answers"
+  },
+  {
+   "id": "ccao-f-m3-15",
+   "set": "mock3",
+   "n": 15,
+   "domain": 7,
+   "q": "Someone reports that Claude is wrong about a fact that it stated correctly last week. What is the most useful first question?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Which model did you use"
+    },
+    {
+     "k": "B",
+     "t": "How long was the conversation"
+    },
+    {
+     "k": "C",
+     "t": "What exactly did you ask, and what did it reply"
+    },
+    {
+     "k": "D",
+     "t": "Have you tried again"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "The exact exchange is what makes the claim examinable. Model (A), length (B), and retrying (D) may matter later but none of them establishes what happened"
+  }
+ ],
+ "cheatSheet": "# Cheat sheet: Associate – Foundations\n\nEverything worth holding in your head the hour before the exam, on one page. Facts come from the [official exam guide](exam-guide.pdf); the rules of thumb are the maintainer's, distilled from the official rationales.\n\n[![Claude Certified Associate – Foundations cheat sheet: exam facts, domain weights, and the rules that decide questions](../.github/assets/cheat-sheet-associate-foundations.png)](../.github/assets/cheat-sheet-associate-foundations.png \"View this cheat sheet at full size\")\n\nSave or share the card above; the full sheet follows.\n\n## The exam\n\n| | |\n| --- | --- |\n| Code | CCAO-F |\n| Items | 60, multiple choice and multiple response |\n| Time | 120 minutes, about 2 minutes per item |\n| Pass | 720 of 1,000, scaled |\n| Fee | 99 USD before partner discount |\n| Valid | 12 months, free renewal assessment |\n\n## Where the marks are\n\n```text\nOutput Evaluation and Validation      21%  ████████████████████\nWorkflow Integration and Design       16%  ███████████████\nGovernance, Risk, Responsible Use     15%  ██████████████\nPrompting and Task Execution          14%  █████████████\nProduct and Model Selection           12%  ███████████\nConfiguration and Knowledge Mgmt      12%  ███████████\nTroubleshooting and Optimization      10%  █████████\n```\n\nEvaluating output is worth half again as much as writing prompts. Study accordingly.\n\n## If you remember nothing else\n\n1. **Verify anything specific and consequential.** Citations, numbers, dates, and section references are where models fabricate. Confidence is not evidence.\n2. **Self-reported confidence proves nothing.** Asking the model how sure it is never validates a claim.\n3. **Omission counts as failure.** A summary that drops a material caveat is wrong even though every word in it is true. Read the source, not just the output.\n4. **Anonymize, then analyze.** Strip regulated identifiers before upload. Purpose, seniority of the requester, and \"tell it to ignore that column\" are not controls.\n5. **Match the model to the task.** Fast and cheap for routine volume, capable for genuine reasoning. Defaulting to the largest model is a wrong answer; so is using the smallest for hard work.\n6. **Structure beats intensifiers.** Role, audience, sections, constraints, and an example fix bad output. \"Be detailed and thorough\" does not.\n7. **Decompose compound requests.** Ask for the categorized list, then the top three, then the actions. One vague mega-prompt yields vague output.\n8. **Projects hold what repeats.** Durable instructions and knowledge live in the Project; per-message specifics live in the prompt.\n9. **Project knowledge is maintained by you.** Stale uploaded documents produce confidently outdated answers. Replace, do not accumulate.\n10. **Diagnose the change.** When quality drops, ask what changed (new knowledge, new sources, new prompt) before rewriting anything.\n11. **Escalate integrations.** Connecting Claude to internal systems is Developer and Architect territory. Knowing that boundary is tested.\n12. **Answer the business question.** \"Can Claude do X?\" is answered with a division of labor: what it drafts, what humans judge, and where the review step sits.\n\n## Judgment patterns the exam rewards\n\n| Situation | Right instinct |\n| --- | --- |\n| Output bound for a customer, executive, or regulator | Verify claims, then human review |\n| High volume, low complexity | Cheaper, faster model |\n| Sensitive data in the input | Remove or pseudonymize first |\n| Same task every month | Project with instructions and knowledge |\n| Output format keeps missing | State the format explicitly, with an example |\n| Something worked and now does not | Find the change before changing anything |\n\n## Working the clock\n\n60 items in 120 minutes is two minutes each, and you will not need two minutes for most of them. My approach:\n\n- **First pass, about 70 minutes.** Answer everything you know. If an item needs more than 90 seconds of thought, choose your best option, flag it, and move. An unanswered item scores zero; a flagged guess is a free option to change your mind.\n- **Second pass, about 30 minutes.** Only the flagged ones. You will find that several are now obvious, because later items remind you of the framing.\n- **Last 20 minutes.** Re-read the multiple-response items specifically. They are where careless marks are lost, because it is easy to select two when the item says three.\n\n## Reading a question the way it is written\n\nEvery scenario names a constraint: cost, privacy, speed, policy, or scale. Find that constraint first, then eliminate every option that does not address it. Two options usually survive; the better one is the one that changes the system rather than compensating around it.\n\nWhen two options both look right, ask which one a careful professional would defend in front of the person who owns the risk. That is nearly always the intended answer.\n\n## The morning of\n\n- Run the system test again on the exam machine, even if it passed last week\n- Close everything on the shutdown list before check-in, not during it\n- Have the ID ready, room clear, desk clear, second monitor unplugged\n- Check-in takes longer than you expect; start the process early\n- Eat something. 135 minutes of seat time is longer than it sounds\n\n## If you blank\n\nSkip it and keep moving. The blueprint is finite and the items are independent; one hard question costs one mark, and stalling on it costs five. Come back in the second pass and the answer is often obvious.\n\n## Exam day logistics\n\n- ID name must match your registration exactly\n- Closed book. No notes, no documentation, no translation tools, no second monitor\n- Answer everything; unanswered scores zero. Flag and return rather than stalling\n- Multiple response items say how many to pick. Read that line first\n- Two minutes per item is the budget\n\n## Traps\n\n- The longest option is not the safest one; the exam rewards the option that meets the stated constraint\n- \"Do nothing\" and \"abandon the task\" are almost always wrong when a compliant path exists\n- Adding a disclaimer does not make inaccurate content acceptable\n- A larger model is not a fix for a governance, format, or process problem\n\n---\n\nFacts last verified against the official sources on 2026-11-17. [Study guide](README.md) · [Notes](notes.md) · [Practice questions](practice-questions.md) · [Mock exam](mock-exam-1.md) · [Repository index](../README.md)\n",
+ "notes": "# Study notes: Associate – Foundations\n\nMy working notes from preparing for this exam, organized by blueprint domain. They condense what matters; they do not replace the [exam guide](exam-guide.pdf), and nothing here comes from the live exam, which is covered by a non-disclosure agreement.\n\nHow to use these notes: read the [study guide](README.md) first for the facts and blueprint, then work through this page domain by domain, checking that every line reads as obvious to you. Anything that does not is a study target.\n\n## Domain 2 first: output evaluation (21%)\n\n**The largest domain on this paper is checking, not producing.** The exam tests\nwhether you can tell a wrong answer from a right one, which is a different\nskill from getting an answer at all.\n\n```mermaid\nflowchart TD\n    O[Claude produces an output] --> A{Does it answer the question asked?}\n    A -->|No| RE[Reframe the request, do not regenerate]\n    A -->|Yes| B{Any claim that matters if wrong?}\n    B -->|Yes| V{Does it hold against the source of record?}\n    B -->|No| S{Regulated, legal, or high stakes?}\n    V -->|No| RE\n    V -->|Yes| S\n    S -->|Yes| HUM[Route to human review]\n    S -->|No| F[Adapt for audience, tone, and format]\n    F --> ACC[Accept]\n```\n\nRegenerating is the reflex and rarely the fix. If the output was wrong because\nthe request was ambiguous, a second attempt is a second guess.\n\nThe largest domain, so it earns the first slot. The mindset the exam rewards is professional skepticism applied cheaply:\n\n- Treat every specific-looking detail in an output (citation numbers, statistics, names, dates) as unverified until checked against an authoritative source. Confident tone and self-reported confidence are not accuracy signals.\n- Know the common failure shapes: fabricated specifics, plausible-but-wrong summaries, silent omissions, and bias inherited from framing.\n- The verification workflow worth internalizing: identify claims that would matter if wrong, check those against the source of record, and route anything regulated, legal, or high-stakes to human review.\n- Adapting output for an audience (tone, format, length, artifact versus inline) is scored material, not an afterthought.\n\n## Prompting and task execution (14%)\n\n- Structure beats cleverness: state the role, the task, the context, the constraints, and the output format. Decompose big requests into steps rather than one sprawling prompt.\n- Iteration is the method: inspect what is wrong with an output, change one thing, rerun. Different task types (analysis, research, drafting, brainstorming) justify different strategies, and the exam expects you to match them.\n\n## Product and model selection (12%)\n\nThe tradeoff table to know cold:\n\n| Model | Character | Fits |\n| --- | --- | --- |\n| Haiku | Fastest, lowest cost | High-volume, straightforward tasks |\n| Sonnet | Balanced | Most day-to-day work |\n| Opus | Most capable, highest cost and latency | Complex reasoning that justifies the spend |\n\n- Feature selection is tested the same way: Projects for recurring context, research mode for sourced answers, Artifacts for documents and structured deliverables, plain chat for quick tasks.\n- Context is finite. Know when to start a fresh conversation, when to summarize and carry forward, and when to persist knowledge in a Project instead of re-pasting it.\n\n## Workflow integration and solution design (16%)\n\n- The valued skill is translating a business problem into a Claude workflow: analyze the requirement, pick where Claude adds value, integrate it into the existing process rather than around it, and be able to state its value and limits to a stakeholder plainly.\n- Redesign beats bolt-on: the exam guide's own language is process reimagination, not just task automation.\n\n## Configuration and knowledge management (12%)\n\n- Projects: instructions define behavior, knowledge sources define what it knows. Keep instructions short, specific, and maintained; stale knowledge is a quality bug you own.\n- Connectors (Google Drive, Gmail) extend reach; managing what is connected is part of governance, not just convenience.\n\n## Governance, risk, and responsible use (15%)\n\n- The pattern the sample questions reward: make the task safe, then do it. Anonymize or redact regulated identifiers before upload rather than abandoning the task or trusting an instruction to the model to compensate.\n- Know your organization's data classes and which may never leave approved systems. \"Instruct Claude not to retain it\" is not a control.\n- Appropriate-use judgment is tested: some tasks are wrong for AI in your context regardless of capability.\n\n## Troubleshooting and optimization (10%)\n\n- Diagnose before rewriting: is the failure missing context, ambiguous instruction, wrong feature, or wrong model? Fix the identified cause, not everything at once.\n- Optimization means cheaper and faster at equal quality: reusable prompts, Projects for repeated context, and the smallest model that holds quality.\n\n## Recall list\n\nFacts worth having instantly available on exam day: 60 questions, 120 minutes, 720 of 1,000 to pass, closed book, results on screen immediately, badge via Credly, credential valid 12 months with a free renewal assessment, retake waits of 14, 30, then 90 days, and the Associate exam does not count toward partner tier eligibility.\n\n---\n\nThese notes are the maintainer's own summary and carry no official standing. [Study guide](README.md) · [Repository index](../README.md)\n"
+}

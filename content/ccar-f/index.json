@@ -1,0 +1,250 @@
+[
+ {
+  "slug": "on-nhanh",
+  "task": null,
+  "domain": null,
+  "domainName": null,
+  "title": "Tổng quan CCAR-F",
+  "lede": "Cả chứng chỉ CCAR-F trên một trang, giải thích ngay tại chỗ, kèm sơ đồ luồng, bẫy đề và bảng chọn nhanh. Chưa học bài nào vẫn đọc được."
+ },
+ {
+  "slug": "1-1-vong-lap-agent",
+  "task": "1.1",
+  "domain": 1,
+  "domainName": "Agentic Architecture & Orchestration",
+  "title": "Vòng lặp agent và stop_reason",
+  "lede": "Agent gọi Claude, chạy tool, gửi kết quả rồi gọi tiếp. Bài này giúp bạn biết khi nào vòng lặp phải chạy tiếp, khi nào dừng, và những cách dừng sai hay gặp."
+ },
+ {
+  "slug": "1-2-dieu-phoi-nhieu-agent",
+  "task": "1.2",
+  "domain": 1,
+  "domainName": "Agentic Architecture & Orchestration",
+  "title": "Điều phối nhiều agent theo mô hình coordinator–subagent",
+  "lede": "Agent điều phối chia việc cho các subagent rồi gom kết quả. Cách chia cho đủ, không trùng, và vì sao mọi trao đổi nên đi qua agent điều phối."
+ },
+ {
+  "slug": "1-3-goi-subagent-va-truyen-context",
+  "task": "1.3",
+  "domain": 1,
+  "domainName": "Agentic Architecture & Orchestration",
+  "title": "Gọi subagent và truyền context cho đủ",
+  "lede": "Cách agent điều phối gọi subagent bằng Task tool, khai báo subagent bằng AgentDefinition, và viết prompt giao việc sao cho subagent có đủ thông tin."
+ },
+ {
+  "slug": "1-4-ep-quy-trinh-va-chuyen-giao",
+  "task": "1.4",
+  "domain": 1,
+  "domainName": "Agentic Architecture & Orchestration",
+  "title": "Ép thứ tự các bước và chuyển giao có cấu trúc",
+  "lede": "Khi một bước bắt buộc phải làm trước, chặn bằng code thay vì chỉ dặn trong prompt. Kèm cách tách yêu cầu nhiều ý và viết bản tóm tắt khi chuyển cho nhân viên."
+ },
+ {
+  "slug": "1-5-hook-agent-sdk",
+  "task": "1.5",
+  "domain": 1,
+  "domainName": "Agentic Architecture & Orchestration",
+  "title": "Hook trong Agent SDK để chặn tool và chuẩn hoá dữ liệu",
+  "lede": "Dùng hook PreToolUse để chặn thao tác vi phạm quy định, PostToolUse để chuẩn hoá kết quả tool, và khi nào chọn hook thay vì dặn trong prompt."
+ },
+ {
+  "slug": "1-6-chia-nho-nhiem-vu",
+  "task": "1.6",
+  "domain": 1,
+  "domainName": "Agentic Architecture & Orchestration",
+  "title": "Chia nhỏ nhiệm vụ phức tạp",
+  "lede": "Khi nào chia việc thành chuỗi bước cố định (prompt chaining), khi nào để agent tự chia theo những gì phát hiện được, và cách chia một lần review code lớn."
+ },
+ {
+  "slug": "1-7-session-tiep-tuc-va-fork",
+  "task": "1.7",
+  "domain": 1,
+  "domainName": "Agentic Architecture & Orchestration",
+  "title": "Tiếp tục, fork hay bắt đầu lại một phiên làm việc",
+  "lede": "Quay lại phiên đã đặt tên bằng --resume, thử hai hướng bằng fork_session, và khi nào nên mở phiên mới kèm bản tóm tắt."
+ },
+ {
+  "slug": "2-1-thiet-ke-tool",
+  "task": "2.1",
+  "domain": 2,
+  "domainName": "Tool Design & MCP Integration",
+  "title": "Thiết kế tool có mô tả rõ ràng và ranh giới tách bạch",
+  "lede": "Claude chọn tool dựa vào mô tả. Cách viết mô tả rõ, đổi tên hoặc tách tool cho hết chồng chéo, và rà system prompt kẻo kéo Claude chọn sai."
+ },
+ {
+  "slug": "2-2-loi-co-cau-truc-mcp",
+  "task": "2.2",
+  "domain": 2,
+  "domainName": "Tool Design & MCP Integration",
+  "title": "Trả lỗi có cấu trúc từ tool MCP",
+  "lede": "Tool MCP báo lỗi thế nào để agent biết nên thử lại, đổi cách hay dừng. Gồm cờ isError, bốn loại lỗi, và phân biệt lỗi với kết quả rỗng."
+ },
+ {
+  "slug": "2-3-phan-tool-va-tool-choice",
+  "task": "2.3",
+  "domain": 2,
+  "domainName": "Tool Design & MCP Integration",
+  "title": "Phân tool cho từng agent và cấu hình tool_choice",
+  "lede": "Giao mỗi agent đúng bộ tool nó cần, thay tool chung chung bằng tool có giới hạn, và dùng tool_choice để buộc Claude gọi tool."
+ },
+ {
+  "slug": "2-4-tich-hop-mcp-server",
+  "task": "2.4",
+  "domain": 2,
+  "domainName": "Tool Design & MCP Integration",
+  "title": "Tích hợp MCP server vào Claude Code và agent",
+  "lede": "Đặt MCP server dùng chung ở .mcp.json, server cá nhân ở ~/.claude.json, giữ token bằng biến môi trường, viết mô tả tool MCP cho rõ, và dùng MCP resources."
+ },
+ {
+  "slug": "2-5-tool-co-san-claude-code",
+  "task": "2.5",
+  "domain": 2,
+  "domainName": "Tool Design & MCP Integration",
+  "title": "Dùng đúng tool có sẵn Read, Write, Edit, Bash, Grep, Glob",
+  "lede": "Khi nào dùng Grep, khi nào dùng Glob, vì sao Edit có lúc thất bại và cách xử lý, và cách tìm hiểu một codebase lạ từng bước thay vì đọc hết."
+ },
+ {
+  "slug": "3-1-phan-cap-claude-md",
+  "task": "3.1",
+  "domain": 3,
+  "domainName": "Claude Code Configuration & Workflows",
+  "title": "Phân cấp CLAUDE.md, @import và .claude/rules",
+  "lede": "Đặt CLAUDE.md ở đâu thì ai nhận được, file được nạp lúc nào, và cách chia một CLAUDE.md dài bằng @import hoặc thư mục .claude/rules/."
+ },
+ {
+  "slug": "3-2-slash-command-va-skill",
+  "task": "3.2",
+  "domain": 3,
+  "domainName": "Claude Code Configuration & Workflows",
+  "title": "Tạo slash command và skill cho Claude Code",
+  "lede": "Đặt lệnh tự tạo và skill ở đâu để cả nhóm dùng chung, cấu hình frontmatter context fork, allowed-tools, argument-hint, và khi nào dùng skill thay CLAUDE.md."
+ },
+ {
+  "slug": "3-3-rule-theo-duong-dan",
+  "task": "3.3",
+  "domain": 3,
+  "domainName": "Claude Code Configuration & Workflows",
+  "title": "Rule theo đường dẫn trong .claude/rules",
+  "lede": "Dùng trường paths với mẫu glob để một file rule chỉ được nạp khi Claude đụng tới file khớp mẫu, và khi nào chọn cách này thay CLAUDE.md ở thư mục con."
+ },
+ {
+  "slug": "3-4-plan-mode-hay-lam-ngay",
+  "task": "3.4",
+  "domain": 3,
+  "domainName": "Claude Code Configuration & Workflows",
+  "title": "Khi nào dùng plan mode, khi nào làm ngay",
+  "lede": "Nhận ra việc nào cần plan mode để khảo sát và lên kế hoạch trước, việc nào nên làm ngay, và dùng subagent Explore để giữ context chính gọn."
+ },
+ {
+  "slug": "3-5-tinh-chinh-lap-lai",
+  "task": "3.5",
+  "domain": 3,
+  "domainName": "Claude Code Configuration & Workflows",
+  "title": "Tinh chỉnh lặp lại cho tới khi đúng",
+  "lede": "Bốn cách để mỗi vòng sửa với Claude Code đều tiến lên. Đưa ví dụ đầu vào và đầu ra, viết test trước, để Claude hỏi lại, và biết khi nào gom lỗi một lần."
+ },
+ {
+  "slug": "3-6-claude-code-trong-ci",
+  "task": "3.6",
+  "domain": 3,
+  "domainName": "Claude Code Configuration & Workflows",
+  "title": "Đưa Claude Code vào pipeline CI/CD",
+  "lede": "Chạy Claude Code trong CI bằng cờ -p, lấy kết quả JSON theo schema để đăng comment lên PR, đưa context qua CLAUDE.md, và vì sao nên review bằng một phiên khác."
+ },
+ {
+  "slug": "4-1-tieu-chi-ro-rang",
+  "task": "4.1",
+  "domain": 4,
+  "domainName": "Prompt Engineering & Structured Output",
+  "title": "Viết prompt có tiêu chí rõ ràng để bớt báo sai",
+  "lede": "Vì sao dặn \"chỉ báo khi chắc chắn\" không làm review chính xác hơn, cách viết tiêu chí cụ thể cho cái cần báo và cái bỏ qua, và cách giữ lòng tin của dev."
+ },
+ {
+  "slug": "4-2-few-shot",
+  "task": "4.2",
+  "domain": 4,
+  "domainName": "Prompt Engineering & Structured Output",
+  "title": "Dùng few-shot để kết quả nhất quán",
+  "lede": "Khi hướng dẫn chi tiết vẫn cho kết quả mỗi lần một kiểu, vài ví dụ mẫu chọn kỹ giúp Claude giữ đúng định dạng, xử lý ca mập mờ và bớt bịa khi trích dữ liệu."
+ },
+ {
+  "slug": "4-3-output-co-cau-truc",
+  "task": "4.3",
+  "domain": 4,
+  "domainName": "Prompt Engineering & Structured Output",
+  "title": "Ép đầu ra có cấu trúc bằng tool use và JSON schema",
+  "lede": "Lấy dữ liệu đúng schema qua tool use và strict, chọn tool_choice cho từng tình huống, thiết kế trường tuỳ chọn, enum có other và unclear để Claude khỏi bịa."
+ },
+ {
+  "slug": "4-4-kiem-tra-va-thu-lai",
+  "task": "4.4",
+  "domain": 4,
+  "domainName": "Prompt Engineering & Structured Output",
+  "title": "Kiểm tra, thử lại và vòng phản hồi cho trích xuất",
+  "lede": "Khi kết quả trích xuất sai, gửi lại kèm lỗi cụ thể để Claude tự sửa, biết lúc nào thử lại vô ích, và thêm trường giúp tự phát hiện chỗ lệch."
+ },
+ {
+  "slug": "4-5-xu-ly-theo-lo",
+  "task": "4.5",
+  "domain": 4,
+  "domainName": "Prompt Engineering & Structured Output",
+  "title": "Xử lý theo lô với Message Batches API",
+  "lede": "Khi nào dùng Message Batches API cho rẻ một nửa, khi nào gọi trực tiếp, cách tính tần suất gửi lô theo cam kết thời gian, và gửi lại yêu cầu lỗi bằng custom_id."
+ },
+ {
+  "slug": "4-6-review-nhieu-luot",
+  "task": "4.6",
+  "domain": 4,
+  "domainName": "Prompt Engineering & Structured Output",
+  "title": "Review bằng nhiều phiên và nhiều lượt",
+  "lede": "Vì sao Claude khó tự bắt lỗi code nó vừa viết, review bằng một phiên độc lập, chia PR lớn thành lượt theo file và lượt tích hợp, kèm độ tự tin để chia việc."
+ },
+ {
+  "slug": "5-1-quan-ly-context",
+  "task": "5.1",
+  "domain": 5,
+  "domainName": "Context Management & Reliability",
+  "title": "Giữ thông tin quan trọng trong cuộc trò chuyện dài",
+  "lede": "Vì sao tóm tắt dần làm mất số liệu, thông tin ở giữa dễ bị bỏ sót, kết quả tool chiếm context, và cách giữ sự thật quan trọng trong một khối riêng."
+ },
+ {
+  "slug": "5-2-chuyen-cho-nguoi-va-mo-ho",
+  "task": "5.2",
+  "domain": 5,
+  "domainName": "Context Management & Reliability",
+  "title": "Khi nào chuyển cho người, và xử lý yêu cầu mơ hồ",
+  "lede": "Ba trường hợp agent nên chuyển cho nhân viên, vì sao không dựa vào mức độ bực bội hay điểm tự tin, và phải làm gì khi tra ra nhiều khách trùng tên."
+ },
+ {
+  "slug": "5-3-lan-truyen-loi",
+  "task": "5.3",
+  "domain": 5,
+  "domainName": "Context Management & Reliability",
+  "title": "Truyền lỗi giữa các agent trong hệ thống nhiều agent",
+  "lede": "Subagent báo lỗi thế nào để agent điều phối quyết định được. Gồm ngữ cảnh lỗi có cấu trúc, phân biệt lỗi truy cập với kết quả rỗng, và ghi chú phần còn thiếu."
+ },
+ {
+  "slug": "5-4-kham-pha-codebase-lon",
+  "task": "5.4",
+  "domain": 5,
+  "domainName": "Context Management & Reliability",
+  "title": "Quản lý context khi tìm hiểu codebase lớn",
+  "lede": "Dấu hiệu context quá tải khi khám phá codebase lớn, và cách xử lý bằng file ghi chú, subagent cho từng câu hỏi, tóm tắt giữa giai đoạn, manifest và /compact."
+ },
+ {
+  "slug": "5-5-nguoi-duyet-va-do-tin-cay",
+  "task": "5.5",
+  "domain": 5,
+  "domainName": "Context Management & Reliability",
+  "title": "Quy trình người duyệt và hiệu chỉnh độ tin cậy",
+  "lede": "Vì sao độ chính xác 97% có thể che lỗi ở từng loại tài liệu, cách lấy mẫu theo nhóm, hiệu chỉnh độ tin cậy bằng tập đã gắn nhãn, và dồn người duyệt vào ca khó."
+ },
+ {
+  "slug": "5-6-nguon-goc-thong-tin",
+  "task": "5.6",
+  "domain": 5,
+  "domainName": "Context Management & Reliability",
+  "title": "Giữ nguồn gốc thông tin khi tổng hợp từ nhiều nguồn",
+  "lede": "Giữ liên kết nhận định và nguồn qua các bước tổng hợp, ghi rõ khi nguồn đáng tin nói khác nhau, kèm ngày của số liệu, trình bày đúng từng loại nội dung."
+ }
+]

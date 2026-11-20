@@ -1,0 +1,2405 @@
+{
+ "code": "ccar-f",
+ "name": "Architect – Foundations",
+ "examCode": "CCAR-F",
+ "facts": {
+  "questions": "60 multiple-choice and multiple-response items",
+  "time": "120 minutes, with about 135 minutes of total seat time",
+  "passing": "720 on a scaled range of 100 to 1,000",
+  "fee": "125 USD, before any [partner-tier discount](../guide/faq.md#pricing-and-discounts). Increased from 99 USD on June 30, 2026",
+  "validity": "12 months from the date you earn it",
+  "prerequisites": "None. No course is required"
+ },
+ "mockMinutes": 30,
+ "domains": [
+  {
+   "n": 1,
+   "name": "Agentic Architecture & Orchestration",
+   "weight": "27%"
+  },
+  {
+   "n": 2,
+   "name": "Tool Design & MCP Integration",
+   "weight": "18%"
+  },
+  {
+   "n": 3,
+   "name": "Claude Code Configuration & Workflows",
+   "weight": "20%"
+  },
+  {
+   "n": 4,
+   "name": "Prompt Engineering & Structured Output",
+   "weight": "20%"
+  },
+  {
+   "n": 5,
+   "name": "Context Management & Reliability",
+   "weight": "15%"
+  }
+ ],
+ "questions": [
+  {
+   "id": "ccar-f-p1",
+   "set": "practice",
+   "n": 1,
+   "domain": 1,
+   "q": "Your support agent resolves most tickets but sometimes loops indefinitely, re-calling lookup_order on the same order. What is the correct structural fix?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Raise max_tokens so the loop has room to finish"
+    },
+    {
+     "k": "B",
+     "t": "Remove the lookup_order tool"
+    },
+    {
+     "k": "C",
+     "t": "Add explicit loop-termination conditions: cap tool iterations, detect repeated identical calls, and route to escalate_to_human when progress stalls"
+    },
+    {
+     "k": "D",
+     "t": "Lower the temperature"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Agent loops need engineered termination: iteration budgets, repeated-call detection, and an escalation path when the agent cannot progress. Token budget (A) delays the symptom, removing a needed tool (B) breaks resolution, and temperature (D) does not bound iteration.",
+   "scenario": "Support resolution agent"
+  },
+  {
+   "id": "ccar-f-p2",
+   "set": "practice",
+   "n": 2,
+   "domain": 2,
+   "q": "process_refund currently accepts any amount. Support policy caps agent-initiated refunds at $200; larger refunds need a human. Where does that rule belong?",
+   "options": [
+    {
+     "k": "A",
+     "t": "In the system prompt, phrased firmly"
+    },
+    {
+     "k": "B",
+     "t": "In the model's reasoning, since it reads the policy"
+    },
+    {
+     "k": "C",
+     "t": "In quarterly staff training"
+    },
+    {
+     "k": "D",
+     "t": "Enforced in the tool layer: the tool rejects amounts over the cap with a structured error, and a hook or the tool itself routes larger cases to escalation"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Hard policy limits are enforced deterministically at the tool boundary, not requested of the model. Prompt phrasing (A) and model reasoning (B) are probabilistic where the requirement is absolute, and training (C) does not constrain the agent at all.",
+   "scenario": "Support resolution agent"
+  },
+  {
+   "id": "ccar-f-p3",
+   "set": "practice",
+   "n": 3,
+   "domain": 1,
+   "q": "Your coordinator delegates to search, analysis, and report subagents. Final reports cite sources that do not support their claims, though each subagent behaves sensibly alone. What is the most likely architectural cause?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Provenance is lost at handoffs: findings and their sources are not passed together in a structured form, so the report writer pairs claims with citations by guesswork"
+    },
+    {
+     "k": "B",
+     "t": "The report subagent's model is too small"
+    },
+    {
+     "k": "C",
+     "t": "The web is unreliable"
+    },
+    {
+     "k": "D",
+     "t": "Too many subagents are running in parallel"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "In multi-agent pipelines, provenance survives only if the handoff format carries claim and source together. That failure mode produces exactly this symptom while every stage looks locally fine. Model size (B), source quality (C), and parallelism (D) do not explain correct facts paired with wrong citations.",
+   "scenario": "Multi-agent research"
+  },
+  {
+   "id": "ccar-f-p4",
+   "set": "practice",
+   "n": 4,
+   "domain": 5,
+   "q": "The analysis subagent returns 30,000-token document dumps to the coordinator, which then fails on context limits. What is the right fix?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Give the coordinator a bigger context window"
+    },
+    {
+     "k": "B",
+     "t": "Have subagents return structured extracts, findings with citations and confidence, while full documents stay in the subagent's context or a scratchpad file"
+    },
+    {
+     "k": "C",
+     "t": "Have the coordinator drop the oldest messages silently"
+    },
+    {
+     "k": "D",
+     "t": "Run the analysis twice and keep the shorter answer"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Context isolation is the point of subagent delegation: raw bulk stays at the edge, distilled results travel. A larger window (A) postpones the failure, silent dropping (C) loses arbitrary information, and rerunning (D) changes nothing structural.",
+   "scenario": "Multi-agent research"
+  },
+  {
+   "id": "ccar-f-p5",
+   "set": "practice",
+   "n": 5,
+   "domain": 3,
+   "q": "Your monorepo has frontend and backend directories with different conventions, and one team-wide rule about commit style. Where does each piece of configuration belong?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Everything in one root CLAUDE.md"
+    },
+    {
+     "k": "B",
+     "t": "Each engineer's personal user-level CLAUDE.md"
+    },
+    {
+     "k": "C",
+     "t": "The commit rule in the project-level CLAUDE.md; the per-area conventions in path-scoped rules under .claude/rules/ that load only when matching files are touched"
+    },
+    {
+     "k": "D",
+     "t": "A wiki page linked from the README"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "The hierarchy exists for exactly this: shared rules at project scope, conditional conventions path-scoped so context is spent only where relevant. One root file (A) loads everything everywhere, personal files (B) diverge per engineer, and a wiki (D) never reaches the model.",
+   "scenario": "Claude Code for development"
+  },
+  {
+   "id": "ccar-f-p6",
+   "set": "practice",
+   "n": 6,
+   "domain": 3,
+   "q": "Your CI job runs Claude Code to review pull requests, and the pipeline must parse the results mechanically. Which invocation is correct?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Interactive mode with a human copying the output into CI"
+    },
+    {
+     "k": "B",
+     "t": "Plan mode, which is safer for automation"
+    },
+    {
+     "k": "C",
+     "t": "A shell script that greps the human-readable transcript"
+    },
+    {
+     "k": "D",
+     "t": "Non-interactive mode with -p, with --output-format json and a schema so the review arrives as machine-readable, validated output"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Headless CI use is what -p with JSON output and a schema is for: deterministic invocation, parseable results. A human in the loop (A) is not CI, plan mode (B) is a review gate for interactive work rather than an output format, and grepping prose (C) breaks on the first wording change.",
+   "scenario": "Claude Code in CI"
+  },
+  {
+   "id": "ccar-f-p7",
+   "set": "practice",
+   "n": 7,
+   "domain": 4,
+   "q": "The automated reviewer flags dozens of trivial style nits per pull request, and engineers have started ignoring it. Which change addresses the false-positive problem the way the blueprint suggests?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Define explicit review criteria in the prompt: what to flag, what to ignore, and a severity bar, with a few worked examples of in-scope and out-of-scope findings"
+    },
+    {
+     "k": "B",
+     "t": "Run the review twice and post only findings that appear both times"
+    },
+    {
+     "k": "C",
+     "t": "Cap the reviewer at three findings per pull request"
+    },
+    {
+     "k": "D",
+     "t": "Route all findings to a channel nobody reads"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Precision comes from explicit criteria and few-shot examples that draw the boundary between signal and noise. Double-running (B) filters randomness but not systematic nit-picking, an arbitrary cap (C) drops real findings on bad days, and (D) is surrender.",
+   "scenario": "Claude Code in CI"
+  },
+  {
+   "id": "ccar-f-p8",
+   "set": "practice",
+   "n": 8,
+   "domain": 4,
+   "q": "Invoices sometimes lack a purchase-order number, and your extraction schema must handle that honestly while catching real misses. What is the right schema design?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Make every field required so nothing is missed"
+    },
+    {
+     "k": "B",
+     "t": "Make purchase_order nullable, so absence is recorded as null, and validate that it is present whenever the document type requires it"
+    },
+    {
+     "k": "C",
+     "t": "Make everything optional to avoid validation errors"
+    },
+    {
+     "k": "D",
+     "t": "Have the model invent a plausible number when one is missing"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Schema design encodes reality: genuinely optional data is nullable, and conditional requirements are validated downstream. All-required (A) forces fabrication or failure on legitimate documents, all-optional (C) blinds you to true misses, and invention (D) is data corruption.",
+   "scenario": "Structured data extraction"
+  },
+  {
+   "id": "ccar-f-p9",
+   "set": "practice",
+   "n": 9,
+   "domain": 5,
+   "q": "Your pipeline reports 98% field accuracy, measured on the documents the schema validated cleanly. An auditor calls the number misleading. Why?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Accuracy should be measured only on the hardest documents"
+    },
+    {
+     "k": "B",
+     "t": "98% is below industry standard"
+    },
+    {
+     "k": "C",
+     "t": "Validation-clean documents are a biased sample: the honest measure comes from a labeled sample drawn across all documents, including ones that failed or barely passed validation"
+    },
+    {
+     "k": "D",
+     "t": "Field accuracy is not a real metric"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Measuring only where the system already succeeded inflates the estimate; calibration requires a labeled sample representative of the full input stream. Hardest-only (A) biases in the opposite direction, the standard claim (B) is invented, and (D) is false.",
+   "scenario": "Structured data extraction"
+  },
+  {
+   "id": "ccar-f-p10",
+   "set": "practice",
+   "n": 10,
+   "domain": 2,
+   "q": "Your codebase-exploration agent has get_file_contents, read_source, and fetch_file tools that all read files, and it frequently picks poorly among them. What is the correct fix?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Add a fourth, better file-reading tool"
+    },
+    {
+     "k": "B",
+     "t": "Fine-tune the model on the tool list"
+    },
+    {
+     "k": "C",
+     "t": "Randomize which tool the harness dispatches"
+    },
+    {
+     "k": "D",
+     "t": "Consolidate to one file-reading tool, or give the survivors sharply differentiated descriptions that state exactly when each applies"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Tool selection runs on descriptions; overlapping tools with vague descriptions produce dithering. Consolidation or sharp differentiation is the documented cure. Adding overlap (A) worsens it, fine-tuning (B) is disproportionate, and randomization (C) institutionalizes the confusion.",
+   "scenario": "Developer productivity agent"
+  },
+  {
+   "id": "ccar-f-p11",
+   "set": "practice",
+   "n": 11,
+   "domain": 1,
+   "q": "A support workflow resolves tickets by looking up an account, checking entitlement, and drafting a reply, always in that order. Which architecture is correct?",
+   "options": [
+    {
+     "k": "A",
+     "t": "A deterministic pipeline that calls the model at each defined step"
+    },
+    {
+     "k": "B",
+     "t": "A single agent that decides each step at runtime"
+    },
+    {
+     "k": "C",
+     "t": "Three agents that negotiate the order between them"
+    },
+    {
+     "k": "D",
+     "t": "One prompt containing all three steps"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "A known, fixed sequence should be encoded rather than rediscovered on every run, which makes it cheaper, faster, and testable step by step. Runtime decisions (B, C) add nondeterminism for no gain, and one prompt (D) removes the checkpoints between steps."
+  },
+  {
+   "id": "ccar-f-p12",
+   "set": "practice",
+   "n": 12,
+   "domain": 1,
+   "q": "What is the strongest justification for splitting work across subagents?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The task has many steps"
+    },
+    {
+     "k": "B",
+     "t": "Separate lines of work each need their own context, and mixing them degrades both"
+    },
+    {
+     "k": "C",
+     "t": "Subagents are faster than a single agent"
+    },
+    {
+     "k": "D",
+     "t": "The output must be assembled from several sections"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Subagents exist to isolate context, so the case for them is contamination between concerns rather than volume. Step count (A) and sectioned output (D) suit a workflow, and delegation usually adds latency rather than removing it (C)."
+  },
+  {
+   "id": "ccar-f-p13",
+   "set": "practice",
+   "n": 13,
+   "domain": 1,
+   "q": "An agent loops between two tools without converging. What is the most appropriate first control?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Increase the context window so it can see more history"
+    },
+    {
+     "k": "B",
+     "t": "Switch to a larger model"
+    },
+    {
+     "k": "C",
+     "t": "Impose a step ceiling and define the terminating condition explicitly"
+    },
+    {
+     "k": "D",
+     "t": "Remove one of the two tools"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Non-termination is bounded by an explicit stop condition and a hard ceiling, which contains cost and makes the failure visible. More context (A) and a larger model (B) do not guarantee convergence, and removing a tool (D) may break the task."
+  },
+  {
+   "id": "ccar-f-p14",
+   "set": "practice",
+   "n": 14,
+   "domain": 1,
+   "q": "Which property most increases the operational risk of an agentic design?",
+   "options": [
+    {
+     "k": "A",
+     "t": "It calls more than one model"
+    },
+    {
+     "k": "B",
+     "t": "It produces structured output"
+    },
+    {
+     "k": "C",
+     "t": "It runs longer than a minute"
+    },
+    {
+     "k": "D",
+     "t": "It takes irreversible actions without a checkpoint"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Reversibility governs the cost of being wrong, which is the dominant risk in autonomous execution. Multiple models (A), structure (B), and duration (C) affect cost and complexity rather than blast radius."
+  },
+  {
+   "id": "ccar-f-p15",
+   "set": "practice",
+   "n": 15,
+   "domain": 1,
+   "q": "How should an agentic system handle a step whose result it cannot verify?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Surface the unverifiable step for human confirmation before acting on it"
+    },
+    {
+     "k": "B",
+     "t": "Proceed, since the model is usually right"
+    },
+    {
+     "k": "C",
+     "t": "Retry the step until two runs agree"
+    },
+    {
+     "k": "D",
+     "t": "Log the step and continue"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "An unverifiable result is exactly where human judgment belongs, before it is acted upon. Assuming correctness (B) and logging without stopping (D) both act on unchecked output, and agreement across runs (C) establishes consistency rather than truth."
+  },
+  {
+   "id": "ccar-f-p16",
+   "set": "practice",
+   "n": 16,
+   "domain": 1,
+   "q": "A team proposes an agent for a task where every input is well formed and every rule is known. What should the architect recommend?",
+   "options": [
+    {
+     "k": "A",
+     "t": "An agent, for future flexibility"
+    },
+    {
+     "k": "B",
+     "t": "A deterministic implementation, reserving model calls for the genuinely ambiguous parts"
+    },
+    {
+     "k": "C",
+     "t": "An agent with a low step limit"
+    },
+    {
+     "k": "D",
+     "t": "A multi-agent design for separation of concerns"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Known rules over well-formed input are code, and using a model there buys nondeterminism at a price. Speculative flexibility (A), a constrained agent (C), and multiple agents (D) all keep the cost without the need."
+  },
+  {
+   "id": "ccar-f-p17",
+   "set": "practice",
+   "n": 17,
+   "domain": 1,
+   "q": "What most improves the debuggability of an agentic system in production?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Reducing the number of tools"
+    },
+    {
+     "k": "B",
+     "t": "Using a single model for every step"
+    },
+    {
+     "k": "C",
+     "t": "Recording the inputs, tool calls, and outputs of each step as a trace"
+    },
+    {
+     "k": "D",
+     "t": "Increasing the step limit"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "A per-step trace is what makes a nondeterministic run reconstructable after the fact. Fewer tools (A) and one model (B) simplify without explaining, and a higher ceiling (D) makes failures longer rather than clearer."
+  },
+  {
+   "id": "ccar-f-p18",
+   "set": "practice",
+   "n": 18,
+   "domain": 3,
+   "q": "Where should conventions that apply to everyone working in a repository be recorded?",
+   "options": [
+    {
+     "k": "A",
+     "t": "In each developer's personal settings"
+    },
+    {
+     "k": "B",
+     "t": "In the pull request template"
+    },
+    {
+     "k": "C",
+     "t": "In a pinned chat message"
+    },
+    {
+     "k": "D",
+     "t": "In a CLAUDE.md committed to the repository"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Committed project memory is versioned, reviewable, and shared, which is what a team convention requires. Personal settings (A) do not propagate, and templates (B) and messages (C) are not read as working context."
+  },
+  {
+   "id": "ccar-f-p19",
+   "set": "practice",
+   "n": 19,
+   "domain": 3,
+   "q": "What distinguishes work suited to headless mode?",
+   "options": [
+    {
+     "k": "A",
+     "t": "It is well defined and repeatable, so it can run unattended in automation"
+    },
+    {
+     "k": "B",
+     "t": "It is complex and needs close supervision"
+    },
+    {
+     "k": "C",
+     "t": "It requires many tools"
+    },
+    {
+     "k": "D",
+     "t": "It produces a long output"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Headless execution suits bounded, repeatable work where no one is watching. Supervision (B) argues for interactive use, and tool count (C) and output length (D) do not determine suitability."
+  },
+  {
+   "id": "ccar-f-p20",
+   "set": "practice",
+   "n": 20,
+   "domain": 3,
+   "q": "A skill and a subagent could both address a need. What decides between them?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Skills are always preferable"
+    },
+    {
+     "k": "B",
+     "t": "Whether the need is reusable know-how or an isolated line of work with its own context"
+    },
+    {
+     "k": "C",
+     "t": "Whether the task is long"
+    },
+    {
+     "k": "D",
+     "t": "Whether the repository already has a CLAUDE.md"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "The two solve different problems: a skill packages reusable procedure, a subagent isolates context. A blanket preference (A), duration (C), and existing files (D) do not address that distinction."
+  },
+  {
+   "id": "ccar-f-p21",
+   "set": "practice",
+   "n": 21,
+   "domain": 3,
+   "q": "What is the correct use of a hook in a Claude Code workflow?",
+   "options": [
+    {
+     "k": "A",
+     "t": "To hold instructions the model should follow"
+    },
+    {
+     "k": "B",
+     "t": "To store project context"
+    },
+    {
+     "k": "C",
+     "t": "To enforce a deterministic action at a defined point, independently of the model"
+    },
+    {
+     "k": "D",
+     "t": "To define which model is used"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Hooks run as code at fixed points, so they enforce rather than request. Instructions (A) and context (B) belong in project memory, and model choice (D) is configuration."
+  },
+  {
+   "id": "ccar-f-p22",
+   "set": "practice",
+   "n": 22,
+   "domain": 3,
+   "q": "Claude Code performs well for one engineer and inconsistently across the team. What is the most likely cause?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The others need more capable machines"
+    },
+    {
+     "k": "B",
+     "t": "The repository is too large"
+    },
+    {
+     "k": "C",
+     "t": "The others are using different terminals"
+    },
+    {
+     "k": "D",
+     "t": "The working conventions live in one person's local setup rather than in the repository"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Context that is not committed does not travel, which produces exactly this asymmetry. Hardware (A), repository size (B), and terminal choice (C) do not explain a difference in output quality."
+  },
+  {
+   "id": "ccar-f-p23",
+   "set": "practice",
+   "n": 23,
+   "domain": 4,
+   "q": "A pipeline requires output that always validates against a schema. What is the correct approach?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Declare the schema as a tool the model must call, and validate on receipt"
+    },
+    {
+     "k": "B",
+     "t": "Ask for the schema in the prompt and validate afterwards"
+    },
+    {
+     "k": "C",
+     "t": "Ask for JSON and repair malformed output in code"
+    },
+    {
+     "k": "D",
+     "t": "Use a lower temperature"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "A declared schema makes the structure part of the contract rather than a request, and validation on receipt closes the loop. Prompt requests (B), downstream repair (C), and temperature (D) all leave the shape to chance."
+  },
+  {
+   "id": "ccar-f-p24",
+   "set": "practice",
+   "n": 24,
+   "domain": 4,
+   "q": "Extraction is accurate for common cases and fails on rare formats. What is the most effective response?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Raise the temperature to encourage flexibility"
+    },
+    {
+     "k": "B",
+     "t": "Add examples covering the rare formats and define what to return when a field is absent"
+    },
+    {
+     "k": "C",
+     "t": "Switch to a larger model"
+    },
+    {
+     "k": "D",
+     "t": "Ask the model to try harder on unusual inputs"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Rare cases fail because they are unspecified, and examples plus an explicit absent-field rule specify them. Temperature (A) adds variance, a larger model (C) is not aimed at the gap, and exhortation (D) is not a specification."
+  },
+  {
+   "id": "ccar-f-p25",
+   "set": "practice",
+   "n": 25,
+   "domain": 4,
+   "q": "What should a schema define for a field the source document may not contain?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Nothing, since the model will omit it"
+    },
+    {
+     "k": "B",
+     "t": "A default value that looks plausible"
+    },
+    {
+     "k": "C",
+     "t": "An explicit representation for absence, so a missing value is distinguishable from an unfilled one"
+    },
+    {
+     "k": "D",
+     "t": "A free-text field for notes"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Absence must be representable, or downstream code cannot tell a genuine gap from a failure. Silent omission (A) is ambiguous, plausible defaults (B) fabricate data, and a notes field (D) does not make the state machine-readable."
+  },
+  {
+   "id": "ccar-f-p26",
+   "set": "practice",
+   "n": 26,
+   "domain": 4,
+   "q": "Which practice most improves consistency across a long-running structured extraction job?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Randomising the order of documents"
+    },
+    {
+     "k": "B",
+     "t": "Increasing the output token limit"
+    },
+    {
+     "k": "C",
+     "t": "Running each document twice"
+    },
+    {
+     "k": "D",
+     "t": "Fixing the prompt, the schema, and the model version, and recording them with the output"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Consistency requires that the things that shape output are pinned and recorded, so results remain comparable and reproducible. Ordering (A) is irrelevant, the token cap (B) affects length, and duplicate runs (C) measure variance without removing it."
+  },
+  {
+   "id": "ccar-f-p27",
+   "set": "practice",
+   "n": 27,
+   "domain": 4,
+   "q": "A prompt mixes the instruction, the data, and the output format in continuous prose. What is the first improvement?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Separate the sections so the instruction, the input, and the required format are distinguishable"
+    },
+    {
+     "k": "B",
+     "t": "Shorten it"
+    },
+    {
+     "k": "C",
+     "t": "Move it into the system prompt"
+    },
+    {
+     "k": "D",
+     "t": "Add emphasis to the format requirement"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Structure lets the model tell instruction from data, which is the most common source of confusion in long prompts. Shortening (B) may remove needed detail, relocation (C) does not clarify, and emphasis (D) does not separate."
+  },
+  {
+   "id": "ccar-f-p28",
+   "set": "practice",
+   "n": 28,
+   "domain": 2,
+   "q": "What is the strongest indicator that a tool surface needs redesign?",
+   "options": [
+    {
+     "k": "A",
+     "t": "It contains more than ten tools"
+    },
+    {
+     "k": "B",
+     "t": "The model regularly selects a tool that cannot accomplish the request"
+    },
+    {
+     "k": "C",
+     "t": "The tools return JSON"
+    },
+    {
+     "k": "D",
+     "t": "The tools are implemented across several services"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Repeated wrong selection is evidence that the tools are not distinguishable from their descriptions, which is a design fault. Tool count (A), return format (C), and implementation topology (D) are not themselves problems."
+  },
+  {
+   "id": "ccar-f-p29",
+   "set": "practice",
+   "n": 29,
+   "domain": 2,
+   "q": "How should a tool that performs an irreversible action be designed?",
+   "options": [
+    {
+     "k": "A",
+     "t": "With a description warning the model to be careful"
+    },
+    {
+     "k": "B",
+     "t": "So that it requires more parameters"
+    },
+    {
+     "k": "C",
+     "t": "So that authorisation and confirmation are enforced outside the model"
+    },
+    {
+     "k": "D",
+     "t": "So that it is declared last"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Irreversibility is controlled by the surrounding system, because a prompt-level warning is a request rather than a guarantee. Extra parameters (B) and ordering (D) do not constrain authority."
+  },
+  {
+   "id": "ccar-f-p30",
+   "set": "practice",
+   "n": 30,
+   "domain": 2,
+   "q": "A tool returns a large payload that consumes most of the context window. What is the right change?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Increase the context window"
+    },
+    {
+     "k": "B",
+     "t": "Summarise the payload with a second model call"
+    },
+    {
+     "k": "C",
+     "t": "Call the tool less often"
+    },
+    {
+     "k": "D",
+     "t": "Return only what the task needs, with a way to request more detail"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Tools should return task-relevant results rather than everything available, which keeps context for reasoning. A larger window (A) postpones the problem, a second call (B) adds cost and a failure point, and calling less often (C) does not change the payload."
+  },
+  {
+   "id": "ccar-f-p31",
+   "set": "practice",
+   "n": 31,
+   "domain": 2,
+   "q": "What belongs in a tool's description?",
+   "options": [
+    {
+     "k": "A",
+     "t": "What the tool does, when to use it, and what its parameters mean"
+    },
+    {
+     "k": "B",
+     "t": "The implementation language and framework"
+    },
+    {
+     "k": "C",
+     "t": "The service level agreement"
+    },
+    {
+     "k": "D",
+     "t": "The name of the team that owns it"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "The description is the model's selection guide, so it must answer purpose, applicability, and parameters. Implementation detail (B), service levels (C), and ownership (D) are irrelevant to the choice."
+  },
+  {
+   "id": "ccar-f-p32",
+   "set": "practice",
+   "n": 32,
+   "domain": 5,
+   "q": "A long agentic run degrades in quality as it proceeds. What is the most likely cause?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The model version changed mid-run"
+    },
+    {
+     "k": "B",
+     "t": "Context has accumulated until relevant material competes with stale material"
+    },
+    {
+     "k": "C",
+     "t": "The temperature was set too low"
+    },
+    {
+     "k": "D",
+     "t": "The tools became slower"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Progressive degradation over a long run is the signature of context accumulation and drift. Versions do not change mid-run (A), low temperature (C) reduces variety rather than quality, and tool latency (D) does not affect correctness."
+  },
+  {
+   "id": "ccar-f-p33",
+   "set": "practice",
+   "n": 33,
+   "domain": 5,
+   "q": "What is the right way to carry state across a compaction boundary?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Rely on the model to remember what mattered"
+    },
+    {
+     "k": "B",
+     "t": "Increase the context window so compaction is never needed"
+    },
+    {
+     "k": "C",
+     "t": "Write the decisions and constraints that must persist into an explicit summary that is carried forward"
+    },
+    {
+     "k": "D",
+     "t": "Restart the task after compaction"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Persistence must be deliberate, because compaction is lossy by design. Relying on recall (A) is unreliable, a larger window (B) only delays the boundary, and restarting (D) discards the work."
+  },
+  {
+   "id": "ccar-f-p34",
+   "set": "practice",
+   "n": 34,
+   "domain": 5,
+   "q": "Which measure most improves reliability for a workflow that must not silently produce wrong output?",
+   "options": [
+    {
+     "k": "A",
+     "t": "A larger model"
+    },
+    {
+     "k": "B",
+     "t": "A longer prompt"
+    },
+    {
+     "k": "C",
+     "t": "More examples in the prompt"
+    },
+    {
+     "k": "D",
+     "t": "A validation step that can reject output and trigger a defined fallback"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Reliability against silent failure requires detection and a defined response, which is what validation with a fallback provides. Model size (A), prompt length (B), and examples (C) improve the average case without catching the bad one."
+  },
+  {
+   "id": "ccar-f-p35",
+   "set": "practice",
+   "n": 35,
+   "domain": 5,
+   "q": "What should be measured to know whether a production agentic system is healthy?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Task success against a defined criterion, plus the rate and shape of failures"
+    },
+    {
+     "k": "B",
+     "t": "Total tokens consumed"
+    },
+    {
+     "k": "C",
+     "t": "Average response time"
+    },
+    {
+     "k": "D",
+     "t": "The number of tool calls per run"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Health is defined by whether the system accomplishes the task and how it fails when it does not. Tokens (B), latency (C), and call counts (D) are cost and behavior signals that say nothing about correctness."
+  },
+  {
+   "id": "ccar-f-m1-1",
+   "set": "mock1",
+   "n": 1,
+   "domain": 5,
+   "q": "The agent occasionally answers billing questions using an order it looked up three turns earlier for a different customer. What is the architectural fix?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Increase the context window"
+    },
+    {
+     "k": "B",
+     "t": "Scope each conversation's context to one customer and clear or isolate prior lookups when the subject changes"
+    },
+    {
+     "k": "C",
+     "t": "Remove the lookup_order tool"
+    },
+    {
+     "k": "D",
+     "t": "Instruct the model to be careful about customer identity"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Cross-customer contamination is a context-scoping defect, not a window-size problem",
+   "scenario": "customer support resolution agent",
+   "scenarioIntro": "An Agent SDK agent handles returns, billing disputes, and account issues through MCP tools: get_customer, lookup_order, process_refund, escalate_to_human."
+  },
+  {
+   "id": "ccar-f-m1-2",
+   "set": "mock1",
+   "n": 2,
+   "domain": 2,
+   "q": "process_refund fails intermittently because the billing backend times out. What should the tool return so the agent can behave sensibly?",
+   "options": [
+    {
+     "k": "A",
+     "t": "An empty string"
+    },
+    {
+     "k": "B",
+     "t": "A message asking the user to try later"
+    },
+    {
+     "k": "C",
+     "t": "A structured error with a category and a retryable flag, so the agent can retry or escalate deliberately"
+    },
+    {
+     "k": "D",
+     "t": "The exception stack trace"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Structured errors with categories and retryable flags are what let an agent recover deliberately",
+   "scenario": "customer support resolution agent",
+   "scenarioIntro": "An Agent SDK agent handles returns, billing disputes, and account issues through MCP tools: get_customer, lookup_order, process_refund, escalate_to_human."
+  },
+  {
+   "id": "ccar-f-m1-3",
+   "set": "mock1",
+   "n": 3,
+   "domain": 5,
+   "q": "Which condition should route a ticket to escalate_to_human rather than continue autonomous resolution?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The customer writes in a language the agent supports"
+    },
+    {
+     "k": "B",
+     "t": "The order is more than thirty days old"
+    },
+    {
+     "k": "C",
+     "t": "The conversation exceeds five turns"
+    },
+    {
+     "k": "D",
+     "t": "The request falls outside documented policy, or the agent cannot make progress after a bounded number of attempts"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Policy gaps and lack of progress are the documented escalation triggers; turn counts and order age are not",
+   "scenario": "customer support resolution agent",
+   "scenarioIntro": "An Agent SDK agent handles returns, billing disputes, and account issues through MCP tools: get_customer, lookup_order, process_refund, escalate_to_human."
+  },
+  {
+   "id": "ccar-f-m1-4",
+   "set": "mock1",
+   "n": 4,
+   "domain": 2,
+   "q": "The agent sometimes calls get_customer when it should call lookup_order. What is the most effective change?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Rewrite both tool descriptions so each states precisely when it applies and how it differs from the other"
+    },
+    {
+     "k": "B",
+     "t": "Reorder the tools in the configuration"
+    },
+    {
+     "k": "C",
+     "t": "Merge them into one tool with a mode flag"
+    },
+    {
+     "k": "D",
+     "t": "Increase the model's temperature"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Tool selection runs on descriptions, so differentiation is the fix for confusion between similar tools",
+   "scenario": "customer support resolution agent",
+   "scenarioIntro": "An Agent SDK agent handles returns, billing disputes, and account issues through MCP tools: get_customer, lookup_order, process_refund, escalate_to_human."
+  },
+  {
+   "id": "ccar-f-m1-5",
+   "set": "mock1",
+   "n": 5,
+   "domain": 3,
+   "q": "Backend conventions should apply only when backend files are touched. Where do they belong?",
+   "options": [
+    {
+     "k": "A",
+     "t": "In the root CLAUDE.md so they are always available"
+    },
+    {
+     "k": "B",
+     "t": "In a path-scoped rule under .claude/rules/ with frontmatter matching backend paths"
+    },
+    {
+     "k": "C",
+     "t": "In each engineer's user-level configuration"
+    },
+    {
+     "k": "D",
+     "t": "In the repository wiki"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Path-scoped rules load conditionally, which is exactly the stated requirement",
+   "scenario": "Claude Code for a development team",
+   "scenarioIntro": "A team uses Claude Code across a monorepo for generation, refactoring, and review."
+  },
+  {
+   "id": "ccar-f-m1-6",
+   "set": "mock1",
+   "n": 6,
+   "domain": 3,
+   "q": "When is plan mode the appropriate choice over direct execution?",
+   "options": [
+    {
+     "k": "A",
+     "t": "For every change, since planning is always safer"
+    },
+    {
+     "k": "B",
+     "t": "Only when the model is unfamiliar with the language"
+    },
+    {
+     "k": "C",
+     "t": "When the change is large or risky enough that a human should review the approach before edits are made"
+    },
+    {
+     "k": "D",
+     "t": "When the context window is nearly full"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Plan mode is a human review gate for approach, warranted by risk rather than universally",
+   "scenario": "Claude Code for a development team",
+   "scenarioIntro": "A team uses Claude Code across a monorepo for generation, refactoring, and review."
+  },
+  {
+   "id": "ccar-f-m1-7",
+   "set": "mock1",
+   "n": 7,
+   "domain": 3,
+   "q": "A repeated multi-step review procedure should be available to the whole team as a single invocation. What is the right mechanism?",
+   "options": [
+    {
+     "k": "A",
+     "t": "A shared document describing the steps"
+    },
+    {
+     "k": "B",
+     "t": "A longer CLAUDE.md"
+    },
+    {
+     "k": "C",
+     "t": "A saved chat transcript"
+    },
+    {
+     "k": "D",
+     "t": "A custom slash command or skill committed to the repository"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Repeatable team procedures belong in committed commands or skills, not prose",
+   "scenario": "Claude Code for a development team",
+   "scenarioIntro": "A team uses Claude Code across a monorepo for generation, refactoring, and review."
+  },
+  {
+   "id": "ccar-f-m1-8",
+   "set": "mock1",
+   "n": 8,
+   "domain": 5,
+   "q": "Subagents return full source documents to the coordinator, which then exceeds its context limit. What is the correct design change?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Have subagents return structured findings with citations while raw sources stay at the edge or in a scratchpad"
+    },
+    {
+     "k": "B",
+     "t": "Give the coordinator a larger model"
+    },
+    {
+     "k": "C",
+     "t": "Reduce the number of subagents to one"
+    },
+    {
+     "k": "D",
+     "t": "Truncate each document to its first page"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Delegation exists to keep bulk at the edge and move distilled results",
+   "scenario": "multi-agent research system",
+   "scenarioIntro": "A coordinator delegates to search, analysis, synthesis, and report subagents that produce cited reports."
+  },
+  {
+   "id": "ccar-f-m1-9",
+   "set": "mock1",
+   "n": 9,
+   "domain": 5,
+   "q": "Final reports attribute claims to the wrong sources even though each subagent is individually accurate. What is the likely cause?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The synthesis model is too small"
+    },
+    {
+     "k": "B",
+     "t": "The handoff format does not carry claim and source together, so provenance is lost between stages"
+    },
+    {
+     "k": "C",
+     "t": "The search subagent returns too many results"
+    },
+    {
+     "k": "D",
+     "t": "Reports are generated before analysis completes"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Provenance survives handoffs only when the format carries claim and source together",
+   "scenario": "multi-agent research system",
+   "scenarioIntro": "A coordinator delegates to search, analysis, synthesis, and report subagents that produce cited reports."
+  },
+  {
+   "id": "ccar-f-m1-10",
+   "set": "mock1",
+   "n": 10,
+   "domain": 5,
+   "q": "A subagent fails permanently on one source. What should the coordinator receive?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Nothing, so the report proceeds"
+    },
+    {
+     "k": "B",
+     "t": "A silent retry loop until it succeeds"
+    },
+    {
+     "k": "C",
+     "t": "A propagated error with enough context to decide between retry, exclusion with a noted gap, or abort"
+    },
+    {
+     "k": "D",
+     "t": "A generic failure flag with no detail"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Errors must propagate with enough context for the coordinator to choose a recovery path",
+   "scenario": "multi-agent research system",
+   "scenarioIntro": "A coordinator delegates to search, analysis, synthesis, and report subagents that produce cited reports."
+  },
+  {
+   "id": "ccar-f-m1-11",
+   "set": "mock1",
+   "n": 11,
+   "domain": 3,
+   "q": "The reviewer must emit results a pipeline can parse. Which invocation is correct?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Interactive session with output redirected to a log"
+    },
+    {
+     "k": "B",
+     "t": "Plan mode with an approval step"
+    },
+    {
+     "k": "C",
+     "t": "A cron job that emails the transcript"
+    },
+    {
+     "k": "D",
+     "t": "Non-interactive print mode with JSON output and a schema"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "CI requires non-interactive invocation with structured, schema-validated output",
+   "scenario": "Claude Code in CI/CD",
+   "scenarioIntro": "Claude Code runs automated review on pull requests and posts feedback."
+  },
+  {
+   "id": "ccar-f-m1-12",
+   "set": "mock1",
+   "n": 12,
+   "domain": 4,
+   "q": "Reviews flag many low-value style nits and engineers now ignore them. Which change addresses this?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Define explicit review criteria and a severity bar in the prompt, with examples of in-scope and out-of-scope findings"
+    },
+    {
+     "k": "B",
+     "t": "Post findings to a separate channel"
+    },
+    {
+     "k": "C",
+     "t": "Run the review only on large pull requests"
+    },
+    {
+     "k": "D",
+     "t": "Cap output at five findings"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Precision comes from explicit criteria and examples that draw the signal boundary",
+   "scenario": "Claude Code in CI/CD",
+   "scenarioIntro": "Claude Code runs automated review on pull requests and posts feedback."
+  },
+  {
+   "id": "ccar-f-m1-13",
+   "set": "mock1",
+   "n": 13,
+   "domain": 4,
+   "q": "Some invoices legitimately lack a delivery date. How should the schema express this?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Make the field required and let extraction fail"
+    },
+    {
+     "k": "B",
+     "t": "Make the field nullable so absence is recorded explicitly, with conditional validation where the document type requires it"
+    },
+    {
+     "k": "C",
+     "t": "Omit the field from the schema"
+    },
+    {
+     "k": "D",
+     "t": "Default it to today's date"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Nullable fields record legitimate absence; required fields force fabrication or failure",
+   "scenario": "structured data extraction",
+   "scenarioIntro": "Documents are parsed into validated records for downstream systems."
+  },
+  {
+   "id": "ccar-f-m1-14",
+   "set": "mock1",
+   "n": 14,
+   "domain": 4,
+   "q": "Which loop gives the most reliable extraction output?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Generate, then manually review every record"
+    },
+    {
+     "k": "B",
+     "t": "Generate three times and take the majority"
+    },
+    {
+     "k": "C",
+     "t": "Enforce a JSON schema through tool use, validate, and on failure retry with the validation error provided to the model"
+    },
+    {
+     "k": "D",
+     "t": "Generate with temperature zero and accept the result"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Schema enforcement plus a validation-retry loop is the reliability pattern the guide describes",
+   "scenario": "structured data extraction",
+   "scenarioIntro": "Documents are parsed into validated records for downstream systems."
+  },
+  {
+   "id": "ccar-f-m1-15",
+   "set": "mock1",
+   "n": 15,
+   "domain": 5,
+   "q": "Your team reports 97% accuracy measured only on records that passed validation. Why is that number misleading?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Accuracy should be measured per field, not per record"
+    },
+    {
+     "k": "B",
+     "t": "97% is too low to report"
+    },
+    {
+     "k": "C",
+     "t": "Validation and accuracy are unrelated"
+    },
+    {
+     "k": "D",
+     "t": "It excludes the failures, so it measures where the system already succeeded rather than the true rate across all documents"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Measuring only validated records is a biased sample; calibration needs coverage of all documents",
+   "scenario": "structured data extraction",
+   "scenarioIntro": "Documents are parsed into validated records for downstream systems."
+  },
+  {
+   "id": "ccar-f-m2-1",
+   "set": "mock2",
+   "n": 1,
+   "domain": 1,
+   "q": "A pipeline has four steps whose order never varies and whose outputs are each checkable. What should it be?",
+   "options": [
+    {
+     "k": "A",
+     "t": "An agent that plans each run"
+    },
+    {
+     "k": "B",
+     "t": "Four agents, one per step"
+    },
+    {
+     "k": "C",
+     "t": "A deterministic workflow with model calls at defined points"
+    },
+    {
+     "k": "D",
+     "t": "A single prompt covering all four steps"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "A known fixed order is encoded rather than rediscovered, which is cheaper and testable per step. Runtime planning (A, B) adds nondeterminism, and one prompt (D) removes the checkpoints"
+  },
+  {
+   "id": "ccar-f-m2-2",
+   "set": "mock2",
+   "n": 2,
+   "domain": 1,
+   "q": "What is the principal cost of introducing a subagent?",
+   "options": [
+    {
+     "k": "A",
+     "t": "It loses the context the parent held unless the handoff carries it explicitly"
+    },
+    {
+     "k": "B",
+     "t": "It requires a larger model"
+    },
+    {
+     "k": "C",
+     "t": "It cannot use tools"
+    },
+    {
+     "k": "D",
+     "t": "It doubles token cost in every case"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Delegation buys isolation and pays in context, which is why handoffs must be explicit. A subagent does not require a larger model (B), can use tools (C), and cost varies with the work (D)"
+  },
+  {
+   "id": "ccar-f-m2-3",
+   "set": "mock2",
+   "n": 3,
+   "domain": 1,
+   "q": "An autonomous step would modify production data. What does the architecture require?",
+   "options": [
+    {
+     "k": "A",
+     "t": "A more capable model"
+    },
+    {
+     "k": "B",
+     "t": "A longer system prompt describing caution"
+    },
+    {
+     "k": "C",
+     "t": "A retry policy"
+    },
+    {
+     "k": "D",
+     "t": "A checkpoint where a person authorises the action, or a reversible mechanism"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Irreversible external effects need an authorisation boundary or reversibility, enforced outside the model. Capability (A), instruction (B), and retries (C) do not bound the consequence"
+  },
+  {
+   "id": "ccar-f-m2-4",
+   "set": "mock2",
+   "n": 4,
+   "domain": 1,
+   "q": "What most helps diagnose an agentic failure after the fact?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The final output alone"
+    },
+    {
+     "k": "B",
+     "t": "A trace of each step's inputs, tool calls, and outputs"
+    },
+    {
+     "k": "C",
+     "t": "The total token count"
+    },
+    {
+     "k": "D",
+     "t": "The model version"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "A per-step trace reconstructs a nondeterministic run, which is what diagnosis needs. The final output (A), token totals (C), and version (D) do not show where it diverged"
+  },
+  {
+   "id": "ccar-f-m2-5",
+   "set": "mock2",
+   "n": 5,
+   "domain": 3,
+   "q": "Where should repository-wide conventions for Claude Code live?",
+   "options": [
+    {
+     "k": "A",
+     "t": "In each developer's local configuration"
+    },
+    {
+     "k": "B",
+     "t": "In a CLAUDE.md committed to the repository"
+    },
+    {
+     "k": "C",
+     "t": "In the team's chat channel"
+    },
+    {
+     "k": "D",
+     "t": "In the CI configuration only"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Committed project memory is shared, versioned, and reviewed with the code. Local configuration (A) does not propagate, chat (C) is not read as context, and CI (D) covers automation rather than interactive work"
+  },
+  {
+   "id": "ccar-f-m2-6",
+   "set": "mock2",
+   "n": 6,
+   "domain": 3,
+   "q": "Which task is best suited to headless Claude Code in CI?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Exploratory debugging of an unfamiliar failure"
+    },
+    {
+     "k": "B",
+     "t": "Designing a new module's architecture"
+    },
+    {
+     "k": "C",
+     "t": "Pair programming with a developer"
+    },
+    {
+     "k": "D",
+     "t": "A repeatable, well-specified check that runs on every pull request"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Headless execution suits bounded, repeatable work that runs unattended. Exploration (A), design (B), and pairing (C) all depend on a person in the loop"
+  },
+  {
+   "id": "ccar-f-m2-7",
+   "set": "mock2",
+   "n": 7,
+   "domain": 3,
+   "q": "What is a hook for?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Running a deterministic action at a defined point, independently of the model"
+    },
+    {
+     "k": "B",
+     "t": "Storing reusable instructions"
+    },
+    {
+     "k": "C",
+     "t": "Holding project context"
+    },
+    {
+     "k": "D",
+     "t": "Selecting the model"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Hooks execute as code at fixed points, which is how a guarantee is enforced. Instructions (B) and context (C) belong in project memory, and model choice (D) is configuration"
+  },
+  {
+   "id": "ccar-f-m2-8",
+   "set": "mock2",
+   "n": 8,
+   "domain": 4,
+   "q": "A pipeline needs output that always conforms to a fixed shape. What is the correct mechanism?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Requesting the shape in the prompt and parsing the result"
+    },
+    {
+     "k": "B",
+     "t": "Post-processing prose with regular expressions"
+    },
+    {
+     "k": "C",
+     "t": "Declaring the shape as a schema the model must satisfy, and validating on receipt"
+    },
+    {
+     "k": "D",
+     "t": "Lowering the temperature"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "A declared schema makes the shape a contract rather than a request, and validation closes the loop. Prompt requests (A), text parsing (B), and temperature (D) leave the shape to chance"
+  },
+  {
+   "id": "ccar-f-m2-9",
+   "set": "mock2",
+   "n": 9,
+   "domain": 4,
+   "q": "How should a schema handle a value the source may not contain?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Omit the field silently"
+    },
+    {
+     "k": "B",
+     "t": "Supply a plausible default"
+    },
+    {
+     "k": "C",
+     "t": "Return an empty string in all cases"
+    },
+    {
+     "k": "D",
+     "t": "Define an explicit representation for absence"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Absence must be representable so a genuine gap is distinguishable from a failure. Silent omission (A) is ambiguous, a plausible default (B) fabricates, and an empty string (C) conflates absence with an empty value"
+  },
+  {
+   "id": "ccar-f-m2-10",
+   "set": "mock2",
+   "n": 10,
+   "domain": 4,
+   "q": "Extraction succeeds on typical inputs and fails on unusual ones. What is the most effective response?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Raise the temperature"
+    },
+    {
+     "k": "B",
+     "t": "Use a larger model"
+    },
+    {
+     "k": "C",
+     "t": "Add examples covering the unusual formats and state what to return when a field is missing"
+    },
+    {
+     "k": "D",
+     "t": "Ask the model to be careful with unusual inputs"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "The unusual cases fail because they were never specified, and examples plus a missing-value rule specify them. Temperature (A) adds variance, model size (B) is not aimed at the gap, and exhortation (D) is not specification"
+  },
+  {
+   "id": "ccar-f-m2-11",
+   "set": "mock2",
+   "n": 11,
+   "domain": 2,
+   "q": "What is the clearest sign that a tool surface needs redesign rather than better prompting?",
+   "options": [
+    {
+     "k": "A",
+     "t": "It exposes more than five tools"
+    },
+    {
+     "k": "B",
+     "t": "The model repeatedly selects a tool that cannot satisfy the request"
+    },
+    {
+     "k": "C",
+     "t": "The tools are implemented in different services"
+    },
+    {
+     "k": "D",
+     "t": "The tools return large payloads"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Repeated wrong selection indicates the tools are not distinguishable from their descriptions, which is a design fault. Tool count (A) and implementation topology (C) are not faults, and payload size (D) is a separate problem"
+  },
+  {
+   "id": "ccar-f-m2-12",
+   "set": "mock2",
+   "n": 12,
+   "domain": 2,
+   "q": "How should a tool that deletes records be constrained?",
+   "options": [
+    {
+     "k": "A",
+     "t": "By enforcing authorisation and scope outside the model"
+    },
+    {
+     "k": "B",
+     "t": "By a description warning the model to use it carefully"
+    },
+    {
+     "k": "C",
+     "t": "By requiring more parameters"
+    },
+    {
+     "k": "D",
+     "t": "By declaring it last among the tools"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Destructive capability is bounded by the surrounding system, since a description is a request rather than a control. Extra parameters (C) and ordering (D) do not limit authority"
+  },
+  {
+   "id": "ccar-f-m2-13",
+   "set": "mock2",
+   "n": 13,
+   "domain": 2,
+   "q": "An MCP integration exposes an entire database through one general query tool. What is the architectural concern?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The model's authority is unbounded, and least privilege cannot be applied"
+    },
+    {
+     "k": "B",
+     "t": "It will be slow"
+    },
+    {
+     "k": "C",
+     "t": "It uses too many tokens"
+    },
+    {
+     "k": "D",
+     "t": "It cannot return structured output"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "A single unrestricted tool removes the ability to scope what the model may reach. Speed (B) and tokens (C) are secondary, and structured output (D) is achievable either way"
+  },
+  {
+   "id": "ccar-f-m2-14",
+   "set": "mock2",
+   "n": 14,
+   "domain": 5,
+   "q": "Quality degrades steadily through a long agentic run. What is the most likely cause?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The model version changed mid-run"
+    },
+    {
+     "k": "B",
+     "t": "Accumulated context has diluted the material that matters"
+    },
+    {
+     "k": "C",
+     "t": "The temperature is too low"
+    },
+    {
+     "k": "D",
+     "t": "The tools have become slower"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Progressive degradation over a long run is the signature of context accumulation. Versions do not change mid-run (A), low temperature (C) reduces variety rather than quality, and tool latency (D) does not affect correctness"
+  },
+  {
+   "id": "ccar-f-m2-15",
+   "set": "mock2",
+   "n": 15,
+   "domain": 5,
+   "q": "What must happen for state to survive a compaction boundary?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Nothing, the model retains what matters"
+    },
+    {
+     "k": "B",
+     "t": "The context window must be enlarged"
+    },
+    {
+     "k": "C",
+     "t": "The decisions and constraints that must persist are written into an explicit carried-forward summary"
+    },
+    {
+     "k": "D",
+     "t": "The run must restart"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Compaction is lossy, so persistence must be deliberate. Relying on recall (A) is unreliable, a larger window (B) only moves the boundary, and restarting (D) discards the work"
+  },
+  {
+   "id": "ccar-f-m3-1",
+   "set": "mock3",
+   "n": 1,
+   "domain": 1,
+   "q": "An agentic design calls the same expensive tool repeatedly with identical arguments. What does this indicate?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Healthy retry behavior"
+    },
+    {
+     "k": "B",
+     "t": "The tool is too fast"
+    },
+    {
+     "k": "C",
+     "t": "The agent is not retaining or reusing the result, which points at the state design"
+    },
+    {
+     "k": "D",
+     "t": "The model is too capable"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Repeating an identical call means the prior result is not available to the agent, which is a state problem. It is not retry behavior (A), and neither tool speed (B) nor capability (D) explains it"
+  },
+  {
+   "id": "ccar-f-m3-2",
+   "set": "mock3",
+   "n": 2,
+   "domain": 1,
+   "q": "What determines whether two lines of work belong in separate subagents?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Whether each needs context the other would pollute"
+    },
+    {
+     "k": "B",
+     "t": "Their combined length"
+    },
+    {
+     "k": "C",
+     "t": "Whether they use different tools"
+    },
+    {
+     "k": "D",
+     "t": "Whether they can run in parallel"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Context isolation is the reason subagents exist. Length (B), tool difference (C), and parallelism (D) can all be handled within one context"
+  },
+  {
+   "id": "ccar-f-m3-3",
+   "set": "mock3",
+   "n": 3,
+   "domain": 1,
+   "q": "Which design most reduces the cost of a wrong autonomous decision?",
+   "options": [
+    {
+     "k": "A",
+     "t": "A larger model"
+    },
+    {
+     "k": "B",
+     "t": "A longer prompt"
+    },
+    {
+     "k": "C",
+     "t": "More tools"
+    },
+    {
+     "k": "D",
+     "t": "Making the action reversible, or gating it behind confirmation"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Reversibility and gating bound the consequence, which is what the risk is. Capability (A), prompt length (B), and tools (C) affect the chance of error rather than its cost"
+  },
+  {
+   "id": "ccar-f-m3-4",
+   "set": "mock3",
+   "n": 4,
+   "domain": 3,
+   "q": "A CLAUDE.md has grown to several thousand lines. What is the likely effect?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Better results, because more context is available"
+    },
+    {
+     "k": "B",
+     "t": "The instructions that matter compete with material that no longer applies"
+    },
+    {
+     "k": "C",
+     "t": "No effect, since it is read once"
+    },
+    {
+     "k": "D",
+     "t": "Faster responses"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Project memory is context and dilutes like any other. More is not automatically better (A), it is not free (C), and it does not speed anything up (D)"
+  },
+  {
+   "id": "ccar-f-m3-5",
+   "set": "mock3",
+   "n": 5,
+   "domain": 3,
+   "q": "What should be true of a skill before it is committed to a shared repository?",
+   "options": [
+    {
+     "k": "A",
+     "t": "It is long enough to be useful"
+    },
+    {
+     "k": "B",
+     "t": "It encodes a procedure the team genuinely repeats, and it is reviewable"
+    },
+    {
+     "k": "C",
+     "t": "It is written by the most senior engineer"
+    },
+    {
+     "k": "D",
+     "t": "It covers every edge case"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "A shared skill is justified by genuine repetition and must be reviewable like code. Length (A), authorship (C), and exhaustiveness (D) do not establish that"
+  },
+  {
+   "id": "ccar-f-m3-6",
+   "set": "mock3",
+   "n": 6,
+   "domain": 3,
+   "q": "Why is committed configuration preferable to per-developer configuration for team conventions?",
+   "options": [
+    {
+     "k": "A",
+     "t": "It is faster to load"
+    },
+    {
+     "k": "B",
+     "t": "It uses less context"
+    },
+    {
+     "k": "C",
+     "t": "It cannot be overridden"
+    },
+    {
+     "k": "D",
+     "t": "It is versioned, reviewed, and applies to everyone including automation"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Shared, reviewed, versioned context is what makes a convention hold across people and CI. Speed (A) and context size (B) are not the reason, and it can still be overridden locally (C)"
+  },
+  {
+   "id": "ccar-f-m3-7",
+   "set": "mock3",
+   "n": 7,
+   "domain": 4,
+   "q": "A schema-validated response fails validation once in every few hundred calls. What is the correct handling?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Define a fallback path: retry, then fail explicitly rather than passing invalid data on"
+    },
+    {
+     "k": "B",
+     "t": "Ignore it, since the rate is low"
+    },
+    {
+     "k": "C",
+     "t": "Disable validation to avoid the failures"
+    },
+    {
+     "k": "D",
+     "t": "Increase the output token limit"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "A rare failure still needs a defined path, and silently passing invalid data is the outcome to prevent. Ignoring it (B) and disabling validation (C) do exactly that, and the token limit (D) is not the cause"
+  },
+  {
+   "id": "ccar-f-m3-8",
+   "set": "mock3",
+   "n": 8,
+   "domain": 4,
+   "q": "What is the advantage of validating structured output at the boundary rather than downstream?",
+   "options": [
+    {
+     "k": "A",
+     "t": "It is cheaper"
+    },
+    {
+     "k": "B",
+     "t": "It removes the need for a schema"
+    },
+    {
+     "k": "C",
+     "t": "The failure is caught where it can still be retried or rejected, before it contaminates later steps"
+    },
+    {
+     "k": "D",
+     "t": "It improves model accuracy"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Catching at the boundary contains the fault. It is not primarily a cost question (A), the schema is what makes it possible (B), and it does not change the model's accuracy (D)"
+  },
+  {
+   "id": "ccar-f-m3-9",
+   "set": "mock3",
+   "n": 9,
+   "domain": 4,
+   "q": "A structured extraction must record where in the source each value came from. What does this require?",
+   "options": [
+    {
+     "k": "A",
+     "t": "A larger model"
+    },
+    {
+     "k": "B",
+     "t": "A longer prompt"
+    },
+    {
+     "k": "C",
+     "t": "A second extraction pass"
+    },
+    {
+     "k": "D",
+     "t": "The schema to include a provenance field the model must populate"
+    }
+   ],
+   "answer": [
+    "D"
+   ],
+   "why": "Anything the output must carry has to be part of the declared shape. Model size (A) and prompt length (B) do not create a field, and a second pass (C) is unnecessary if the schema asks for it"
+  },
+  {
+   "id": "ccar-f-m3-10",
+   "set": "mock3",
+   "n": 10,
+   "domain": 2,
+   "q": "Two tools do nearly the same thing with different names. What is the architectural fault?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Duplication of code"
+    },
+    {
+     "k": "B",
+     "t": "Higher latency"
+    },
+    {
+     "k": "C",
+     "t": "The model has no reliable basis for choosing between them"
+    },
+    {
+     "k": "D",
+     "t": "Increased token cost"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Ambiguity at the point of selection is the fault, because the model chooses from descriptions. Code duplication (A), latency (B), and cost (D) are secondary consequences"
+  },
+  {
+   "id": "ccar-f-m3-11",
+   "set": "mock3",
+   "n": 11,
+   "domain": 2,
+   "q": "What should a tool do when given arguments it cannot satisfy?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Return the closest result it can"
+    },
+    {
+     "k": "B",
+     "t": "Return a clear error stating what was wrong, so the model can correct the call"
+    },
+    {
+     "k": "C",
+     "t": "Return an empty result"
+    },
+    {
+     "k": "D",
+     "t": "Raise an exception that terminates the run"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "An informative error keeps the model able to adapt. A closest-guess (A) and an empty result (C) are silently wrong, and terminating (D) discards a recoverable run"
+  },
+  {
+   "id": "ccar-f-m3-12",
+   "set": "mock3",
+   "n": 12,
+   "domain": 2,
+   "q": "An MCP tool exposes a write operation that the use case never needs. What should happen?",
+   "options": [
+    {
+     "k": "A",
+     "t": "Remove it, because unused authority is unnecessary risk"
+    },
+    {
+     "k": "B",
+     "t": "Leave it, since it may be useful later"
+    },
+    {
+     "k": "C",
+     "t": "Document that it should not be used"
+    },
+    {
+     "k": "D",
+     "t": "Rename it to discourage use"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Authority that is not needed should not be granted. Retaining it for possible future use (B), documenting (C), or renaming (D) all leave the capability reachable"
+  },
+  {
+   "id": "ccar-f-m3-13",
+   "set": "mock3",
+   "n": 13,
+   "domain": 5,
+   "q": "What is the earliest reliable signal that context management has failed in a long run?",
+   "options": [
+    {
+     "k": "A",
+     "t": "The agent begins repeating work or contradicting earlier decisions"
+    },
+    {
+     "k": "B",
+     "t": "The run takes longer than expected"
+    },
+    {
+     "k": "C",
+     "t": "Token cost rises"
+    },
+    {
+     "k": "D",
+     "t": "A tool returns an error"
+    }
+   ],
+   "answer": [
+    "A"
+   ],
+   "why": "Repetition and self-contradiction are the behavioral signature of lost state. Duration (B) and cost (C) rise for many reasons, and a tool error (D) is unrelated"
+  },
+  {
+   "id": "ccar-f-m3-14",
+   "set": "mock3",
+   "n": 14,
+   "domain": 5,
+   "q": "Why is a defined success criterion necessary for a reliable agentic system?",
+   "options": [
+    {
+     "k": "A",
+     "t": "It reduces token cost"
+    },
+    {
+     "k": "B",
+     "t": "Without it there is no way to tell completion from failure, so the system cannot stop correctly or be measured"
+    },
+    {
+     "k": "C",
+     "t": "It makes the prompt shorter"
+    },
+    {
+     "k": "D",
+     "t": "It is required by the platform"
+    }
+   ],
+   "answer": [
+    "B"
+   ],
+   "why": "Termination and measurement both depend on a definition of done. Cost (A), prompt length (C), and platform requirements (D) are not the reason"
+  },
+  {
+   "id": "ccar-f-m3-15",
+   "set": "mock3",
+   "n": 15,
+   "domain": 5,
+   "q": "A reliability requirement says wrong output must never reach the user unnoticed. What does the design need?",
+   "options": [
+    {
+     "k": "A",
+     "t": "A more capable model"
+    },
+    {
+     "k": "B",
+     "t": "More examples in the prompt"
+    },
+    {
+     "k": "C",
+     "t": "A detection step with a defined action when it fires"
+    },
+    {
+     "k": "D",
+     "t": "A longer context window"
+    }
+   ],
+   "answer": [
+    "C"
+   ],
+   "why": "Preventing silent error requires detection plus a response. Capability (A), examples (B), and context (D) improve the average case without catching the bad one"
+  }
+ ],
+ "cheatSheet": "# Cheat sheet: Architect – Foundations\n\nEverything worth holding in your head the hour before the exam, on one page. Facts come from the [official exam guide](exam-guide.pdf); the rules of thumb are the maintainer's, distilled from the official rationales.\n\n[![Claude Certified Architect – Foundations cheat sheet: exam facts, domain weights, and the rules that decide questions](../.github/assets/cheat-sheet-architect-foundations.png)](../.github/assets/cheat-sheet-architect-foundations.png \"View this cheat sheet at full size\")\n\nSave or share the card above; the full sheet follows.\n\n## The exam\n\n| | |\n| --- | --- |\n| Code | CCAR-F |\n| Items | 60, framed by 4 scenarios drawn from a published bank of 6 |\n| Time | 120 minutes, about 2 minutes per item |\n| Pass | 720 of 1,000, scaled |\n| Fee | 125 USD before partner discount, raised from 99 on June 30, 2026 |\n| Valid | 12 months, free renewal assessment |\n\n## Where the marks are\n\n```text\nAgentic Architecture & Orchestration   27%  ██████████████████████████\nClaude Code Configuration & Workflows  20%  ███████████████████\nPrompt Engineering & Structured Output 20%  ███████████████████\nTool Design & MCP Integration          18%  █████████████████\nContext Management & Reliability       15%  ██████████████\n```\n\n## The six scenarios, four of which you will see\n\n| Scenario | Rehearse |\n| --- | --- |\n| Support resolution agent (MCP tools, 80% first-contact target) | Loop termination, escalation triggers, tool scoping, structured errors |\n| Claude Code for a dev team | CLAUDE.md hierarchy, path-scoped rules, plan mode, commands and skills |\n| Multi-agent research with cited reports | Coordinator and subagent handoffs, provenance, error propagation |\n| Developer productivity tooling | Built-in tool selection, MCP integration, large-codebase context |\n| Claude Code in CI/CD | Headless invocation, JSON output, review criteria, false positives |\n| Structured data extraction | JSON schema design, validation retry, batch processing, confidence |\n\n## If you remember nothing else\n\n1. **Agent loops need engineered termination.** Iteration caps, repeated-call detection, and an escalation path. Token budget is not a stopping condition.\n2. **Escalate on policy gaps and lack of progress.** Not on turn count, order age, or customer tone.\n3. **Structured errors with a category and a retryable flag.** An agent can only recover from a failure it can interpret. Use the isError flag.\n4. **Tool descriptions are the selection mechanism.** Differentiate similar tools precisely, or consolidate them.\n5. **Enforce hard limits in the tool layer.** Policy caps belong in code or hooks, never in a request to the model.\n6. **CLAUDE.md hierarchy: user, project, directory.** Conditional conventions go in `.claude/rules/` with path scoping so context is spent only where relevant.\n7. **Plan mode is a review gate.** Use it when a human should approve the approach, not universally.\n8. **CI means headless.** `-p` or `--print`, `--output-format json`, `--json-schema`. Never scrape a transcript.\n9. **False positives are cured by explicit criteria.** State what to flag, what to ignore, the severity bar, and give examples.\n10. **Subagents return distilled findings, not raw documents.** Bulk stays at the edge; that is the point of delegation.\n11. **Provenance must survive handoffs.** Carry claim and source together or citations drift from claims.\n12. **Errors propagate with context** so the coordinator can retry, exclude with a noted gap, or abort.\n13. **Nullable for legitimate absence.** Required-everything forces fabrication; optional-everything hides real misses.\n14. **Validate, then retry with the validation error.** Feed the model what was wrong.\n15. **Measure on a labeled sample of everything.** Accuracy computed only on records that passed validation is a biased number.\n\n## Appendix items worth knowing cold\n\n`stop_reason` values, PostToolUse hooks, `allowedTools`, the Task tool for subagents, `.mcp.json` with environment expansion, `isError`, `.claude/skills/SKILL.md` frontmatter (`context: fork`, `allowed-tools`, `argument-hint`), `/memory`, `/compact`, `--resume`, `fork_session`, the Explore subagent, `tool_choice`, Message Batches (50% saving, 24-hour window, `custom_id`, no multi-turn tool calling), lost-in-the-middle effects, scratchpad files, confidence calibration.\n\n## Working the clock\n\n60 items across 4 scenarios in 120 minutes. The scenarios each carry a block of questions, so pace by block rather than by item.\n\n- **Read each scenario once, carefully, before its questions.** Two minutes spent understanding the system saves more than it costs, because every question in the block leans on it.\n- **First pass, about 70 minutes.** Work each block in order. Flag anything needing more than 90 seconds.\n- **Second pass, about 30 minutes.** Return to the flags with the whole scenario now familiar.\n- **Last 20 minutes.** Re-read multiple-response items and confirm selection counts.\n\n## Reading a question the way it is written\n\nBecause you know the six scenarios in advance, you can walk in already knowing what each one is about to test. Use that: when the block opens, recall the primary domains listed for that scenario and expect the questions to sit there.\n\nWithin a question, find the constraint (reliability, cost, context limits, safety, maintainability) and eliminate everything that does not address it. The winning option almost always removes a structural weakness; the distractors add capacity, add supervision, or ask the model to be careful.\n\n## The morning of\n\n- Run the system test again on the exam machine, even if it passed last week\n- Close everything on the shutdown list before check-in, including the Claude desktop app\n- ID ready, room clear, desk clear, second monitor unplugged\n- Check-in takes longer than you expect; start early\n- 135 minutes of seat time; eat first\n\n## If you blank\n\nMove on within the block and come back. Scenario questions are mutually reinforcing: a later question in the same block often clarifies what an earlier one was asking.\n\n## Exam day logistics\n\n- ID name must match your registration exactly\n- Closed book. No notes, no documentation, no translation tools\n- Answer everything; unanswered scores zero\n- Read the scenario once carefully, then answer its questions against that context\n- If you attempted this exam before June 30, 2026 and did not pass, that attempt was cleared: no waiting period\n\n---\n\nFacts last verified against the official sources on 2026-11-17. [Study guide](README.md) · [Notes](notes.md) · [Practice questions](practice-questions.md) · [Mock exam](mock-exam-1.md) · [Repository index](../README.md)\n",
+ "notes": "# Study notes: Architect – Foundations\n\nMy working notes from preparing for this exam. This is the exam where preparation pays off most directly, because the six scenarios are published in advance and the guide's appendix names the testable technologies. Nothing here comes from the live exam, which is covered by a non-disclosure agreement; everything traces to the [exam guide](exam-guide.pdf).\n\n## Work the scenarios, not just the domains\n\nFour of the six published scenarios appear per sitting. For each one I wrote down what it must ask about, then studied that intersection. The short version:\n\n| Scenario | What it forces you to know |\n| --- | --- |\n| Support resolution agent | Agent loop design, MCP tool boundaries (get_customer, process_refund), when to escalate versus resolve, least privilege on refund-class tools |\n| Claude Code for development | CLAUDE.md hierarchy, slash commands, plan mode versus direct execution, iterative refinement |\n| Multi-agent research | Coordinator and subagent orchestration, context passing, provenance and citation preservation, error propagation |\n| Developer productivity tooling | Built-in tool selection (Read, Write, Bash, Grep, Glob), MCP server integration, codebase-scale context management |\n| Claude Code in CI/CD | Headless mode (-p, --output-format json, --json-schema), review prompts with explicit criteria, false-positive control, multi-pass review |\n| Structured data extraction | tool_use with JSON schemas, validation-retry loops, optional and nullable fields, batch processing |\n\n## The agentic loop, precisely\n\n```mermaid\nflowchart LR\n    S[Send request] --> R{stop_reason}\n    R -->|tool_use| T[Execute the requested tool]\n    T --> A[Append the result as a user turn]\n    A --> S\n    R -->|end_turn| D[Done]\n```\n\nThe details that distinguish right answers: tool results go back as part of the conversation history so the model can reason over them; loop termination needs an explicit condition beyond hoping for end_turn; hooks (for example PostToolUse) intercept tool calls for validation, logging, or blocking; subagents are spawned for delegation and context isolation, with allowedTools scoping what each may touch.\n\n## MCP tool design rules of thumb\n\n- A tool description is the interface contract; write it so the model can choose correctly between similar tools on the first try.\n- Errors are data: return structured error responses with a category and a retryable flag, and use the isError flag rather than burying failure in prose. The model can only recover from errors it can interpret.\n- Distribute tools by role: the agent that drafts replies does not need process_refund. Removing a capability entirely beats guarding it.\n- Configuration lives in .mcp.json, including environment variable expansion for secrets.\n\n## Claude Code configuration, the testable surface\n\n- CLAUDE.md hierarchy: user level, project level, directory level; more specific wins. Path-scoped conventions go in .claude/rules/ with YAML frontmatter, loading only when matching files are touched.\n- Custom commands in .claude/commands/; Skills in .claude/skills/ with SKILL.md frontmatter, where context: fork, allowed-tools, and argument-hint are the options the guide names.\n- Plan mode for work you want reviewed before execution, direct execution for well-understood changes. /compact manages long sessions, --resume and fork_session manage session state.\n- CI usage is non-interactive: -p or --print, --output-format json, and --json-schema to force machine-readable review output.\n\n## Structured output patterns\n\n- Enforce shape with tool_use plus a JSON schema rather than asking nicely for JSON. tool_choice can force the tool call.\n- Schema design is judgment: required fields for what must exist, nullable or optional for what may not, enums plus an \"other\" with a detail string for open sets.\n- The reliability loop: validate (Pydantic or equivalent), feed validation errors back, retry; measure error rates with a labeled sample rather than trusting spot checks; attach confidence and route low-confidence extractions to human review.\n- Bulk work goes through the Message Batches API: half cost, 24-hour window, custom_id correlation, and no multi-turn tool calling inside a batch.\n\n## Context and reliability\n\n**What a failing tool should return.** The shape of an error decides whether\nthe agent can do anything useful with it.\n\n```mermaid\nflowchart LR\n    F[Tool fails] --> S[Structured error]\n    S --> C1[category: timeout, not_found, forbidden]\n    S --> C2[retryable: true or false]\n    S --> C3[message for the model to reason over]\n    C2 --> D{retryable}\n    D -->|true| RETRY[Agent retries, perhaps differently]\n    D -->|false| ESC[Agent escalates rather than looping]\n```\n\nA stack trace tells the agent nothing it can act on. A category and a retryable\nflag let it decide, which is the difference between a loop that recovers and a\nloop that spins.\n\n- Long tasks: extract structured facts from verbose tool output as you go, keep a scratchpad file for durable state, and delegate subtasks to subagents so the main context stays clean. Beware lost-in-the-middle: critical facts belong at the edges of the window.\n- Escalation is a design decision made in advance: policy gaps, explicit customer requests, and inability to progress are escalation triggers; everything else resolves autonomously with logging.\n- In multi-agent systems, errors must propagate with enough context for the coordinator to decide retry, reroute, or abort; provenance (which source said what) survives handoffs only if you design for it.\n\n## Recall list\n\n60 questions across 4 of 6 published scenarios, 120 minutes, 720 of 1,000 to pass, $125 list (was $99 before June 30, 2026), counts toward partner tier, pre-migration failed attempts cleared, credential valid 12 months with free renewal.\n\n---\n\nThese notes are the maintainer's own summary and carry no official standing. [Study guide](README.md) · [Repository index](../README.md)\n"
+}

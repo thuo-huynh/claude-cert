@@ -1,0 +1,58 @@
+[
+ {
+  "code": "ccao-f",
+  "name": "Associate – Foundations",
+  "examCode": "CCAO-F",
+  "facts": {
+   "questions": "60 multiple-choice and multiple-response items",
+   "time": "120 minutes, with about 135 minutes of total seat time",
+   "passing": "720 on a scaled range of 100 to 1,000",
+   "fee": "99 USD, before any [partner-tier discount](../guide/faq.md#pricing-and-discounts)",
+   "validity": "12 months from the date you earn it",
+   "prerequisites": "None. No course is required"
+  },
+  "total": 80
+ },
+ {
+  "code": "ccdv-f",
+  "name": "Developer – Foundations",
+  "examCode": "CCDV-F",
+  "facts": {
+   "questions": "53 multiple-choice and multiple-response items",
+   "time": "120 minutes, with about 135 minutes of total seat time",
+   "passing": "720 on a scaled range of 100 to 1,000",
+   "fee": "125 USD, before any [partner-tier discount](../guide/faq.md#pricing-and-discounts)",
+   "validity": "12 months from the date you earn it",
+   "prerequisites": "None. No course is required"
+  },
+  "total": 80
+ },
+ {
+  "code": "ccar-f",
+  "name": "Architect – Foundations",
+  "examCode": "CCAR-F",
+  "facts": {
+   "questions": "60 multiple-choice and multiple-response items",
+   "time": "120 minutes, with about 135 minutes of total seat time",
+   "passing": "720 on a scaled range of 100 to 1,000",
+   "fee": "125 USD, before any [partner-tier discount](../guide/faq.md#pricing-and-discounts). Increased from 99 USD on June 30, 2026",
+   "validity": "12 months from the date you earn it",
+   "prerequisites": "None. No course is required"
+  },
+  "total": 80
+ },
+ {
+  "code": "ccar-p",
+  "name": "Architect – Professional",
+  "examCode": "CCAR-P",
+  "facts": {
+   "questions": "63 multiple-choice and multiple-response items",
+   "time": "120 minutes, with about 135 minutes of total seat time",
+   "passing": "720 on a scaled range of 100 to 1,000",
+   "fee": "175 USD, before any [partner-tier discount](../guide/faq.md#pricing-and-discounts)",
+   "validity": "12 months from the date you earn it",
+   "prerequisites": "None. Architect – Foundations is not required and does not upgrade into Professional"
+  },
+  "total": 80
+ }
+]

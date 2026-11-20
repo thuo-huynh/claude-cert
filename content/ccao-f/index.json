@@ -1,0 +1,250 @@
+[
+ {
+  "slug": "on-nhanh",
+  "task": null,
+  "domain": null,
+  "domainName": null,
+  "title": "Tổng quan CCAO-F",
+  "lede": "Cả chứng chỉ CCAO-F trên một trang, giải thích ngay tại chỗ, kèm sơ đồ, bẫy đề và bảng chọn nhanh. Chưa học bài nào vẫn đọc được."
+ },
+ {
+  "slug": "1-1-viet-prompt-hieu-qua",
+  "task": "1.1",
+  "domain": 1,
+  "domainName": "Prompting and Task Execution",
+  "title": "Viết prompt hiệu quả cho việc kinh doanh và kỹ thuật",
+  "lede": "Một prompt tốt gồm những phần nào, vì sao phải viết như đang giao việc cho người mới, và cách biến một yêu cầu viết vội thành prompt có cấu trúc."
+ },
+ {
+  "slug": "1-2-chia-nho-yeu-cau",
+  "task": "1.2",
+  "domain": 1,
+  "domainName": "Prompting and Task Execution",
+  "title": "Chia nhỏ một yêu cầu phức tạp",
+  "lede": "Dấu hiệu nào cho thấy nên chia một yêu cầu lớn thành nhiều bước, sắp các bước theo phụ thuộc ra sao, và vì sao phần tóm tắt luôn viết sau cùng."
+ },
+ {
+  "slug": "1-3-lap-lai-de-cai-thien",
+  "task": "1.3",
+  "domain": 1,
+  "domainName": "Prompting and Task Execution",
+  "title": "Sửa prompt qua nhiều lượt để kết quả tốt hơn",
+  "lede": "Lặp prompt thế nào cho có ích, mỗi lượt sửa cái gì, so kết quả với gì, và khi nào nên dừng lặp để đổi cách hoặc nhờ người duyệt."
+ },
+ {
+  "slug": "1-4-prompt-theo-loai-viec",
+  "task": "1.4",
+  "domain": 1,
+  "domainName": "Prompting and Task Execution",
+  "title": "Đổi cách prompt theo loại việc",
+  "lede": "Brainstorm, nghiên cứu, phân tích và soạn thảo cần prompt khác nhau ra sao, khi nào dùng prompt mở, khi nào dùng mẫu cứng."
+ },
+ {
+  "slug": "2-1-danh-gia-chinh-xac-va-day-du",
+  "task": "2.1",
+  "domain": 2,
+  "domainName": "Output Evaluation and Validation",
+  "title": "Đánh giá kết quả của Claude có chính xác và đầy đủ không",
+  "lede": "Đặt tiêu chí trước khi chấm, so với nguồn để biết có chính xác, đối chiếu từng yêu cầu để biết có đủ, và nhận ra câu trả lời lệch trọng tâm."
+ },
+ {
+  "slug": "2-2-hallucination-mau-thuan-thien-kien",
+  "task": "2.2",
+  "domain": 2,
+  "domainName": "Output Evaluation and Validation",
+  "title": "Nhận ra hallucination, mâu thuẫn và thiên kiến",
+  "lede": "Hallucination hay nằm ở đâu, vì sao giọng chắc chắn không phải tín hiệu, cách bắt mâu thuẫn, và sửa câu khái quát hoá về một nhóm người."
+ },
+ {
+  "slug": "2-3-kiem-chung-thong-tin",
+  "task": "2.3",
+  "domain": 2,
+  "domainName": "Output Evaluation and Validation",
+  "title": "Kiểm chứng thông tin trong kết quả của Claude",
+  "lede": "Kiểm một bản nháp theo thứ tự nào, lần về nguồn gốc của con số và câu trích dẫn ra sao, và nhờ Claude dẫn nguồn để kiểm nhanh hơn."
+ },
+ {
+  "slug": "2-4-khi-nao-can-nguoi-duyet",
+  "task": "2.4",
+  "domain": 2,
+  "domainName": "Output Evaluation and Validation",
+  "title": "Khi nào kết quả cần người duyệt hoặc kiểm thêm",
+  "lede": "Yếu tố nào làm kết quả cần người duyệt, các bước quyết định có báo lên không, và vì sao người dùng vẫn chịu trách nhiệm với kết quả."
+ },
+ {
+  "slug": "2-5-chinh-output-theo-nguoi-doc",
+  "task": "2.5",
+  "domain": 2,
+  "domainName": "Output Evaluation and Validation",
+  "title": "Sửa, chuyển thể và so sánh kết quả cho đúng người đọc",
+  "lede": "Viết lại một nội dung cho hội đồng, nhà đầu tư và người dùng cuối, sửa theo góp ý mà giữ phần đã duyệt, và so phiên bản bằng tiêu chí."
+ },
+ {
+  "slug": "2-6-chon-dinh-dang-output",
+  "task": "2.6",
+  "domain": 2,
+  "domainName": "Output Evaluation and Validation",
+  "title": "Sắp xếp thông tin và chọn khuôn đầu ra",
+  "lede": "Gom và lọc thông tin trước khi trình bày, rồi chọn trả lời trong chat, artifact, file hay bảng dữ liệu theo cách người đọc sẽ dùng."
+ },
+ {
+  "slug": "3-1-chon-tinh-nang-claude",
+  "task": "3.1",
+  "domain": 3,
+  "domainName": "Product and Model Selection",
+  "title": "Chọn tính năng Claude cho từng việc",
+  "lede": "Khi nào dùng chat thường, Project, Research, web search, artifact, code execution, skill và connector, và các cách ghép tính năng đề thi hay hỏi."
+ },
+ {
+  "slug": "3-2-cac-dong-model",
+  "task": "3.2",
+  "domain": 3,
+  "domainName": "Product and Model Selection",
+  "title": "Phân biệt các dòng model Claude",
+  "lede": "Haiku, Sonnet, Opus và Fable khác nhau ra sao về năng lực, tốc độ và mức tốn hạn mức, cùng hai núm chỉnh effort và thinking trong app Claude."
+ },
+ {
+  "slug": "3-3-chon-model-theo-viec",
+  "task": "3.3",
+  "domain": 3,
+  "domainName": "Product and Model Selection",
+  "title": "Chọn model theo yêu cầu của việc",
+  "lede": "Cân chi phí, tốc độ và chất lượng khi chọn model, các bước phải xong trước khi thử model, và vì sao khâu kiểm phía sau ảnh hưởng tới lựa chọn."
+ },
+ {
+  "slug": "3-4-context-va-memory",
+  "task": "3.4",
+  "domain": 3,
+  "domainName": "Product and Model Selection",
+  "title": "Giới hạn context và Memory, khi nào bắt đầu lại, tóm tắt hay lưu lâu dài",
+  "lede": "Context window gồm những gì, chat dài tự thu gọn ra sao, khi nào tóm tắt, khi nào mở chat mới, và lưu thông tin lâu dài bằng Project hay Memory."
+ },
+ {
+  "slug": "4-1-phan-tich-yeu-cau",
+  "task": "4.1",
+  "domain": 4,
+  "domainName": "Workflow Integration and Solution Design",
+  "title": "Dùng Claude phân tích yêu cầu và use case",
+  "lede": "Dùng Claude tổng hợp yêu cầu từ nhiều nguồn có truy vết, xử lý yêu cầu mâu thuẫn, tách nhu cầu khỏi giải pháp, và chọn use case hợp với Claude."
+ },
+ {
+  "slug": "4-2-nghien-cuu-va-lap-ke-hoach",
+  "task": "4.2",
+  "domain": 4,
+  "domainName": "Workflow Integration and Solution Design",
+  "title": "Dùng Claude cho nghiên cứu, lập kế hoạch và tối ưu quy trình",
+  "lede": "Bắt đầu nghiên cứu bằng câu hỏi rõ, để Claude nháp kế hoạch cho nhóm chỉnh, chốt khung so sánh trước khi gom, và dùng số liệu để tìm điểm nghẽn."
+ },
+ {
+  "slug": "4-3-thiet-ke-giai-phap",
+  "task": "4.3",
+  "domain": 4,
+  "domainName": "Workflow Integration and Solution Design",
+  "title": "Dùng Claude thiết kế giải pháp, làm bản mẫu và làm lặp",
+  "lede": "Nêu vấn đề và ràng buộc trước, đặt khung trước khi xin ý tưởng, chia việc lớn thành giai đoạn, làm bản mẫu bằng artifact và sửa theo góp ý cụ thể."
+ },
+ {
+  "slug": "4-4-dua-claude-vao-quy-trinh",
+  "task": "4.4",
+  "domain": 4,
+  "domainName": "Workflow Integration and Solution Design",
+  "title": "Đưa Claude vào quy trình đang có",
+  "lede": "Quyết định bước nào giao cho Claude bằng tiêu chí Delegation, các bước tích hợp theo thứ tự, ba cách làm việc với AI, và bổ trợ hay thiết kế lại quy trình."
+ },
+ {
+  "slug": "4-5-trinh-bay-gia-tri-va-gioi-han",
+  "task": "4.5",
+  "domain": 4,
+  "domainName": "Workflow Integration and Solution Design",
+  "title": "Nói với các bên về giá trị và giới hạn của Claude",
+  "lede": "Chuẩn bị gì trước khi nói về vai trò của Claude, nói gì cho từng nhóm người nghe, giới hạn nào phải nói rõ, và trả lời người kỳ vọng quá mức."
+ },
+ {
+  "slug": "5-1-cau-hinh-project",
+  "task": "5.1",
+  "domain": 5,
+  "domainName": "Configuration and Knowledge Management",
+  "title": "Cấu hình Project với chỉ dẫn và tài liệu",
+  "lede": "Cấu hình một Project từ mục đích, chia đúng phần nào vào chỉ dẫn, phần nào vào knowledge, ghép với skill, và giữ hai Project không lẫn sang nhau."
+ },
+ {
+  "slug": "5-2-tai-lieu-va-connector",
+  "task": "5.2",
+  "domain": 5,
+  "domainName": "Configuration and Knowledge Management",
+  "title": "Quản lý tài liệu tải lên và connector",
+  "lede": "Khi nào tải tài liệu lên, khi nào nối connector như Google Drive hay Gmail, cần kiểm gì trước khi nối, và giữ cho connector không chiếm chỗ vô ích."
+ },
+ {
+  "slug": "5-3-viet-chi-dan-he-thong",
+  "task": "5.3",
+  "domain": 5,
+  "domainName": "Configuration and Knowledge Management",
+  "title": "Viết chỉ dẫn cấp hệ thống cho Claude",
+  "lede": "Ba tầng chỉ dẫn (tài khoản, Project, tổ chức) khác nhau ra sao, viết chỉ dẫn theo thứ tự nào, và vì sao chỉ dẫn cụ thể thắng chỉ dẫn mơ hồ."
+ },
+ {
+  "slug": "5-4-bao-tri-cau-hinh",
+  "task": "5.4",
+  "domain": 5,
+  "domainName": "Configuration and Knowledge Management",
+  "title": "Duy trì và cập nhật cấu hình, tài liệu và Memory",
+  "lede": "Vì sao cấu hình Claude không làm một lần là xong, kết quả trôi thì kiểm gì trước, thay tài liệu trong Project dùng chung thì báo ai, và bảo trì Memory ra sao."
+ },
+ {
+  "slug": "6-1-viec-nen-va-khong-nen-dung",
+  "task": "6.1",
+  "domain": 6,
+  "domainName": "Governance, Risk, and Responsible Use",
+  "title": "Việc nên và không nên dùng Claude",
+  "lede": "Phân biệt việc hợp với Claude và việc không nên giao, các yêu cầu bắt buộc của Anthropic cho việc rủi ro cao, và các bước đánh giá một cách dùng mới."
+ },
+ {
+  "slug": "6-2-du-lieu-nhay-cam",
+  "task": "6.2",
+  "domain": 6,
+  "domainName": "Governance, Risk, and Responsible Use",
+  "title": "Dữ liệu nhạy cảm, quy định và quyền riêng tư khi dùng Claude",
+  "lede": "Dữ liệu nào cần che trước khi đưa vào Claude, xử lý theo thứ tự nào, Incognito và Memory giúp tới đâu, và dữ liệu được dùng ra sao theo gói."
+ },
+ {
+  "slug": "6-3-chinh-sach-ai-to-chuc",
+  "task": "6.3",
+  "domain": 6,
+  "domainName": "Governance, Risk, and Responsible Use",
+  "title": "Làm theo chính sách AI và chuẩn quản trị của tổ chức",
+  "lede": "Khung quản trị AI gồm những gì, làm gì khi chính sách cấm hoặc chưa rõ, xử lý khi lộ thông tin, và kiểm skill, connector trước khi bật."
+ },
+ {
+  "slug": "6-4-dao-duc-khi-dung-ai",
+  "task": "6.4",
+  "domain": 6,
+  "domainName": "Governance, Risk, and Responsible Use",
+  "title": "Hệ quả đạo đức khi dùng AI trong công việc",
+  "lede": "Rủi ro đạo đức nào đáng lo nhất, kiểm công bằng trong nội dung Claude soạn, giữ trách nhiệm của con người và minh bạch về việc dùng AI."
+ },
+ {
+  "slug": "7-1-chan-doan-ket-qua-kem",
+  "task": "7.1",
+  "domain": 7,
+  "domainName": "Troubleshooting and Optimization",
+  "title": "Chẩn đoán và sửa prompt cho kết quả kém",
+  "lede": "Gỡ lỗi một kết quả kém theo thứ tự nào, các nguyên nhân gốc hay gặp nhất, và vì sao các cách sửa ngoài prompt thường không chạm tới gốc."
+ },
+ {
+  "slug": "7-2-dieu-chinh-theo-phan-hoi",
+  "task": "7.2",
+  "domain": 7,
+  "domainName": "Troubleshooting and Optimization",
+  "title": "Điều chỉnh cách làm theo phản hồi và kết quả",
+  "lede": "Biến phản hồi thành thay đổi có chủ đích qua từng vòng, xử lý phản hồi mơ hồ, giữ yêu cầu bằng văn bản để sửa không phá chỗ cũ, và báo lỗi cho Anthropic."
+ },
+ {
+  "slug": "7-3-toi-uu-quy-trinh",
+  "task": "7.3",
+  "domain": 7,
+  "domainName": "Troubleshooting and Optimization",
+  "title": "Tối ưu quy trình dùng Claude cho nhanh và hiệu quả",
+  "lede": "Tối ưu ở cấp Associate nghĩa là gì, đo trước khi sửa, các bước tối ưu theo thứ tự, thay đổi nào có tác dụng thật, và thói quen tiết kiệm hạn mức."
+ }
+]
