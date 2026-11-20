@@ -38,6 +38,14 @@ Thêm vào `data/vi/<cert>.json`, khoá là id câu (`ccar-p-p12` cho câu luy�
 }
 ```
 
+Kiểm tra và gộp bản dịch:
+
+```bash
+python scripts/vi_tools.py check                      # báo số câu đã dịch và lỗi (thiếu đáp án, bài học không tồn tại…)
+python scripts/vi_tools.py dump ccar-p 1 10           # in câu hỏi để dịch
+python scripts/vi_tools.py merge ccar-p batch.json    # kiểm tra rồi gộp một lô vào data/vi/ccar-p.json
+```
+
 ## Dựng lại dữ liệu
 
 ```bash

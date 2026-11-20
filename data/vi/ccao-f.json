@@ -19,5 +19,1585 @@
    "body": "Bạn có bản tóm tắt hợp đồng do Claude viết, trong đó có trích dẫn **mục 14.2**. Đề hỏi việc phải làm **đầu tiên**, trước khi bản tóm tắt được gửi đi."
   },
   "lesson": "2-3-kiem-chung-thong-tin"
+ },
+ "ccao-f-p2": {
+  "q": "Bạn nhờ Claude soạn phân tích đối thủ, và output đưa ra thị phần của ba đối thủ mà không có nguồn. Các con số trông hợp lý. Xử lý phù hợp là gì?",
+  "opts": {
+   "A": "Hợp lý không có nghĩa là chính xác, kể cả với tài liệu nội bộ.",
+   "B": "Kiểm từng con số với một nguồn nghiên cứu thị trường, chỉ giữ cái nào khớp và ghi trích dẫn. Số liệu định lượng không nguồn là điểm hay bị hallucination.",
+   "C": "Xoá hết là bỏ cả những dữ liệu kiểm chứng được.",
+   "D": "Chạy lại tới khi số ổn định chỉ chứng minh nhất quán, không chứng minh đúng."
+  },
+  "tip": {
+   "title": "Số liệu không nguồn → kiểm với nguồn có uy tín, giữ cái đúng kèm trích dẫn",
+   "body": [
+    "Con số, phần trăm, ngày tháng, trích dẫn là các **hallucination surface** điển hình."
+   ]
+  },
+  "ask": {
+   "title": "Số thị phần không có nguồn",
+   "body": "Đề hỏi cách xử lý phù hợp trước khi dùng."
+  },
+  "lesson": "2-3-kiem-chung-thong-tin"
+ },
+ "ccao-f-p3": {
+  "q": "Bạn cần Claude viết báo cáo quý từ ghi chú họp, bảng tóm tắt và báo cáo quý trước. Lần đầu sai cấu trúc và giọng văn. Bước tiếp theo hiệu quả nhất là gì?",
+  "opts": {
+   "A": "Chạy lại y nguyên thì thiếu sót vẫn còn đó.",
+   "B": "Model mạnh hơn không tự biết yêu cầu bạn chưa nêu.",
+   "C": "Viết lại prompt nêu rõ vai trò, các mục bắt buộc theo thứ tự, giọng văn, và đính kèm báo cáo quý trước làm mẫu định dạng.",
+   "D": "Chia thành 40 prompt một câu phá vỡ tính mạch lạc."
+  },
+  "tip": {
+   "title": "Sai cấu trúc/giọng → vai trò + mục theo thứ tự + giọng + ví dụ mẫu",
+   "body": [
+    "Prompt tốt = **rõ ràng + ràng buộc cụ thể + ví dụ**."
+   ]
+  },
+  "ask": {
+   "title": "Báo cáo quý sai cấu trúc và giọng văn",
+   "body": "Đề hỏi bước tiếp theo hiệu quả nhất."
+  },
+  "lesson": "1-1-viet-prompt-hieu-qua"
+ },
+ "ccao-f-p4": {
+  "q": "Prompt của đồng nghiệp yêu cầu Claude \"phân tích phản hồi khách hàng và sửa các vấn đề\". Output chung chung. Cách viết lại nào áp dụng đúng việc chia nhỏ tác vụ?",
+  "opts": {
+   "A": "Thêm \"cụ thể và chi tiết\" không tạo thêm cấu trúc.",
+   "B": "Hỏi ba lần rồi gộp nhân lên sự mơ hồ.",
+   "C": "Thêm dữ liệu mà không thêm cấu trúc thường làm mất tập trung hơn.",
+   "D": "Trước tiên xin danh sách chủ đề phàn nàn có phân loại và số lượng, sau đó lấy ba chủ đề nhiều nhất, rồi đề xuất hành động cho từng chủ đề. Chia yêu cầu mơ hồ thành chuỗi bước kiểm được."
+  },
+  "tip": {
+   "title": "Yêu cầu mơ hồ, gộp nhiều việc → chia thành chuỗi bước có output cụ thể",
+   "body": [
+    "Task 1.2: **decomposition** = mỗi bước một đầu ra kiểm tra được."
+   ]
+  },
+  "ask": {
+   "title": "\"Phân tích và sửa\" cho ra kết quả chung chung",
+   "body": "Đề hỏi cách áp dụng chia nhỏ tác vụ."
+  },
+  "lesson": "1-2-chia-nho-yeu-cau"
+ },
+ "ccao-f-p5": {
+  "q": "Đội bạn soạn hàng trăm câu trả lời khách hàng ngắn, thường lệ mỗi ngày; chi phí và tốc độ quan trọng hơn sự tinh tế. Thỉnh thoảng có ca phức tạp cần suy luận kỹ. Chiến lược model hợp lý là gì?",
+  "opts": {
+   "A": "Model mạnh nhất cho mọi thứ lãng phí chi phí và thời gian ở việc thường lệ.",
+   "B": "Model nhanh, rẻ nhất cho trả lời thường lệ, chuyển sang model mạnh hơn cho các ca phức tạp. Chọn model theo yêu cầu của từng loại việc.",
+   "C": "Model nhanh nhất cho cả ca phức tạp là phục vụ kém đúng những ca cần chiều sâu.",
+   "D": "Luân phiên ngẫu nhiên không khớp gì với gì."
+  },
+  "tip": {
+   "title": "Việc thường lệ → model nhanh/rẻ; ca phức tạp → model mạnh",
+   "body": [
+    "Giống CCAR-P p30: **mỗi loại việc một model vừa đủ**."
+   ]
+  },
+  "ask": {
+   "title": "Chọn model cho trả lời khách hàng",
+   "body": "Đề hỏi chiến lược hợp lý khi có cả việc thường lệ lẫn ca phức tạp."
+  },
+  "lesson": "3-3-chon-model-theo-viec"
+ },
+ "ccao-f-p6": {
+  "q": "Quy trình khoá sổ tháng gồm thu thập số liệu, viết nhận xét chênh lệch, và dàn trang bộ báo cáo cho HĐQT. Bạn muốn Claude giúp lâu dài chứ không chỉ một lần. Cách nào tốt nhất?",
+  "opts": {
+   "A": "Tạo một Project chứa quy ước viết nhận xét và các bộ báo cáo trước làm knowledge, kèm chỉ dẫn về cấu trúc, rồi làm mỗi kỳ khoá sổ trong đó. Quy trình lặp lại thuộc về Project.",
+   "B": "Dán lại mỗi tháng là tự dựng lại context bằng tay.",
+   "C": "Để Claude tự làm toàn bộ, kể cả kéo số liệu tài chính mà không ai duyệt, là sai về dùng đúng mục đích.",
+   "D": "Chỉ kiểm chính tả là bỏ phí giá trị thật."
+  },
+  "tip": {
+   "title": "Việc lặp lại định kỳ → Project (instructions + knowledge)",
+   "body": [
+    "Project giữ **chỉ dẫn và tài liệu** bền vững, cải tiến dần qua các kỳ."
+   ]
+  },
+  "ask": {
+   "title": "Dùng Claude lâu dài cho khoá sổ tháng",
+   "body": "Đề hỏi cách bền vững nhất."
+  },
+  "lesson": "5-1-cau-hinh-project"
+ },
+ "ccao-f-p7": {
+  "q": "Một trưởng phòng hỏi bạn Claude có \"lo được việc onboarding khách hàng\" không. Bước đầu đúng là gì?",
+  "opts": {
+   "A": "Nhận lời và làm ngay là bỏ qua bước phân tích.",
+   "B": "Liệt kê các bước onboarding, xác định bước nào là soạn thảo, tóm tắt, tra cứu (việc Claude làm tốt), bước nào cần phán đoán của người hoặc quyền truy cập hệ thống mà Claude không có.",
+   "C": "Từ chối thẳng cũng bỏ qua phân tích.",
+   "D": "Đội hỗ trợ của Anthropic không biết quy trình của bạn."
+  },
+  "tip": {
+   "title": "\"Claude làm được X không?\" → chia X thành bước, xác định bước nào giao cho Claude",
+   "body": [
+    "Kỹ năng cốt lõi của Associate: **phân công thực tế** giữa Claude và người."
+   ]
+  },
+  "ask": {
+   "title": "Claude có lo được onboarding không?",
+   "body": "Đề hỏi bước đầu tiên đúng."
+  },
+  "lesson": "4-1-phan-tich-yeu-cau"
+ },
+ "ccao-f-p8": {
+  "q": "Project của đội trả lời câu hỏi chính sách từ sổ tay đã tải lên. HR ban hành sổ tay phiên bản mới. Cần làm gì để Project vẫn đáng tin?",
+  "opts": {
+   "A": "Claude không tự tìm tài liệu nội bộ mới.",
+   "B": "Để cả hai phiên bản dễ dẫn tới câu trả lời mâu thuẫn.",
+   "C": "Thay sổ tay cũ trong knowledge của Project và kiểm thử vài câu trả lời theo bản mới. Knowledge phải được duy trì, không tự cập nhật.",
+   "D": "Đẩy việc nhắc phiên bản mới cho từng người dùng không phải là bảo trì."
+  },
+  "tip": {
+   "title": "Tài liệu nguồn đổi → thay trong Project + kiểm thử lại",
+   "body": [
+    "Task 5.4: **duy trì cấu hình và tài liệu**. Nguồn cũ là lỗi chất lượng."
+   ]
+  },
+  "ask": {
+   "title": "Sổ tay HR có phiên bản mới",
+   "body": "Đề hỏi việc cần làm để Project vẫn đáng tin."
+  },
+  "lesson": "5-4-bao-tri-cau-hinh"
+ },
+ "ccao-f-p9": {
+  "q": "Bạn muốn Claude phân tích xu hướng khách rời bỏ từ một file export có tên, email và số tài khoản khách hàng. Chính sách công ty cấm chia sẻ dữ liệu cá nhân với công cụ bên ngoài. Hành động đúng là gì?",
+  "opts": {
+   "A": "Mục đích nội bộ không vượt được chính sách.",
+   "B": "Dặn Claude bỏ qua cột cá nhân không phải kiểm soát, vì dữ liệu đã đi ra ngoài.",
+   "C": "Bỏ hẳn phân tích là không cần thiết khi ẩn danh hoá giải quyết được.",
+   "D": "Xoá hoặc thay bằng bí danh các cột định danh trước, rồi mới tải lên và phân tích. Phân tích xu hướng không cần thông tin định danh."
+  },
+  "tip": {
+   "title": "Dữ liệu cá nhân + chính sách cấm → ẩn danh hoá TRƯỚC khi đưa vào",
+   "body": [
+    "Làm cho tác vụ **tuân thủ**, rồi mới làm."
+   ]
+  },
+  "ask": {
+   "title": "Phân tích churn với dữ liệu có thông tin cá nhân",
+   "body": "Đề hỏi hành động đúng theo chính sách."
+  },
+  "lesson": "6-2-du-lieu-nhay-cam"
+ },
+ "ccao-f-p10": {
+  "q": "Một prompt chạy tốt nhiều tuần nay cho ra câu trả lời lệch hướng sau khi đội thêm nhiều tài liệu mới vào Project. Chẩn đoán đầu tiên tốt nhất là gì?",
+  "opts": {
+   "A": "Kiểm tra xem tài liệu mới thêm có làm loãng hoặc mâu thuẫn với các nguồn mà câu trả lời lẽ ra phải dựa vào không. Thay đổi trùng thời điểm với lỗi là nghi phạm đầu tiên.",
+   "B": "Viết lại prompt là chữa triệu chứng trước khi chẩn đoán.",
+   "C": "Model lớn hơn cũng chữa triệu chứng.",
+   "D": "Xoá Project làm lại là quá tay."
+  },
+  "tip": {
+   "title": "Tệ đi sau thay đổi X → điều tra X trước",
+   "body": [
+    "Giống CCAR-P p2. Thêm tài liệu có thể **làm loãng** hoặc **mâu thuẫn**."
+   ]
+  },
+  "ask": {
+   "title": "Prompt tệ đi sau khi thêm tài liệu",
+   "body": "Đề hỏi chẩn đoán đầu tiên."
+  },
+  "lesson": "7-1-chan-doan-ket-qua-kem"
+ },
+ "ccao-f-p11": {
+  "q": "Claude tạo bảng so sánh đối thủ, một dòng ghi \"không có dữ liệu\", các dòng khác đều điền đủ. Đồng nghiệp bảo xoá dòng trống cho bảng trông hoàn chỉnh. Phản hồi đúng là gì?",
+  "opts": {
+   "A": "Xoá dòng là che giấu giới hạn của phân tích.",
+   "B": "Giữ dòng và nhãn đó, vì khoảng trống chính là một phát hiện người đọc cần biết.",
+   "C": "Điền ước tính là tạo ra dữ liệu.",
+   "D": "Ép model tìm cho bằng được dễ dẫn tới bịa."
+  },
+  "tip": {
+   "title": "Khoảng trống được khai báo là thông tin → giữ lại",
+   "body": [
+    "Đừng chọn đáp án làm output **trông đẹp** bằng cách che giấu."
+   ]
+  },
+  "ask": {
+   "title": "Xoá dòng \"không có dữ liệu\"?",
+   "body": "Đề hỏi phản hồi đúng với đề nghị của đồng nghiệp."
+  },
+  "lesson": "2-1-danh-gia-chinh-xac-va-day-du"
+ },
+ "ccao-f-p12": {
+  "q": "Hai lần chạy cùng một prompt cho ra số liệu khác nhau cho cùng một chỉ số. Kết luận nào có căn cứ?",
+  "opts": {
+   "A": "Số lớn hơn không đáng tin hơn.",
+   "B": "Lấy trung bình hai số chưa kiểm là sai phương pháp.",
+   "C": "Không con số nào được xác lập, phải kiểm chỉ số đó với nguồn. Hai lần chạy bất đồng cho thấy số liệu không dựa trên nguồn tin cậy.",
+   "D": "Độ dài context không liên quan việc số liệu đúng hay sai."
+  },
+  "tip": {
+   "title": "Hai lần chạy khác số → không số nào đáng tin, kiểm nguồn",
+   "body": [
+    "Bất đồng giữa các lần chạy là **dấu hiệu bịa**."
+   ]
+  },
+  "ask": {
+   "title": "Hai lần chạy ra hai con số",
+   "body": "Đề hỏi kết luận có căn cứ."
+  },
+  "lesson": "2-2-hallucination-mau-thuan-thien-kien"
+ },
+ "ccao-f-p13": {
+  "q": "Bạn nhờ Claude trích mọi điều khoản thanh toán từ một hợp đồng 40 trang. Output liệt kê bốn điều khoản, định dạng gọn gàng. Bước kiểm tra đầu tiên là gì?",
+  "opts": {
+   "A": "Định dạng chỉ là bề ngoài.",
+   "B": "Claude tự xác nhận không phải bằng chứng.",
+   "C": "Temperature đổi cách diễn đạt, không đổi khả năng tìm đủ.",
+   "D": "Đọc các phần thanh toán của hợp đồng để xác nhận không bỏ sót điều khoản nào. Trích xuất hay hỏng vì thiếu hơn là vì sai."
+  },
+  "tip": {
+   "title": "Trích xuất → kiểm tính ĐẦY ĐỦ (omission), không chỉ tính đúng",
+   "body": [
+    "Output gọn gàng không nói gì về việc **có đủ** hay không."
+   ]
+  },
+  "ask": {
+   "title": "Trích điều khoản thanh toán từ hợp đồng 40 trang",
+   "body": "Đề hỏi bước kiểm tra đầu tiên."
+  },
+  "lesson": "2-1-danh-gia-chinh-xac-va-day-du"
+ },
+ "ccao-f-p14": {
+  "q": "Bản tóm tắt bạn yêu cầu đưa ra kết luận trái với cách bạn tự hiểu tài liệu gốc. Bạn nên làm gì?",
+  "opts": {
+   "A": "Tìm đoạn văn mà kết luận dựa vào và đối chiếu với cả hai cách hiểu. Quay lại nguồn để giải quyết bằng bằng chứng.",
+   "B": "Nghe theo bản tóm tắt là quyết mà không kiểm.",
+   "C": "Nghe theo mình cũng là quyết mà không kiểm.",
+   "D": "Hỏi đồng nghiệp cái nào nghe hợp lý hơn là thay nguồn bằng cảm giác."
+  },
+  "tip": {
+   "title": "Bất đồng → quay về đoạn gốc",
+   "body": [
+    "Không chọn bên nào theo cảm tính. **Bằng chứng ở nguồn**."
+   ]
+  },
+  "ask": {
+   "title": "Tóm tắt mâu thuẫn với cách bạn hiểu",
+   "body": "Đề hỏi cách xử lý."
+  },
+  "lesson": "2-3-kiem-chung-thong-tin"
+ },
+ "ccao-f-p15": {
+  "q": "Claude đưa ra một khuyến nghị lập luận tốt nhưng không có trích dẫn, về chủ đề bạn không có chuyên môn. Cách dùng phù hợp là gì?",
+  "opts": {
+   "A": "Nhất quán nội tại không có nghĩa là chính xác.",
+   "B": "Coi nó là giả thuyết cần kiểm với nguồn trước khi hành động.",
+   "C": "Lập luận vẫn có ích để định hướng tìm hiểu.",
+   "D": "Trích dẫn tạo theo yêu cầu cũng cần kiểm như chính nhận định."
+  },
+  "tip": {
+   "title": "Lập luận không nguồn → giả thuyết, chưa phải kết luận",
+   "body": [
+    "Dùng để **định hướng**, không dùng để **quyết định**."
+   ]
+  },
+  "ask": {
+   "title": "Khuyến nghị hay nhưng không có nguồn",
+   "body": "Đề hỏi cách dùng phù hợp."
+  },
+  "lesson": "2-3-kiem-chung-thong-tin"
+ },
+ "ccao-f-p16": {
+  "q": "Một đội muốn Claude soạn tóm tắt \"sức khoẻ khách hàng\" hằng tuần từ ticket hỗ trợ, ghi chú CRM và dữ liệu sử dụng. Chi tiết thiết kế nào quan trọng nhất để output hữu ích qua nhiều tháng?",
+  "opts": {
+   "A": "Model lớn nhất không sửa được tác vụ chưa định nghĩa.",
+   "B": "Chạy hằng ngày nhân lên output chưa rõ ràng.",
+   "C": "Định nghĩa một bản tóm tắt sức khoẻ phải chứa gì, và giữ định nghĩa đó ở một nơi đội cùng duy trì.",
+   "D": "Mỗi người tự viết prompt đảm bảo sẽ lệch nhau."
+  },
+  "tip": {
+   "title": "Output định kỳ ổn định → định nghĩa deliverable rõ, duy trì ở một chỗ",
+   "body": [
+    "Ví dụ: chỉ dẫn trong **Project** dùng chung."
+   ]
+  },
+  "ask": {
+   "title": "Tóm tắt sức khoẻ khách hàng hằng tuần",
+   "body": "Đề hỏi chi tiết thiết kế quan trọng nhất."
+  },
+  "lesson": "4-4-dua-claude-vao-quy-trinh"
+ },
+ "ccao-f-p17": {
+  "q": "Trong quy trình báo cáo tháng, việc nào kém phù hợp nhất để giao cho Claude?",
+  "opts": {
+   "A": "Viết phần tóm tắt từ số liệu đã thống nhất là việc có giới hạn, kiểm tra được.",
+   "B": "Chuyển báo cáo sang template mới là việc có giới hạn, kiểm tra được.",
+   "C": "Trích 5 chênh lệch lớn nhất từ bảng tính là việc có giới hạn, kiểm tra được.",
+   "D": "Quyết định khách hàng nào cần báo lên ban điều hành. Quyết định này gắn trách nhiệm và phụ thuộc vào quan hệ, bối cảnh mà model không nắm."
+  },
+  "tip": {
+   "title": "Quyết định gắn trách nhiệm/quan hệ → giữ cho người",
+   "body": [
+    "Claude hợp với việc **có giới hạn, output kiểm tra được**."
+   ]
+  },
+  "ask": {
+   "title": "Việc nào không nên giao cho Claude",
+   "body": "Đề hỏi việc kém phù hợp nhất trong quy trình báo cáo."
+  },
+  "lesson": "6-1-viec-nen-va-khong-nen-dung"
+ },
+ "ccao-f-p18": {
+  "q": "Một quy trình chạy tốt với một chuyên viên nhưng kém với ba người khác dùng cùng prompt. Nguyên nhân khả dĩ nhất là gì?",
+  "opts": {
+   "A": "Prompt phụ thuộc vào context mà người đầu tiên tự cung cấp mà không để ý (ví dụ biết đính kèm file nào, biết thế nào là tốt).",
+   "B": "Model khác không cung cấp được context bị thiếu.",
+   "C": "Tác vụ rõ ràng là làm được.",
+   "D": "Độ dài đầu vào là triệu chứng, không phải nguyên nhân."
+  },
+  "tip": {
+   "title": "Một người làm tốt, người khác kém → context ngầm chưa được viết ra",
+   "body": [
+    "Viết context đó vào **prompt/Project** để ai dùng cũng có."
+   ]
+  },
+  "ask": {
+   "title": "Cùng prompt, kết quả khác nhau giữa người dùng",
+   "body": "Đề hỏi nguyên nhân khả dĩ nhất."
+  },
+  "lesson": "7-1-chan-doan-ket-qua-kem"
+ },
+ "ccao-f-p19": {
+  "q": "Khi nào nên giữ bước người duyệt trong một workflow Claude đã tự động hoá phần còn lại?",
+  "opts": {
+   "A": "Duyệt mọi thứ bỏ qua rủi ro cụ thể của từng hành động.",
+   "B": "Khi hành động khó đảo ngược hoặc có hệ quả ra bên ngoài. Duyệt đáng chi phí khi sai lầm đắt hoặc khó sửa.",
+   "C": "Quy tắc theo thời gian bỏ bước kiểm bất kể hành động là gì.",
+   "D": "Bỏ hẳn cũng bỏ qua rủi ro cụ thể."
+  },
+  "tip": {
+   "title": "Giữ người duyệt khi: khó đảo ngược / ảnh hưởng ra ngoài",
+   "body": [
+    "Task 2.4: **khi nào cần người duyệt**."
+   ]
+  },
+  "ask": {
+   "title": "Khi nào giữ bước duyệt",
+   "body": "Đề hỏi tiêu chí giữ human approval."
+  },
+  "lesson": "2-4-khi-nao-can-nguoi-duyet"
+ },
+ "ccao-f-p20": {
+  "q": "Đồng nghiệp đề xuất dán danh sách khách hàng vào prompt để soạn thư cá nhân hoá. Xử lý đúng là gì?",
+  "opts": {
+   "A": "Giả định về lưu trữ không phải biện pháp kiểm soát.",
+   "B": "Dặn Claude giữ bí mật không phải biện pháp bảo vệ.",
+   "C": "Bỏ hoặc thay thông tin định danh trước khi soạn, rồi ghép lại sau. Làm trên dữ liệu ẩn danh vẫn đạt mục tiêu.",
+   "D": "Xoá hội thoại sau không xoá được việc đã tiết lộ."
+  },
+  "tip": {
+   "title": "Dữ liệu cá nhân → ẩn danh khi làm, ghép lại sau",
+   "body": [
+    "Giống câu p9: **làm cho tuân thủ, rồi mới làm**."
+   ]
+  },
+  "ask": {
+   "title": "Dán danh sách khách để soạn thư",
+   "body": "Đề hỏi cách xử lý đúng."
+  },
+  "lesson": "6-2-du-lieu-nhay-cam"
+ },
+ "ccao-f-p21": {
+  "q": "Phát biểu nào về việc dặn model không được làm một điều gì đó là chính xác?",
+  "opts": {
+   "A": "Chỉ dẫn trong prompt không phải biện pháp kiểm soát ép buộc được. Đây chính là lỗi mà câu hỏi muốn kiểm tra.",
+   "B": "Đặt trong system prompt chỉ đổi độ mạnh của lời dặn, không đổi bản chất.",
+   "C": "Lặp nhiều lần cũng chỉ đổi độ mạnh, không đổi bản chất.",
+   "D": "Chỉ dẫn định hướng hành vi nhưng không đảm bảo nó, nên những gì bắt buộc phải được kiểm soát bên ngoài prompt."
+  },
+  "tip": {
+   "title": "Prompt = định hướng, không phải đảm bảo",
+   "body": [
+    "Cái gì **phải luôn đúng** → kiểm soát bên ngoài (quyền truy cập, quy trình, công cụ)."
+   ]
+  },
+  "ask": {
+   "title": "Dặn model \"đừng làm X\" có đủ không?",
+   "body": "Đề hỏi phát biểu chính xác về chỉ dẫn trong prompt."
+  },
+  "lesson": "6-3-chinh-sach-ai-to-chuc"
+ },
+ "ccao-f-p22": {
+  "q": "Một báo cáo thuộc diện quản lý được soạn với Claude sắp được nộp. Người duyệt chịu trách nhiệm về điều gì?",
+  "opts": {
+   "A": "Tính chính xác và tuân thủ của tài liệu được nộp, bất kể nó được soạn bằng cách nào. Trách nhiệm thuộc người nộp, công cụ không gánh thay.",
+   "B": "Xác nhận dùng Claude đúng chính sách là tốt nhưng không thay thế trách nhiệm về tài liệu.",
+   "C": "Xác nhận prompt có nêu quy định là tốt nhưng không thay thế.",
+   "D": "Ghi lại phiên bản model là tốt nhưng không thay thế."
+  },
+  "tip": {
+   "title": "Dùng AI soạn → người nộp vẫn chịu trách nhiệm toàn bộ nội dung",
+   "body": [
+    "Giống CCAR-P p26: trách nhiệm **không chuyển** sang công cụ."
+   ]
+  },
+  "ask": {
+   "title": "Trách nhiệm của người duyệt",
+   "body": "Đề hỏi người duyệt chịu trách nhiệm điều gì."
+  },
+  "lesson": "6-4-dao-duc-khi-dung-ai"
+ },
+ "ccao-f-p23": {
+  "q": "Khi nào việc công bố có AI hỗ trợ là rõ ràng cần thiết nhất?",
+  "opts": {
+   "A": "Quy tắc áp dụng mọi lúc làm tín hiệu mất ý nghĩa.",
+   "B": "Khi đánh giá của người đọc về công việc phụ thuộc vào cách nó được tạo ra.",
+   "C": "Chỉ khi đăng ra ngoài là bỏ sót các trường hợp nội bộ quan trọng.",
+   "D": "Chỉ khi có chính sách bằng văn bản cũng bỏ sót."
+  },
+  "tip": {
+   "title": "Công bố dùng AI khi nguồn gốc ảnh hưởng cách người đọc đánh giá",
+   "body": [
+    "Tiêu chí là **tác động đến người đọc**, không phải quy tắc máy móc."
+   ]
+  },
+  "ask": {
+   "title": "Khi nào cần công bố có dùng AI",
+   "body": "Đề hỏi trường hợp rõ ràng cần nhất."
+  },
+  "lesson": "6-4-dao-duc-khi-dung-ai"
+ },
+ "ccao-f-p24": {
+  "q": "Một prompt cho output chính xác nhưng lúc nào cũng quá dài. Cách sửa tin cậy nhất là gì?",
+  "opts": {
+   "A": "\"Ngắn gọn\" được hiểu khác nhau mỗi lần.",
+   "B": "Tóm tắt lại thêm một bước và một điểm lỗi.",
+   "C": "Nêu giới hạn bằng con số cụ thể, ví dụ số từ hoặc số gạch đầu dòng. Giới hạn cụ thể kiểm được và lặp lại được.",
+   "D": "Model nhỏ hơn đổi độ chính xác lấy độ ngắn."
+  },
+  "tip": {
+   "title": "Muốn ngắn → nêu con số (≤150 từ, 3 gạch đầu dòng)",
+   "body": [
+    "Tính từ mơ hồ (ngắn gọn, chi tiết) **kém** hơn ràng buộc cụ thể."
+   ]
+  },
+  "ask": {
+   "title": "Output đúng nhưng quá dài",
+   "body": "Đề hỏi cách sửa tin cậy nhất."
+  },
+  "lesson": "1-1-viet-prompt-hieu-qua"
+ },
+ "ccao-f-p25": {
+  "q": "Bạn cần output đúng một cấu trúc cụ thể mỗi lần để dán vào template. Kỹ thuật hiệu quả nhất là gì?",
+  "opts": {
+   "A": "Mô tả bằng văn xuôi vẫn để ngỏ cách hiểu.",
+   "B": "\"Sắp xếp gọn gàng\" còn mơ hồ hơn.",
+   "C": "Tạo hai lần chọn bản tốt hơn không định nghĩa đích.",
+   "D": "Đưa một ví dụ đã điền sẵn đúng cấu trúc bạn muốn. Ví dụ là tín hiệu mạnh nhất về định dạng."
+  },
+  "tip": {
+   "title": "Định dạng cố định → đưa ví dụ mẫu",
+   "body": [
+    "Giống CCDV-F p27: **show, don't tell**."
+   ]
+  },
+  "ask": {
+   "title": "Output phải đúng cấu trúc mỗi lần",
+   "body": "Đề hỏi kỹ thuật hiệu quả nhất."
+  },
+  "lesson": "2-6-chon-dinh-dang-output"
+ },
+ "ccao-f-p26": {
+  "q": "Một prompt dài với nhiều quy tắc cho ra output tuân thủ một số quy tắc và bỏ qua số khác. Nên thử gì trước?",
+  "opts": {
+   "A": "Tách tác vụ thành các giai đoạn để kiểm từng output trước khi sang bước sau. Giảm lượng yêu cầu phải giữ cùng lúc và có điểm kiểm tra giữa các bước.",
+   "B": "Viết hoa vẫn để cùng một khối lượng trong một bước.",
+   "C": "Đưa quy tắc lên đầu vẫn để cùng một khối lượng.",
+   "D": "Thêm quy tắc \"phải tuân thủ mọi quy tắc\" không giảm tải."
+  },
+  "tip": {
+   "title": "Quá nhiều quy tắc một lúc → chia giai đoạn (prompt chaining)",
+   "body": [
+    "Task 1.2: chia nhỏ để **mỗi bước kiểm được**."
+   ]
+  },
+  "ask": {
+   "title": "Prompt nhiều quy tắc, bị bỏ sót vài cái",
+   "body": "Đề hỏi nên thử gì trước."
+  },
+  "lesson": "1-2-chia-nho-yeu-cau"
+ },
+ "ccao-f-p27": {
+  "q": "Chi tiết nào cải thiện nhiều nhất một prompt nhờ Claude review tài liệu?",
+  "opts": {
+   "A": "\"Kỹ lưỡng\" không đo được.",
+   "B": "Nêu review để làm gì và thế nào được coi là vấn đề. Mục đích và tiêu chí cho model biết phải tìm gì.",
+   "C": "Thêm tài liệu khác chỉ thêm nhiễu khi chưa có tiêu chí.",
+   "D": "Định dạng danh sách chỉ đổi cách trình bày."
+  },
+  "tip": {
+   "title": "Review → nêu mục đích + tiêu chí \"vấn đề\"",
+   "body": [
+    "Giống CCAR-F p7: tiêu chí rõ ràng."
+   ]
+  },
+  "ask": {
+   "title": "Prompt nhờ review tài liệu",
+   "body": "Đề hỏi chi tiết cải thiện nhiều nhất."
+  },
+  "lesson": "1-4-prompt-theo-loai-viec"
+ },
+ "ccao-f-p28": {
+  "q": "Một tác vụ cần đọc báo cáo 200 trang một lần và trả lời một câu hỏi. Cân nhắc nào nên dẫn dắt lựa chọn?",
+  "opts": {
+   "A": "Rẻ nhất chỉ đáng xét trong số các model làm được việc.",
+   "B": "Nhanh nhất chỉ đáng xét trong số các model làm được việc.",
+   "C": "Model có giữ và suy luận tin cậy trên toàn bộ tài liệu được không. Đây là ràng buộc then chốt.",
+   "D": "Chia cho nhiều model nhỏ dễ mất khả năng suy luận xuyên tài liệu."
+  },
+  "tip": {
+   "title": "Tài liệu dài → ưu tiên khả năng hiểu toàn bộ (context + suy luận)",
+   "body": [
+    "Xét **ràng buộc then chốt** trước, sau đó mới tới giá và tốc độ."
+   ]
+  },
+  "ask": {
+   "title": "Đọc báo cáo 200 trang",
+   "body": "Đề hỏi cân nhắc chính khi chọn model."
+  },
+  "lesson": "3-3-chon-model-theo-viec"
+ },
+ "ccao-f-p29": {
+  "q": "Khi nào làm việc trong Claude Project hợp lý hơn tích hợp qua API?",
+  "opts": {
+   "A": "Khối lượng lớn, đều đặn là việc của API.",
+   "B": "Chèn tự động vào hệ thống khác là việc của API.",
+   "C": "Chạy theo lịch là việc của API.",
+   "D": "Khi công việc mang tính khám phá và do con người làm chứ không phải hệ thống. Project hợp với việc lặp đi lặp lại của người, context được chọn lọc và dùng lại."
+  },
+  "tip": {
+   "title": "Người làm, khám phá, lặp lại → Project; hệ thống tự động → API",
+   "body": [
+    "Task 3.1: **chọn tính năng Claude** cho từng việc."
+   ]
+  },
+  "ask": {
+   "title": "Project hay API",
+   "body": "Đề hỏi khi nào Project hợp lý hơn."
+  },
+  "lesson": "3-1-chon-tinh-nang-claude"
+ },
+ "ccao-f-p30": {
+  "q": "Một đội hỏi có nên chuyển sang model lớn hơn vì output không nhất quán. Cần xác định điều gì trước?",
+  "opts": {
+   "A": "Sự không nhất quán có đến từ prompt và đầu vào chứ không phải model hay không. Thường nguyên nhân là tác vụ đặc tả thiếu hoặc đầu vào biến động.",
+   "B": "Chênh lệch chi phí là đầu vào cho một quyết định chưa chắc đúng.",
+   "C": "Khả dụng theo region cũng vậy.",
+   "D": "Tốc độ cũng vậy."
+  },
+  "tip": {
+   "title": "Không nhất quán → kiểm prompt & đầu vào trước khi đổi model",
+   "body": [
+    "Model lớn hơn **không** sửa được tác vụ mơ hồ."
+   ]
+  },
+  "ask": {
+   "title": "Đổi model vì output không nhất quán?",
+   "body": "Đề hỏi điều cần xác định trước."
+  },
+  "lesson": "7-1-chan-doan-ket-qua-kem"
+ },
+ "ccao-f-p31": {
+  "q": "Thứ gì nên nằm trong knowledge của Project thay vì trong từng prompt?",
+  "opts": {
+   "A": "Câu hỏi hôm nay thuộc về prompt.",
+   "B": "Tài liệu mà mọi cuộc hội thoại trong Project đều cần tham chiếu.",
+   "C": "Độ dài mong muốn của một báo cáo thuộc về prompt.",
+   "D": "Tài liệu dùng một lần thuộc về prompt."
+  },
+  "tip": {
+   "title": "Project knowledge = thứ lặp lại mọi cuộc hội thoại",
+   "body": [
+    "Việc **một lần** → để trong prompt."
+   ]
+  },
+  "ask": {
+   "title": "Thứ gì đưa vào Project knowledge",
+   "body": "Đề hỏi loại nội dung phù hợp."
+  },
+  "lesson": "5-2-tai-lieu-va-connector"
+ },
+ "ccao-f-p32": {
+  "q": "Câu trả lời của một Project ngày càng mơ hồ khi thêm nhiều tài liệu. Nguyên nhân khả dĩ là gì?",
+  "opts": {
+   "A": "Đổi phiên bản không liên quan tới việc thêm tài liệu.",
+   "B": "Quá ít tài liệu trái với xu hướng đang mô tả.",
+   "C": "Knowledge giờ chứa tài liệu chồng chéo hoặc cũ, cạnh tranh với các nguồn đúng. Tài liệu tích luỹ không được bảo trì làm loãng truy xuất.",
+   "D": "Prompt quá cụ thể trái với xu hướng mơ hồ."
+  },
+  "tip": {
+   "title": "Thêm tài liệu → mơ hồ dần: knowledge bị loãng",
+   "body": [
+    "Giống câu p10."
+   ]
+  },
+  "ask": {
+   "title": "Project trả lời mơ hồ dần",
+   "body": "Đề hỏi nguyên nhân khả dĩ."
+  },
+  "lesson": "5-4-bao-tri-cau-hinh"
+ },
+ "ccao-f-p33": {
+  "q": "Nên đối xử thế nào với Project knowledge khi tài liệu gốc thay đổi?",
+  "opts": {
+   "A": "Nó không tự đồng bộ từ hệ thống nguồn.",
+   "B": "Chờ thấy sai rõ mới xem là hành động sau khi đã có thiệt hại.",
+   "C": "Dựng lại hằng quý vừa lãng phí vừa không khớp với thay đổi thật.",
+   "D": "Phải được bảo trì có chủ đích, vì nó không tự cập nhật."
+  },
+  "tip": {
+   "title": "Knowledge = bản sao được tuyển chọn → phải bảo trì chủ động",
+   "body": [
+    "Giống câu p8."
+   ]
+  },
+  "ask": {
+   "title": "Knowledge khi nguồn thay đổi",
+   "body": "Đề hỏi cách đối xử đúng."
+  },
+  "lesson": "5-4-bao-tri-cau-hinh"
+ },
+ "ccao-f-p34": {
+  "q": "Một workflow chạy ổn định nhiều tháng bắt đầu trả output lệch hướng. Bước chẩn đoán đầu tiên là gì?",
+  "opts": {
+   "A": "Xác định cái gì đã thay đổi: đầu vào, cấu hình, hay knowledge.",
+   "B": "Viết lại prompt là thay đổi hệ thống trước khi biết nguyên nhân.",
+   "C": "Đổi model cũng vậy.",
+   "D": "Thêm context cũng vậy."
+  },
+  "tip": {
+   "title": "Đang tốt bỗng tệ → tìm thứ đã thay đổi",
+   "body": [
+    "Giống CCAR-P m3-12, CCAO-F p10."
+   ]
+  },
+  "ask": {
+   "title": "Workflow ổn định bỗng lệch",
+   "body": "Đề hỏi bước chẩn đoán đầu tiên."
+  },
+  "lesson": "7-1-chan-doan-ket-qua-kem"
+ },
+ "ccao-f-p35": {
+  "q": "Chất lượng output chấp nhận được nhưng quy trình quá lâu để đáng dùng. Nên xem xét gì trước?",
+  "opts": {
+   "A": "Model nhanh hơn là giả định model là nút thắt.",
+   "B": "Phần chậm là model hay là các bước của con người xung quanh. Tìm đúng chỗ chậm trước khi tối ưu.",
+   "C": "Rút gọn prompt cũng giả định model là nút thắt.",
+   "D": "Bỏ quy trình là vứt thứ đã cho kết quả chấp nhận được."
+  },
+  "tip": {
+   "title": "Quy trình chậm → đo xem chậm ở đâu trước",
+   "body": [
+    "Thường **bước của người** (chuẩn bị, chờ duyệt) mới là nút thắt."
+   ]
+  },
+  "ask": {
+   "title": "Kết quả ổn nhưng quy trình quá chậm",
+   "body": "Đề hỏi điều cần xem xét trước."
+  },
+  "lesson": "7-3-toi-uu-quy-trinh"
+ },
+ "ccao-f-m1-1": {
+  "q": "Đồng nghiệp chia sẻ một bản tóm tắt chính sách do Claude soạn, đọc trôi chảy và trích tên ba tài liệu nội bộ. Bước rà soát phù hợp trước khi gửi cho cả phòng là gì?",
+  "opts": {
+   "A": "Có tên nguồn không chứng minh được nội dung có căn cứ.",
+   "B": "Claude tự kiểm lại không phải bằng chứng độc lập.",
+   "C": "Xác nhận từng tài liệu được nêu có tồn tại và nói đúng như bản tóm tắt. Nguồn được nêu tên có thể bị bịa.",
+   "D": "Thêm dòng \"AI tạo\" không làm nội dung đúng."
+  },
+  "tip": {
+   "title": "Có trích nguồn → kiểm nguồn có thật và nói đúng không",
+   "body": [
+    "Giống câu p1: **verify first**."
+   ]
+  },
+  "ask": {
+   "title": "Tóm tắt chính sách có trích ba tài liệu",
+   "body": "Đề hỏi bước rà soát trước khi gửi rộng."
+  },
+  "lesson": "2-3-kiem-chung-thong-tin"
+ },
+ "ccao-f-m1-2": {
+  "q": "Bạn cần bản nháp đầu của một bản cập nhật cho các bên liên quan từ một nhật ký dự án dài. Prompt nào dễ cho ra bản nháp dùng được ngay lần đầu nhất?",
+  "opts": {
+   "A": "\"Tóm tắt nhật ký này\" thiếu người đọc, cấu trúc và độ dài.",
+   "B": "\"Viết gì đó hay cho sếp\" mơ hồ.",
+   "C": "Thêm \"chi tiết, kỹ lưỡng, chuyên nghiệp\" không thêm cấu trúc.",
+   "D": "Prompt nêu vai trò, người đọc (lãnh đạo không chuyên kỹ thuật), cấu trúc rõ (trạng thái 1 dòng, 3 tiến độ, 2 rủi ro có người phụ trách, trọng tâm tuần tới) và giới hạn dưới 200 từ."
+  },
+  "tip": {
+   "title": "Prompt tốt = vai trò + người đọc + cấu trúc + giới hạn",
+   "body": [
+    "Đây là đáp án mẫu của dạng câu **\"prompt nào tốt nhất\"**: chọn cái **cụ thể nhất**."
+   ]
+  },
+  "ask": {
+   "title": "Prompt soạn bản cập nhật từ nhật ký dự án",
+   "body": "Đề hỏi prompt nào cho bản nháp dùng được ngay."
+  },
+  "lesson": "1-1-viet-prompt-hieu-qua"
+ },
+ "ccao-f-m1-3": {
+  "q": "Một workflow soạn hàng trăm tin nhắn xác nhận lịch hẹn thường lệ mỗi ngày. Độ trễ và chi phí là chính; ngôn ngữ theo khuôn. Lựa chọn nào phù hợp?",
+  "opts": {
+   "A": "Model nhanh, rẻ, giữ model mạnh hơn cho ngoại lệ.",
+   "B": "Model mạnh nhất cho việc theo khuôn là lãng phí.",
+   "C": "Mới nhất không phải tiêu chí.",
+   "D": "Luân phiên không khớp model với việc."
+  },
+  "tip": {
+   "title": "Khối lượng lớn theo khuôn → model nhanh/rẻ",
+   "body": [
+    "Giống câu p5."
+   ]
+  },
+  "ask": {
+   "title": "Tin nhắn xác nhận lịch hẹn hằng ngày",
+   "body": "Đề hỏi lựa chọn model phù hợp."
+  },
+  "lesson": "3-3-chon-model-theo-viec"
+ },
+ "ccao-f-m1-4": {
+  "q": "Project của đội trả lời từ sổ tay sản phẩm. Người dùng báo nhận câu trả lời tự tin về một tính năng đã bị bỏ từ quý trước. Nguyên nhân khả dĩ nhất là gì?",
+  "opts": {
+   "A": "Không cần huấn luyện lại model.",
+   "B": "Knowledge của Project vẫn chứa sổ tay cũ. Tài liệu cũ cho ra câu trả lời cũ một cách tự tin.",
+   "C": "Đổ cho người dùng là sai.",
+   "D": "Context window không phải nguyên nhân."
+  },
+  "tip": {
+   "title": "Trả lời theo thông tin cũ → knowledge cũ chưa được thay",
+   "body": [
+    "Giống câu p8."
+   ]
+  },
+  "ask": {
+   "title": "Trả lời về tính năng đã bị bỏ",
+   "body": "Đề hỏi nguyên nhân khả dĩ nhất."
+  },
+  "lesson": "5-4-bao-tri-cau-hinh"
+ },
+ "ccao-f-m1-5": {
+  "q": "Phòng pháp chế nhờ bạn phân tích bảng ticket hỗ trợ có tên và email khách hàng. Tổ chức cấm gửi dữ liệu cá nhân cho công cụ bên ngoài. Bạn làm gì?",
+  "opts": {
+   "A": "Người yêu cầu cấp cao không vượt được chính sách.",
+   "B": "Dặn model bỏ qua không làm dữ liệu \"chưa bị gửi\".",
+   "C": "Xoá hoặc thay bằng bí danh các cột cá nhân, rồi phân tích phần còn lại.",
+   "D": "Từ chối là không cần thiết khi ẩn danh hoá được."
+  },
+  "tip": {
+   "title": "Dữ liệu cá nhân → ẩn danh trước",
+   "body": [
+    "Giống câu p9."
+   ]
+  },
+  "ask": {
+   "title": "Phân tích ticket có thông tin cá nhân",
+   "body": "Đề hỏi việc cần làm."
+  },
+  "lesson": "6-2-du-lieu-nhay-cam"
+ },
+ "ccao-f-m1-6": {
+  "q": "Claude trả về câu trả lời 5 đoạn văn trong khi bạn cần 3 gạch đầu dòng, hai lần liên tiếp. Điều chỉnh hiệu quả nhất là gì?",
+  "opts": {
+   "A": "Hỏi lại và mong khác đi không sửa nguyên nhân.",
+   "B": "Model mạnh hơn không biết định dạng bạn chưa nêu.",
+   "C": "Sửa tay mỗi lần là không bền.",
+   "D": "Nêu rõ định dạng, gồm số gạch đầu dòng và độ dài tối đa mỗi dòng."
+  },
+  "tip": {
+   "title": "Sai định dạng → nêu định dạng cụ thể",
+   "body": [
+    "Giống câu p24."
+   ]
+  },
+  "ask": {
+   "title": "Muốn 3 gạch đầu dòng, nhận 5 đoạn",
+   "body": "Đề hỏi điều chỉnh hiệu quả nhất."
+  },
+  "lesson": "2-6-chon-dinh-dang-output"
+ },
+ "ccao-f-m1-7": {
+  "q": "Dấu hiệu nào mạnh nhất cho thấy một nhận định do Claude tạo cần kiểm chứng trước khi dùng?",
+  "opts": {
+   "A": "Nhận định là một con số, ngày tháng, hoặc trích dẫn cụ thể mà nếu sai sẽ có hậu quả.",
+   "B": "Độ dài không nói gì về độ chính xác.",
+   "C": "Tốc độ không nói gì về độ chính xác.",
+   "D": "Từ ngữ chuyên môn không nói gì về độ chính xác."
+  },
+  "tip": {
+   "title": "Cụ thể + có hậu quả → kiểm chứng",
+   "body": [
+    "Số, ngày, trích dẫn, tên riêng = điểm rủi ro bịa cao nhất."
+   ]
+  },
+  "ask": {
+   "title": "Khi nào phải kiểm chứng",
+   "body": "Đề hỏi dấu hiệu mạnh nhất."
+  },
+  "lesson": "2-2-hallucination-mau-thuan-thien-kien"
+ },
+ "ccao-f-m1-8": {
+  "q": "Một quản lý muốn biết Claude có thể \"thay thế quy trình báo cáo hằng tuần\" không. Phản hồi hữu ích nhất là gì?",
+  "opts": {
+   "A": "\"Có\" không kèm phân tích là thiếu thực tế.",
+   "B": "Phân tích bước nào Claude soạn hoặc tóm tắt được, bước nào cần phán đoán của người hoặc quyền hệ thống, và bước duyệt sẽ là gì.",
+   "C": "\"Không\" không kèm phân tích cũng thiếu thực tế.",
+   "D": "Đề xuất thuê tư vấn là né câu hỏi."
+  },
+  "tip": {
+   "title": "\"Thay thế X được không?\" → phân công + bước duyệt",
+   "body": [
+    "Giống câu p7."
+   ]
+  },
+  "ask": {
+   "title": "Claude thay thế báo cáo hằng tuần?",
+   "body": "Đề hỏi phản hồi hữu ích nhất."
+  },
+  "lesson": "4-5-trinh-bay-gia-tri-va-gioi-han"
+ },
+ "ccao-f-m1-9": {
+  "q": "Bạn cấu hình một Project mà nhiều đồng nghiệp sẽ dùng để giao tiếp với khách hàng một cách nhất quán. Thứ gì nên nằm trong chỉ dẫn của Project thay vì từng prompt?",
+  "opts": {
+   "A": "Tên khách hàng hôm nay là chi tiết riêng từng tin nhắn.",
+   "B": "Ngày hôm nay là chi tiết riêng từng lần.",
+   "C": "Giọng văn chung, các câu miễn trừ bắt buộc, và cấu trúc chuẩn của một tin nhắn khách hàng. Quy ước bền vững, dùng chung thuộc về chỉ dẫn.",
+   "D": "Sở thích cá nhân không phải quy ước chung."
+  },
+  "tip": {
+   "title": "Quy ước chung, lâu dài → Project instructions; chi tiết từng lần → prompt",
+   "body": [
+    "Task 5.3: **viết chỉ dẫn cấp hệ thống**."
+   ]
+  },
+  "ask": {
+   "title": "Đặt gì vào chỉ dẫn của Project",
+   "body": "Đề hỏi nội dung phù hợp cho Project instructions."
+  },
+  "lesson": "5-3-viet-chi-dan-he-thong"
+ },
+ "ccao-f-m1-10": {
+  "q": "Bản tóm tắt Claude tạo bỏ sót một lưu ý quan trọng có trong tài liệu gốc. Kiểu lỗi này minh hoạ điều gì?",
+  "opts": {
+   "A": "Hallucination là bịa thêm chi tiết; đây là bỏ sót.",
+   "B": "Không có dấu hiệu chạm giới hạn context.",
+   "C": "Không phải prompt injection.",
+   "D": "Lỗi bỏ sót, chỉ phát hiện được khi đọc nguồn chứ không chỉ đọc output."
+  },
+  "tip": {
+   "title": "Bỏ sót nguy hiểm ngang bịa, và chỉ thấy khi đọc nguồn",
+   "body": [
+    "Giống câu p13: kiểm **tính đầy đủ**."
+   ]
+  },
+  "ask": {
+   "title": "Tóm tắt bỏ sót lưu ý quan trọng",
+   "body": "Đề hỏi kiểu lỗi này là gì."
+  },
+  "lesson": "2-1-danh-gia-chinh-xac-va-day-du"
+ },
+ "ccao-f-m1-11": {
+  "q": "Prompt chạy tốt tháng trước, nay cho kết quả kém hơn sau khi đội thêm 12 tài liệu vào knowledge của Project. Cần điều tra gì trước?",
+  "opts": {
+   "A": "Tài liệu mới có làm loãng hoặc mâu thuẫn với các nguồn mà câu trả lời lẽ ra phải dùng không.",
+   "B": "Không có dấu hiệu model thay đổi.",
+   "C": "Trình duyệt không liên quan.",
+   "D": "Prompt dài hơn là sửa trước khi chẩn đoán."
+  },
+  "tip": {
+   "title": "Tệ đi sau khi thêm tài liệu → kiểm tài liệu mới",
+   "body": [
+    "Giống câu p10."
+   ]
+  },
+  "ask": {
+   "title": "Kết quả kém sau khi thêm 12 tài liệu",
+   "body": "Đề hỏi điều cần điều tra trước."
+  },
+  "lesson": "7-1-chan-doan-ket-qua-kem"
+ },
+ "ccao-f-m1-12": {
+  "q": "Với tác vụ nào, Project có chỉ dẫn và knowledge bền vững rõ ràng tốt hơn một cuộc chat một lần?",
+  "opts": {
+   "A": "Hỏi từ đồng nghĩa là việc một lần.",
+   "B": "Báo cáo tháng theo cùng cấu trúc và dùng cùng tài liệu tham chiếu.",
+   "C": "Kiểm một dữ kiện là việc một lần.",
+   "D": "Viết lại một email là việc một lần."
+  },
+  "tip": {
+   "title": "Lặp lại + context ổn định → Project",
+   "body": [
+    "Giống câu p6."
+   ]
+  },
+  "ask": {
+   "title": "Khi nào dùng Project",
+   "body": "Đề hỏi tác vụ hợp với Project."
+  },
+  "lesson": "3-1-chon-tinh-nang-claude"
+ },
+ "ccao-f-m1-13": {
+  "q": "Thực hành nào giảm tốt nhất rủi ro gửi output sai của Claude cho khách hàng?",
+  "opts": {
+   "A": "Đọc giọng văn không kiểm được nội dung.",
+   "B": "Ghi chú có AI hỗ trợ không làm nội dung đúng.",
+   "C": "Kiểm chứng các nhận định gây hại nếu sai, rồi để người thứ hai duyệt tài liệu gửi khách.",
+   "D": "Kích thước model không phải biện pháp kiểm soát."
+  },
+  "tip": {
+   "title": "Gửi khách → kiểm nhận định quan trọng + người thứ hai duyệt",
+   "body": [
+    "Task 2.4: tài liệu gửi ra ngoài là ứng viên rõ ràng cho **human review**."
+   ]
+  },
+  "ask": {
+   "title": "Giảm rủi ro gửi output sai cho khách",
+   "body": "Đề hỏi thực hành tốt nhất."
+  },
+  "lesson": "2-4-khi-nao-can-nguoi-duyet"
+ },
+ "ccao-f-m1-14": {
+  "q": "Bạn muốn Claude giúp thiết kế lại một quy trình phê duyệt chậm, chứ không chỉ làm nhanh các bước hiện tại. Hướng prompt nào phù hợp?",
+  "opts": {
+   "A": "\"Làm nhanh hơn\" không đưa dữ liệu và không xin phương án.",
+   "B": "\"Tự động hoá\" không phải thiết kế lại.",
+   "C": "Hỏi công ty khác làm gì không dựa trên quy trình của bạn.",
+   "D": "Đưa các bước hiện tại và chỗ bị chậm, xin hai phương án: một giữ cấu trúc hiện tại, một sắp xếp lại hoặc bỏ bớt bước, kèm đánh đổi của mỗi cái."
+  },
+  "tip": {
+   "title": "Thiết kế lại quy trình → đưa hiện trạng + điểm nghẽn, xin phương án kèm đánh đổi",
+   "body": [
+    "Task 4.3: **dùng Claude thiết kế giải pháp**."
+   ]
+  },
+  "ask": {
+   "title": "Prompt để thiết kế lại quy trình phê duyệt",
+   "body": "Đề hỏi hướng prompt phù hợp."
+  },
+  "lesson": "4-3-thiet-ke-giai-phap"
+ },
+ "ccao-f-m1-15": {
+  "q": "Tình huống nào rõ ràng nhất cần chuyển cho đồng nghiệp kỹ thuật thay vì tự xử lý?",
+  "opts": {
+   "A": "Yêu cầu kết nối Claude trực tiếp vào database đơn hàng nội bộ qua một tích hợp. Tích hợp hệ thống thuộc phạm vi Developer/Architect.",
+   "B": "Prompt cần cấu trúc tốt hơn: tự làm được.",
+   "C": "Output sai giọng: tự làm được.",
+   "D": "Project cần cập nhật knowledge: tự làm được."
+  },
+  "tip": {
+   "title": "Tích hợp hệ thống/database → chuyển cho kỹ thuật",
+   "body": [
+    "Nhận biết **giới hạn vai trò** cũng là năng lực của Associate."
+   ]
+  },
+  "ask": {
+   "title": "Khi nào chuyển cho đồng nghiệp kỹ thuật",
+   "body": "Đề hỏi tình huống rõ ràng nhất."
+  },
+  "lesson": "6-1-viec-nen-va-khong-nen-dung"
+ },
+ "ccao-f-m2-1": {
+  "q": "Claude trả lời câu hỏi chính sách khớp đúng điều bạn nghĩ, không có trích dẫn. Sự trùng khớp này nói lên điều gì?",
+  "opts": {
+   "A": "Khớp với hiểu biết của bạn không xác nhận được gì.",
+   "B": "Viết lại câu chữ không liên quan.",
+   "C": "Không nói gì về độ chính xác, vì khớp với kỳ vọng không phải bằng chứng.",
+   "D": "Không chứng minh model đã đọc tài liệu chính sách."
+  },
+  "tip": {
+   "title": "Khớp với điều mình tin ≠ đúng (confirmation bias)",
+   "body": [
+    "Đây là lỗi **dễ bỏ qua nhất** vì không có gì khiến bạn muốn kiểm."
+   ]
+  },
+  "ask": {
+   "title": "Câu trả lời khớp đúng kỳ vọng",
+   "body": "Đề hỏi sự trùng khớp có ý nghĩa gì."
+  },
+  "lesson": "2-2-hallucination-mau-thuan-thien-kien"
+ },
+ "ccao-f-m2-2": {
+  "q": "Đồng nghiệp nhờ Claude kiểm lại câu trả lời trước đó của nó, và nó xác nhận. Xác nhận này có trọng lượng bao nhiêu?",
+  "opts": {
+   "A": "Tự nó không có trọng lượng, vì việc kiểm tra không độc lập với thứ được kiểm.",
+   "B": "Tự review lý lẽ của mình không phải nguồn độc lập.",
+   "C": "Chi tiết không làm việc tự kiểm trở nên độc lập.",
+   "D": "Model nào cũng vậy."
+  },
+  "tip": {
+   "title": "Model tự kiểm ≠ kiểm chứng",
+   "body": [
+    "Cần **nguồn độc lập**."
+   ]
+  },
+  "ask": {
+   "title": "Claude tự xác nhận câu trả lời",
+   "body": "Đề hỏi xác nhận có trọng lượng bao nhiêu."
+  },
+  "lesson": "2-3-kiem-chung-thong-tin"
+ },
+ "ccao-f-m2-3": {
+  "q": "Một báo cáo soạn với Claude chứa một con số bạn không kiểm chứng được từ nguồn nào. Xử lý phù hợp trước khi lưu hành là gì?",
+  "opts": {
+   "A": "Miễn trừ chung không giải quyết con số cụ thể.",
+   "B": "Đánh dấu \"ước tính\" khi không có căn cứ là trình bày sai.",
+   "C": "Trích dẫn tạo theo yêu cầu cũng cần kiểm như thế.",
+   "D": "Bỏ con số và ghi chú là không kiểm chứng được."
+  },
+  "tip": {
+   "title": "Không kiểm chứng được → bỏ, ghi rõ khoảng trống",
+   "body": [
+    "Giống câu p11: **khoảng trống trung thực** tốt hơn dữ liệu bịa."
+   ]
+  },
+  "ask": {
+   "title": "Con số không kiểm chứng được",
+   "body": "Đề hỏi xử lý trước khi lưu hành."
+  },
+  "lesson": "2-3-kiem-chung-thong-tin"
+ },
+ "ccao-f-m2-4": {
+  "q": "Việc nào là ứng viên mạnh nhất để giao cho Claude trong quy trình khoá sổ tháng?",
+  "opts": {
+   "A": "Phê duyệt bút toán cuối gắn trách nhiệm.",
+   "B": "Soạn nhận xét chênh lệch từ số liệu đã thống nhất: có giới hạn và kiểm tra được.",
+   "C": "Quyết định chênh lệch nào cần điều tra gắn trách nhiệm.",
+   "D": "Ký duyệt đối chiếu gắn trách nhiệm."
+  },
+  "tip": {
+   "title": "Giao cho Claude: việc soạn có giới hạn, kiểm được",
+   "body": [
+    "Giữ cho người: **phê duyệt, ký, quyết định**."
+   ]
+  },
+  "ask": {
+   "title": "Việc nào giao cho Claude khi khoá sổ",
+   "body": "Đề hỏi ứng viên mạnh nhất."
+  },
+  "lesson": "4-4-dua-claude-vao-quy-trinh"
+ },
+ "ccao-f-m2-5": {
+  "q": "Một workflow cho output tốt nhưng không ai dùng. Nên xem xét gì trước?",
+  "opts": {
+   "A": "Nâng cấp model là xử lý chất lượng vốn đã ổn.",
+   "B": "Output có đến đúng nơi công việc thực sự diễn ra, ở dạng mọi người hành động được không. Việc áp dụng thường thất bại do không khớp quy trình.",
+   "C": "Độ dài prompt là xử lý chất lượng vốn đã ổn.",
+   "D": "Đào tạo là chữa triệu chứng."
+  },
+  "tip": {
+   "title": "Output tốt mà không ai dùng → kiểm độ khớp với quy trình thật",
+   "body": [
+    "Task 4.4: **đưa Claude vào quy trình đang có**."
+   ]
+  },
+  "ask": {
+   "title": "Output tốt nhưng không ai dùng",
+   "body": "Đề hỏi điều cần xem xét trước."
+  },
+  "lesson": "4-4-dua-claude-vao-quy-trinh"
+ },
+ "ccao-f-m2-6": {
+  "q": "Một đội muốn dán phản hồi khách hàng đã ẩn danh vào Claude để phân tích chủ đề. Rủi ro nào vẫn còn sau khi bỏ tên?",
+  "opts": {
+   "A": "Ẩn danh không loại bỏ hoàn toàn rủi ro. Đây chính là lỗi được kiểm tra.",
+   "B": "Giả định lưu trữ không phải vấn đề quản trị ở đây.",
+   "C": "Phân tích chủ đề vẫn tin cậy trên dữ liệu ẩn danh.",
+   "D": "Văn bản tự do vẫn có thể nhận diện người qua chi tiết cụ thể, nên vẫn cần rà soát trước khi gửi."
+  },
+  "tip": {
+   "title": "Bỏ tên ≠ ẩn danh hoàn toàn; văn bản tự do vẫn lộ người",
+   "body": [
+    "Ví dụ: chức danh hiếm, sự kiện cụ thể, địa điểm."
+   ]
+  },
+  "ask": {
+   "title": "Phản hồi khách đã bỏ tên",
+   "body": "Đề hỏi rủi ro còn lại."
+  },
+  "lesson": "6-2-du-lieu-nhay-cam"
+ },
+ "ccao-f-m2-7": {
+  "q": "Ai nên quyết định một output có Claude hỗ trợ có đủ tốt để gửi khách hàng?",
+  "opts": {
+   "A": "Người chịu trách nhiệm về mối quan hệ với khách hàng đó.",
+   "B": "Người viết prompt chỉ là ngẫu nhiên.",
+   "C": "Model tự đánh giá không độc lập.",
+   "D": "Workflow được duyệt trước không phải là duyệt từng lần cụ thể."
+  },
+  "tip": {
+   "title": "Người chịu trách nhiệm → người quyết định",
+   "body": [
+    "Giống câu p22."
+   ]
+  },
+  "ask": {
+   "title": "Ai quyết định gửi output cho khách",
+   "body": "Đề hỏi người nên quyết định."
+  },
+  "lesson": "2-4-khi-nao-can-nguoi-duyet"
+ },
+ "ccao-f-m2-8": {
+  "q": "Một prompt chạy tốt cho tới khi tài liệu đầu vào dài hơn nhiều so với thường lệ, lúc đó chất lượng giảm. Giải thích khả dĩ nhất là gì?",
+  "opts": {
+   "A": "Model không thay đổi.",
+   "B": "Prompt không phải biến số đã thay đổi.",
+   "C": "Thông tin liên quan giờ phải cạnh tranh với lượng văn bản xung quanh lớn hơn nhiều.",
+   "D": "Độ dài tự nó không quyết định tất cả."
+  },
+  "tip": {
+   "title": "Đầu vào dài hơn → thông tin quan trọng bị loãng",
+   "body": [
+    "Cách xử lý: trích phần liên quan, chia nhỏ, hoặc đặt câu hỏi ở cuối."
+   ]
+  },
+  "ask": {
+   "title": "Chất lượng giảm khi tài liệu dài hơn",
+   "body": "Đề hỏi giải thích khả dĩ nhất."
+  },
+  "lesson": "3-4-context-va-memory"
+ },
+ "ccao-f-m2-9": {
+  "q": "Bạn muốn áp dụng cùng một phân tích cho 50 tài liệu với output nhất quán. Điều gì quan trọng nhất?",
+  "opts": {
+   "A": "Model lớn không tạo ra nhất quán.",
+   "B": "Một cuộc hội thoại dài dễ trôi.",
+   "C": "Chỉ duyệt mẫu là chính sách review, không phải thiết kế.",
+   "D": "Cố định prompt và cấu trúc output bắt buộc, áp dụng y nguyên cho mọi tài liệu."
+  },
+  "tip": {
+   "title": "Nhất quán trên nhiều tài liệu → cố định prompt + cấu trúc output",
+   "body": [
+    "Mỗi tài liệu một lượt riêng, cùng chỉ dẫn."
+   ]
+  },
+  "ask": {
+   "title": "Phân tích 50 tài liệu nhất quán",
+   "body": "Đề hỏi điều quan trọng nhất."
+  },
+  "lesson": "1-4-prompt-theo-loai-viec"
+ },
+ "ccao-f-m2-10": {
+  "q": "Một tác vụ phải trả lời trong vòng một giây cho giao diện tương tác, và đây là phân loại đơn giản. Điều gì suy ra?",
+  "opts": {
+   "A": "Model mạnh nhất tốn độ trễ cho độ chính xác không cần.",
+   "B": "Gom batch phá vỡ tính tương tác.",
+   "C": "Dùng model nhỏ nhất đạt yêu cầu độ chính xác, vì độ trễ là ràng buộc then chốt.",
+   "D": "Thêm context thêm chi phí và thời gian."
+  },
+  "tip": {
+   "title": "Độ trễ cứng + việc đơn giản → model nhỏ nhất đủ dùng",
+   "body": [
+    "Xác định **ràng buộc then chốt** trước."
+   ]
+  },
+  "ask": {
+   "title": "Phân loại phải trả lời dưới 1 giây",
+   "body": "Đề hỏi lựa chọn phù hợp."
+  },
+  "lesson": "3-3-chon-model-theo-viec"
+ },
+ "ccao-f-m2-11": {
+  "q": "Cách hiểu đúng về điểm benchmark công bố của một model khi chọn cho một tác vụ kinh doanh cụ thể là gì?",
+  "opts": {
+   "A": "Benchmark không dự đoán được hiệu năng trên tác vụ của bạn.",
+   "B": "Là tín hiệu chung, không thay thế được việc đánh giá trên chính tác vụ của bạn.",
+   "C": "Không phải vô nghĩa, vẫn là tín hiệu chung.",
+   "D": "Benchmark không quyết định giá."
+  },
+  "tip": {
+   "title": "Benchmark = tín hiệu chung; quyết định = test trên việc của bạn",
+   "body": [
+    "Giống CCDV-F p22."
+   ]
+  },
+  "ask": {
+   "title": "Đọc điểm benchmark thế nào",
+   "body": "Đề hỏi cách hiểu đúng."
+  },
+  "lesson": "3-2-cac-dong-model"
+ },
+ "ccao-f-m2-12": {
+  "q": "Hai đội giữ hai bản sao riêng của cùng bộ tài liệu tham chiếu trong Project của mình. Rủi ro chính là gì?",
+  "opts": {
+   "A": "Các bản sao lệch nhau dần, và hai đội bắt đầu trả lời cùng một câu hỏi khác nhau.",
+   "B": "Chi phí lưu trữ là chuyện nhỏ.",
+   "C": "Tốc độ là chuyện nhỏ.",
+   "D": "Project không rò rỉ sang nhau."
+  },
+  "tip": {
+   "title": "Nhân bản knowledge → lệch nhau → trả lời mâu thuẫn",
+   "body": [
+    "Giữ **một nguồn sự thật** có người bảo trì."
+   ]
+  },
+  "ask": {
+   "title": "Hai đội giữ hai bản sao tài liệu",
+   "body": "Đề hỏi rủi ro chính."
+  },
+  "lesson": "5-4-bao-tri-cau-hinh"
+ },
+ "ccao-f-m2-13": {
+  "q": "Bước đầu đúng khi thiết lập một Project cho tác vụ định kỳ là gì?",
+  "opts": {
+   "A": "Xác định tác vụ cần biết gì mỗi lần, và chỉ thêm đúng những thứ đó. Nền tảng tối thiểu, có chủ đích giúp truy xuất sắc nét và dễ bảo trì.",
+   "B": "Tải lên mọi tài liệu làm loãng.",
+   "C": "Độ dài chỉ dẫn không phải câu hỏi.",
+   "D": "Thêm dần không duyệt cũng làm loãng."
+  },
+  "tip": {
+   "title": "Project mới → bắt đầu tối thiểu, có chủ đích",
+   "body": [
+    "Task 5.1: **cấu hình Project**. Ít mà đúng hơn nhiều mà loãng."
+   ]
+  },
+  "ask": {
+   "title": "Bước đầu khi lập Project",
+   "body": "Đề hỏi bước đầu đúng."
+  },
+  "lesson": "5-1-cau-hinh-project"
+ },
+ "ccao-f-m2-14": {
+  "q": "Một người dùng báo Claude trả lời sai, nhưng bạn không tái hiện được. Bước tiếp theo hữu ích nhất là gì?",
+  "opts": {
+   "A": "Gạt bỏ báo cáo là bỏ mất tín hiệu.",
+   "B": "Lấy đúng prompt, đầu vào và cấu hình họ đã dùng. Tái hiện phụ thuộc vào điều kiện chính xác.",
+   "C": "Đổi model cho mọi người là hành động trước khi biết nguyên nhân.",
+   "D": "Thêm cảnh báo cũng vậy."
+  },
+  "tip": {
+   "title": "Không tái hiện được → xin đúng prompt, input, cấu hình",
+   "body": [
+    "Task 7.1: **chẩn đoán** bắt đầu từ dữ kiện chính xác."
+   ]
+  },
+  "ask": {
+   "title": "Không tái hiện được lỗi",
+   "body": "Đề hỏi bước tiếp theo hữu ích nhất."
+  },
+  "lesson": "7-1-chan-doan-ket-qua-kem"
+ },
+ "ccao-f-m2-15": {
+  "q": "Chất lượng output khác nhau giữa các lần chạy cùng prompt trên cùng đầu vào. Điều này cho thấy gì?",
+  "opts": {
+   "A": "Đây là hành vi bình thường, không phải hệ thống hỏng.",
+   "B": "Quy tắc temperature 0 cho mọi việc là quá thô.",
+   "C": "Biến động ở mức nào đó là bình thường, và tác vụ cần ràng buộc đủ chặt để biến động không còn quan trọng.",
+   "D": "Độ dài đầu vào không liên quan."
+  },
+  "tip": {
+   "title": "Output biến động → thắt chặt ràng buộc (định dạng, tiêu chí, ví dụ)",
+   "body": [
+    "Sinh văn bản **không tất định**. Thiết kế để chịu được biến động."
+   ]
+  },
+  "ask": {
+   "title": "Cùng prompt, kết quả khác nhau",
+   "body": "Đề hỏi điều này cho thấy gì."
+  },
+  "lesson": "7-2-dieu-chinh-theo-phan-hoi"
+ },
+ "ccao-f-m3-1": {
+  "q": "Một bản tóm tắt trích một số liệu thống kê, và số đó hoá ra đúng. Điều đó có xác nhận phần còn lại của bản tóm tắt không?",
+  "opts": {
+   "A": "Một nhận định đúng không đại diện cho toàn bộ.",
+   "B": "Kể cả nhận định khó nhất đúng cũng không đại diện cho phần còn lại.",
+   "C": "Không, mỗi nhận định quan trọng cần được kiểm riêng.",
+   "D": "Có tên nguồn không kiểm được các nhận định còn lại."
+  },
+  "tip": {
+   "title": "Một chỗ đúng ≠ cả bài đúng",
+   "body": [
+    "Kiểm **từng** nhận định có hậu quả."
+   ]
+  },
+  "ask": {
+   "title": "Một số liệu đúng có xác nhận cả bài?",
+   "body": "Đề hỏi kết luận đúng."
+  },
+  "lesson": "2-3-kiem-chung-thong-tin"
+ },
+ "ccao-f-m3-2": {
+  "q": "Claude từ chối trả lời một phần yêu cầu và giải thích lý do. Nên hiểu điều này thế nào?",
+  "opts": {
+   "A": "Là thông tin về một giới hạn hoặc chính sách, đáng tìm hiểu trước khi tiếp tục.",
+   "B": "Tìm cách lách là phớt lờ lý do.",
+   "C": "Không phải dấu hiệu prompt quá dài.",
+   "D": "Không phải lý do để đổi model."
+  },
+  "tip": {
+   "title": "Claude từ chối kèm lý do → đọc lý do, đừng tìm cách lách",
+   "body": [
+    "Task 6.1: **việc nên và không nên** dùng Claude."
+   ]
+  },
+  "ask": {
+   "title": "Claude từ chối một phần yêu cầu",
+   "body": "Đề hỏi cách hiểu đúng."
+  },
+  "lesson": "6-1-viec-nen-va-khong-nen-dung"
+ },
+ "ccao-f-m3-3": {
+  "q": "Bạn cần biết một báo cáo dài có ủng hộ một kết luận cụ thể không. Cách tin cậy nhất là gì?",
+  "opts": {
+   "A": "Đọc bản tóm tắt là giao phán đoán cho model.",
+   "B": "Hỏi thẳng có hay không cũng là giao phán đoán cho model.",
+   "C": "Điểm tự tin không phải bằng chứng.",
+   "D": "Xin các đoạn liên quan đến kết luận, rồi tự đọc các đoạn đó. Lấy bằng chứng ra và đọc giữ phán đoán ở phía bạn."
+  },
+  "tip": {
+   "title": "Cần phán đoán trên tài liệu dài → xin trích đoạn, tự đọc",
+   "body": [
+    "Claude **tìm bằng chứng**, bạn **quyết định**."
+   ]
+  },
+  "ask": {
+   "title": "Báo cáo dài có ủng hộ kết luận không",
+   "body": "Đề hỏi cách tin cậy nhất."
+  },
+  "lesson": "2-3-kiem-chung-thong-tin"
+ },
+ "ccao-f-m3-4": {
+  "q": "Một quy trình thủ công mất 4 giờ và tạo ra một tài liệu không ai đọc. Cần làm gì trước khi tự động hoá?",
+  "opts": {
+   "A": "Tự động hoá luôn là bỏ qua câu hỏi cần thiết.",
+   "B": "Xác định tài liệu đó có cần thiết hay không. Tự động hoá việc thừa chỉ làm lãng phí nhanh hơn.",
+   "C": "Tự động rồi đo sau cũng bỏ qua câu hỏi.",
+   "D": "Chia cho nhiều người không trả lời việc có cần hay không."
+  },
+  "tip": {
+   "title": "Trước khi tự động hoá → hỏi \"việc này có cần không?\"",
+   "body": [
+    "Task 4.1: **phân tích yêu cầu** trước giải pháp."
+   ]
+  },
+  "ask": {
+   "title": "Tự động hoá tài liệu không ai đọc",
+   "body": "Đề hỏi việc cần làm trước."
+  },
+  "lesson": "4-1-phan-tich-yeu-cau"
+ },
+ "ccao-f-m3-5": {
+  "q": "Trình tự nào đúng khi đưa Claude vào một quy trình định kỳ của đội?",
+  "opts": {
+   "A": "Tự động hoá toàn bộ trước là đặt cược tất cả một lần.",
+   "B": "Bắt đầu với bước có giới hạn và kiểm tra được, chứng minh hiệu quả, rồi mở rộng.",
+   "C": "Bước khó nhất ít khả năng thành công sớm.",
+   "D": "Mỗi người tự áp dụng dẫn tới lệch nhau."
+  },
+  "tip": {
+   "title": "Đưa Claude vào quy trình → bắt đầu nhỏ, kiểm được, rồi mở rộng",
+   "body": [
+    "Tạo **bằng chứng và lòng tin** với chi phí thấp."
+   ]
+  },
+  "ask": {
+   "title": "Trình tự đưa Claude vào quy trình",
+   "body": "Đề hỏi trình tự đúng."
+  },
+  "lesson": "4-4-dua-claude-vao-quy-trinh"
+ },
+ "ccao-f-m3-6": {
+  "q": "Chính sách cấm gửi dữ liệu khách hàng cho dịch vụ bên ngoài. Đồng nghiệp nhờ Claude tóm tắt một email của khách. Điều gì áp dụng?",
+  "opts": {
+   "A": "Gửi nội dung để tóm tắt vẫn là gửi.",
+   "B": "Chính sách không chỉ áp dụng khi có tên khách.",
+   "C": "Output ở nội bộ không thay đổi việc input đã gửi đi.",
+   "D": "Chính sách áp dụng, vì email là dữ liệu khách hàng."
+  },
+  "tip": {
+   "title": "Đưa nội dung vào prompt = gửi đi",
+   "body": [
+    "Đừng để cách gọi tên (\"chỉ tóm tắt thôi\") đánh lừa."
+   ]
+  },
+  "ask": {
+   "title": "Tóm tắt email khách khi chính sách cấm",
+   "body": "Đề hỏi điều gì áp dụng."
+  },
+  "lesson": "6-3-chinh-sach-ai-to-chuc"
+ },
+ "ccao-f-m3-7": {
+  "q": "Phản hồi đúng với yêu cầu trình bày output của model như thể người viết cho khách hàng là gì?",
+  "opts": {
+   "A": "Từ chối trình bày sai nguồn gốc, và đưa câu hỏi về công bố cho người phụ trách mối quan hệ với khách.",
+   "B": "Chất lượng không phải vấn đề ở đây.",
+   "C": "Sửa nhiều không làm lời trình bày thành sự thật.",
+   "D": "Ghi chú nội bộ không làm lời trình bày thành sự thật."
+  },
+  "tip": {
+   "title": "Chủ động nói dối về nguồn gốc → từ chối, chuyển cho người chịu trách nhiệm",
+   "body": [
+    "Task 6.4: **đạo đức khi dùng AI**."
+   ]
+  },
+  "ask": {
+   "title": "Yêu cầu giả là người viết",
+   "body": "Đề hỏi phản hồi đúng."
+  },
+  "lesson": "6-4-dao-duc-khi-dung-ai"
+ },
+ "ccao-f-m3-8": {
+  "q": "Một prompt xin khuyến nghị nhưng nhận được một bài bàn luận cân bằng hai phía. Nguyên nhân khả dĩ nhất là gì?",
+  "opts": {
+   "A": "Model hoàn toàn có thể đưa khuyến nghị.",
+   "B": "Temperature không quyết định có khuyến nghị hay không.",
+   "C": "Prompt không nêu rõ cần một khuyến nghị duy nhất kèm lý do. Output theo đúng chỉ dẫn.",
+   "D": "Độ dài đầu vào không quyết định."
+  },
+  "tip": {
+   "title": "Muốn quyết định → yêu cầu rõ \"chọn một, nêu lý do\"",
+   "body": [
+    "Hình dạng output **đi theo chỉ dẫn**."
+   ]
+  },
+  "ask": {
+   "title": "Xin khuyến nghị, nhận bàn luận",
+   "body": "Đề hỏi nguyên nhân khả dĩ nhất."
+  },
+  "lesson": "1-4-prompt-theo-loai-viec"
+ },
+ "ccao-f-m3-9": {
+  "q": "Cách hiệu quả nhất để có output đúng tầm cho một đối tượng người đọc cụ thể là gì?",
+  "opts": {
+   "A": "\"Rõ ràng\" là hệ quả, không phải chỉ dẫn.",
+   "B": "Ngắn hơn là hệ quả, không phải chỉ dẫn.",
+   "C": "Từ ngữ đơn giản là hệ quả, không phải chỉ dẫn.",
+   "D": "Nêu người đọc là ai và họ đã biết gì. Đây là thứ hiệu chỉnh đúng tầm."
+  },
+  "tip": {
+   "title": "Đúng tầm người đọc → nêu người đọc + kiến thức sẵn có",
+   "body": [
+    "Task 2.5: **chỉnh output theo người đọc**."
+   ]
+  },
+  "ask": {
+   "title": "Output đúng tầm người đọc",
+   "body": "Đề hỏi cách hiệu quả nhất."
+  },
+  "lesson": "2-5-chinh-output-theo-nguoi-doc"
+ },
+ "ccao-f-m3-10": {
+  "q": "Một đồng nghiệp dùng model lớn nhất cho mọi việc, kể cả định dạng văn bản. Bạn nên chỉ ra điều gì?",
+  "opts": {
+   "A": "Năng lực không miễn phí.",
+   "B": "Model lớn không kém chính xác hơn ở việc đơn giản.",
+   "C": "Chọn model khớp với việc giúp tiết kiệm mà không mất gì ở các việc đơn giản.",
+   "D": "Làm tay không phải phương án thay thế."
+  },
+  "tip": {
+   "title": "Model lớn cho việc đơn giản → tốn mà không lợi",
+   "body": [
+    "Giống câu p5, m2-10."
+   ]
+  },
+  "ask": {
+   "title": "Dùng model lớn nhất cho mọi việc",
+   "body": "Đề hỏi điều nên chỉ ra."
+  },
+  "lesson": "3-3-chon-model-theo-viec"
+ },
+ "ccao-f-m3-11": {
+  "q": "Khi nào việc chọn giao diện (interface) quan trọng hơn việc chọn model?",
+  "opts": {
+   "A": "Model không phải lúc nào cũng quyết định.",
+   "B": "Khi trở ngại là cách người dùng cung cấp context và hành động trên output, không phải chất lượng câu trả lời.",
+   "C": "Không chỉ với đội rất lớn.",
+   "D": "Không chỉ khi bị giới hạn chi phí."
+  },
+  "tip": {
+   "title": "Nút thắt ở cách dùng → chọn đúng giao diện/tính năng",
+   "body": [
+    "Ví dụ: Project, connector, tích hợp vào công cụ đang dùng."
+   ]
+  },
+  "ask": {
+   "title": "Khi nào giao diện quan trọng hơn model",
+   "body": "Đề hỏi tình huống đúng."
+  },
+  "lesson": "3-1-chon-tinh-nang-claude"
+ },
+ "ccao-f-m3-12": {
+  "q": "Rủi ro của việc thêm tài liệu vào Project knowledge mà không gỡ phiên bản nó thay thế là gì?",
+  "opts": {
+   "A": "Cả hai phiên bản đều có thể được dùng, cho ra câu trả lời trộn nội dung hiện hành với nội dung đã lỗi thời.",
+   "B": "Lưu trữ là chuyện nhỏ.",
+   "C": "Tốc độ là chuyện nhỏ.",
+   "D": "Project không từ chối trả lời."
+  },
+  "tip": {
+   "title": "Thêm bản mới → gỡ bản cũ",
+   "body": [
+    "Giống câu p8."
+   ]
+  },
+  "ask": {
+   "title": "Thêm bản mới, quên gỡ bản cũ",
+   "body": "Đề hỏi rủi ro."
+  },
+  "lesson": "5-4-bao-tri-cau-hinh"
+ },
+ "ccao-f-m3-13": {
+  "q": "Phép thử nào tốt hơn để biết một thứ có nên nằm trong Project knowledge?",
+  "opts": {
+   "A": "Mọi cuộc hội thoại trong Project có được lợi từ nó không.",
+   "B": "Độ dài không liên quan.",
+   "C": "Độ mới không liên quan.",
+   "D": "Mức nhạy cảm không phải phép thử này."
+  },
+  "tip": {
+   "title": "Vào knowledge nếu mọi hội thoại đều cần",
+   "body": [
+    "Giống câu p31."
+   ]
+  },
+  "ask": {
+   "title": "Phép thử cho Project knowledge",
+   "body": "Đề hỏi tiêu chí tốt hơn."
+  },
+  "lesson": "5-2-tai-lieu-va-connector"
+ },
+ "ccao-f-m3-14": {
+  "q": "Một prompt vốn tin cậy nay trả câu trả lời ngắn hơn trước. Đáng kiểm tra gì trước?",
+  "opts": {
+   "A": "Model bị khai tử sẽ gây lỗi, không phải trả lời ngắn hơn.",
+   "B": "Đầu vào hoặc chỉ dẫn có thay đổi không, kể cả thứ gì được thêm vào Project.",
+   "C": "Mạng chậm gây lỗi hoặc chậm, không làm ngắn.",
+   "D": "Chạm giới hạn gây lỗi, không làm ngắn."
+  },
+  "tip": {
+   "title": "Hành vi đổi → tìm thay đổi ở input/cấu hình",
+   "body": [
+    "Giống câu p34."
+   ]
+  },
+  "ask": {
+   "title": "Câu trả lời ngắn hơn trước",
+   "body": "Đề hỏi điều nên kiểm trước."
+  },
+  "lesson": "7-1-chan-doan-ket-qua-kem"
+ },
+ "ccao-f-m3-15": {
+  "q": "Có người báo Claude sai về một dữ kiện mà tuần trước nó nói đúng. Câu hỏi đầu tiên hữu ích nhất là gì?",
+  "opts": {
+   "A": "Model nào có thể quan trọng sau, nhưng chưa xác lập chuyện gì đã xảy ra.",
+   "B": "Độ dài hội thoại cũng vậy.",
+   "C": "Chính xác bạn đã hỏi gì, và nó đã trả lời gì. Cuộc trao đổi chính xác làm cho nhận định kiểm tra được.",
+   "D": "Thử lại cũng chưa xác lập chuyện gì đã xảy ra."
+  },
+  "tip": {
+   "title": "Báo lỗi → xin nguyên văn câu hỏi và câu trả lời",
+   "body": [
+    "Giống câu m2-14."
+   ]
+  },
+  "ask": {
+   "title": "Tuần trước đúng, tuần này sai",
+   "body": "Đề hỏi câu hỏi đầu tiên hữu ích nhất."
+  },
+  "lesson": "7-2-dieu-chinh-theo-phan-hoi"
  }
 }
