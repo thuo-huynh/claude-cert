@@ -37,6 +37,7 @@
 .lgoals h2{font:650 17px/24px var(--font-display);color:var(--text-primary);margin:0 0 12px}
 .lgoals ul{flex-direction:column;gap:8px;margin:0;padding:0;list-style:none;display:flex}
 .lgoals li{font:400 16px/26px var(--font-body);color:var(--text-secondary);grid-template-columns:18px minmax(0,1fr);gap:10px;display:grid}
+.lgoals li:not(:has(svg))::before{content:"✓";color:var(--accent-strong);font-weight:700}
 .lgoals li svg{width:18px;height:18px;color:var(--accent-strong);margin-top:4px}
 .lbody{overflow-wrap:break-word;min-width:0;font:400 17px/30px var(--font-body);color:var(--text-primary);flex-direction:column;gap:16px;display:flex}
 .lbody>ol,.lbody>p,.lbody>ul{text-wrap:pretty;margin:0}
