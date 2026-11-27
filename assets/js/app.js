@@ -68,7 +68,7 @@ async function render() {
   if (html == null) return; // view redirected
   $app.innerHTML = html;
   document.querySelectorAll('[data-nav]').forEach((a) => {
-    const on = (a.dataset.nav === 'home' && (!parts[0] || parts[0] === 'c' || parts[0] === 'kien-thuc')) || (a.dataset.nav === 'progress' && parts[0] === 'tien-do');
+    const on = (a.dataset.nav === 'home' && (!parts[0] || parts[0] === 'c' || parts[0] === 'kien-thuc')) || (a.dataset.nav === 'progress' && parts[0] === 'tien-do') || (a.dataset.nav === 'glossary' && parts[0] === 'thuat-ngu');
     a.toggleAttribute('aria-current', false);
     if (on) a.setAttribute('aria-current', 'page');
   });
@@ -93,6 +93,7 @@ function view(parts, query) {
   if (a === 'c' && (c === 'cheat-sheet' || c === 'ghi-chu')) return markdownView(b, c);
   if (a === 'kien-thuc' && b) return lessonView(b, c || 'on-nhanh');
   if (a === 'tien-do') return progressView();
+  if (a === 'thuat-ngu') return glossaryView();
   throw new Error('not-found');
 }
 
@@ -637,6 +638,34 @@ async function markdownView(code, which) {
       <button class="btn" data-act="mdLang"><span class="tag">${showEn ? 'VI' : 'EN'}</span>${showEn ? 'Xem bản tiếng Việt' : 'Xem bản gốc'}</button></div>`
       : '<p class="notice"><span class="tag">EN</span> Tài liệu gốc tiếng Anh.</p>'}
     <article class="md" lang="${showEn || !vi ? 'en' : 'vi'}">${html}</article></div>`;
+}
+
+// ---------- glossary ----------
+async function glossaryView() {
+  const { groups } = await getJSON('data/vi/glossary.json');
+  const total = groups.reduce((n, g) => n + g.terms.length, 0);
+  afterRender.push(() => {
+    const box = $app.querySelector('#gq');
+    const filter = () => {
+      const q = box.value.trim().toLowerCase();
+      let shown = 0;
+      $app.querySelectorAll('.gterm').forEach((el) => { const on = !q || el.textContent.toLowerCase().includes(q); el.hidden = !on; shown += on; });
+      $app.querySelectorAll('.ggroup').forEach((g) => { g.hidden = !g.querySelector('.gterm:not([hidden])'); });
+      $app.querySelector('#gcount').textContent = q ? `${shown} thuật ngữ khớp` : `${total} thuật ngữ`;
+    };
+    box.addEventListener('input', filter);
+  });
+  return `<div class="wrap narrow">
+    <p class="crumb"><a href="#/">Trang chủ</a> / Thuật ngữ</p>
+    <h1 class="page-title">Thuật ngữ</h1>
+    <p class="muted" style="margin:0 0 16px">Giải thích ngắn các thuật ngữ hay gặp trong đề và bài học. Tên thuật ngữ giữ tiếng Anh như trong đề thi.</p>
+    <input id="gq" class="gsearch" type="search" placeholder="Tìm thuật ngữ, ví dụ: MCP, caching, hook…" aria-label="Tìm thuật ngữ" autocomplete="off">
+    <p class="small muted" id="gcount" aria-live="polite" style="margin:8px 0 12px">${total} thuật ngữ</p>
+    <nav class="row" aria-label="Nhóm thuật ngữ" style="flex-wrap:wrap;gap:8px;margin-bottom:8px">${groups.map((g) => `<a class="chip" href="#g-${g.id}">${esc(g.name)}</a>`).join('')}</nav>
+    ${groups.map((g) => `<section class="ggroup" id="g-${g.id}"><h2>${esc(g.name)}</h2>
+      ${g.source ? `<p class="small muted" style="margin:0 0 8px">${esc(g.source)}</p>` : ''}
+      <dl>${g.terms.map((x) => `<div class="gterm"><dt lang="en">${esc(x.t)}</dt><dd>${fmt(x.d)}</dd></div>`).join('')}</dl></section>`).join('')}
+  </div>`;
 }
 
 // ---------- progress & reset ----------

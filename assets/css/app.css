@@ -287,3 +287,15 @@ dialog h2 { font-size: 20px; line-height: 28px; margin-bottom: 8px; }
 /* Mermaid uses .label internally; keep the page's eyebrow .label style out of diagrams. */
 .md .mermaid .label { text-transform: none; letter-spacing: normal; font-size: inherit; font-weight: inherit; color: inherit; margin: 0; }
 .otrans { display: block; margin-top: 4px; font-size: 14px; line-height: 21px; color: var(--info); }
+
+/* glossary */
+.gsearch { width: 100%; min-height: 48px; padding: 0 16px; border: 1px solid var(--border); border-radius: var(--radius-md, 12px); background: var(--surface); color: var(--ink); font: inherit; font-size: 16px; }
+.gsearch:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+a.chip { color: var(--ink); text-decoration: none; }
+.ggroup { margin-top: 28px; scroll-margin-top: 80px; }
+.ggroup h2 { font-size: 22px; line-height: 30px; margin: 0 0 8px; }
+.ggroup dl { margin: 0; border: 1px solid var(--border); border-radius: var(--radius-lg, 16px); background: var(--surface); overflow: hidden; }
+.gterm { padding: 14px 18px; border-top: 1px solid var(--border); }
+.gterm:first-child { border-top: 0; }
+.gterm dt { font-weight: 700; color: var(--ink); }
+.gterm dd { margin: 4px 0 0; color: var(--ink-soft, var(--ink)); line-height: 1.6; }
