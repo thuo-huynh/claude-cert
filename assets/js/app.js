@@ -443,16 +443,19 @@ async function runnerView(code, kind, query) {
     ${showEn ? `<p class="en" lang="en"><strong>${q.answer.join(', ')}.</strong> ${fmt(q.why)}</p>` : ''}
   </section>` : '';
 
-  const nav = (isMock || !now || review) ? `<aside class="card qnav"><h2 style="font-size:18px;line-height:26px">Danh sách câu</h2>
-    <p class="small muted" style="margin:4px 0 14px">${review ? 'Bấm một câu để xem lại' : `Đã làm ${answeredN} · Đánh dấu ${Object.values(s.flags).filter(Boolean).length} · Còn ${s.ids.length - answeredN}`}</p>
+  const graded = (x) => review || (now && s.done[x]);
+  const nav = `<aside class="card qnav"><h2 style="font-size:18px;line-height:26px">Điều hướng câu hỏi</h2>
+    <p class="small muted" style="margin:4px 0 14px">${review ? 'Bấm một câu để xem lại' : now ? `Đúng ${right} · Sai ${wrongN} · Còn ${s.ids.length - right - wrongN}` : `Đã làm ${answeredN} · Đánh dấu ${Object.values(s.flags).filter(Boolean).length} · Còn ${s.ids.length - answeredN}`}</p>
     <nav class="qgrid" aria-label="Chuyển câu">${s.ids.map((x, i) => {
-      let c = '';
-      if (review) c = S.isCorrect(s.picks[x] || [], d.byId[x].answer) ? 'ok' : 'bad';
-      else c = s.flags[x] ? 'flag' : s.picks[x]?.length ? 'done' : '';
-      return `<button class="${c} ${i === s.i ? 'cur' : ''}" data-act="goto" data-arg="${i}" aria-label="Câu ${i + 1}" ${i === s.i ? 'aria-current="true"' : ''}>${s.flags[x] && !review ? '⚑' : ''}${i + 1}</button>`;
+      const ok = graded(x) && S.isCorrect(s.picks[x] || [], d.byId[x].answer);
+      const c = graded(x) ? (ok ? 'ok' : 'bad') : s.flags[x] ? 'flag' : s.picks[x]?.length ? 'done' : '';
+      const st = graded(x) ? (ok ? ', đúng' : ', sai') : s.picks[x]?.length ? ', đã làm' : '';
+      return `<button class="${c} ${i === s.i ? 'cur' : ''}" data-act="goto" data-arg="${i}" aria-label="Câu ${i + 1}${st}" ${i === s.i ? 'aria-current="true"' : ''}>${s.flags[x] && !review ? '⚑' : ''}${i + 1}</button>`;
     }).join('')}</nav>
-    ${review ? '' : '<div class="legend"><span><i style="background:var(--ink)"></i>Đã làm</span><span><i style="border:2px solid var(--accent)"></i>Đang xem</span><span><i style="background:var(--accent-soft)"></i>⚑ Xem lại</span></div>'}
-  </aside>` : '';
+    ${review ? '' : `<div class="legend">${now
+      ? '<span><i style="background:var(--correct-soft)"></i>Đúng</span><span><i style="background:var(--wrong-soft)"></i>Sai</span>'
+      : '<span><i style="background:var(--ink)"></i>Đã làm</span><span><i style="background:var(--accent-soft)"></i>⚑ Xem lại</span>'}<span><i style="border:2px solid var(--accent)"></i>Đang xem</span></div>`}
+  </aside>`;
 
   const last = s.i === s.ids.length - 1;
   const meta = `${d.name} · ${review ? 'Xem lại · ' : ''}${s.label || KIND_LABEL[kind]}`;
